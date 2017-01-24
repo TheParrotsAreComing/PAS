@@ -1001,16 +1001,16 @@
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "3.5.0",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "62edba760ddfbece24607aa0577f4e755a625402"
+                "reference": "0affaef5d8a34430dde432232bd80a4030a0feba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/62edba760ddfbece24607aa0577f4e755a625402",
-                "reference": "62edba760ddfbece24607aa0577f4e755a625402",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/0affaef5d8a34430dde432232bd80a4030a0feba",
+                "reference": "0affaef5d8a34430dde432232bd80a4030a0feba",
                 "shasum": ""
             },
             "require": {
@@ -1054,7 +1054,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2016-12-22T20:40:05+00:00"
+            "time": "2017-01-15T10:13:07+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1279,16 +1279,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.8.0",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "4a8860e13aa68a4bbf2476c014f8a1f14f1bf991"
+                "reference": "701e8a1cc426ee170f1296f5d9f6b8a26ad25c4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/4a8860e13aa68a4bbf2476c014f8a1f14f1bf991",
-                "reference": "4a8860e13aa68a4bbf2476c014f8a1f14f1bf991",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/701e8a1cc426ee170f1296f5d9f6b8a26ad25c4a",
+                "reference": "701e8a1cc426ee170f1296f5d9f6b8a26ad25c4a",
                 "shasum": ""
             },
             "require": {
@@ -1318,7 +1318,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "0.8.x-dev"
+                    "dev-develop": "0.9.x-dev"
                 }
             },
             "autoload": {
@@ -1348,7 +1348,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2016-12-07T17:15:07+00:00"
+            "time": "2017-01-15T17:54:13+00:00"
         },
         {
             "name": "symfony/var-dumper",
