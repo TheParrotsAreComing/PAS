@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS cats; 
 CREATE TABLE cats ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	litter_id INT FOREIGN KEY REFERENCES litters(id)
+	litter_id INT,
+	FOREIGN KEY (litter_id) REFERENCES litters(id)
 ); 
 DROP TABLE IF EXISTS litters; 
 CREATE TABLE litters ( 
