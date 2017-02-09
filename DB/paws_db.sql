@@ -14,6 +14,7 @@ from scratch
     DROP TABLE IF EXISTS tags_cats; 
     DROP TABLE IF EXISTS tags; 
     DROP TABLE IF EXISTS users_events; 
+    DROP TABLE IF EXISTS users_types;
     DROP TABLE IF EXISTS users; 
     DROP TABLE IF EXISTS cats_adoptionevents; 
     DROP TABLE IF EXISTS adoptionevents; 
@@ -45,20 +46,25 @@ CREATE TABLE litters (
 
 CREATE TABLE adopters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
 	phone VARCHAR(10) NOT NULL,
 	cat_count INT NOT NULL,
 	address VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
 	notes TEXT,
+    fee BOOLEAN NOT NULL,
 	created DATETIME
 ); 
 
 
 CREATE TABLE fosters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
 	phone VARCHAR(10) NOT NULL,
 	address VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
 	exp VARCHAR(255),
 	pets VARCHAR(255),
 	kids VARCHAR(255),
@@ -116,7 +122,7 @@ CREATE TABLE cathistory (
 CREATE TABLE adoptionevents ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	event_date DATE NOT NULL,
-	description VARCHAR(50)
+	description TEXT
 ); 
 
 
@@ -130,12 +136,24 @@ CREATE TABLE cats_adoptionevents (
 
 
 CREATE TABLE users ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    FOREIGN KEY user_ref (user_type_id) REFERENCES user_types(id),
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    phone INT NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL
 ); 
 
+CREATE TABLE users_types ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    description TEXT
+); 
 
 CREATE TABLE users_events ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    event_id INT NOT NULL
 ); 
 
 
