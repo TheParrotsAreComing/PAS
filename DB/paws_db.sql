@@ -86,15 +86,14 @@ CREATE TABLE cats (
 	is_female BIT(1) NOT NULL,
 	breed VARCHAR(255) NOT NULL,
 	bio TEXT,
-	asn DATE,
 	caretaker_notes TEXT,
 	medical_notes TEXT,					
-	vaccines VARCHAR(255), /* xxx Added by Eric, 2/8/17. Data types/sizes are up for debate xxx */
+	vaccine_date VARCHAR(255), /* xxx Added by Eric, 2/8/17. Data types/sizes are up for debate xxx */
 	marquis VARCHAR(64),
-	dewormer VARCHAR(255),
-	flea_treatment VARCHAR(255), 
-	disease_testing VARCHAR(255),
-	spay_neuter VARCHAR(255),
+	dewormer_date VARCHAR(255),
+	flea_treatment_date VARCHAR(255), 
+	disease_testing_date VARCHAR(255),
+	spay_neuter_date VARCHAR(255),
 	lime_dip VARCHAR(255),
     antibiotics VARCHAR(255), /* xxx End additions by Eric xxx */
 	microchip INT,
@@ -106,7 +105,7 @@ CREATE TABLE cats (
 ); 
 
 
-CREATE TABLE cathistory ( 
+CREATE TABLE cat_histories ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cat_id INT NOT NULL,
 	adopter_id INT,
@@ -119,7 +118,7 @@ CREATE TABLE cathistory (
 ); 
 
 
-CREATE TABLE adoptionevents ( 
+CREATE TABLE adoption_events ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	event_date DATE NOT NULL,
 	description TEXT
@@ -175,7 +174,7 @@ CREATE TABLE tags_cats (
 
 
 CREATE TABLE tags_adopters ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY,
     tag_id INT NOT NULL,
 	adopter_id INT NOT NULL,
 	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
@@ -184,7 +183,7 @@ CREATE TABLE tags_adopters (
 
 
 CREATE TABLE tags_fosters ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY, 
     tag_id INT NOT NULL,
 	foster_id INT NOT NULL,
 	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
