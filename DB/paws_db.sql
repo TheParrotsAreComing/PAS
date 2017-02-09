@@ -81,8 +81,16 @@ CREATE TABLE cats (
 	breed VARCHAR(255) NOT NULL,
 	bio TEXT,
 	asn DATE,
-	caretaker_notes VARCHAR(255),
+	caretaker_notes TEXT,
 	medical_notes TEXT,					
+	vaccines VARCHAR(255), /* xxx Added by Eric, 2/8/17. Data types/sizes are up for debate xxx */
+	marquis VARCHAR(64),
+	dewormer VARCHAR(255),
+	flea_treatment VARCHAR(255), 
+	disease_testing VARCHAR(255),
+	spay_neuter VARCHAR(255),
+	lime_dip VARCHAR(255),
+    antibiotics VARCHAR(255), /* xxx End additions by Eric xxx */
 	microchip INT,
 	microchip_date DATE,	
 	created DATETIME,
@@ -132,22 +140,37 @@ CREATE TABLE users_events (
 
 
 CREATE TABLE tags ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	label VARCHAR(64),
+	color VARCHAR(6), /* for hex code */
+	type_bit TINYINT(3) /* Bit mask for type: cats, fosters, adopters, or a combination */
 ); 
 
 
 CREATE TABLE tags_cats ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	tag_id INT NOT NULL,
+	cat_id INT NOT NULL,
+	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY cat_ref(cat_id) REFERENCES cats(id)
 ); 
 
 
 CREATE TABLE tags_adopters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY  
+    tag_id INT NOT NULL,
+	adopter_id INT NOT NULL,
+	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY adopter_ref(adopter_id) REFERENCES adopters(id)
 ); 
 
 
 CREATE TABLE tags_fosters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY  
+    tag_id INT NOT NULL,
+	foster_id INT NOT NULL,
+	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY foster_ref(foster_id) REFERENCES fosters(id)
 ); 
 
 
