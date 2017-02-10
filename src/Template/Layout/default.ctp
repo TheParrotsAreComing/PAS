@@ -54,27 +54,9 @@
       </nav>
     </div>
   </div>
-  <div class="body">
-    <div class="login-registration-wrapper w-form">
-      <form class="login-cont" data-name="Email Form" id="email-form" name="email-form">
-        <input class="login-field w-input" data-name="Name" id="name" maxlength="256" name="name" placeholder="username" required="required" type="text">
-        <input class="login-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="password" required="required" type="password">
-        <div class="registration-buttons">
-          <a class="login-submit w-inline-block" href="pas-home.html">
-            <div>Login</div>
-          </a>
-        </div>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
-      </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
-      </div>
-    </div>
-  </div>
+	<?= $this->fetch('content') ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="/js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
-<
+</html>
