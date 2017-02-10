@@ -186,5 +186,8 @@ CREATE TABLE tags_fosters (
 
 
 CREATE TABLE files ( 
-	id INT AUTO_INCREMENT PRIMARY KEY  
+	id INT AUTO_INCREMENT PRIMARY KEY ,
+	entitity_id INT,
+	filetype VARCHAR(12),
+	file_path VARCHAR(256)
 ); 
