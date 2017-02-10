@@ -148,9 +148,9 @@ CREATE TABLE adoption_events (
 CREATE TABLE cats_adoption_events ( 
 	id INT AUTO_INCREMENT PRIMARY KEY, 
 	cat_id INT NOT NULL,
-	event_id INT NOT NULL,
+	adoption_event_id INT NOT NULL,
 	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id),
-	FOREIGN KEY event_ref (event_id) REFERENCES adoption_events(id)
+	FOREIGN KEY event_ref (adoption_event_id) REFERENCES adoption_events(id)
 ); 
 
 
@@ -167,7 +167,7 @@ CREATE TABLE users (
 CREATE TABLE users_events ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    event_id INT NOT NULL
+    adoption_event_id INT NOT NULL
 ); 
 
 
