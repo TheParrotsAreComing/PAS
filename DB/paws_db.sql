@@ -130,23 +130,17 @@ CREATE TABLE cats_adoptionevents (
 	cat_id INT NOT NULL,
 	event_id INT NOT NULL,
 	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id),
-	FOREIGN KEY event_ref (event_id) REFERENCES adoptionevents(id)
+	FOREIGN KEY event_ref (event_id) REFERENCES adoption_events(id)
 ); 
 
 
 CREATE TABLE users ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    FOREIGN KEY user_ref (user_type_id) REFERENCES user_types(id),
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     phone INT NOT NULL,
     email VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL
-); 
-
-CREATE TABLE users_types ( 
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    description TEXT
 ); 
 
 CREATE TABLE users_events ( 
