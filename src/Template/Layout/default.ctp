@@ -1,57 +1,80 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
-<html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Fri Feb 10 2017 03:10:17 GMT+0000 (UTC)  -->
+<html data-wf-page="58267cb4b29856df44e502fe" data-wf-site="58267cb4b29856df44e502fd">
 <head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+  <meta charset="utf-8">
+  <title>PAWS Administrative System</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="/css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="/css/paws-administrative-system.webflow.css" rel="stylesheet" type="text/css">
+  <script src="/js/modernizr.js" type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <style>
+    .scroll {
+      width: 20px;
+      height: 200px;
+      overflow: auto;
+      float: left;
+      margin: 0 10px;
+    }
+    .scroll1::-webkit-scrollbar {
+      width: 5px;
+    }
+    .scroll1::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    .scroll1::-webkit-scrollbar-thumb {
+      background: #5d5d5d
+    }
+  </style>
 </head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+<body class="page">
+  <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 32px" src="img/settings.png" srcset="img/settings-p-500x500.png 500w, img/settings.png 512w" width="32"><img class="navbar-search-exit" data-ix="search-bar-exit" src="img/x.png" width="30">
+      <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
+        <form data-name="Email Form" id="email-form" name="email-form">
+          <input class="navbar-search w-input" data-name="Name 2" id="name-2" maxlength="256" name="name-2" placeholder="Search" type="text">
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
         </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="login-screen navbar-hamburger w-nav-button"><img src="img/menu.png" width="36">
+      </div>
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" height="50" src="img/paws-logo-blue-diamond.png">
+      </a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="#">Adopters</a><a class="sidebar-link w-nav-link" href="#">Foster Homes</a><a class="sidebar-link w-nav-link" href="#">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      </nav>
     </div>
-    <footer>
-    </footer>
+  </div>
+  <div class="body">
+    <div class="login-registration-wrapper w-form">
+      <form class="login-cont" data-name="Email Form" id="email-form" name="email-form">
+        <input class="login-field w-input" data-name="Name" id="name" maxlength="256" name="name" placeholder="username" required="required" type="text">
+        <input class="login-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="password" required="required" type="password">
+        <div class="registration-buttons">
+          <a class="login-submit w-inline-block" href="pas-home.html">
+            <div>Login</div>
+          </a>
+        </div>
+      </form>
+      <div class="w-form-done">
+        <div>Thank you! Your submission has been received!</div>
+      </div>
+      <div class="w-form-fail">
+        <div>Oops! Something went wrong while submitting the form</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="/js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
-</html>
+<
