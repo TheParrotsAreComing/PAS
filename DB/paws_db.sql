@@ -8,6 +8,7 @@ from scratch
 
 	
 	USE paws_db;
+    DROP TABLE IF EXISTS contacts;
 	DROP TABLE IF EXISTS tags_fosters; 
 	DROP TABLE IF EXISTS tags_adopters; 
     DROP TABLE IF EXISTS tags_cats; 
@@ -22,7 +23,7 @@ from scratch
     DROP TABLE IF EXISTS fosters; 
     DROP TABLE IF EXISTS adopters; 
     DROP TABLE IF EXISTS litters;
-    DROP TABLE IF EXISTS contacts;
+    
     
 */
 
@@ -209,9 +210,14 @@ CREATE TABLE tags_fosters (
 ); 
 
 CREATE TABLE contacts (
-	name VARCHAR(255) NOT NULL,
-    organization VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phone INT NOT NULL,
-    address VARCHAR(255) NOT NULL
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	contact_name VARCHAR(64) NOT NULL,
+	organization VARCHAR(128),
+	email VARCHAR(128),
+	phone VARCHAR(10),
+	address VARCHAR(128),
+	city VARCHAR(64),
+	state VARCHAR(2),
+	zip INT(5),
+    is_deleted BOOLEAN NOT NULL
 );
