@@ -22,6 +22,7 @@ from scratch
     DROP TABLE IF EXISTS fosters; 
     DROP TABLE IF EXISTS adopters; 
     DROP TABLE IF EXISTS litters;
+    DROP TABLE IF EXISTS contacts;
     
 */
 
@@ -206,3 +207,11 @@ CREATE TABLE tags_fosters (
 	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
 	FOREIGN KEY foster_ref(foster_id) REFERENCES fosters(id)
 ); 
+
+CREATE TABLE contacts (
+	name VARCHAR(255) NOT NULL,
+    organization VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone INT NOT NULL,
+    address VARCHAR(255) NOT NULL
+);
