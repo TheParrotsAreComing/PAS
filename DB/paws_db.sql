@@ -8,6 +8,7 @@ from scratch
 
 	
 	USE paws_db;
+    DROP TABLE IF EXISTS contacts;
 	DROP TABLE IF EXISTS tags_fosters; 
 	DROP TABLE IF EXISTS tags_adopters; 
     DROP TABLE IF EXISTS tags_cats; 
@@ -22,6 +23,7 @@ from scratch
     DROP TABLE IF EXISTS fosters; 
     DROP TABLE IF EXISTS adopters; 
     DROP TABLE IF EXISTS litters;
+    
     
 */
 
@@ -208,3 +210,16 @@ CREATE TABLE tags_fosters (
 	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
 	FOREIGN KEY foster_ref(foster_id) REFERENCES fosters(id)
 ); 
+
+CREATE TABLE contacts (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	contact_name VARCHAR(64) NOT NULL,
+	organization VARCHAR(128),
+	email VARCHAR(128),
+	phone VARCHAR(10),
+	address VARCHAR(128),
+	city VARCHAR(64),
+	state VARCHAR(2),
+	zip INT(5),
+    is_deleted BOOLEAN NOT NULL
+);
