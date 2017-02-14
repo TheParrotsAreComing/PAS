@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
 <!--  Last Published: Tue Feb 14 2017 05:30:00 GMT+0000 (UTC)  -->
-<html data-wf-page="5831f06b791e0c5b6b971af0" data-wf-site="58267cb4b29856df44e502fd">
+<html data-wf-page="58a257d833473c5841a67326" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>PAS Home</title>
-  <meta content="PAS Home" property="og:title">
+  <title>Volunteer Add</title>
+  <meta content="Volunteer Add" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -61,17 +61,40 @@
   <div class="body">
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="paws-home-cont">
-        <div class="pas-home-list w-dyn-list">
-          <div class="pas-home-list w-dyn-items">
-            <div class="pas-home-button-cont w-dyn-item">
-              <a class="pas-home-button-link-cont w-inline-block"><img class="pas-home-button-icon" sizes="(max-width: 479px) 30vw, 170px">
-                <div class="pas-home-button-name"></div>
-              </a>
+      <div class="add-cont">
+        <div class="add-header">
+          <div class="add-field-h1">Create a volunteer</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+        </div>
+        <div class="add-input-form-wrap w-form">
+          <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
+            <label class="add-field-h2" for="First-Name">Personal Information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="First-Name">First Name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
+            <label class="add-field-h3" for="First-Name-2">Last Name:</label>
+            <input class="add-input w-input" data-name="First Name 2" id="First-Name-2" maxlength="256" name="First-Name-2" placeholder="Doe" required="required" type="text">
+            <label class="add-field-h3" for="E-mail">e-mail:</label>
+            <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
+            <label class="add-field-h3" for="E-mail">rating:</label>
+            <label class="add-field-h2" for="First-Name">Contact Information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="Address">Address:</label>
+            <input class="add-input w-input" data-name="Address" id="Address" maxlength="256" name="Address" placeholder="1234 Elementary Avenue" required="required" type="text">
+            <label class="add-field-h3" for="City">City:</label>
+            <input class="add-input w-input" data-name="City" id="City" maxlength="256" name="City" placeholder="Jacksonville" required="required" type="text">
+            <label class="add-field-h3" for="State">State:</label>
+            <input class="add-input w-input" data-name="State" id="State" maxlength="256" name="State" placeholder="Alabama" required="required" type="text">
+            <label class="add-field-h3" for="Phone">Phone:</label>
+            <input class="add-input w-input" data-name="Phone" id="Phone" maxlength="256" name="Phone" placeholder="(123) 456-7890" required="required" type="email">
+            <div class="add-button-cont"><a class="add-cancel" href="fosters-list.html">Cancel</a>
+              <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
             </div>
+          </form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
           </div>
-          <div class="w-dyn-empty">
-            <div>No items found.</div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form</div>
           </div>
         </div>
       </div>
