@@ -2,7 +2,7 @@ use paws_db;
 
 -- make a litter
 INSERT INTO litters (kc_ref_id, litter_name, cat_count, kitten_count, dob, est_arrival, breed, foster_notes, notes, created, is_deleted)
-VALUES (99999,"A Test Litter",1,3,'2017-02-14',"Early March","Minx/Tabby/Calico mixes","Still needs foster home","Litter that needs to stay together, and needs special care",NOW(),false);
+VALUES (99999,"A Test Litter",1,2,'2017-02-14',"Early March","Minx/Tabby/Calico mixes","Still needs foster home","Litter that needs to stay together, and needs special care",NOW(),false);
 
 -- add a mom and kittens to it
 INSERT INTO cats (cat_name, is_kitten, dob, is_female, breed, bio, created,is_deleted, litter_id)

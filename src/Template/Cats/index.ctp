@@ -37,7 +37,7 @@
 		</a>
 		
 		<!-- if there's a litter, iterate through and list the sibblings/mom TODO: actually iterate through-->
-		<?php if($cat->litterid>0): ?>
+		<?php if($cat->litter_id>0): ?>
 			<a class="dropdown-cont w-inline-block" data-ix="dropdown">
 			  <div class="dropdown-text">Expand for Relationships... <?= $cat->litterid ?></div><img class="dropdown-icon" src="images/expand-01.png">
 			</a>
