@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Tue Feb 14 2017 05:30:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
 <html data-wf-page="582934cabb1a1e38054b7acc" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -30,11 +30,51 @@
     .scroll1::-webkit-scrollbar-thumb {
       background: #5d5d5d
     }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+    	padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 32px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">

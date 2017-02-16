@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Tue Feb 14 2017 05:30:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
 <html data-wf-page="582900d4d015d89e449fd87c" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -30,11 +30,51 @@
     .scroll1::-webkit-scrollbar-thumb {
       background: #5d5d5d
     }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+    	padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 32px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
           <input class="navbar-search w-input" data-name="Name" id="name" maxlength="256" name="name" placeholder="Search" type="text">
@@ -176,34 +216,6 @@
     </div>
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="cat-header">
-        <div class="w-clearfix">
-          <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
-            <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
-              <div class="cat-sort-text">Sort</div>
-            </div>
-            <nav class="w-dropdown-list"><a class="cat-sort-dropdown w-dropdown-link">Name Descending</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
-            </nav>
-          </div>
-          <div class="cat-filter cat-sort w-dropdown" data-delay="0">
-            <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/filter-filled-tool-symbol.png" srcset="images/filter-filled-tool-symbol-p-500x500.png 500w, images/filter-filled-tool-symbol.png 512w" width="12">
-              <div class="cat-sort-text">Filter</div>
-            </div>
-            <nav class="w-dropdown-list"></nav>
-          </div>
-        </div>
-        <div class="cat-search w-form">
-          <form data-name="Email Form" id="email-form" name="email-form">
-            <input class="cat-search-text w-input" data-name="Name 2" id="name-2" maxlength="256" name="name-2" placeholder="Find a kitty..." type="text">
-          </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form</div>
-          </div>
-        </div><a class="cat-add w-button" href="#">+ New Cat</a>
-      </div>
       <div class="list-wrapper scroll1 w-dyn-list">
         <div class="list w-dyn-items">
           <div class="card-cont card-wrapper w-dyn-item">
@@ -255,6 +267,21 @@
         <div class="w-dyn-empty">
           <div>No items found.</div>
         </div>
+      </div>
+      <div class="cat-header">
+        <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
+            <div class="cat-sort-text">Sort</div>
+          </div>
+          <nav class="w-dropdown-list"><a class="cat-sort-dropdown w-dropdown-link">Name Descending</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
+          </nav>
+        </div>
+        <div class="cat-filter cat-sort w-dropdown" data-delay="0">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/filter-filled-tool-symbol.png" srcset="images/filter-filled-tool-symbol-p-500x500.png 500w, images/filter-filled-tool-symbol.png 512w" width="12">
+            <div class="cat-sort-text">Filter</div>
+          </div>
+          <nav class="w-dropdown-list"></nav>
+        </div><a class="cat-add w-button" href="cat-add.html">+ New Cat</a>
       </div>
     </div>
   </div>
