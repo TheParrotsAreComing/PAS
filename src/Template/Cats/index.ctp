@@ -42,21 +42,26 @@
 			  <div class="dropdown-text">Expand for Relationships... <?= $cat->litterid ?></div><img class="dropdown-icon" src="images/expand-01.png">
 			</a>
 			<div class="dropdown-results-cont">
-			  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-				<div class="dropdown-cat-name">sibling name</div>
-			  </a>
+			  <!-- for each cat in the litter (but not the current cat) display a link -->
+			  <?php foreach($cat->litter->cats as $litter_mate): ?>
+			  	<?php if($cat->id != $litter_mate->id): ?>
+				  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+				    <div class="dropdown-cat-name"><?= $litter_mate->cat_name ?></div>
+				  </a>
+				<?php endif; ?>
+			  <?php endforeach; ?>
 			</div>
 		<!-- else, litterid is null or 0, so display "Cat/kitten is not in a litter" -->
 		<?php else: ?>
 			<div class="dropdown-cont dropdown-text">
 			<?php if($cat->is_kitten): ?>Kitten has no siblings.
 			<?php else: ?> Cat has no kittens.
-			<?php endif ?>
+			<?php endif; ?>
 			</div>
-		<?php endif ?>
+		<?php endif; ?>
 	  </div>
 	</div>
   </div>
-  <?php endif ?>	  
+  <?php endif; ?>	  
 <?php endforeach; ?>
 </div>
