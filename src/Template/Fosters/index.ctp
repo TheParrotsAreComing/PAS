@@ -27,12 +27,14 @@
               </div>
             </a>
             <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              <div class="dropdown-text">Expand for Cats</div><img class="dropdown-icon" src="images/expand-01.png">
+              <div class="dropdown-text">Expand for Cats</div><?= $this->Html->image('expand-01.png', ['class'=>'dropdown-icon']); ?>
             </a>
             <div class="dropdown-results-cont">
-              <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                <div class="dropdown-cat-name">This is some text inside of a div block.</div>
-              </a>
+              <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
+                  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="/images/image-placeholder.svg">
+                      <div class="dropdown-cat-name"><?php echo $cat['cat_name']; ?></div>
+                  </a>
+              <?php endforeach; ?>
             </div>
           </div>
         </div>
