@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
-<html data-wf-page="584322e42456f85c50631d0d" data-wf-site="58267cb4b29856df44e502fd">
+<!--  Last Published: Thu Feb 16 2017 05:11:00 GMT+0000 (UTC)  -->
+<html data-wf-page="5843265ff6609bcc1c36c762" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>Fosters List</title>
-  <meta content="Fosters List" property="og:title">
+  <title>User List</title>
+  <meta content="User List" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -71,6 +71,9 @@
       padding-bottom: 5px;
       margin-bottom: 0;
     }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body class="page">
@@ -93,7 +96,7 @@
       <div class="navbar-search-icon" data-ix="search-mobile">#</div>
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopters-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="fosters-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="user-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
@@ -230,17 +233,17 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="foster-add.html">+ New FOSTER</a>
+        </div><a class="cat-add w-button" href="volunteer-add.html">+ New Volunteer</a>
       </div>
       <div class="list-wrapper scroll1 w-dyn-list">
         <div class="list scroll1 w-dyn-items">
           <div class="card-wrapper w-dyn-item">
             <div class="card-full-cont">
               <div class="card-cont">
-                <a class="card w-clearfix w-inline-block"><img class="card-pic" sizes="(max-width: 479px) 21vw, 96px">
+                <a class="card w-clearfix w-inline-block"><img class="card-pic" sizes="(max-width: 479px) 36vw, 96px">
                   <div class="card-h1"></div>
                   <div>
-                    <div class="card-h2">Availability:</div>
+                    <div class="card-h2">Rating:</div>
                     <div class="card-h2"></div>
                   </div>
                   <div class="card-field-wrap">
@@ -278,18 +281,18 @@
   </div>
   <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
   <div class="button-cont">
-    <div class="button-01">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
-    </div>
-    <div class="button-02">
+    <a class="button-01 w-inline-block" href="volunteer-add.html">
+      <div class="button-icon-text">Add Volunteer</div><img data-ix="add-click" src="images/add-01.png" width="55">
+    </a>
+    <a class="button-02 w-inline-block" href="#">
       <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
-    </div>
-    <div class="button-03" data-ix="add-click">
+    </a>
+    <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
-    </div>
-    <div class="button-04">
+    </a>
+    <a class="button-04 w-inline-block" href="#">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
-    </div>
+    </a>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="js/webflow.js" type="text/javascript"></script>

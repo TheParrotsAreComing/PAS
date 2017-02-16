@@ -1674,7 +1674,6 @@
     float: none;
   }
   .body {
-    overflow: hidden;
     padding-bottom: 20px;
   }
   .body.registration {
@@ -1687,7 +1686,7 @@
     background-color: #fff;
   }
   .page {
-    overflow: hidden;
+    height: 100%;
   }
   .login-field {
     margin-top: 15px;
@@ -1719,6 +1718,7 @@
   .navbar-search {
     display: block;
     height: 100%;
+    padding-left: 12px;
   }
   .navbar-search-cont {
     display: none;
@@ -1744,6 +1744,7 @@
   }
   .column {
     display: block;
+    overflow: auto;
     width: 100%;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
@@ -1768,6 +1769,9 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+  }
+  .column.add-view {
+    padding-top: 10px;
   }
   .card {
     width: 100%;
@@ -1986,11 +1990,13 @@
   .cat-profile-cont {
     display: block;
     width: 95%;
+    height: 100%;
     margin: 10px auto;
   }
   .cat-profile-header {
     display: block;
-    padding-top: auto;
+    padding-top: 50px;
+    padding-bottom: 0px;
     padding-left: 20px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -2120,6 +2126,10 @@
     border-right-style: none;
   }
   .cat-profile-id-cont {
+    position: relative;
+    left: auto;
+    right: 9px;
+    bottom: 129px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2288,6 +2298,8 @@
     left: 15%;
     bottom: 5%;
     display: none;
+    color: #fff;
+    text-decoration: none;
   }
   .button-cont {
     color: #fff;
@@ -2304,18 +2316,24 @@
     left: 28.353%;
     bottom: 23.09%;
     display: none;
+    color: #fff;
+    text-decoration: none;
   }
   .button-03 {
     position: fixed;
     left: 50%;
     bottom: 37%;
     display: none;
+    color: #fff;
+    text-decoration: none;
   }
   .button-04 {
     position: fixed;
     left: 80%;
     bottom: 45.188%;
     display: none;
+    color: #fff;
+    text-decoration: none;
   }
   .cat-profile-text-header {
     margin-bottom: 5px;
@@ -2580,8 +2598,8 @@
   }
   .cat-profile-back {
     position: relative;
-    right: 20px;
-    bottom: 140px;
+    right: 102px;
+    bottom: 129px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2628,6 +2646,10 @@
     -ms-flex-item-align: center;
     align-self: center;
     background-color: #fff;
+  }
+  .add-cont.scroll1 {
+    display: block;
+    height: 100%;
   }
   .add-header {
     display: -webkit-box;
