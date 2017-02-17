@@ -5,7 +5,7 @@
       <div class="cat-card-cont w-dyn-item">
         <div class="catlist-profile-cont">
           <div class="catlist-cat-cont">
-            <a class="cat-card w-clearfix w-inline-block"><img class="catlist-profile-pic" sizes="(max-width: 479px) 100vw, 96px">
+          <a class="cat-card w-clearfix w-inline-block"><?= $this->Html->image('cat-profile-foster-01.png', ['class'=>'catlist-profile-pic']); ?>
               <div class="catlist-name"><?php echo $foster['first_name'].' '.$foster['last_name']; ?></div>
               <div>
                 <div class="cat-age">Availability:</div>
@@ -26,16 +26,22 @@
                 </div>
               </div>
             </a>
-            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              <div class="dropdown-text">Expand for Cats</div><?= $this->Html->image('expand-01.png', ['class'=>'dropdown-icon']); ?>
-            </a>
-            <div class="dropdown-results-cont">
-              <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
-                  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="/images/image-placeholder.svg">
-                      <div class="dropdown-cat-name"><?php echo $cat['cat_name']; ?></div>
-                  </a>
-              <?php endforeach; ?>
-            </div>
+            <?php if (empty($foster_cats[$foster['id']])): ?>
+                <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                  <div class="dropdown-text" style="padding-top:0.5em; padding-bottom:0.5em;">No Cats</div>
+                </a>
+            <?php else: ?>
+                <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                  <div class="dropdown-text" style="padding-top:0.5em;">Expand for Cats</div><?= $this->Html->image('expand-01.png', ['class'=>'dropdown-icon', 'style'=>'margin-bottom:0.5em;']); ?>
+                </a>
+                <div class="dropdown-results-cont">
+                  <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
+                      <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+                          <div class="dropdown-cat-name"><?php echo $cat['cat_name']; ?></div>
+                      </a>
+                  <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
