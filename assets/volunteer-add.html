@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Tue Feb 14 2017 05:30:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 06:01:44 GMT+0000 (UTC)  -->
 <html data-wf-page="58a257d833473c5841a67326" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -31,11 +31,56 @@
     .scroll1::-webkit-scrollbar-thumb {
       background: #5d5d5d
     }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+      font-weight: 100;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 32px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
@@ -53,15 +98,15 @@
       <div class="navbar-search-icon" data-ix="search-mobile">#</div>
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopters-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="fosters-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="user-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
   <div class="body">
-    <div class="column">
+    <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="add-cont">
+      <div class="add-cont scroll1" data-ix="page-load-fade-in">
         <div class="add-header">
           <div class="add-field-h1">Create a volunteer</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
         </div>
@@ -71,11 +116,72 @@
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="First-Name">First Name:</label>
             <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
-            <label class="add-field-h3" for="First-Name-2">Last Name:</label>
-            <input class="add-input w-input" data-name="First Name 2" id="First-Name-2" maxlength="256" name="First-Name-2" placeholder="Doe" required="required" type="text">
+            <label class="add-field-h3" for="Last-Name">Last Name:</label>
+            <input class="add-input w-input" data-name="Last Name" id="Last-Name" maxlength="256" name="Last-Name" placeholder="Doe" required="required" type="text">
             <label class="add-field-h3" for="E-mail">e-mail:</label>
             <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
             <label class="add-field-h3" for="E-mail">rating:</label>
+            <div class="add-rating w-embed">
+              <style>
+                .star-rating {
+                  font-family: 'FontAwesome';
+                }
+                .star-rating > fieldset {
+                  border: none;
+                }
+                .star-rating > fieldset:not(:checked) > input {
+                  position: absolute;
+                  clip: rect(0, 0, 0, 0);
+                }
+                .star-rating > fieldset:not(:checked) > label {
+                  float: right;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  cursor: pointer;
+                  color: #0172FF;
+                  font-weight: 100;
+                }
+                .star-rating > fieldset:not(:checked) > label:before {
+                  content: '\f006  ';
+                }
+                .star-rating > fieldset:not(:checked) > label:hover,
+                .star-rating > fieldset:not(:checked) > label:hover ~ label {
+                  color: #0172FF;
+                  text-shadow: 0 0 3px #0172FF;
+                }
+                .star-rating > fieldset:not(:checked) > label:hover:before,
+                .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+                  content: '\f005  ';
+                }
+                .star-rating > fieldset > input:checked ~ label:before {
+                  content: '\f005  ';
+                }
+                .star-rating > fieldset > label:active {
+                  position: relative;
+                  }
+                label {
+                	padding-top: 5px;
+                  padding-bottom: 5px;
+                  padding-left: 2px;
+                  margin-bottom: 0;
+                  width: 27px;
+                }
+              </style>
+              <div class="star-rating">
+                <fieldset>
+                  <input type="radio" id="star5" name="rating" value="5">
+                  <label for="star5" title="Outstanding">5 stars</label>
+                  <input type="radio" id="star4" name="rating" value="4">
+                  <label for="star4" title="Very Good">4 stars</label>
+                  <input type="radio" id="star3" name="rating" value="3">
+                  <label for="star3" title="Good">3 stars</label>
+                  <input type="radio" id="star2" name="rating" value="2">
+                  <label for="star2" title="Poor">2 stars</label>
+                  <input type="radio" id="star1" name="rating" value="1">
+                  <label for="star1" title="Very Poor">1 star</label>
+                </fieldset>
+              </div>
+            </div>
             <label class="add-field-h2" for="First-Name">Contact Information</label>
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="Address">Address:</label>
@@ -86,7 +192,7 @@
             <input class="add-input w-input" data-name="State" id="State" maxlength="256" name="State" placeholder="Alabama" required="required" type="text">
             <label class="add-field-h3" for="Phone">Phone:</label>
             <input class="add-input w-input" data-name="Phone" id="Phone" maxlength="256" name="Phone" placeholder="(123) 456-7890" required="required" type="email">
-            <div class="add-button-cont"><a class="add-cancel" href="fosters-list.html">Cancel</a>
+            <div class="add-button-cont"><a class="add-cancel" href="volunteer-list.html">Cancel</a>
               <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
             </div>
           </form>

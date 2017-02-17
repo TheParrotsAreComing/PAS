@@ -47,11 +47,56 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .scroll1::-webkit-scrollbar-thumb {
       background: #5d5d5d
     }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+    	padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+    }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 32px" src="img/settings.png" srcset="img/settings-p-500x500.png 500w, img/settings.png 512w" width="32"><img class="navbar-search-exit" data-ix="search-bar-exit" src="img/x.png" width="30">
+    <div class="navbar w-container">
+	  <?= $this->Html->image('settings.png',["class"=>"navbar-settings","sizes"=>"(max-width: 991px) 100vw, 32px","srcset"=>$this->Url->image('settings-p-500x500.png')." 500w, ".$this->Url->image('settings-p-500x500.png')." 512w","width"=>"32"]) ?>
+	  <?= $this->Html->image('x.png',['class'=>'navbar-search-exit','data-ix'=>'search-bar-exit','width'=>'30']) ?>
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
           <input class="navbar-search w-input" data-name="Name 2" id="name-2" maxlength="256" name="name-2" placeholder="Search" type="text">
@@ -63,15 +108,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <div>Oops! Something went wrong while submitting the form</div>
         </div>
       </div>
-      <div class="login-screen navbar-hamburger w-nav-button"><img src="img/menu.png" width="36">
+      <div class="login-screen navbar-hamburger w-nav-button"><img src="<?= $this->Url->image('menu.png') ?>" width="36">
       </div>
-      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" height="50" src="img/paws-logo-blue-diamond.png">
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" height="50" src="<?= $this->Url->image('paws-logo-blue-diamond.png') ?>">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="#">Adopters</a><a class="sidebar-link w-nav-link" href="#">Foster Homes</a><a class="sidebar-link w-nav-link" href="#">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation">
+        <?= $this->Html->link('Home', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Cats', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Litters', ['controller'=>'litters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Volunteers', ['controller'=>'volunteers', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Settings', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
       </nav>
     </div>
   </div>
+  <div class="body">
 	<?= $this->fetch('content') ?>
+  </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <?= $this->Html->script('webflow.js'); ?>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->

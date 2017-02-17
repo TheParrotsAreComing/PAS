@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Tue Feb 14 2017 05:30:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 06:01:44 GMT+0000 (UTC)  -->
 <html data-wf-page="584227aef70a73231667dcd9" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -30,6 +30,51 @@
     .scroll1::-webkit-scrollbar-thumb {
       background: #5d5d5d
     }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+      font-weight: 100;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body>
