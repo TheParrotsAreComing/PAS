@@ -1,35 +1,39 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Fosters'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Cat Histories'), ['controller' => 'CatHistories', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Cat History'), ['controller' => 'CatHistories', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Cats'), ['controller' => 'Cats', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Cat'), ['controller' => 'Cats', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Tags'), ['controller' => 'Tags', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Tag'), ['controller' => 'Tags', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="fosters form large-9 medium-8 columns content">
-    <?= $this->Form->create($foster) ?>
-    <fieldset>
-        <legend><?= __('Add Foster') ?></legend>
-        <?php
-            echo $this->Form->input('first_name');
-            echo $this->Form->input('last_name');
-            echo $this->Form->input('phone');
-            echo $this->Form->input('address');
-            echo $this->Form->input('email');
-            echo $this->Form->input('exp');
-            echo $this->Form->input('pets');
-            echo $this->Form->input('kids');
-            echo $this->Form->input('avail');
-            echo $this->Form->input('rating');
-            echo $this->Form->input('notes');
-            echo $this->Form->input('is_deleted');
-            echo $this->Form->input('tags._ids', ['options' => $tags]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+    <div class="add-view column">
+      <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
+      <div class="add-cont scroll1">
+        <div class="add-header">
+          <div class="add-field-h1">Create a Foster</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+        </div>
+        <div class="add-input-form-wrap w-form">
+          <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
+            <label class="add-field-h2" for="First-Name">Personal Information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="First-Name">First Name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
+            <label class="add-field-h3" for="First-Name-2">Last Name:</label>
+            <input class="add-input w-input" data-name="First Name 2" id="First-Name-2" maxlength="256" name="First-Name-2" placeholder="Doe" required="required" type="text">
+            <label class="add-field-h3" for="E-mail">e-mail:</label>
+            <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
+            <label class="add-field-h2" for="First-Name">Contact Information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="Address">Address:</label>
+            <input class="add-input w-input" data-name="Address" id="Address" maxlength="256" name="Address" placeholder="1234 Elementary Avenue" required="required" type="text">
+            <label class="add-field-h3" for="City">City:</label>
+            <input class="add-input w-input" data-name="City" id="City" maxlength="256" name="City" placeholder="Jacksonville" required="required" type="text">
+            <label class="add-field-h3" for="State">State:</label>
+            <input class="add-input w-input" data-name="State" id="State" maxlength="256" name="State" placeholder="Alabama" required="required" type="text">
+            <label class="add-field-h3" for="Phone">Phone:</label>
+            <input class="add-input w-input" data-name="Phone" id="Phone" maxlength="256" name="Phone" placeholder="(123) 456-7890" required="required" type="email">
+            <div class="add-button-cont"><a class="add-cancel" href="foster-list.html">Cancel</a>
+              <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
+            </div>
+          </form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
+          </div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form</div>
+          </div>
+        </div>
+      </div>
+    </div>
