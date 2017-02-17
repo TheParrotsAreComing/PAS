@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 05:11:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
 <html data-wf-page="589f9ebccf4e78737d592725" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -47,6 +47,7 @@
       white-space: nowrap;
       cursor: pointer;
       color: #0172FF;
+      font-weight: 100;
     }
     .star-rating > fieldset:not(:checked) > label:before {
       content: '\f006  ';
@@ -67,9 +68,10 @@
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
       a {
       -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -102,6 +104,48 @@
     </div>
   </div>
   <div class="body">
+<<<<<<< HEAD
+=======
+    <div class="add-view column">
+      <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
+      <div class="add-cont scroll1" data-ix="page-load-fade-in">
+        <div class="add-header">
+          <div class="add-field-h1">Create a Foster</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+        </div>
+        <div class="add-input-form-wrap w-form">
+          <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
+            <label class="add-field-h2" for="First-Name">Personal Information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="First-Name">First Name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
+            <label class="add-field-h3" for="Last-Name">Last Name:</label>
+            <input class="add-input w-input" data-name="Last Name" id="Last-Name" maxlength="256" name="Last-Name" placeholder="Doe" required="required" type="text">
+            <label class="add-field-h3" for="E-mail">e-mail:</label>
+            <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
+            <label class="add-field-h2" for="First-Name">Contact Information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="Address">Address:</label>
+            <input class="add-input w-input" data-name="Address" id="Address" maxlength="256" name="Address" placeholder="1234 Elementary Avenue" required="required" type="text">
+            <label class="add-field-h3" for="City">City:</label>
+            <input class="add-input w-input" data-name="City" id="City" maxlength="256" name="City" placeholder="Jacksonville" required="required" type="text">
+            <label class="add-field-h3" for="State">State:</label>
+            <input class="add-input w-input" data-name="State" id="State" maxlength="256" name="State" placeholder="Alabama" required="required" type="text">
+            <label class="add-field-h3" for="Phone">Phone:</label>
+            <input class="add-input w-input" data-name="Phone" id="Phone" maxlength="256" name="Phone" placeholder="(123) 456-7890" required="required" type="email">
+            <div class="add-button-cont"><a class="add-cancel" href="foster-list.html">Cancel</a>
+              <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
+            </div>
+          </form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
+          </div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form</div>
+          </div>
+        </div>
+      </div>
+    </div>
+>>>>>>> d58d1c91e5eef2edffc9a952807cd0765e2d58a2
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="js/webflow.js" type="text/javascript"></script>

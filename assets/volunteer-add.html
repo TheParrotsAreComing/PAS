@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 05:11:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
 <html data-wf-page="58a257d833473c5841a67326" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -47,6 +47,7 @@
       white-space: nowrap;
       cursor: pointer;
       color: #0172FF;
+      font-weight: 100;
     }
     .star-rating > fieldset:not(:checked) > label:before {
       content: '\f006  ';
@@ -67,9 +68,10 @@
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
       a {
       -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -104,7 +106,7 @@
   <div class="body">
     <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="add-cont scroll1">
+      <div class="add-cont scroll1" data-ix="page-load-fade-in">
         <div class="add-header">
           <div class="add-field-h1">Create a volunteer</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
         </div>
@@ -114,8 +116,8 @@
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="First-Name">First Name:</label>
             <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
-            <label class="add-field-h3" for="First-Name-2">Last Name:</label>
-            <input class="add-input w-input" data-name="First Name 2" id="First-Name-2" maxlength="256" name="First-Name-2" placeholder="Doe" required="required" type="text">
+            <label class="add-field-h3" for="Last-Name">Last Name:</label>
+            <input class="add-input w-input" data-name="Last Name" id="Last-Name" maxlength="256" name="Last-Name" placeholder="Doe" required="required" type="text">
             <label class="add-field-h3" for="E-mail">e-mail:</label>
             <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
             <label class="add-field-h3" for="E-mail">rating:</label>
@@ -137,6 +139,7 @@
                   white-space: nowrap;
                   cursor: pointer;
                   color: #0172FF;
+                  font-weight: 100;
                 }
                 .star-rating > fieldset:not(:checked) > label:before {
                   content: '\f006  ';

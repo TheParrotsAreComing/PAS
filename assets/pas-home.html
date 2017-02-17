@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 05:11:00 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
 <html data-wf-page="5831f06b791e0c5b6b971af0" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -47,6 +47,7 @@
       white-space: nowrap;
       cursor: pointer;
       color: #0172FF;
+      font-weight: 100;
     }
     .star-rating > fieldset:not(:checked) > label:before {
       content: '\f006  ';
@@ -67,9 +68,10 @@
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
       a {
       -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -104,11 +106,11 @@
   <div class="body">
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="paws-home-cont">
+      <div class="paws-home-cont" data-ix="page-load-fade-in">
         <div class="pas-home-list w-dyn-list">
           <div class="pas-home-list w-dyn-items">
             <div class="pas-home-button-cont w-dyn-item">
-              <a class="pas-home-button-link-cont w-inline-block"><img class="pas-home-button-icon" sizes="(max-width: 479px) 30vw, 170px">
+              <a class="pas-home-button-link-cont w-inline-block"><img class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
                 <div class="pas-home-button-name"></div>
               </a>
             </div>
