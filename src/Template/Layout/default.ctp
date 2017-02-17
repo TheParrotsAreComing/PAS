@@ -67,7 +67,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       </div>
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" height="50" src="img/paws-logo-blue-diamond.png">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="#">Adopters</a><a class="sidebar-link w-nav-link" href="#">Foster Homes</a><a class="sidebar-link w-nav-link" href="#">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation">
+        <?= $this->Html->link('Home', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Cats', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Litters', ['controller'=>'litters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Volunteers', ['controller'=>'volunteers', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Settings', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
       </nav>
     </div>
   </div>
