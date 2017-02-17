@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
-<html data-wf-page="584322e42456f85c50631d0d" data-wf-site="58267cb4b29856df44e502fd">
-
-<body class="page">
-    <div class="body w-clearfix">
+<div class="page">
+  <div class="body w-clearfix">
     <div class="filter-bar">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
@@ -138,68 +133,61 @@
           <nav class="w-dropdown-list"></nav>
         </div><a class="cat-add w-button" href="foster-add.html">+ New FOSTER</a>
       </div>
-      <div class="list-wrapper scroll1 w-dyn-list">
-        <div class="list scroll1 w-dyn-items">
-          <?php foreach ($fosters as $foster): ?>
-              <div class="card-wrapper w-dyn-item">
-                <div class="card-full-cont">
-                  <div class="card-cont">
-                    <a class="card w-clearfix w-inline-block"><?= $this->Html->image('cat-profile-foster-01.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
-                    <div class="card-h1"><?= $foster['first_name'].' '.$foster['last_name']; ?></div>
-                      <div>
-                        <div class="card-h2">Availability:</div>
-                        <div class="card-h2"><?= $foster['avail']; ?></div>
-                      </div>
-                      <div class="card-field-wrap">
-                        <div class="card-field-cont left-justify">
-                          <div class="card-h3">Address:</div>
-                          <div class="catlist-field-content"><?= $foster['address']; ?></div>
-                        </div>
-                        <div class="card-field-cont left-justify">
-                          <div class="card-h3">Phone:</div>
-                          <div class="catlist-field-content"><?= $foster['phone']; ?></div>
-                        </div>
-                        <div class="card-field-cont left-justify">
-                          <div class="card-h3">E-mail:</div>
-                          <div class="catlist-field-content"><?= $foster['email']; ?></div>
-                        </div>
-                      </div>
-                    </a>
-                    <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-                      Test test test<div class="dropdown-icon"></div>
-                    </a>
-                    <div class="dropdown-results-cont">
-                      <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                        <div class="dropdown-cat-name">This is some text inside of a div block.</div>
-                      </a>
-                    </div>
-                  </div>
+    </div>
+  </div>
+
+
+
+<div class="catlist-wrapper scroll1 w-dyn-list">
+    <div class="catlist scroll1 w-dyn-items">
+    <!-- Foreach -->
+    <?php foreach($fosters as $foster): ?>
+      <div class="cat-card-cont w-dyn-item">
+        <div class="catlist-profile-cont">
+          <div class="catlist-cat-cont">
+          <a class="cat-card w-clearfix w-inline-block"><?= $this->Html->image('cat-profile-foster-01.png', ['class'=>'catlist-profile-pic']); ?>
+              <div class="catlist-name"><?php echo $foster['first_name'].' '.$foster['last_name']; ?></div>
+              <div>
+                <div class="cat-age">Availability:</div>
+                <div class="cat-age"><?php echo $foster['avail']; ?></div>
+              </div>
+              <div class="catlist-field-cont">
+                <div class="catlist-field-wrap left-justify">
+                  <div class="cat-list-field-text">Address:</div>
+                  <div class="catlist-field-content"><?php echo $foster['address']; ?></div>
+                </div>
+                <div class="catlist-field-wrap left-justify">
+                  <div class="cat-list-field-text">Phone:</div>
+                  <div class="catlist-field-content"><?php echo $foster['phone']; ?></div>
+                </div>
+                <div class="catlist-field-wrap left-justify">
+                  <div class="cat-list-field-text">E-mail:</div>
+                  <div class="catlist-field-content"><?php echo $foster['email']; ?></div>
                 </div>
               </div>
-            <?php endforeach; ?>
-        </div>
-        <div class="w-dyn-empty">
-          <div>No items found.</div>
+            </a>
+            <?php if (empty($foster_cats[$foster['id']])): ?>
+                <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                  <div class="dropdown-text" style="padding-top:0.5em; padding-bottom:0.5em;">No Cats</div>
+                </a>
+            <?php else: ?>
+                <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                  <div class="dropdown-text" style="padding-top:0.5em;">Expand for Cats</div><?= $this->Html->image('expand-01.png', ['class'=>'dropdown-icon', 'style'=>'margin-bottom:0.5em;']); ?>
+                </a>
+                <div class="dropdown-results-cont">
+                  <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
+                      <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+                          <div class="dropdown-cat-name"><?php echo $cat['cat_name']; ?></div>
+                      </a>
+                  <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+          </div>
         </div>
       </div>
+    <!-- Foreach -->
+    <?php endforeach; ?>
     </div>
-  </div>
-  <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
-  <div class="button-cont">
-    <div class="button-01">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
-    </div>
-    <div class="button-02">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
-    </div>
-    <div class="button-03" data-ix="add-click">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
-    </div>
-    <div class="button-04">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
-    </div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-</body>
-</html>
+</div>
+
+</div>
