@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
-<html data-wf-page="584322e42456f85c50631d0d" data-wf-site="58267cb4b29856df44e502fd">
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
+<html data-wf-page="582900d4d015d89e449fd87c" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>Fosters List</title>
-  <meta content="Fosters List" property="og:title">
+  <title>PAWS Administrative System</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -47,6 +46,7 @@
       white-space: nowrap;
       cursor: pointer;
       color: #0172FF;
+      font-weight: 100;
     }
     .star-rating > fieldset:not(:checked) > label:before {
       content: '\f006  ';
@@ -67,10 +67,14 @@
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body class="page">
@@ -78,7 +82,7 @@
     <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
-          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
+          <input class="navbar-search w-input" data-name="Name" id="name" maxlength="256" name="name" placeholder="Search" type="text">
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
@@ -93,13 +97,13 @@
       <div class="navbar-search-icon" data-ix="search-mobile">#</div>
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopters-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="fosters-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="user-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
   <div class="body w-clearfix">
-    <div class="filter-bar">
+    <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
       </div>
@@ -217,7 +221,63 @@
     </div>
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="cat-header">
+      <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
+        <div class="list w-dyn-items">
+          <div class="card-cont card-wrapper w-dyn-item">
+            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+              <div class="card-h1"></div>
+              <div>
+                <div class="card-h2">Kitten</div>
+                <div class="card-h2"></div>
+              </div>
+              <div class="card-field-wrap">
+                <div class="card-field-cont">
+                  <div class="card-field-cont">
+                    <div class="card-h3">DOB:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                  <div class="card-field-cont">
+                    <div class="card-h3">Age:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                </div>
+                <div class="card-field-cont">
+                  <div class="card-field-cont">
+                    <div class="card-h3">Breed:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                </div>
+                <div class="card-field-cont">
+                  <div class="card-field-cont">
+                    <div class="card-h3">Color:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                  <div class="card-field-cont">
+                    <div class="card-h3">Coat:</div>
+                    <div class="card-field-text">Short/Long</div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-id-cont">
+                <div class="id-text">#</div>
+                <div class="id-text"></div>
+              </div>
+            </a>
+            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+              <div class="dropdown-icon"></div>
+            </a>
+            <div class="dropdown-results-cont">
+              <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+                <div class="dropdown-cat-name"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="w-dyn-empty">
+          <div>No items found.</div>
+        </div>
+      </div>
+      <div class="cat-header" data-ix="page-load-slide-down">
         <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
           <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
             <div class="cat-sort-text">Sort</div>
@@ -230,66 +290,66 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="foster-add.html">+ New FOSTER</a>
-      </div>
-      <div class="list-wrapper scroll1 w-dyn-list">
-        <div class="list scroll1 w-dyn-items">
-          <div class="card-wrapper w-dyn-item">
-            <div class="card-full-cont">
-              <div class="card-cont">
-                <a class="card w-clearfix w-inline-block"><img class="card-pic" sizes="(max-width: 479px) 21vw, 96px">
-                  <div class="card-h1"></div>
-                  <div>
-                    <div class="card-h2">Availability:</div>
-                    <div class="card-h2"></div>
-                  </div>
-                  <div class="card-field-wrap">
-                    <div class="card-field-cont left-justify">
-                      <div class="card-h3">Address:</div>
-                      <div class="catlist-field-content"></div>
-                    </div>
-                    <div class="card-field-cont left-justify">
-                      <div class="card-h3">Phone:</div>
-                      <div class="catlist-field-content"></div>
-                    </div>
-                    <div class="card-field-cont left-justify">
-                      <div class="card-h3">E-mail:</div>
-                      <div class="catlist-field-content"></div>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-                  <div class="dropdown-icon"></div>
-                </a>
-                <div class="dropdown-results-cont">
-                  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                    <div class="dropdown-cat-name">This is some text inside of a div block.</div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="w-dyn-empty">
-          <div>No items found.</div>
-        </div>
+        </div><a class="cat-add w-button" href="cat-add.html">+ New Cat</a>
       </div>
     </div>
   </div>
-  <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
+  <div class="floating-overlay"></div>
+  <div class="add-cont">
+    <div class="add-header"><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+      <div class="add-header-info">
+        <div class="add-field-h3">
+          <div class="card-h3">Name:</div>
+          <div class="card-filler"></div>
+        </div>
+        <div class="add-field-h3">
+          <div class="card-h3">DOB:</div>
+          <div class="date-filler"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-field-wrap">
+      <div class="card-field-cont">
+        <div class="card-field-cont left-justify">
+          <div class="card-h3">DOB:</div>
+          <div class="card-filler"></div>
+        </div>
+        <div class="card-field-cont right-justify">
+          <div class="card-h3">Age:</div>
+          <div class="card-filler"></div>
+        </div>
+      </div>
+      <div class="card-field-cont">
+        <div class="card-field-cont left-justify">
+          <div class="card-h3">Breed:</div>
+          <div class="card-filler long"></div>
+        </div>
+      </div>
+      <div class="card-field-cont">
+        <div class="card-field-cont left-justify">
+          <div class="card-h3">Color:</div>
+          <div class="card-filler medium"></div>
+        </div>
+        <div class="card-field-cont right-justify">
+          <div class="card-h3">Coat:</div>
+          <div class="card-filler medium"></div>
+        </div>
+      </div>
+    </div>
+  </div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
   <div class="button-cont">
-    <div class="button-01">
+    <a class="button-01 w-inline-block" href="cat-add.html">
       <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
-    </div>
-    <div class="button-02">
+    </a>
+    <a class="button-02 w-inline-block" href="#">
       <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
-    </div>
-    <div class="button-03" data-ix="add-click">
+    </a>
+    <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
-    </div>
-    <div class="button-04">
+    </a>
+    <a class="button-04 w-inline-block" href="#">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
-    </div>
+    </a>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="js/webflow.js" type="text/javascript"></script>

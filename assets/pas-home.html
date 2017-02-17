@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
 <html data-wf-page="5831f06b791e0c5b6b971af0" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -47,6 +47,7 @@
       white-space: nowrap;
       cursor: pointer;
       color: #0172FF;
+      font-weight: 100;
     }
     .star-rating > fieldset:not(:checked) > label:before {
       content: '\f006  ';
@@ -67,15 +68,19 @@
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 32px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
@@ -93,7 +98,7 @@
       <div class="navbar-search-icon" data-ix="search-mobile">#</div>
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopters-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="fosters-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="user-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
@@ -101,11 +106,11 @@
   <div class="body">
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="paws-home-cont">
+      <div class="paws-home-cont" data-ix="page-load-fade-in">
         <div class="pas-home-list w-dyn-list">
           <div class="pas-home-list w-dyn-items">
             <div class="pas-home-button-cont w-dyn-item">
-              <a class="pas-home-button-link-cont w-inline-block"><img class="pas-home-button-icon" sizes="(max-width: 479px) 30vw, 170px">
+              <a class="pas-home-button-link-cont w-inline-block"><img class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
                 <div class="pas-home-button-name"></div>
               </a>
             </div>

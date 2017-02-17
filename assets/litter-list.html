@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Thu Feb 16 2017 04:30:16 GMT+0000 (UTC)  -->
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
 <html data-wf-page="584238b54bab51ec5b182deb" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -47,6 +47,7 @@
       white-space: nowrap;
       cursor: pointer;
       color: #0172FF;
+      font-weight: 100;
     }
     .star-rating > fieldset:not(:checked) > label:before {
       content: '\f006  ';
@@ -67,10 +68,14 @@
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
   </style>
 </head>
 <body class="page">
@@ -93,13 +98,13 @@
       <div class="navbar-search-icon" data-ix="search-mobile">#</div>
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
       </a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cats-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopters-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="fosters-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="user-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
   <div class="body w-clearfix">
-    <div class="filter-bar">
+    <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
       </div>
@@ -217,7 +222,7 @@
     </div>
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="cat-header">
+      <div class="cat-header" data-ix="page-load-slide-down">
         <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
           <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
             <div class="cat-sort-text">Sort</div>
@@ -232,7 +237,7 @@
           <nav class="w-dropdown-list"></nav>
         </div><a class="cat-add w-button" href="#">+ New Litter</a>
       </div>
-      <div class="list-wrapper scroll1 w-dyn-list">
+      <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
         <div class="list scroll1 w-dyn-items">
           <div class="card-wrapper w-dyn-item">
             <div class="card-full-cont">
@@ -240,12 +245,8 @@
                 <a class="dropdown-cont w-inline-block" data-ix="dropdown">
                   <div class="dropdown-icon"></div>
                 </a>
-                <a class="card w-clearfix w-inline-block">
+                <a class="card w-inline-block">
                   <div class="card-h1"></div>
-                  <div class="catlist-id-cont w-clearfix">
-                    <div class="catlist-id"></div>
-                    <div class="catlist-id">#</div>
-                  </div>
                   <div>
                     <div class="card-h2">ETA:</div>
                     <div class="card-h2"></div>
