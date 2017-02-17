@@ -56,7 +56,8 @@ CREATE TABLE adopters (
 	email VARCHAR(255) NOT NULL,
 	notes TEXT,
 	created DATETIME,
-    is_deleted BOOLEAN NOT NULL
+    is_deleted BOOLEAN NOT NULL,
+    do_not_adopt BOOLEAN
 ); 
 
 
@@ -117,7 +118,8 @@ CREATE TABLE cats (
 	microchip_number INT,
 	microchiped_date DATE,
 	created DATETIME,
-    adoption_fee_paid BOOLEAN,
+	adoption_fee_amount DECIMAL(10,2),
+	is_paws BOOLEAN,
     is_deleted BOOLEAN NOT NULL,
     FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
 	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),

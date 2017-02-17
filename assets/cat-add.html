@@ -1,4 +1,113 @@
-<?= $this->Form->create($cat) ?>
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Fri Feb 17 2017 02:09:54 GMT+0000 (UTC)  -->
+<html data-wf-page="58a3cc56123f7f9e6d333f84" data-wf-site="58267cb4b29856df44e502fd">
+<head>
+  <meta charset="utf-8">
+  <title>Cat Add</title>
+  <meta content="Cat Add" property="og:title">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/paws-administrative-system.webflow.css" rel="stylesheet" type="text/css">
+  <script src="js/modernizr.js" type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <style>
+    .scroll {
+      width: 20px;
+      height: 200px;
+      overflow: auto;
+      float: left;
+      margin: 0 10px;
+    }
+    .scroll1::-webkit-scrollbar {
+      width: 5px;
+    }
+    .scroll1::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    .scroll1::-webkit-scrollbar-thumb {
+      background: #5d5d5d
+    }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+      font-weight: 100;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
+  </style>
+  <style>
+    select option:first-child {
+        color: #99a5c2;
+    }
+  </style>
+</head>
+<body class="page">
+  <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
+      <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
+        <form data-name="Email Form" id="email-form" name="email-form">
+          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="navbar-hamburger w-nav-button">
+        <div class="navbar-hamburger-text"></div>
+      </div>
+      <div class="navbar-search-icon" data-ix="search-mobile">#</div>
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
+      </a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      </nav>
+      <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
+    </div>
+  </div>
   <div class="body">
     <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -10,14 +119,11 @@
           <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
             <label class="add-field-h2" for="First-Name">personal information</label>
             <div class="add-field-seperator"></div>
-            <!--<label class="add-field-h3" for="cat_name-2">name:</label>
-            <input autofocus="autofocus" class="add-input w-input" data-name="cat_name" id="cat_name-2" maxlength="256" name="cat_name" placeholder="Bella" required="required" type="text">-->
-            <?php echo $this->Form->input('cat_name', ['class' => 'add-input w-input'], 
-            ['label' => ['text' => 'Cat Name', 'class' => 'add-field-h3']]); ?>
-            <!--<label class="add-field-h3" for="Month">Date of birth:</label>-->
+            <label class="add-field-h3" for="cat_name-2">name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="cat_name" id="cat_name-2" maxlength="256" name="cat_name" placeholder="Bella" required="required" type="text">
+            <label class="add-field-h3" for="Month">Date of birth:</label>
             <div class="date-cont">
-            <?php echo $this->Form->input('dob', ['label' => ['text' => 'Date of Birth:', 'class' => 'add-field-h3'], ['class' => 'date-month w-select']]); ?>
-            <!--  <select class="date-month w-select" data-name="month" id="month-2" name="month">
+              <select class="date-month w-select" data-name="month" id="month-2" name="month">
                 <option value="">Month</option>
                 <option value="01">01 - January</option>
                 <option value="02">02 - February</option>
@@ -76,17 +182,15 @@
                 <option value="2015">2015</option>
                 <option value="2016">2016</option>
                 <option value="2017">2017</option>
-              </select>-->
+              </select>
             </div>
-            <label class="add-field-h3" for="breed-2">Breed/Color/Coat:</label>
-            <!--<input autofocus="autofocus" class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" required="required" type="text">
+            <label class="add-field-h3" for="breed-2">Breed:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" required="required" type="text">
             <label class="add-field-h3" for="color">color:</label>
             <input autofocus="autofocus" class="add-input w-input" data-name="color" id="color" maxlength="256" name="color" placeholder="Brown" required="required" type="text">
             <label class="add-field-h3" for="coat-2">coat:</label>
             <input autofocus="autofocus" class="add-input w-input" data-name="coat" id="coat-2" maxlength="256" name="coat" placeholder="Short" required="required" type="text">
-            -->
-            <?php echo $this->Form->input('breed', ['class' => 'add-input w-input', 'label' => false]); ?>
-            <!--<label class="add-field-h3" for="field">size:</label>
+            <label class="add-field-h3" for="field">size:</label>
             <div class="w-tabs" data-duration-in="300" data-duration-out="100">
               <div class="size-cont w-tab-menu">
                 <a class="left size-select w-inline-block w-tab-link" data-w-tab="small">
@@ -99,52 +203,52 @@
                   <div>large</div>
                 </a>
               </div>
-            </div>-->
+            </div>
             <label class="add-field-h3" for="E-mail">gender:</label>
             <div class="gender-cont">
               <div class="gender-switch w-embed" data-ix="gender-switch">
                 <style>
                   /* ---------- SWITCH ---------- */
                   .switch {
-                    background: #eee;
-                    border-radius: 32px;
-                    display: block;
-                    height: 32px;
-                    position: relative;
-                    width: 80px;
+                  	background: #eee;
+                  	border-radius: 32px;
+                  	display: block;
+                  	height: 32px;
+                  	position: relative;
+                  	width: 80px;
                   }
                   .switch input {
-                    height: 32px;
-                    left: 0;
-                    opacity: 0;
-                    position: absolute;
-                    top: 0;
-                    width: 80px;
-                    z-index: 2;
+                  	height: 32px;
+                  	left: 0;
+                  	opacity: 0;
+                  	position: absolute;
+                  	top: 0;
+                  	width: 80px;
+                  	z-index: 2;
                   }
                   .switch input:checked~.toggle {
-                    left: 4px;
+                  	left: 4px;
                   }
                   .switch input~:checked~.toggle {
-                    left: 50px;
+                  	left: 50px;
                   }
                   .switch input:checked {
-                    z-index: 0;
+                  	z-index: 0;
                   }
                   .toggle {
                     background: #0172ff;
-                    border-radius: 50%;
-                    height: 28px;
-                    left: 0;
-                    position: absolute;
-                    top: 2px;
-                    -webkit-transition: left .2s ease;
-                    -moz-transition: left .2s ease;
-                    -ms-transition: left .2s ease;
-                    -o-transition: left .2s ease;
-                    transition: left .2s ease;
-                    width: 28px;
-                    z-index: 1;
+                  	border-radius: 50%;
+                  	height: 28px;
+                  	left: 0;
+                  	position: absolute;
+                  	top: 2px;
+                  	-webkit-transition: left .2s ease;
+                  	-moz-transition: left .2s ease;
+                  	-ms-transition: left .2s ease;
+                  	-o-transition: left .2s ease;
+                  	transition: left .2s ease;
+                  	width: 28px;
+                  	z-index: 1;
                   }
                 </style>
                 <div class="switch white">
@@ -162,45 +266,45 @@
                 <style>
                   /* ---------- SWITCH ---------- */
                   .switch-kitten {
-                    background: #eee;
-                    border-radius: 32px;
-                    display: block;
-                    height: 32px;
-                    position: relative;
-                    width: 80px;
+                  	background: #eee;
+                  	border-radius: 32px;
+                  	display: block;
+                  	height: 32px;
+                  	position: relative;
+                  	width: 80px;
                   }
                   .switch-kitten input {
-                    height: 32px;
-                    left: 0;
-                    opacity: 0;
-                    position: absolute;
-                    top: 0;
-                    width: 80px;
-                    z-index: 2;
+                  	height: 32px;
+                  	left: 0;
+                  	opacity: 0;
+                  	position: absolute;
+                  	top: 0;
+                  	width: 80px;
+                  	z-index: 2;
                   }
                   .switch-kitten input:checked~.toggle {
-                    left: 4px;
+                  	left: 4px;
                   }
                   .switch-kitten input~:checked~.toggle {
-                    left: 50px;
+                  	left: 50px;
                   }
                   .switch-kitten input:checked {
-                    z-index: 0;
+                  	z-index: 0;
                   }
                   .toggle {
                     background: #0172ff;
-                    border-radius: 50%;
-                    height: 28px;
-                    left: 0;
-                    position: absolute;
-                    top: 2px;
-                    -webkit-transition: left .2s ease;
-                    -moz-transition: left .2s ease;
-                    -ms-transition: left .2s ease;
-                    -o-transition: left .2s ease;
-                    transition: left .2s ease;
-                    width: 28px;
-                    z-index: 1;
+                  	border-radius: 50%;
+                  	height: 28px;
+                  	left: 0;
+                  	position: absolute;
+                  	top: 2px;
+                  	-webkit-transition: left .2s ease;
+                  	-moz-transition: left .2s ease;
+                  	-ms-transition: left .2s ease;
+                  	-o-transition: left .2s ease;
+                  	transition: left .2s ease;
+                  	width: 28px;
+                  	z-index: 1;
                   }
                 </style>
                 <div class="switch white">
@@ -238,6 +342,9 @@
         </div>
       </div>
     </div>
-  </div>   
-<?= $this->Form->button(__('Submit')) ?>
-<?= $this->Form->end() ?>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
