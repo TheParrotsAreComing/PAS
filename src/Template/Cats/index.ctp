@@ -157,9 +157,11 @@
             </a>
             <div class="dropdown-results-cont">
 				<?php foreach($cat->litter->cats as $mate) : ?>
-				  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-					<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
-				  </a>
+  				<?php if($mate->id != $cat->id): ?>
+            <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+  					  <div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
+  				  </a>
+          <?php endif; ?>
 				<?php endforeach; ?>
             </div>
           </div>
