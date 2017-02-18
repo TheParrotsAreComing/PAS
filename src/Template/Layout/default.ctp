@@ -110,7 +110,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <div class="navbar-hamburger w-nav-button">
         <div class="navbar-hamburger-text"></div>
       </div>
-      <div class="navbar-search-icon" data-ix="search-mobile">#</div>
+
+      <div class="navbar-search-icon-desktop" data-ix="search-mobile">#</div>
+      <div class="navbar-search-icon-mobile w-hidden-main w-hidden-medium" data-ix="search-mobile">#</div>
+
       <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><?= $this->Html->image('paws-logo-blue-diamond.png', ['class'=>'brand']); ?>
       </a>
       <nav class="navbar-menu w-nav-menu" role="navigation">
