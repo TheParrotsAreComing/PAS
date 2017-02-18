@@ -123,7 +123,7 @@
 <!-- -->
 		<?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div>
                 <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
