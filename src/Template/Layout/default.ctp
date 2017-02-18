@@ -93,13 +93,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   </style>
 </head>
 <body class="page">
-  <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container">
-	  <?= $this->Html->image('settings.png',["class"=>"navbar-settings","sizes"=>"(max-width: 991px) 100vw, 32px","srcset"=>$this->Url->image('settings-p-500x500.png')." 500w, ".$this->Url->image('settings-p-500x500.png')." 512w","width"=>"32"]) ?>
-	  <?= $this->Html->image('x.png',['class'=>'navbar-search-exit','data-ix'=>'search-bar-exit','width'=>'30']) ?>
+    <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="/img/settings.png" srcset="/img/settings-p-500x500.png 500w, /img/settings.png 512w" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
-          <input class="navbar-search w-input" data-name="Name 2" id="name-2" maxlength="256" name="name-2" placeholder="Search" type="text">
+          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
@@ -108,9 +106,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <div>Oops! Something went wrong while submitting the form</div>
         </div>
       </div>
-      <div class="login-screen navbar-hamburger w-nav-button"><img src="<?= $this->Url->image('menu.png') ?>" width="36">
+      <div class="navbar-hamburger w-nav-button">
+        <div class="navbar-hamburger-text"></div>
       </div>
-      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" height="50" src="<?= $this->Url->image('paws-logo-blue-diamond.png') ?>">
+      <div class="navbar-search-icon" data-ix="search-mobile">#</div>
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="/img/paws-logo-blue-diamond.png">
       </a>
       <nav class="navbar-menu w-nav-menu" role="navigation">
         <?= $this->Html->link('Home', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
@@ -121,6 +121,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Volunteers', ['controller'=>'volunteers', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Settings', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
       </nav>
+      <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
 	<?= $this->fetch('content') ?>
