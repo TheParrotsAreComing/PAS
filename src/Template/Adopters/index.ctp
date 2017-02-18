@@ -117,7 +117,47 @@
     </div>
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="cat-header" data-ix="page-load-slide-down">
+    
+      <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
+        <div class="list w-dyn-items">
+        <?php foreach($adopters as $adopter) : ?>
+          <div class="card-cont card-wrapper w-dyn-item">
+            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="http://uploads.webflow.com/img/image-placeholder.svg" sizes="(max-width: 479px) 21vw, 96px">
+              <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
+              <div><!--     Need to add this later?
+                <div class="card-h2">Last Adopted:</div>
+                <div class="card-h2"></div>
+                    --> 
+              </div>
+              <div class="card-field-wrap">
+                <div class="card-field-cont left-justify">
+                  <div class="card-h3">Address:</div>
+                  <div class="catlist-field-content"><?= $adopter->address ?></div>
+                </div>
+                <div class="card-field-cont left-justify">
+                  <div class="card-h3">Phone:</div>
+                  <div class="catlist-field-content"><?= $adopter->phone ?></div>
+                </div>
+                <div class="card-field-cont left-justify">
+                  <div class="card-h3">E-mail:</div>
+                  <div class="catlist-field-content"><?= $adopter->email ?></div>
+                </div>
+              </div>
+            </a>
+            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+              <div class="dropdown-icon"></div>
+            </a>
+            <!--Need to implement when table for catsadopters is created-->
+            <div class="dropdown-results-cont">
+              <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+                <div class="dropdown-cat-name">This is some text inside of a div block.</div>
+              </a>
+            </div>
+          </div>
+        <?php endforeach; ?>
+        </div>
+      </div>
+     <div class="cat-header" data-ix="page-load-slide-down">
         <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
           <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
             <div class="cat-sort-text">Sort</div>
@@ -130,46 +170,8 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="#">+ New Adopter</a>
-      </div>
-      <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
-        <div class="list w-dyn-items">
-          <div class="card-cont card-wrapper w-dyn-item">
-            <a class="card w-clearfix w-inline-block"><img class="card-pic" sizes="(max-width: 479px) 21vw, 96px">
-              <div class="card-h1"></div>
-              <div>
-                <div class="card-h2">Last Adopted:</div>
-                <div class="card-h2"></div>
-              </div>
-              <div class="card-field-wrap">
-                <div class="card-field-cont left-justify">
-                  <div class="card-h3">Address:</div>
-                  <div class="catlist-field-content"></div>
-                </div>
-                <div class="card-field-cont left-justify">
-                  <div class="card-h3">Phone:</div>
-                  <div class="catlist-field-content"></div>
-                </div>
-                <div class="card-field-cont left-justify">
-                  <div class="card-h3">E-mail:</div>
-                  <div class="catlist-field-content"></div>
-                </div>
-              </div>
-            </a>
-            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              <div class="dropdown-icon"></div>
-            </a>
-            <div class="dropdown-results-cont">
-              <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                <div class="dropdown-cat-name">This is some text inside of a div block.</div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="w-dyn-empty">
-          <div>No items found.</div>
-        </div>
-      </div>
+        </div><a class="cat-add w-button" href="<?= $this->Url->build(['controller' => 'Adopters', 'action' => 'add']) ?>">+ New Adopter</a>
+      </div> 
     </div>
   </div>
   <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
