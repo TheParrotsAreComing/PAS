@@ -187,19 +187,19 @@
       </div>
     </div>
   </div>
-  <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
+  <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
     <div class="button-01">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
+      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </div>
     <div class="button-02">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
     </div>
     <div class="button-03" data-ix="add-click">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
+      <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
     </div>
     <div class="button-04">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
+      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
