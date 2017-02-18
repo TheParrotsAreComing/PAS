@@ -1,33 +1,41 @@
-  <div class="body">
+
+ <div class="body">
     <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
       <div class="add-cont scroll1" data-ix="page-load-fade-in">
         <div class="add-header">
           <div class="add-field-h1">Create a Foster</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
         </div>
+		<?= $this->Form->create($foster);?>
         <div class="add-input-form-wrap w-form">
           <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
             <label class="add-field-h2" for="First-Name">Personal Information</label>
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="First-Name">First Name:</label>
-            <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
-            <label class="add-field-h3" for="Last-Name">Last Name:</label>
-            <input class="add-input w-input" data-name="Last Name" id="Last-Name" maxlength="256" name="Last-Name" placeholder="Doe" required="required" type="text">
-            <label class="add-field-h3" for="E-mail">e-mail:</label>
-            <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
+            <?= $this->Form->input('first_name', ['class'=>'add-input w-input', 'data-name'=>'First-Name', 'label'=>false]);?>
+			<label class="add-field-h3" for="Last-Name">Last Name:</label>
+            <?= $this->Form->input('last_name', ['class'=>'add-input w-input', 'data-name'=>'Last-Name', 'label'=>false]);?>
+            <label class="add-field-h3" for="E-mail">E-mail:</label>
+			<?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false]);?>
             <label class="add-field-h2" for="First-Name">Contact Information</label>
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="Address">Address:</label>
-            <input class="add-input w-input" data-name="Address" id="Address" maxlength="256" name="Address" placeholder="1234 Elementary Avenue" required="required" type="text">
-            <label class="add-field-h3" for="City">City:</label>
-            <input class="add-input w-input" data-name="City" id="City" maxlength="256" name="City" placeholder="Jacksonville" required="required" type="text">
-            <label class="add-field-h3" for="State">State:</label>
-            <input class="add-input w-input" data-name="State" id="State" maxlength="256" name="State" placeholder="Alabama" required="required" type="text">
+			<?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false]);?>
             <label class="add-field-h3" for="Phone">Phone:</label>
-            <input class="add-input w-input" data-name="Phone" id="Phone" maxlength="256" name="Phone" placeholder="(123) 456-7890" required="required" type="email">
-            <div class="add-button-cont"><a class="add-cancel" href="foster-list.html">Cancel</a>
-              <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
-            </div>
+			<?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false]);?>
+            <label class="add-field-h3" for="Experience">Experience:</label>
+			<?= $this->Form->input('exp', ['class'=>'add-input w-input', 'data-name'=>'Experience', 'label'=>false]);?>
+            <label class="add-field-h3" for="Pets">Pets:</label>
+			<?= $this->Form->input('pets', ['class'=>'add-input w-input', 'data-name'=>'Pets', 'label'=>false]);?>
+			<label class="add-field-h3" for="Kids">Kids:</label>
+			<?= $this->Form->input('kids', ['class'=>'add-input w-input', 'data-name'=>'Kids', 'label'=>false]);?>
+			<label class="add-field-h3" for="Availability">Availability:</label>
+			<?= $this->Form->input('avail', ['class'=>'add-input w-input', 'data-name'=>'Availability', 'label'=>false]);?>
+			<label class="add-field-h3" for="Rating">Rating:</label>
+			<?= $this->Form->input('rating', ['class'=>'add-input w-input', 'data-name'=>'Rating', 'label'=>false]);?>
+			<label class="add-field-h3" for="Notes">Notes:</label>
+			<?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false]);?>
+			<?= $this->Form->submit()?>
           </form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
@@ -39,3 +47,4 @@
       </div>
     </div>
   </div>
+  <?= $this->Form->end();?>
