@@ -41,7 +41,10 @@
 			<label class="add-field-h3" for="Notes">Notes:</label>
 			<?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false, 
 		'placeholder'=>'Comments/Concerns']);?>
-			<?= $this->Form->submit("Add Foster", ['id'=>'FosterAdd'])?>
+			<div class="add-button-cont">
+				<?= $this->Html->link('Cancel', ['controller'=>'fosters','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'FosterCancel']); ?>
+				<?= $this->Form->submit("Submit", ['class'=>'add-submit w-button','id'=>'FosterAdd'])?>
+			</div>
           </form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
