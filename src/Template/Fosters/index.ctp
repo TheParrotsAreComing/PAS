@@ -169,9 +169,11 @@
                       Test test test<div class="dropdown-icon"></div>
                     </a>
                     <div class="dropdown-results-cont">
-                      <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                        <div class="dropdown-cat-name">This is some text inside of a div block.</div>
-                      </a>
+                      <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
+                        <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+                          <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
+                        </a>
+                      <?php endforeach; ?>
                     </div>
                   </div>
                 </div>
