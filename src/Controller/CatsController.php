@@ -20,6 +20,7 @@ class CatsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+            'conditions' => ['Cats.is_deleted' => 0]
         ];
         $cats = $this->paginate($this->Cats);
 
@@ -53,6 +54,8 @@ class CatsController extends AppController
     {
         $cat = $this->Cats->newEntity();
         if ($this->request->is('post')) {
+            debug ($this->request->data);
+            die;
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
