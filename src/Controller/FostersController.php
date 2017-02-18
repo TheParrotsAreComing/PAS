@@ -65,6 +65,7 @@ class FostersController extends AppController
         $foster = $this->Fosters->newEntity();
         if ($this->request->is('post')) {
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
+			$foster['is_deleted'] = 0;
             if ($this->Fosters->save($foster)) {
                 $this->Flash->success(__('The foster has been saved.'));
 

@@ -178,14 +178,14 @@
       </div>
       <div class="cat-header" data-ix="page-load-slide-down">
         <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
-          <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="img/up-arrow.png" srcset="img/up-arrow-p-500x500.png 500w, img/up-arrow.png 512w" width="12">
             <div class="cat-sort-text">Sort</div>
           </div>
           <nav class="w-dropdown-list"><a class="cat-sort-dropdown w-dropdown-link">Name Descending</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
           </nav>
         </div>
         <div class="cat-filter cat-sort w-dropdown" data-delay="0">
-          <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/filter-filled-tool-symbol.png" srcset="images/filter-filled-tool-symbol-p-500x500.png 500w, images/filter-filled-tool-symbol.png 512w" width="12">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="img/filter-filled-tool-symbol.png" srcset="img/filter-filled-tool-symbol-p-500x500.png 500w, img/filter-filled-tool-symbol.png 512w" width="12">
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
@@ -235,18 +235,18 @@
         </div>
       </div>
     </div>
-  </div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
+  </div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
     <a class="button-01 w-inline-block" href="cat-add.html">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
+      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
     </a>
     <a class="button-03 w-inline-block" href="#">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
+      <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
     </a>
     <a class="button-04 w-inline-block" href="#">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
+      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
     </a>
   </div>

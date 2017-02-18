@@ -125,18 +125,19 @@
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
       <div class="cat-header">
         <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
-          <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/up-arrow.png" srcset="images/up-arrow-p-500x500.png 500w, images/up-arrow.png 512w" width="12">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><?= $this->Html->image('up-arrow.png', ['width'=>12, 'sizes'=>'(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw']); ?>
             <div class="cat-sort-text">Sort</div>
           </div>
           <nav class="w-dropdown-list"><a class="cat-sort-dropdown w-dropdown-link">Name Descending</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
           </nav>
         </div>
         <div class="cat-filter cat-sort w-dropdown" data-delay="0">
-          <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/filter-filled-tool-symbol.png" srcset="images/filter-filled-tool-symbol-p-500x500.png 500w, images/filter-filled-tool-symbol.png 512w" width="12">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow">
+            <?= $this->Html->image('filter-filled-tool-symbol.png', ['sizes'=>'(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw', 'width'=>"12"]); ?>
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="foster-add.html">+ New FOSTER</a>
+        </div><?= $this->Html->link('+ New Foster', ['controller'=>'fosters','action'=>'add'],['class'=>'cat-add w-button']); ?>
       </div>
       <div class="list-wrapper scroll1 w-dyn-list">
         <div class="list scroll1 w-dyn-items">
@@ -169,9 +170,11 @@
                       Test test test<div class="dropdown-icon"></div>
                     </a>
                     <div class="dropdown-results-cont">
-                      <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                        <div class="dropdown-cat-name">This is some text inside of a div block.</div>
-                      </a>
+                      <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
+                        <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+                          <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
+                        </a>
+                      <?php endforeach; ?>
                     </div>
                   </div>
                 </div>
@@ -184,19 +187,19 @@
       </div>
     </div>
   </div>
-  <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
+  <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
     <div class="button-01">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
+      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </div>
     <div class="button-02">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
     </div>
     <div class="button-03" data-ix="add-click">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
+      <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
     </div>
     <div class="button-04">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
+      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
