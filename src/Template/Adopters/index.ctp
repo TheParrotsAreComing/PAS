@@ -122,7 +122,7 @@
         <div class="list w-dyn-items">
         <?php foreach($adopters as $adopter) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-profile-foster-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
+            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-profile-adopter-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
               <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
               <div><!--     Need to add this later?
                 <div class="card-h2">Last Adopted:</div>
