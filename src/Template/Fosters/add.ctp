@@ -26,13 +26,11 @@
             <label class="add-field-h3" for="Experience">Experience:</label>
 			<?= $this->Form->input('exp', ['class'=>'add-input w-input', 'data-name'=>'Experience', 'label'=>false]);?>
             <label class="add-field-h3" for="Pets">Pets:</label>
-			<?= $this->Form->input('pets', ['class'=>'add-input w-input', 'data-name'=>'Pets', 'label'=>false]);?>
+			<?= $this->Form->input('pets', ['class'=>'add-input w-input', 'data-name'=>'Pets', 'label'=>false, 'options'=>['No','Yes']]);?>
 			<label class="add-field-h3" for="Kids">Kids:</label>
-			<?= $this->Form->input('kids', ['class'=>'add-input w-input', 'data-name'=>'Kids', 'label'=>false]);?>
+			<?= $this->Form->input('kids', ['class'=>'add-input w-input', 'data-name'=>'Kids', 'label'=>false, 'options'=>['No','Yes']]);?>
 			<label class="add-field-h3" for="Availability">Availability:</label>
 			<?= $this->Form->input('avail', ['class'=>'add-input w-input', 'data-name'=>'Availability', 'label'=>false]);?>
-			<label class="add-field-h3" for="Rating">Rating:</label>
-			<?= $this->Form->input('rating', ['class'=>'add-input w-input', 'data-name'=>'Rating', 'label'=>false]);?>
 			<label class="add-field-h3" for="Notes">Notes:</label>
 			<?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false]);?>
 			<?= $this->Form->submit("Add Foster", ['id'=>'FosterAdd'])?>
