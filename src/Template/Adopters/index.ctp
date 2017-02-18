@@ -143,14 +143,21 @@
                 </div>
               </div>
             </a>
-            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              <div class="dropdown-icon"></div>
-            </a>
-            <!--Need to implement when table for catsadopters is created-->
-            <div class="dropdown-results-cont">
-              <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                <div class="dropdown-cat-name">This is some text inside of a div block.</div>
+            <?php if (empty($adopter_cats[$adopter['id']])): ?>
+              <a class="dropdown-cont w-inline-block">
+                This person has not adopted any cats... yet!
               </a>
+            <?php else: ?>
+              <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                Click to see adopted cats<div class="dropdown-icon"></div>
+              </a>
+            <?php endif; ?>
+            <div class="dropdown-results-cont">
+              <?php foreach ($adopter_cats[$adopter['id']] as $cat): ?>
+                <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+                  <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
+                </a>
+              <?php endforeach; ?>
             </div>
           </div>
         <?php endforeach; ?>

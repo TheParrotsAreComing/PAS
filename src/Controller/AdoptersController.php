@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Adopters Controller
@@ -20,7 +21,19 @@ class AdoptersController extends AppController
     {
         $adopters = $this->paginate($this->Adopters);
 
-        $this->set(compact('adopters'));
+        $cat_history_db = TableRegistry::get('CatHistories');
+        $cat_db = TableRegistry::get('Cats');
+
+        $adopter_cats = [];
+        foreach ($adopters as $adopter) {
+          $adopter_cats[$adopter['id']] = [];
+          $cats = $cat_history_db->find('all', ['conditions'=>['adopter_id'=>$adopter['id'], 'end_date IS NULL']])->toArray();
+          foreach ($cats as $i => $cat) {
+            $adopter_cats[$adopter['id']][$i] = $cat_db->find('all', ['conditions'=>['id'=>$cat['cat_id']]])->first();
+          }
+        }
+
+        $this->set(compact('adopters', 'adopter_cats'));
         $this->set('_serialize', ['adopters']);
     }
 
