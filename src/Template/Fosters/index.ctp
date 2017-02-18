@@ -137,7 +137,7 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="foster-add.html">+ New FOSTER</a>
+        </div><?= $this->Html->link('+ New Foster', ['controller'=>'fosters','action'=>'add'],['class'=>'cat-add w-button']); ?>
       </div>
       <div class="list-wrapper scroll1 w-dyn-list">
         <div class="list scroll1 w-dyn-items">
