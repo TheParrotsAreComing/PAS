@@ -26,7 +26,6 @@
 			<?= $this->Form->input('cat_count', ['class'=>'add-input w-input', 'data-name'=>'Cat-Count', 'label'=>false]);?>
             <label class="add-field-h3" for="Notes">Notes:</label>
             <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'notes', 'label'=>false]);?>
-			<?= $this->Form->input('is_deleted', ['class'=>'add-input w-input', 'data-name'=>'Is-Deleted', 'label'=>false, 'value'=>'0', 'type'=>'hidden']);?>
 			<?= $this->Form->submit()?>
           </form>
           <div class="w-form-done">

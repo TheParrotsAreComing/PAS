@@ -35,7 +35,6 @@
 			<?= $this->Form->input('rating', ['class'=>'add-input w-input', 'data-name'=>'Rating', 'label'=>false]);?>
 			<label class="add-field-h3" for="Notes">Notes:</label>
 			<?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false]);?>
-			<?= $this->Form->input('is_deleted', ['class'=>'add-input w-input', 'data-name'=>'Is-Deleted', 'label'=>false, 'value'=>'0', 'type'=>'hidden']);?>
 			<?= $this->Form->submit()?>
           </form>
           <div class="w-form-done">
