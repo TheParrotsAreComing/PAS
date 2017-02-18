@@ -22,11 +22,9 @@
 			<?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false]);?>
             <label class="add-field-h3" for="Phone">Phone:</label>
             <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false]);?>
-            <label class="add-field-h3" for="Cat-Count">Cat Count:</label>
-			<?= $this->Form->input('cat_count', ['class'=>'add-input w-input', 'data-name'=>'Cat-Count', 'label'=>false]);?>
             <label class="add-field-h3" for="Notes">Notes:</label>
             <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'notes', 'label'=>false]);?>
-			<?= $this->Form->submit()?>
+			<?= $this->Form->submit("Add Adopter",['id'=>'AdopterAdd'])?>
           </form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
