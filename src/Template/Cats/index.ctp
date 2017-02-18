@@ -189,7 +189,7 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="cat-add.html">+ New Cat</a>
+        </div><a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>>+ New Cat</a>
       </div>
     </div>
   </div>
