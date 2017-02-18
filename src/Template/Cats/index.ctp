@@ -120,18 +120,20 @@
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
         <div class="list w-dyn-items">
+<!-- -->
+		<?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
             <a class="card w-clearfix w-inline-block"><img class="card-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-              <div class="card-h1"></div>
+              <div class="card-h1"><?= $cat->cat_name?></div>
               <div>
-                <div class="card-h2">Kitten</div>
+                <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
                 <div class="card-h2"></div>
               </div>
               <div class="card-field-wrap">
                 <div class="card-field-cont">
                   <div class="card-field-cont">
                     <div class="card-h3">DOB:</div>
-                    <div class="card-field-text"></div>
+                    <div class="card-field-text"><?= $cat->dob ?></div>
                   </div>
                   <div class="card-field-cont">
                     <div class="card-h3">Age:</div>
@@ -141,34 +143,27 @@
                 <div class="card-field-cont">
                   <div class="card-field-cont">
                     <div class="card-h3">Breed:</div>
-                    <div class="card-field-text"></div>
-                  </div>
-                </div>
-                <div class="card-field-cont">
-                  <div class="card-field-cont">
-                    <div class="card-h3">Color:</div>
-                    <div class="card-field-text"></div>
-                  </div>
-                  <div class="card-field-cont">
-                    <div class="card-h3">Coat:</div>
-                    <div class="card-field-text">Short/Long</div>
+                    <div class="card-field-text"><?= $cat->breed ?></div>
                   </div>
                 </div>
               </div>
               <div class="list-id-cont">
                 <div class="id-text">#</div>
-                <div class="id-text"></div>
+                <div class="id-text"><?= $cat->id ?></div>
               </div>
             </a>
             <a class="dropdown-cont w-inline-block" data-ix="dropdown">
               <div class="dropdown-icon"></div>
             </a>
             <div class="dropdown-results-cont">
-              <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-                <div class="dropdown-cat-name"></div>
-              </a>
+				<?php foreach($cat->litter->cats as $mate) : ?>
+				  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+					<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
+				  </a>
+				<?php endforeach; ?>
             </div>
           </div>
+		<?php endforeach; ?>
         </div>
       </div>
       <div class="cat-header" data-ix="page-load-slide-down">
