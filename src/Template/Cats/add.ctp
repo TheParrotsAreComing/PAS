@@ -25,7 +25,7 @@
               <div class="gender-switch w-embed" data-ix="gender-switch">
                 <style>
                   /* ---------- SWITCH ---------- */
-                  .switch {
+                  .switch-gender {
                     background: #eee;
                     border-radius: 32px;
                     display: block;
@@ -33,7 +33,7 @@
                     position: relative;
                     width: 80px;
                   }
-                  .switch input {
+                  .switch-gender input {
                     height: 32px;
                     left: 0;
                     opacity: 0;
@@ -42,13 +42,13 @@
                     width: 80px;
                     z-index: 2;
                   }
-                  .switch input:checked~.toggle {
+                  .switch-gender input:checked~.toggle {
                     left: 4px;
                   }
-                  .switch input~:checked~.toggle {
+                  .switch-gender input~:checked~.toggle {
                     left: 50px;
                   }
-                  .switch input:checked {
+                  .switch-gender input:checked {
                     z-index: 0;
                   }
                   .toggle {
@@ -68,8 +68,8 @@
                   }
                 </style>
                 <div class="switch white">
-                  <input type="radio" name="switch" id="female" checked>
-                  <input type="radio" name="switch" id="male">
+                  <input value="1" type="radio" name="switch-gender" id="female" checked>
+                  <input value="0" type="radio" name="switch-gender" id="male">
                   <span class="toggle"></span>
                 </div>
               </div>
@@ -124,8 +124,8 @@
                   }
                 </style>
                 <div class="switch white">
-                  <input type="radio" name="switch-kitten" id="kitten">
-                  <input type="radio" name="switch-kitten" id="adult">
+                  <input value="1" type="radio" name="switch-kitten" id="kitten">
+                  <input value="0" type="radio" name="switch-kitten" id="adult">
                   <span class="toggle"></span>
                 </div>
               </div>
