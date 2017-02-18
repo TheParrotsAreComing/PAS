@@ -11,19 +11,25 @@
             <label class="add-field-h2" for="First-Name">Personal Information</label>
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="First-Name">First Name:</label>
-            <?= $this->Form->input('first_name', ['class'=>'add-input w-input', 'data-name'=>'First Name', 'label'=>false]);?>
+            <?= $this->Form->input('first_name', ['class'=>'add-input w-input', 'data-name'=>'First Name', 'label'=>false, 
+		'placeholder'=>'Enter First Name']);?>
             <label class="add-field-h3" for="Last-Name">Last Name:</label>
-            <?= $this->Form->input('last_name', ['class'=>'add-input w-input', 'data-name'=>'Last Name', 'label'=>false]);?>
+            <?= $this->Form->input('last_name', ['class'=>'add-input w-input', 'data-name'=>'Last Name', 'label'=>false, 
+		'placeholder'=>'Enter Last Name']);?>
             <label class="add-field-h3" for="E-mail">E-mail:</label>
-			<?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false]);?>            
+			<?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false, 
+		'placeholder'=>'Enter Valid Email']);?>            
 			<label class="add-field-h2" for="First-Name">Contact Information</label>
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="Address">Address:</label>
-			<?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false]);?>
+			<?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
+		'placeholder'=>'Address']);?>
             <label class="add-field-h3" for="Phone">Phone:</label>
-            <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false]);?>
+            <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
+		'placeholder'=>'Enter Phone Number']);?>
             <label class="add-field-h3" for="Notes">Notes:</label>
-            <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'notes', 'label'=>false]);?>
+            <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'notes', 'label'=>false, 
+		'placeholder'=>'Comments/Concerns']);?>
 			<?= $this->Form->submit("Add Adopter",['id'=>'AdopterAdd'])?>
           </form>
           <div class="w-form-done">
