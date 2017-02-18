@@ -19,7 +19,7 @@ class LittersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['KcReves']
+            'contain' => []
         ];
         $litters = $this->paginate($this->Litters);
 
@@ -37,7 +37,7 @@ class LittersController extends AppController
     public function view($id = null)
     {
         $litter = $this->Litters->get($id, [
-            'contain' => ['KcReves', 'Cats']
+            'contain' => ['Cats']
         ]);
 
         $this->set('litter', $litter);
@@ -61,8 +61,7 @@ class LittersController extends AppController
             }
             $this->Flash->error(__('The litter could not be saved. Please, try again.'));
         }
-        $kcReves = $this->Litters->KcReves->find('list', ['limit' => 200]);
-        $this->set(compact('litter', 'kcReves'));
+        $this->set(compact('litter'));
         $this->set('_serialize', ['litter']);
     }
 
@@ -87,8 +86,7 @@ class LittersController extends AppController
             }
             $this->Flash->error(__('The litter could not be saved. Please, try again.'));
         }
-        $kcReves = $this->Litters->KcReves->find('list', ['limit' => 200]);
-        $this->set(compact('litter', 'kcReves'));
+        $this->set(compact('litter'));
         $this->set('_serialize', ['litter']);
     }
 
