@@ -94,7 +94,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body class="page">
     <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="/img/settings.png" srcset="/img/settings-p-500x500.png 500w, /img/settings.png 512w" width="32">
+    <?php $srcset = $this->Url->image("settings-p-500x500.png").' 500w, '.$this->Url->image("settings.png").', 512w'; ?>
+    <div class="navbar w-container"><?= $this->Html->image("settings.png", ["class"=>"navbar-settings", "width"=>"32", "sizes"=>"(max-width: 991px) 100vw, 30px", "srcset"=>$srcset]); ?>
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
         <form data-name="Email Form" id="email-form" name="email-form">
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
@@ -110,7 +111,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="navbar-hamburger-text"></div>
       </div>
       <div class="navbar-search-icon" data-ix="search-mobile">#</div>
-      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="/img/paws-logo-blue-diamond.png">
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><?= $this->Html->image('paws-logo-blue-diamond.png', ['class'=>'brand']); ?>
       </a>
       <nav class="navbar-menu w-nav-menu" role="navigation">
         <?= $this->Html->link('Home', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
