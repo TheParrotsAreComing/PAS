@@ -336,13 +336,13 @@
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-  -webkit-align-content: stretch;
-  -ms-flex-line-pack: stretch;
-  align-content: stretch;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
 }
 
 .list.scroll1 {
@@ -684,7 +684,7 @@
   align-items: flex-start;
 }
 
-.navbar-search-icon {
+.navbar-search-icon-mobile {
   position: relative;
   left: 42px;
   display: inline-block;
@@ -1059,6 +1059,10 @@
   align-self: center;
   border-radius: 5px;
   background-color: #dfe1e1;
+}
+
+.button-cont {
+  display: none;
 }
 
 .cat-profile-text-header {
@@ -1455,6 +1459,8 @@
   padding-bottom: 4px;
   border: 1px solid #e6e6e6;
   border-radius: 3px;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
   font-size: 13px;
 }
 
@@ -1463,6 +1469,15 @@
   margin-bottom: 0px;
   padding-left: 20px;
   color: #333;
+}
+
+.add-input.multi-line {
+  height: 40px;
+  padding-top: 10px;
+}
+
+.add-input.multi-line:focus {
+  height: 100px;
 }
 
 .add-input-form-wrap {
@@ -1806,6 +1821,17 @@
   font-weight: 600;
 }
 
+.navbar-search-icon-desktop {
+  position: relative;
+  left: 42px;
+  margin-top: 20px;
+  margin-right: 5px;
+  float: right;
+  font-family: 'Linea basic 10', sans-serif;
+  color: #9f9c99;
+  font-size: 24px;
+}
+
 html.w-mod-js *[data-ix="page-load-fade-in"] {
   opacity: 0;
 }
@@ -1868,7 +1894,7 @@ html.w-mod-js *[data-ix="page-load-slide-right"] {
   .navbar-hamburger {
     float: left;
   }
-  .navbar-search-icon {
+  .navbar-search-icon-mobile {
     margin-top: 0px;
     -webkit-box-ordinal-group: 1;
     -webkit-order: 0;
@@ -2127,7 +2153,7 @@ html.w-mod-js *[data-ix="page-load-slide-right"] {
   .navbar-hamburger.login-screen {
     position: absolute;
   }
-  .navbar-search-icon {
+  .navbar-search-icon-mobile {
     position: static;
     display: -webkit-box;
     display: -webkit-flex;
