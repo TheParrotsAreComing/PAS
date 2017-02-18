@@ -28,7 +28,7 @@ class FostersController extends AppController
         $foster_cats = [];
         foreach ($fosters as $foster) {
             $foster_cats[$foster['id']] = [];
-            $cats = $cat_history_db->find('all', ['conditions'=>['foster_id'=>$foster['id']]])->toArray();
+            $cats = $cat_history_db->find('all', ['conditions'=>['foster_id'=>$foster['id'], 'end_date IS NULL']])->toArray();
             foreach ($cats as $i => $cat) {
                 $foster_cats[$foster['id']][$i] = $cat_db->find('all', ['conditions'=>['id'=>$cat['cat_id']]])->first();
             }

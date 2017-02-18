@@ -166,9 +166,15 @@
                         </div>
                       </div>
                     </a>
-                    <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-                      Test test test<div class="dropdown-icon"></div>
-                    </a>
+                    <?php if (empty($foster_cats[$foster['id']])): ?>
+                      <a class="dropdown-cont w-inline-block">
+                        This foster doesn't currently have any cats!
+                      </a>
+                    <?php else:?>
+                      <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                        Click to see foster's current cats<div class="dropdown-icon"></div>
+                      </a>
+                    <?php endif; ?>
                     <div class="dropdown-results-cont">
                       <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
                         <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
@@ -180,9 +186,6 @@
                 </div>
               </div>
             <?php endforeach; ?>
-        </div>
-        <div class="w-dyn-empty">
-          <div>No items found.</div>
         </div>
       </div>
     </div>
