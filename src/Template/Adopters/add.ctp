@@ -30,7 +30,10 @@
             <label class="add-field-h3" for="Notes">Notes:</label>
             <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'notes', 'label'=>false, 
 		'placeholder'=>'Comments/Concerns']);?>
-			<?= $this->Form->submit("Add Adopter",['id'=>'AdopterAdd'])?>
+    <div class="add-button-cont">
+      <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'index'], ['id'=>'AdopterCancel', 'class'=>'add-cancel w-button']); ?>
+			<?= $this->Form->submit("Submit",['id'=>'AdopterAdd', 'class'=>'add-submit w-button']); ?>
+    </div>
           </form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
