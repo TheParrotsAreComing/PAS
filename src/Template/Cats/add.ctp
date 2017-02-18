@@ -1,4 +1,3 @@
-<?= $this->Form->create($cat) ?>
   <div class="body">
     <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -10,14 +9,11 @@
           <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
             <label class="add-field-h2" for="First-Name">personal information</label>
             <div class="add-field-seperator"></div>
-            <!--<label class="add-field-h3" for="cat_name-2">name:</label>
-            <input autofocus="autofocus" class="add-input w-input" data-name="cat_name" id="cat_name-2" maxlength="256" name="cat_name" placeholder="Bella" required="required" type="text">-->
-            <?php echo $this->Form->input('cat_name', ['class' => 'add-input w-input'], 
-            ['label' => ['text' => 'Cat Name', 'class' => 'add-field-h3']]); ?>
-            <!--<label class="add-field-h3" for="Month">Date of birth:</label>-->
+            <label class="add-field-h3" for="cat_name-2">name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="cat_name" id="cat_name-2" maxlength="256" name="cat_name" placeholder="Bella" required="required" type="text">
+            <label class="add-field-h3" for="Month">Date of birth:</label>
             <div class="date-cont">
-            <?php echo $this->Form->input('dob', ['label' => ['text' => 'Date of Birth:', 'class' => 'add-field-h3'], ['class' => 'date-month w-select']]); ?>
-            <!--  <select class="date-month w-select" data-name="month" id="month-2" name="month">
+              <select class="date-month w-select" data-name="month" id="month-2" name="month">
                 <option value="">Month</option>
                 <option value="01">01 - January</option>
                 <option value="02">02 - February</option>
@@ -76,17 +72,15 @@
                 <option value="2015">2015</option>
                 <option value="2016">2016</option>
                 <option value="2017">2017</option>
-              </select>-->
+              </select>
             </div>
-            <label class="add-field-h3" for="breed-2">Breed/Color/Coat:</label>
-            <!--<input autofocus="autofocus" class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" required="required" type="text">
+            <label class="add-field-h3" for="breed-2">Breed:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" required="required" type="text">
             <label class="add-field-h3" for="color">color:</label>
             <input autofocus="autofocus" class="add-input w-input" data-name="color" id="color" maxlength="256" name="color" placeholder="Brown" required="required" type="text">
             <label class="add-field-h3" for="coat-2">coat:</label>
             <input autofocus="autofocus" class="add-input w-input" data-name="coat" id="coat-2" maxlength="256" name="coat" placeholder="Short" required="required" type="text">
-            -->
-            <?php echo $this->Form->input('breed', ['class' => 'add-input w-input', 'label' => false]); ?>
-            <!--<label class="add-field-h3" for="field">size:</label>
+            <label class="add-field-h3" for="field">size:</label>
             <div class="w-tabs" data-duration-in="300" data-duration-out="100">
               <div class="size-cont w-tab-menu">
                 <a class="left size-select w-inline-block w-tab-link" data-w-tab="small">
@@ -99,52 +93,52 @@
                   <div>large</div>
                 </a>
               </div>
-            </div>-->
+            </div>
             <label class="add-field-h3" for="E-mail">gender:</label>
             <div class="gender-cont">
               <div class="gender-switch w-embed" data-ix="gender-switch">
                 <style>
                   /* ---------- SWITCH ---------- */
                   .switch {
-                    background: #eee;
-                    border-radius: 32px;
-                    display: block;
-                    height: 32px;
-                    position: relative;
-                    width: 80px;
+                  	background: #eee;
+                  	border-radius: 32px;
+                  	display: block;
+                  	height: 32px;
+                  	position: relative;
+                  	width: 80px;
                   }
                   .switch input {
-                    height: 32px;
-                    left: 0;
-                    opacity: 0;
-                    position: absolute;
-                    top: 0;
-                    width: 80px;
-                    z-index: 2;
+                  	height: 32px;
+                  	left: 0;
+                  	opacity: 0;
+                  	position: absolute;
+                  	top: 0;
+                  	width: 80px;
+                  	z-index: 2;
                   }
                   .switch input:checked~.toggle {
-                    left: 4px;
+                  	left: 4px;
                   }
                   .switch input~:checked~.toggle {
-                    left: 50px;
+                  	left: 50px;
                   }
                   .switch input:checked {
-                    z-index: 0;
+                  	z-index: 0;
                   }
                   .toggle {
                     background: #0172ff;
-                    border-radius: 50%;
-                    height: 28px;
-                    left: 0;
-                    position: absolute;
-                    top: 2px;
-                    -webkit-transition: left .2s ease;
-                    -moz-transition: left .2s ease;
-                    -ms-transition: left .2s ease;
-                    -o-transition: left .2s ease;
-                    transition: left .2s ease;
-                    width: 28px;
-                    z-index: 1;
+                  	border-radius: 50%;
+                  	height: 28px;
+                  	left: 0;
+                  	position: absolute;
+                  	top: 2px;
+                  	-webkit-transition: left .2s ease;
+                  	-moz-transition: left .2s ease;
+                  	-ms-transition: left .2s ease;
+                  	-o-transition: left .2s ease;
+                  	transition: left .2s ease;
+                  	width: 28px;
+                  	z-index: 1;
                   }
                 </style>
                 <div class="switch white">
@@ -162,45 +156,45 @@
                 <style>
                   /* ---------- SWITCH ---------- */
                   .switch-kitten {
-                    background: #eee;
-                    border-radius: 32px;
-                    display: block;
-                    height: 32px;
-                    position: relative;
-                    width: 80px;
+                  	background: #eee;
+                  	border-radius: 32px;
+                  	display: block;
+                  	height: 32px;
+                  	position: relative;
+                  	width: 80px;
                   }
                   .switch-kitten input {
-                    height: 32px;
-                    left: 0;
-                    opacity: 0;
-                    position: absolute;
-                    top: 0;
-                    width: 80px;
-                    z-index: 2;
+                  	height: 32px;
+                  	left: 0;
+                  	opacity: 0;
+                  	position: absolute;
+                  	top: 0;
+                  	width: 80px;
+                  	z-index: 2;
                   }
                   .switch-kitten input:checked~.toggle {
-                    left: 4px;
+                  	left: 4px;
                   }
                   .switch-kitten input~:checked~.toggle {
-                    left: 50px;
+                  	left: 50px;
                   }
                   .switch-kitten input:checked {
-                    z-index: 0;
+                  	z-index: 0;
                   }
                   .toggle {
                     background: #0172ff;
-                    border-radius: 50%;
-                    height: 28px;
-                    left: 0;
-                    position: absolute;
-                    top: 2px;
-                    -webkit-transition: left .2s ease;
-                    -moz-transition: left .2s ease;
-                    -ms-transition: left .2s ease;
-                    -o-transition: left .2s ease;
-                    transition: left .2s ease;
-                    width: 28px;
-                    z-index: 1;
+                  	border-radius: 50%;
+                  	height: 28px;
+                  	left: 0;
+                  	position: absolute;
+                  	top: 2px;
+                  	-webkit-transition: left .2s ease;
+                  	-moz-transition: left .2s ease;
+                  	-ms-transition: left .2s ease;
+                  	-o-transition: left .2s ease;
+                  	transition: left .2s ease;
+                  	width: 28px;
+                  	z-index: 1;
                   }
                 </style>
                 <div class="switch white">
@@ -238,6 +232,4 @@
         </div>
       </div>
     </div>
-  </div>   
-<?= $this->Form->button(__('Submit')) ?>
-<?= $this->Form->end() ?>
+  </div>
