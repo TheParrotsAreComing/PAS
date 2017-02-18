@@ -152,16 +152,26 @@
                 <div class="id-text"><?= $cat->id ?></div>
               </div>
             </a>
-            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              <div class="dropdown-icon"></div>
-            </a>
-            <div class="dropdown-results-cont">
-				<?php foreach($cat->litter->cats as $mate) : ?>
-				  <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-					<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
-				  </a>
-				<?php endforeach; ?>
-            </div>
+            <?php if($cat->litter_id > 0): ?>
+              <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                <div class="dropdown-icon"></div>
+              </a>
+              <div class="dropdown-results-cont">
+				        <?php foreach($cat->litter->cats as $mate) : ?>
+  				        <?php if($mate->id != $cat->id): ?>
+                    <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+  					          <div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
+  				          </a>
+                  <?php endif; ?>
+				        <?php endforeach; ?>
+              </div>
+            <?php else: ?>
+              <div class="dropdown-cont dropdown-text">
+                <?php if($cat->is_kitten): ?>Kitten has no siblings.
+                <?php else: ?> Cat has no kittens.
+                <?php endif; ?>
+              </div>
+            <?php endif; ?>
           </div>
 		<?php endforeach; ?>
         </div>
