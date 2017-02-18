@@ -194,48 +194,7 @@
     </div>
   </div>
   <div class="floating-overlay"></div>
-  <div class="add-cont">
-    <div class="add-header"><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
-      <div class="add-header-info">
-        <div class="add-field-h3">
-          <div class="card-h3">Name:</div>
-          <div class="card-filler"></div>
-        </div>
-        <div class="add-field-h3">
-          <div class="card-h3">DOB:</div>
-          <div class="date-filler"></div>
-        </div>
-      </div>
-    </div>
-    <div class="card-field-wrap">
-      <div class="card-field-cont">
-        <div class="card-field-cont left-justify">
-          <div class="card-h3">DOB:</div>
-          <div class="card-filler"></div>
-        </div>
-        <div class="card-field-cont right-justify">
-          <div class="card-h3">Age:</div>
-          <div class="card-filler"></div>
-        </div>
-      </div>
-      <div class="card-field-cont">
-        <div class="card-field-cont left-justify">
-          <div class="card-h3">Breed:</div>
-          <div class="card-filler long"></div>
-        </div>
-      </div>
-      <div class="card-field-cont">
-        <div class="card-field-cont left-justify">
-          <div class="card-h3">Color:</div>
-          <div class="card-filler medium"></div>
-        </div>
-        <div class="card-field-cont right-justify">
-          <div class="card-h3">Coat:</div>
-          <div class="card-filler medium"></div>
-        </div>
-      </div>
-    </div>
-  </div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
+  <img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
     <a class="button-01 w-inline-block" href="cat-add.html">
       <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
