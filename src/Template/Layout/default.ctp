@@ -128,9 +128,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
-	<?= $this->fetch('content') ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <?= $this->Html->script('webflow.js'); ?>
+  <?= $this->fetch('content') ?>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>

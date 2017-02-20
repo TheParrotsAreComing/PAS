@@ -1,4 +1,5 @@
-
+<?= $this->Html->script('moment.js'); ?>
+<?= $this->Html->script('cats.js'); ?>
   <div class="body w-clearfix">
     <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
@@ -133,11 +134,11 @@
                 <div class="card-field-cont">
                   <div class="card-field-cont">
                     <div class="card-h3">DOB:</div>
-                    <div class="card-field-text"><?= $cat->dob ?></div>
+                    <div class="card-field-text cat-dob"><?= $cat->dob ?></div>
                   </div>
                   <div class="card-field-cont">
                     <div class="card-h3">Age:</div>
-                    <div class="card-field-text"></div>
+                    <div class="card-field-text cat-age"></div>
                   </div>
                 </div>
                 <div class="card-field-cont">
