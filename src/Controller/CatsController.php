@@ -54,9 +54,31 @@ class CatsController extends AppController
     {
         $cat = $this->Cats->newEntity();
         if ($this->request->is('post')) {
-            debug ($this->request->data);
-            die;
+
+            //Extract and put together birthdate into db format
+            $dob =  $this->request->data['dob']['year'];
+            $month = $this->request->data['dob']['month'];
+            $day = $this->request->data['dob']['day'];
+            $dob .= '-'.$month.'-'.$day;
+            $this->request->data['dob'] = $dob;
+
+            //Extract and put together microchipped date into db format
+            $mdate =  $this->request->data['microchiped_date']['year'];
+            $mmonth = $this->request->data['microchiped_date']['month'];
+            $mday = $this->request->data['microchiped_date']['day'];
+            $mdate .= '-'.$mmonth.'-'.$mday;
+            $this->request->data['microchiped_date'] = $mdate;
+
+            //Initially creation, not deleted 
+            $this->request->data['is_deleted'] = 0;
+
+            //Converting values to boolean
+            $this->request->data['is_kitten'] = (bool) $this->request->data['is_kitten'];
+            $this->request->data['is_female'] = (bool) $this->request->data['is_female'];
+
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
+
+            debug($cat); 
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
 
