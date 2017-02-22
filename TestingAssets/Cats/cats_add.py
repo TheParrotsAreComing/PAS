@@ -15,7 +15,7 @@ elem = driver.find_element_by_id("cat-name");
 elem.send_keys("Roger");
 
 #Breed/Color/Coat
-elem = driver.find_element_by_id("breed");
+elem = driver.find_element_by_id("breed-color-coat");
 elem.send_keys("mixed");
 
 #Microchip
@@ -27,12 +27,12 @@ elem = driver.find_element_by_id("adoption-fee");
 elem.send_keys("100");
 
 #State
-elem = driver.find_element_by_id("State");
-elem.send_keys("California");
+elem = driver.find_element_by_id("medical-notes");
+elem.send_keys("He has no legs.");
 
 #Phone
-elem = driver.find_element_by_id("Phone");
-elem.send_keys("9160000000");
+elem = driver.find_element_by_id("caretaker-notes");
+elem.send_keys("This cat is so good. He's the best cat you've ever met. Trust me I know, I'm the smartest person you'll ever meet.");
 
 #Submit
 elem = driver.find_element_by_id("FosterAdd");

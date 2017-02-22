@@ -20,7 +20,7 @@ elem.send_keys("Dodger");
 
 #Email
 elem = driver.find_element_by_id("email");
-elem.send_keys("droid1@the.empire");
+elem.send_keys("droid1@the.empires");
 
 #Address
 elem = driver.find_element_by_id("address");

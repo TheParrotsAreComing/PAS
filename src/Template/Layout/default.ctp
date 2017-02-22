@@ -27,6 +27,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->css('normalize.css'); ?>
   <?= $this->Html->css('webflow.css'); ?>
   <?= $this->Html->css('paws-administrative-system.webflow.css'); ?>
+  <?= $this->Html->css('override.css'); ?>
   <?= $this->Html->script('modernizr.js'); ?>
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
@@ -114,10 +115,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <div class="navbar-search-icon-desktop w-hidden-tiny">#</div>
       <div class="navbar-search-icon-mobile w-hidden-main w-hidden-medium" data-ix="search-mobile">#</div>
 
-      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><?= $this->Html->image('paws-logo-blue-diamond.png', ['class'=>'brand']); ?>
+      <a class="brand-cont w-clearfix w-inline-block" href="/"><?= $this->Html->image('paws-logo-blue-diamond.png', ['class'=>'brand']); ?>
       </a>
       <nav class="navbar-menu w-nav-menu" role="navigation">
-        <?= $this->Html->link('Home', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Home', ['controller'=>'pages', 'action'=>'display','home'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Cats', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Litters', ['controller'=>'litters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
