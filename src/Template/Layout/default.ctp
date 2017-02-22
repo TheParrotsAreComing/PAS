@@ -27,8 +27,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->css('normalize.css'); ?>
   <?= $this->Html->css('webflow.css'); ?>
   <?= $this->Html->css('paws-administrative-system.webflow.css'); ?>
-  <?= $this->Html->css('override.css'); ?>
   <?= $this->Html->script('modernizr.js'); ?>
+  <?= $this->Html->css('paws-custom.css'); ?>
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
   <style>

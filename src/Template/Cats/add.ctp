@@ -10,15 +10,27 @@
                     <form class="add-input-form">
                         <label class="add-field-h2" for="First-Name">personal information</label>
                         <div class="add-field-seperator"></div>
-                        <?php echo $this->Form->input('cat_name', array('label' => ['text' => 'Cat Name:', 'class' => 'add-field-h3'], 'class' => 'add-input w-input', 'placeholder' => 'Bella')); ?>
-                        <label class="add-field-h3">Date of birth:</label>
+                        <?php echo $this->Form->input('cat_name', 
+                            array('label' => 
+                                ['text' => 'Cat Name<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'placeholder' => 'Bella')); ?>
+                        <label class="add-field-h3">Date of birth<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
                             <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
                             <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div>
-                        <?php echo $this->Form->input('breed', array('label' => ['text' => 'Breed/Color/Coat:', 'class' => 'add-field-h3'], 'class' => 'add-input w-input', 'placeholder' => 'Siamese Brown Shorthair')); ?>
-                        <label class="add-field-h3" for="E-mail">gender:</label>
+                        <?php echo $this->Form->input('breed', 
+                            array('label' => 
+                                ['text' => 'Breed/Color/Coat<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'placeholder' => 'Siamese Brown Shorthair')); ?>
+                        <label class="add-field-h3" for="E-mail">gender<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
                             <div class="gender-switch w-embed" data-ix="gender-switch">
                                 <style>
@@ -75,7 +87,7 @@
                             <div class="gender-female">male</div>
                             <div class="gender-male">female</div>
                         </div>
-                        <label class="add-field-h3" for="E-mail">kitten:</label>
+                        <label class="add-field-h3" for="E-mail">kitten/adult<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
                             <div class="gender-switch w-embed" data-ix="gender-switch">
                                 <style>
@@ -120,18 +132,42 @@
                         <label class="add-field-h2">care information</label>
                         <div class="add-field-seperator"></div>
                         <div class="w-clearfix">
-                            <?php echo $this->Form->input('adoption_fee_amount', array('label' => ['text' => 'Adoption Fee:', 'class' => 'add-field-h3'], 'class' => 'add-input currency w-input', 'placeholder' => '65.99')); ?>
+                            <?php echo $this->Form->input('adoption_fee_amount', 
+                                array('label' => 
+                                    ['text' => 'Adoption Fee<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                    'class' => 'add-field-h3',
+                                    'escape' => false], 
+                                'class' => 'add-input currency w-input', 
+                                'placeholder' => '65.99')); ?>
                             <div class="symbol-dollar">$</div>
                         </div>
-                        <?php echo $this->Form->input('microchip_number', array('type' => 'text', 'label' => ['text' => 'Microchip #:', 'class' => 'add-field-h3'], 'class' => 'add-input w-input', 'placeholder' => '0123456789')); ?>
-                        <label class="add-field-h3">Microchip Date:</label>
+                        <?php echo $this->Form->input('microchip_number', 
+                            array('type' => 'text', 'label' => 
+                                ['text' => 'Microchip #<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'placeholder' => '0123456789')); ?>
+                        <label class="add-field-h3">Microchip Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
                             <?php echo $this->Form->month('microchiped_date', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
                             <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div>
-                        <?php echo $this->Form->input('medical_notes', array('type' => 'textarea', 'label' => ['text' => 'Medical Notes:', 'class' => 'add-field-h3'], 'class' => 'add-input multi-line w-input', 'placeholder' => 'Type medical notes for this cat...')); ?>
-                        <?php echo $this->Form->input('caretaker_notes', array('type' => 'textarea', 'label' => ['text' => 'Caretaker Notes:', 'class' => 'add-field-h3'], 'class' => 'add-input multi-line w-input', 'placeholder' => 'Type caretaker notes for this cat...')); ?> 
+                        <?php echo $this->Form->input('medical_notes', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Medical Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type medical notes for this cat...')); ?>
+                        <?php echo $this->Form->input('caretaker_notes', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Caretaker Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type caretaker notes for this cat...')); ?> 
                         <div class="add-button-cont">
                        <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
                        <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
