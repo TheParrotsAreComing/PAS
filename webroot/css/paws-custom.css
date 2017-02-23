@@ -29,6 +29,16 @@
     bottom: 99px;
 }
 
+/* generic switch */
+.switch {
+    background: #eee;
+    border-radius: 32px;
+    display: block;
+    height: 32px;
+    position: relative;
+    width: 80px;
+}
+
 .switch input {
     height: 32px;
     left: 0;
@@ -76,6 +86,14 @@
     color: #ff0000;
 }
 
-.dna-card {
+/*.dna-card-big {
     background: #ffb3b3;
+}*/
+
+.dna-card-small {
+    background: #ff8080;
+}
+
+.dna-reason {
+    display: none;
 }

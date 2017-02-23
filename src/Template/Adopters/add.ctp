@@ -1,3 +1,5 @@
+<?= $this->Html->script('adopters.js'); ?>
+
   <div class="body">
     <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -19,6 +21,11 @@
             </div>
             <div class="gender-male adopt-yes">OK to Adopt</div>
             <div class="gender-female adopt-no">DO NOT ADOPT!</div>
+
+            <div class="dna-reason">
+              <label class="add-field-h3" for "dna_reason">Reason to not adopt</label>
+              <?= $this->Form->input('dna_reason', ['class'=>'add-input w-input', 'data-name'=>'DNA Reason', 'label'=>false, 'type'=>'textarea']); ?>
+            </div>
 
             <label class="add-field-h2" for="First-Name">Personal Information</label>
             <div class="add-field-seperator"></div>
