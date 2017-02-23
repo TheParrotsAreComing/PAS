@@ -31,13 +31,12 @@
             <label class="add-field-h3" for="Experience">Experience<span class="required-field-indicator"><span class="pre"></span></span>:</label>
 			<?= $this->Form->input('exp', ['class'=>'add-input w-input', 'data-name'=>'Experience', 'label'=>false, 
 		'placeholder'=>'Describe Foster Experience', 'type'=>'textarea']);?>
-            <label class="add-field-h3" for="Pets">Pets<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-			<?= $this->Form->input('pets', ['class'=>'add-input w-input', 'data-name'=>'Pets', 'label'=>false, 'options'=>['No','Yes']]);?>
-			<label class="add-field-h3" for="Kids">Kids<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-			<?= $this->Form->input('kids', ['class'=>'add-input w-input', 'data-name'=>'Kids', 'label'=>false, 'options'=>['No','Yes']]);?>
 			<label class="add-field-h3" for="Availability">Availability<span class="required-field-indicator"><span class="pre"></span></span>:</label>
 			<?= $this->Form->input('avail', ['class'=>'add-input w-input', 'data-name'=>'Availability', 'label'=>false, 'type'=>'textarea', 
 		'placeholder'=>'Enter Possible Availability to Foster']);?>
+			<label class="add-field-h3" for="Rating">Rating<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+			<?= $this->Form->input('rating', ['class'=>'add-input w-input', 'data-name'=>'Rating', 'label'=>false, 
+		'placeholder'=>'Enter Rating', 'options'=>array_combine(range(1,5), range(1,5))]);?>
 			<label class="add-field-h3" for="Notes">Notes<span class="required-field-indicator"><span class="pre"></span></span>:</label>
 			<?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false, 
 		'placeholder'=>'Comments/Concerns']);?>

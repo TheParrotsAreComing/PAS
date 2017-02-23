@@ -142,14 +142,13 @@
                   <a class="card w-clearfix w-inline-block"><?= $this->Html->image('cat-profile-foster-01.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
                   <div class="card-h1"><?= $foster['first_name'].' '.$foster['last_name']; ?></div>
                     <div>
+                      <div class="card-h2">Rating:</div>
+                      <div class="card-h2"><?= $foster['rating']; ?></div>
+					  <?php echo str_repeat("&nbsp;", 10); ?>
                       <div class="card-h2">Availability:</div>
                       <div class="card-h2"><?= $foster['avail']; ?></div>
                     </div>
                     <div class="card-field-wrap">
-                      <div class="card-field-cont left-justify">
-                        <div class="card-h3">Address:</div>
-                        <div class="catlist-field-content"><?= $foster['address']; ?></div>
-                      </div>
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">Phone:</div>
                         <div class="catlist-field-content"><?= $foster['phone']; ?></div>
@@ -157,6 +156,10 @@
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">E-mail:</div>
                         <div class="catlist-field-content"><?= $foster['email']; ?></div>
+                      </div>
+                      <div class="card-field-cont left-justify">
+                        <div class="card-h3">Address:</div>
+                        <div class="catlist-field-content"><?= $foster['address']; ?></div>
                       </div>
                     </div>
                   </a>
