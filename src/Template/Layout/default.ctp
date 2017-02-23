@@ -40,7 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       margin: 0 10px;
     }
     .scroll1::-webkit-scrollbar {
-      width: 5px;
+      width: 10px;
     }
     .scroll1::-webkit-scrollbar-track {
       background: #fff;
