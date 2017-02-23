@@ -28,18 +28,15 @@
             <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
 			<?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
 		'placeholder'=>'Enter Phone Number']);?>
-            <label class="add-field-h3" for="Experience">Experience<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-			<?= $this->Form->input('exp', ['class'=>'add-input w-input', 'data-name'=>'Experience', 'label'=>false, 
-		'placeholder'=>'Describe Foster Experience', 'type'=>'textarea']);?>
-			<label class="add-field-h3" for="Availability">Availability<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-			<?= $this->Form->input('avail', ['class'=>'add-input w-input', 'data-name'=>'Availability', 'label'=>false, 'type'=>'textarea', 
-		'placeholder'=>'Enter Possible Availability to Foster']);?>
+            <?= $this->Form->input('exp', array('type' => 'textarea', 'label' =>['text' => 'Experience<span class="required-field-indicator"><span class="pre"></span></span>:', 
+        'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Enter any experience fostering')); ?>
+			<?= $this->Form->input('avail', array('type' => 'textarea', 'label' =>['text' => 'Availability<span class="required-field-indicator"><span class="pre"></span></span>:', 
+        'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Enter availability to foster')); ?>
 			<label class="add-field-h3" for="Rating">Rating<span class="required-field-indicator"><span class="pre"></span></span>:</label>
 			<?= $this->Form->input('rating', ['class'=>'add-input w-input', 'data-name'=>'Rating', 'label'=>false, 
 		'placeholder'=>'Enter Rating', 'options'=>array_combine(range(1,5), range(1,5))]);?>
-			<label class="add-field-h3" for="Notes">Notes<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-			<?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false, 
-		'placeholder'=>'Comments/Concerns']);?>
+			<?= $this->Form->input('notes', array('type' => 'textarea', 'label' =>['text' => 'Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+        'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Comments/Concerns')); ?>
 			<div class="add-button-cont">
 				<?= $this->Html->link('Cancel', ['controller'=>'fosters','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'FosterCancel']); ?>
 				<?= $this->Form->submit("Submit", ['class'=>'add-submit w-button','id'=>'FosterAdd'])?>

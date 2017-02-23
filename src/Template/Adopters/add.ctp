@@ -46,9 +46,8 @@
             <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
             <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
 		'placeholder'=>'Enter Phone Number']);?>
-            <label class="add-field-h3" for="Notes">Notes<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-            <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'notes', 'label'=>false, 
-		'placeholder'=>'Comments/Concerns']);?>
+            <?= $this->Form->input('notes', array('type' => 'textarea', 'label' =>['text' => 'Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+        'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Comments/Concerns')); ?>
     <div class="add-button-cont">
       <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'index'], ['id'=>'AdopterCancel', 'class'=>'add-cancel w-button']); ?>
 			<?= $this->Form->submit("Submit",['id'=>'AdopterAdd', 'class'=>'add-submit w-button']); ?>
