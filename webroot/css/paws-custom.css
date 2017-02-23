@@ -17,3 +17,63 @@
 .required-field-indicator span.pre:after {
 	content: '*';
 }
+
+/* default switch */
+.switch {
+    background: #eee;
+    border-radius: 32px;
+    display: block;
+    height: 32px;
+    position: relative;
+    width: 80px;
+}
+.switch input {
+    height: 32px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 80px;
+    z-index: 2;
+}
+.switch input:checked~.toggle {
+    left: 4px;
+}
+.switch input~:checked~.toggle {
+    left: 50px;
+}
+.switch input:checked {
+    z-index: 0;
+}
+.toggle {
+    background: #0172ff;
+    border-radius: 50%;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    -webkit-transition: left .2s ease;
+    -moz-transition: left .2s ease;
+    -ms-transition: left .2s ease;
+    -o-transition: left .2s ease;
+    transition: left .2s ease;
+    width: 28px;
+    z-index: 1;
+}
+
+/* Adopter DO NOT ADOPT switch */
+.switch-dna input:checked~.toggle {
+    left: 4px;
+    background: #0172ff;
+}
+.switch-dna input~:checked~.toggle {
+    left: 50px;
+    background: #ff0000;
+}
+.adopt-no {
+    color: #ff0000;
+}
+
+.dna-card {
+    background: #ffb3b3;
+}

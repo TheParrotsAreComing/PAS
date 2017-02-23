@@ -121,7 +121,7 @@
       <div class="list w-dyn-items">
       <?php foreach($adopters as $adopter) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
-          <a class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-profile-adopter-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
+          <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card" : ""; ?> w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-profile-adopter-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
             <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
             <div><!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
@@ -145,11 +145,11 @@
           </a>
           <?php if (empty($adopter_cats[$adopter['id']])): ?>
             <a class="dropdown-cont w-inline-block">
-              This person has not adopted any cats... yet!
+              <?= ($adopter['do_not_adopt']) ? 'DO NOT ADOPT TO THIS PERSON!' : 'This person has not adopted any cats... yet!'; ?>
             </a>
           <?php else: ?>
             <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              Click to see adopted cats<div class="dropdown-icon"></div>
+              <?= ($adopter['do_not_adopt']) ? 'DO NOT ADOPT MORE CATS TO THIS PERSON!<div class="dropdown-icon"></div>' : 'Click to see adopted cats<div class="dropdown-icon"></div>'; ?>
             </a>
           <?php endif; ?>
           <div class="dropdown-results-cont">

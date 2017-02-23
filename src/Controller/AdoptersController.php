@@ -65,8 +65,8 @@ class AdoptersController extends AppController
         if ($this->request->is('post')) {
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             $adopter['is_deleted'] = 0;
-			$adopter['cat_count'] = 0;
-			if ($this->Adopters->save($adopter)) {
+            $adopter['cat_count'] = 0;
+            if ($this->Adopters->save($adopter)) {
                 $this->Flash->success(__('The adopter has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
