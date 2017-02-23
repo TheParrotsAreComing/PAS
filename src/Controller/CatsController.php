@@ -78,13 +78,12 @@ class CatsController extends AppController
 
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
 
-            debug($cat); 
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The cat could not be saved. Please, try again.'));
+                $this->Flash->error(__(json_encode($cat->errors())));
             }
         }
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);

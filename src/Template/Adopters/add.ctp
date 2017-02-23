@@ -1,3 +1,5 @@
+<?= $this->Html->script('adopters.js'); ?>
+
   <div class="body">
     <div class="add-view column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -8,6 +10,23 @@
 		<?= $this->Form->create($adopter);?>
         <div class="add-input-form-wrap w-form">
           <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
+
+            <label class="add-field-h2" for="do_not_adopt">Adopt to this person?</label>
+            <div class="switch switch-dna w-embed" data-ix="gender-switch">
+              <div class="switch switch-dna white">
+                <input value="0" type="radio" name="do_not_adopt" id="adopt" checked>
+                <input value="1" type="radio" name="do_not_adopt" id="do_not_adopt">
+                <span class="toggle"></span>
+              </div>
+            </div>
+            <div class="gender-male adopt-yes">OK to Adopt</div>
+            <div class="gender-female adopt-no">DO NOT ADOPT!</div>
+
+            <div class="dna-reason">
+              <label class="add-field-h3" for "dna_reason">Reason to not adopt</label>
+              <?= $this->Form->input('dna_reason', ['class'=>'add-input w-input', 'data-name'=>'DNA Reason', 'label'=>false, 'type'=>'textarea']); ?>
+            </div>
+
             <label class="add-field-h2" for="First-Name">Personal Information</label>
             <div class="add-field-seperator"></div>
             <label class="add-field-h3" for="First-Name">First Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
