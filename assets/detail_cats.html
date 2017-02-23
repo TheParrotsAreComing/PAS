@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sat Feb 18 2017 22:20:56 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu Feb 23 2017 01:29:38 GMT+0000 (UTC)  -->
 <html data-wf-page="582934cabb1a1e38054b7acc" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -104,34 +104,33 @@
   </div>
   <div class="body">
     <div class="column profile">
-      <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
-      <div class="cat-profile-cont" data-ix="page-load-fade-in">
-        <div class="cat-profile-header w-clearfix"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+      <div class="profile-cont" data-ix="page-load-fade-in">
+        <div class="profile-header w-clearfix"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
             <div class="cat-profile-name"></div>
             <div>
-              <div class="cat-profile-header-text">Kitten</div>
-              <div class="cat-profile-header-text"></div>
+              <div class="profile-header-text">Kitten</div>
+              <div class="profile-header-text"></div>
             </div>
             <div>
-              <div class="cat-profile-header-text">Age:</div>
-              <div class="cat-profile-header-text"></div>
-              <div class="cat-profile-header-text">years</div>
+              <div class="profile-header-text">Age:</div>
+              <div class="profile-header-text"></div>
+              <div class="profile-header-text">years</div>
             </div>
             <div>
-              <div class="cat-profile-header-text">Breed:</div>
-              <div class="cat-profile-header-text"></div>
+              <div class="profile-header-text">Breed:</div>
+              <div class="profile-header-text"></div>
             </div>
           </div>
-          <div class="cat-profile-id-cont">
+          <div class="profile-id-cont">
             <div class="id-text">#</div>
             <div class="id-text"></div>
           </div>
-          <a class="cat-profile-back w-inline-block" href="cat-list.html">
+          <a class="cat-profile-back w-inline-block">
             <div>&lt; Back</div>
           </a>
         </div>
-        <div class="cat-profile-tabs-cont w-tabs">
+        <div class="profile-tabs-cont w-tabs">
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="images/cat-01.png">
             </a>
@@ -147,96 +146,80 @@
             </a>
           </div>
           <div class="cat-profile-tabs-content w-tab-content">
-            <div class="w--tab-active w-tab-pane" data-w-tab="Tab 1">
-              <div class="cat-profile-overview-critical-cont">
-                <div class="cat-profile-overview-alert"><img class="cat-profile-overview-icon" src="images/warning-01.png">
-                  <div class="cat-profile-overview-filler"></div>
+            <div class="w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
+              <div class="profile-notification-cont">
+                <div class="tag-cont warning">
+                  <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
                 </div>
-                <div class="cat-profile-overview-alert"><img class="cat-profile-overview-icon" src="images/error-01.png">
-                  <div class="cat-profile-overview-filler"></div>
+                <div class="info tag-cont">
+                  <div class="tag-text">Playful</div><a class="tag-remove" href="#"></a>
                 </div>
-                <div class="cat-profile-overview-alert"><img class="cat-profile-overview-icon" src="images/success-01.png">
-                  <div class="cat-profile-overview-filler"></div>
+                <div class="info tag-cont">
+                  <div class="tag-text">good with children</div><a class="tag-remove" href="#"></a>
                 </div>
-              </div>
-              <div class="cat-profile-content-cont">
-                <div class="cat-profile-text-header">Personal Information</div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-cont left-justify">
-                    <div class="cat-profile-field-name">DOB:</div>
-                    <div class="cat-profile-field-filler filler-small"></div>
-                  </div>
-                  <div class="cat-profile-field-cont right-justify">
-                    <div class="cat-profile-field-name">Age:</div>
-                    <div class="cat-profile-field-filler filler-small"></div>
-                  </div>
+                <div class="tag-cont urgent">
+                  <div class="tag-text">dislikes dogs</div><a class="tag-remove" href="#"></a>
                 </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-cont left-justify">
-                    <div class="cat-profile-field-name">Gender:</div>
-                    <div class="cat-profile-field-filler filler-small"></div>
-                  </div>
-                  <div class="cat-profile-field-cont left-justify">
-                    <div class="cat-profile-field-name">Color:</div>
-                    <div class="cat-profile-field-filler filler-small"></div>
-                  </div>
+                <div class="tag-cont urgent">
+                  <div class="tag-text">scratches</div><a class="tag-remove" href="#"></a>
                 </div>
-                <div class="cat-profile-field-cont center">
-                  <div class="cat-profile-field-name">Breed:</div>
-                  <div class="cat-profile-field-filler filler-medium"></div>
-                </div>
-                <div class="cat-profile-field-cont center">
-                  <div class="cat-profile-field-name">Coat:</div>
-                  <div class="cat-profile-field-filler filler-medium"></div>
-                </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-cont left-justify">
-                    <div class="cat-profile-field-name">Size:</div>
-                    <div class="cat-profile-field-filler filler-small"></div>
-                  </div>
-                  <div class="cat-profile-field-cont left-justify">
-                    <div class="cat-profile-field-name">Weight:</div>
-                    <div class="cat-profile-field-filler filler-small"></div>
-                  </div>
-                </div>
-                <div class="cat-profile-field-cont center">
-                  <div class="cat-profile-field-name">Location:</div>
-                  <div class="cat-profile-field-filler filler-medium"></div>
+                <div class="success tag-cont">
+                  <div class="tag-text">microchipped</div><a class="tag-remove" href="#"></a>
                 </div>
               </div>
-              <div class="cat-profile-content-cont">
-                <div class="cat-profile-text-header">Additional Information</div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name">Description:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Personal Information</div>
+                <div class="profile-field-cont">
+                  <div class="left-justify profile-field-cont">
+                    <div class="profile-field-name">DOB:</div>
+                    <div class="profile-field-text"></div>
+                  </div>
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Age:</div>
+                    <div class="profile-field-text"></div>
+                    <div class="profile-field-text">months</div>
+                  </div>
                 </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name transparent">Description:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
+                <div class="profile-field-cont">
+                  <div class="left-justify profile-field-cont">
+                    <div class="profile-field-name">Gender:</div>
+                    <div class="profile-field-text"></div>
+                  </div>
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Breed:</div>
+                    <div class="profile-field-text"></div>
+                  </div>
                 </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name transparent">Description:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
+                <div class="profile-field-cont">
+                  <div class="left-justify profile-field-cont">
+                    <div class="profile-field-name">Coat:</div>
+                    <div class="profile-field-text">Shorthair</div>
+                  </div>
+                  <div class="profile-field-cont right-justify">
+                    <div class="profile-field-name">Color:</div>
+                    <div class="profile-field-text"></div>
+                  </div>
                 </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name">Current Diet:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
+              </div>
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Additional Information</div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Biography:</div>
+                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                  </div>
                 </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name">Known Issues:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Current Diet:</div>
+                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                  </div>
                 </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name">Special Needs:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
-                </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name">Attributes:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
-                </div>
-                <div class="cat-profile-field-cont">
-                  <div class="cat-profile-field-name">Bonded:</div>
-                  <div class="cat-profile-field-filler filler-desc filler-large"></div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Specialty Notes:</div>
+                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -260,9 +243,9 @@
   </div>
   <div class="floating-overlay"></div>
   <div class="button-cont">
-    <div class="button-01">
+    <a class="button-01 w-inline-block" href="#">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="images/edit-01.png" width="55">
-    </div>
+    </a>
     <div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="images/upload-01.png" width="55">
     </div>
