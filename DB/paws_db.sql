@@ -97,11 +97,10 @@ CREATE TABLE cats (
 	is_kitten BOOLEAN NOT NULL,
 	dob DATE NOT NULL,
 	is_female BOOLEAN NOT NULL,
-	breed VARCHAR(75) NOT NULL,
-	color VARCHAR(75) NOT NULL,
-	coat VARCHAR(75) NOT NULL,
+	breed VARCHAR(255) NOT NULL,
 	bio TEXT,
-	specialty_notes TEXT,					
+	caretaker_notes TEXT,
+	medical_notes TEXT,					
 	profile_pic_file_id INT,
     
     -- TODO: Need to revisit medical histories as a seperate entities
