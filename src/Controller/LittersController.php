@@ -19,7 +19,7 @@ class LittersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => []
+            'contain' => ['Cats']
         ];
         $litters = $this->paginate($this->Litters);
 
