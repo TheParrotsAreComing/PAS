@@ -78,7 +78,6 @@ class CatsController extends AppController
 
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
 
-            debug($cat); 
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
 

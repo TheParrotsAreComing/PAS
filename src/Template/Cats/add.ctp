@@ -154,20 +154,20 @@
                             <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div>
-                        <?php echo $this->Form->input('medical_notes', 
+                        <?php echo $this->Form->input('specialty_notes', 
                             array('type' => 'textarea', 'label' => 
-                                ['text' => 'Medical Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
-                            'placeholder' => 'Type medical notes for this cat...')); ?>
-                        <?php echo $this->Form->input('caretaker_notes', 
+                            'placeholder' => 'Type specialty notes for this cat...')); ?>
+                        <?php echo $this->Form->input('bio', 
                             array('type' => 'textarea', 'label' => 
-                                ['text' => 'Caretaker Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                ['text' => 'Biography<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
-                            'placeholder' => 'Type caretaker notes for this cat...')); ?> 
+                            'placeholder' => 'Type the biography for this cat...')); ?> 
                         <div class="add-button-cont">
                        <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
                        <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
