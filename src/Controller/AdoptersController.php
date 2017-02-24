@@ -66,6 +66,9 @@ class AdoptersController extends AppController
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             $adopter['is_deleted'] = 0;
             $adopter['cat_count'] = 0;
+            if (!$adopter['do_not_adopt']) {
+              $adopter['dna_reason'] = NULL;
+            }
             if ($this->Adopters->save($adopter)) {
                 $this->Flash->success(__('The adopter has been saved.'));
 
