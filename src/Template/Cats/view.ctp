@@ -1,3 +1,5 @@
+<?= $this->Html->script('moment.js'); ?>
+<?= $this->Html->script('cats.js'); ?>
 <div class="body">
     <div class="column profile">
       <div class="profile-cont" data-ix="page-load-fade-in">
@@ -19,9 +21,9 @@
               <div class="profile-header-text"><?= $gender ?></div>
             </div>
             <div>
+              <div class="cat-dob" style="display:none;"><?= h($cat->dob) ?></div>
               <div class="profile-header-text">Age:</div>
-              <div class="profile-header-text">1.6</div>
-              <div class="profile-header-text">years</div>
+              <div class="profile-header-text cat-age"></div>
             </div>
             <div>
               <div class="profile-header-text">Breed:</div>
@@ -32,7 +34,7 @@
             <div class="id-text">#</div>
             <div class="id-text"><?= h($cat->id) ?></div>
           </div>
-          <a class="cat-profile-back w-inline-block">
+          <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'index']) ?>" class="cat-profile-back w-inline-block">
             <div>&lt; Back</div>
           </a>
         </div>
@@ -78,12 +80,11 @@
                 <div class="profile-field-cont">
                   <div class="left-justify profile-field-cont">
                     <div class="profile-field-name">DOB:</div>
-                    <div class="profile-field-text"><?= h($cat->dob) ?></div>
+                    <div class="profile-field-text cat-dob"><?= h($cat->dob) ?></div>
                   </div>
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Age:</div>
-                    <div class="profile-field-text"></div>
-                    <div class="profile-field-text">months</div>
+                    <div class="profile-field-text cat-age"></div>
                   </div>
                 </div>
                 <div class="profile-field-cont">
@@ -119,7 +120,7 @@
                 <div class="profile-field-cont">
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Current Diet:</div>
-                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                    <div class="block profile-field-text"><?= h($cat->diet) ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont">
@@ -150,7 +151,7 @@
   </div>
   <div class="floating-overlay"></div>
   <div class="button-cont">
-    <a class="button-01 w-inline-block" href="#">
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="/img/edit-01.png" width="55">
     </a>
     <div class="button-02">

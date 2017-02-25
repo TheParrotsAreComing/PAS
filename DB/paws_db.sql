@@ -101,6 +101,7 @@ CREATE TABLE cats (
 	color VARCHAR(75) NOT NULL,
 	coat VARCHAR(75) NOT NULL,
 	bio TEXT,
+	diet TEXT;
 	specialty_notes TEXT,					
 	profile_pic_file_id INT,
     

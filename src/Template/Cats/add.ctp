@@ -25,11 +25,25 @@
                         </div>
                         <?php echo $this->Form->input('breed', 
                             array('label' => 
-                                ['text' => 'Breed/Color/Coat<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                ['text' => 'Breed<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
-                            'placeholder' => 'Siamese Brown Shorthair')); ?>
+                            'placeholder' => 'Siamese')); ?>
+                         <?php echo $this->Form->input('color', 
+                            array('label' => 
+                                ['text' => 'Color<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'placeholder' => 'Brown')); ?>   
+                         <?php echo $this->Form->input('coat', 
+                            array('label' => 
+                                ['text' => 'Coat<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'placeholder' => 'Shorthair')); ?>    
                         <label class="add-field-h3" for="E-mail">gender<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
                             <div class="gender-switch w-embed" data-ix="gender-switch">
@@ -148,12 +162,12 @@
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
                             'placeholder' => '0123456789')); ?>
-                        <label class="add-field-h3">Microchip Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+                        <?php /*<label class="add-field-h3">Microchip Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
                             <?php echo $this->Form->month('microchiped_date', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
                             <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
-                        </div>
+                        </div> */ ?>
                         <?php echo $this->Form->input('specialty_notes', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 

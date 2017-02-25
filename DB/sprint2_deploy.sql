@@ -4,3 +4,4 @@ ALTER TABLE cats ADD color VARCHAR(75) NOT NULL;
 ALTER TABLE cats ADD coat VARCHAR(75) NOT NULL;
 ALTER TABLE cats CHANGE COLUMN medical_notes specialty_notes TEXT;
 ALTER TABLE cats DROP COLUMN caretaker_notes; 
+ALTER TABLE cats ADD diet TEXT;
