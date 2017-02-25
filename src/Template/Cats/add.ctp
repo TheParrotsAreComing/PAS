@@ -19,9 +19,9 @@
                             'placeholder' => 'Bella')); ?>
                         <label class="add-field-h3">Date of birth<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
-                            <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
-                            <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
-                            <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
+                            <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
+                            <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
+                            <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
                         </div>
                         <?php echo $this->Form->input('breed', 
                             array('label' => 
@@ -162,12 +162,6 @@
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
                             'placeholder' => '0123456789')); ?>
-                        <?php /*<label class="add-field-h3">Microchip Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-                        <div class="date-cont">
-                            <?php echo $this->Form->month('microchiped_date', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
-                            <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
-                            <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
-                        </div> */ ?>
                         <?php echo $this->Form->input('specialty_notes', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
