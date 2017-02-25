@@ -83,7 +83,7 @@ class CatsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The cat could not be saved. Please, try again.'));
+                $this->Flash->error(__(json_encode($cat->errors())));
             }
         }
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
