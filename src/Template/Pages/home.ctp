@@ -2,7 +2,7 @@
 <div class="column">
   <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
   <div class="paws-home-cont" data-ix="page-load-fade-in">
-	<div class="pas-home-list w-dyn-list">
+	<div class="pas-home-list w-dyn-list" id="homeItems">
 	  <div class="pas-home-list w-dyn-items">
 		<!-- Cat -->
 		<div class="pas-home-button-cont w-dyn-item">
