@@ -192,7 +192,7 @@
                             'placeholder' => 'Type the biography for this cat...')); ?> 
                         <div class="add-button-cont">
                        <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat->id], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
-                       <?= $this->Html->link("Submit", ['controller'=>'cats', 'action'=>'view', $cat->id], ['id'=>'CatEdit', 'class'=>'add-submit w-button']); ?>
+                       <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
                         </div>
                     </form>
                 </div>

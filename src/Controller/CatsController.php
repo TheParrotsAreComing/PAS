@@ -112,7 +112,7 @@ class CatsController extends AppController
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $cat->id]);
             } else {
                 $this->Flash->error(__('The cat could not be saved. Please, try again.'));
             }
