@@ -130,16 +130,13 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href="#">+ New Litter</a>
+        </div><a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'litters','action'=>'add']); ?>>+ New Litter</a>
       </div>
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
         <div class="list scroll1 w-dyn-items">
         <?php foreach($litters as $litter) : ?>
           <div class="card-wrapper w-dyn-item">
             <div class="card-cont">
-              <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-                <div class="dropdown-icon"></div>
-              </a>
               <a class="card w-clearfix w-inline-block">
                 <div class="card-h1"><?= $litter->litter_name ?></div>
                 <div>
@@ -175,13 +172,21 @@
                   <div class="id-text"><?= $litter->kc_ref_id ?></div>
                 </div>
               </a>
-              <div class="dropdown-results-cont">
+              
+              <?php if(!empty($litter->cats)): ?>
+                <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+                  <div class="dropdown-icon"></div>
+                </a>
+                <div class="dropdown-results-cont">
                 <?php foreach($litter->cats as $cat) : ?>
                     <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
                         <div class="dropdown-cat-name"><?= $cat->cat_name ?></div>
                     </a>
-                <?php endforeach; ?>                
-              </div>
+                <?php endforeach; ?>
+                </div>
+              <?php else: ?> <div class="dropdown-cont dropdown-text">Litter has no cats...</div>
+              <?php endif; ?>
+              
             </div>
           </div>
       <?php endforeach; ?>
