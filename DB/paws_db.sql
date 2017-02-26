@@ -101,7 +101,7 @@ CREATE TABLE cats (
 	color VARCHAR(75) NOT NULL,
 	coat VARCHAR(75) NOT NULL,
 	bio TEXT,
-	diet TEXT;
+	diet TEXT,
 	specialty_notes TEXT,					
 	profile_pic_file_id INT,
     
@@ -118,7 +118,6 @@ CREATE TABLE cats (
     */
     
 	microchip_number INT,
-	microchiped_date DATE,
 	created DATETIME,
 	adoption_fee_amount DECIMAL(10,2),
 	is_paws BOOLEAN,

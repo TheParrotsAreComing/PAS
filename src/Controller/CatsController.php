@@ -62,14 +62,7 @@ class CatsController extends AppController
             $dob .= '-'.$month.'-'.$day;
             $this->request->data['dob'] = $dob;
 
-            //Extract and put together microchipped date into db format
-            $mdate =  $this->request->data['microchiped_date']['year'];
-            $mmonth = $this->request->data['microchiped_date']['month'];
-            $mday = $this->request->data['microchiped_date']['day'];
-            $mdate .= '-'.$mmonth.'-'.$mday;
-            $this->request->data['microchiped_date'] = $mdate;
-
-            //Initially creation, not deleted 
+            //Initial creation, not deleted 
             $this->request->data['is_deleted'] = 0;
 
             //Converting values to boolean
