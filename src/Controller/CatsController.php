@@ -18,6 +18,8 @@ class CatsController extends AppController
      */
     public function index()
     {
+        $this->Flash->success('test');
+        $this->Flash->error('test');
         $this->paginate = [
             'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
             'conditions' => ['Cats.is_deleted' => 0]
