@@ -1,0 +1,30 @@
+/*
+	Home Page related css
+*/
+
+.pas-home-list {
+    width: 100%;
+}
+
+.pas-home-list>.w-dyn-item {
+    padding: 0.5em;
+}
+
+
+/*
+	Required fields css
+*/
+
+.required-field-indicator {
+    color: red;
+}
+
+.required-field-indicator span.pre:after {
+    content: '*';
+}
+
+.list-id-cont {
+    position: relative;
+    left: 319px;
+    bottom: 99px;
+}

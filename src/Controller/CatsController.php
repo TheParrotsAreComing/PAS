@@ -19,7 +19,8 @@ class CatsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files']
+            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+            'conditions' => ['Cats.is_deleted' => 0]
         ];
         $cats = $this->paginate($this->Cats);
 
@@ -53,13 +54,29 @@ class CatsController extends AppController
     {
         $cat = $this->Cats->newEntity();
         if ($this->request->is('post')) {
+
+            //Extract and put together birthdate into db format
+            $dob =  $this->request->data['dob']['year'];
+            $month = $this->request->data['dob']['month'];
+            $day = $this->request->data['dob']['day'];
+            $dob .= '-'.$month.'-'.$day;
+            $this->request->data['dob'] = $dob;
+
+            //Initial creation, not deleted 
+            $this->request->data['is_deleted'] = 0;
+
+            //Converting values to boolean
+            $this->request->data['is_kitten'] = (bool) $this->request->data['is_kitten'];
+            $this->request->data['is_female'] = (bool) $this->request->data['is_female'];
+
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
+
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The cat could not be saved. Please, try again.'));
+                $this->Flash->error(__(json_encode($cat->errors())));
             }
         }
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
@@ -88,8 +105,7 @@ class CatsController extends AppController
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $cat->id]);
             } else {
                 $this->Flash->error(__('The cat could not be saved. Please, try again.'));
             }

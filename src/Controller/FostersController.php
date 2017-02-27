@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+Use Cake\ORM\TableRegistry;
 
 /**
  * Fosters Controller
@@ -13,14 +14,27 @@ class FostersController extends AppController
 
     /**
      * Index method
-     *
+     * @author Eric Bollinger - 2/15/2017
      * @return \Cake\Network\Response|null
      */
     public function index()
     {
         $fosters = $this->paginate($this->Fosters);
+        $foster_cats = [];
 
-        $this->set(compact('fosters'));
+        $cat_history_db = TableRegistry::get('CatHistories');
+        $cat_db = TableRegistry::get('Cats');
+
+        $foster_cats = [];
+        foreach ($fosters as $foster) {
+            $foster_cats[$foster['id']] = [];
+            $cats = $cat_history_db->find('all', ['conditions'=>['foster_id'=>$foster['id'], 'end_date IS NULL']])->toArray();
+            foreach ($cats as $i => $cat) {
+                $foster_cats[$foster['id']][$i] = $cat_db->find('all', ['conditions'=>['id'=>$cat['cat_id']]])->first();
+            }
+        }
+
+        $this->set(compact('fosters', 'foster_cats'));
         $this->set('_serialize', ['fosters']);
     }
 
@@ -51,6 +65,7 @@ class FostersController extends AppController
         $foster = $this->Fosters->newEntity();
         if ($this->request->is('post')) {
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
+			$foster['is_deleted'] = 0;
             if ($this->Fosters->save($foster)) {
                 $this->Flash->success(__('The foster has been saved.'));
 

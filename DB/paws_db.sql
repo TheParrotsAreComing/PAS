@@ -56,7 +56,8 @@ CREATE TABLE adopters (
 	email VARCHAR(255) NOT NULL,
 	notes TEXT,
 	created DATETIME,
-    is_deleted BOOLEAN NOT NULL
+    is_deleted BOOLEAN NOT NULL,
+    do_not_adopt BOOLEAN
 ); 
 
 
@@ -93,13 +94,15 @@ CREATE TABLE cats (
 	adopter_id INT,
 	foster_id INT,
 	cat_name VARCHAR(255) NOT NULL,
-	is_kitten BIT(1) NOT NULL,
+	is_kitten BOOLEAN NOT NULL,
 	dob DATE NOT NULL,
-	is_female BIT(1) NOT NULL,
-	breed VARCHAR(255) NOT NULL,
+	is_female BOOLEAN NOT NULL,
+	breed VARCHAR(75) NOT NULL,
+	color VARCHAR(75) NOT NULL,
+	coat VARCHAR(75) NOT NULL,
 	bio TEXT,
-	caretaker_notes TEXT,
-	medical_notes TEXT,					
+	diet TEXT,
+	specialty_notes TEXT,					
 	profile_pic_file_id INT,
     
     -- TODO: Need to revisit medical histories as a seperate entities
@@ -115,9 +118,9 @@ CREATE TABLE cats (
     */
     
 	microchip_number INT,
-	microchiped_date DATE,
 	created DATETIME,
-    adoption_fee_paid BOOLEAN,
+	adoption_fee_amount DECIMAL(10,2),
+	is_paws BOOLEAN,
     is_deleted BOOLEAN NOT NULL,
     FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
 	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),

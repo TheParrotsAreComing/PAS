@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Thu Feb 23 2017 02:03:00 GMT+0000 (UTC)  -->
+<html data-wf-page="582934cabb1a1e38054b7acc" data-wf-site="58267cb4b29856df44e502fd">
+<head>
+  <meta charset="utf-8">
+  <title>PAWS Administrative System</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/paws-administrative-system.webflow.css" rel="stylesheet" type="text/css">
+  <script src="js/modernizr.js" type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <style>
+    .scroll {
+      width: 20px;
+      height: 200px;
+      overflow: auto;
+      float: left;
+      margin: 0 10px;
+    }
+    .scroll1::-webkit-scrollbar {
+      width: 5px;
+    }
+    .scroll1::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    .scroll1::-webkit-scrollbar-thumb {
+      background: #5d5d5d
+    }
+    .star-rating {
+      font-family: 'FontAwesome';
+    }
+    .star-rating > fieldset {
+      border: none;
+    }
+    .star-rating > fieldset:not(:checked) > input {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+    }
+    .star-rating > fieldset:not(:checked) > label {
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      color: #0172FF;
+      font-weight: 100;
+    }
+    .star-rating > fieldset:not(:checked) > label:before {
+      content: '\f006  ';
+    }
+    .star-rating > fieldset:not(:checked) > label:hover,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label {
+      color: #0172FF;
+      text-shadow: 0 0 3px #0172FF;
+    }
+    .star-rating > fieldset:not(:checked) > label:hover:before,
+    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > input:checked ~ label:before {
+      content: '\f005  ';
+    }
+    .star-rating > fieldset > label:active {
+      position: relative;
+      }
+    label {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+      a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
+  </style>
+</head>
+<body class="page">
+  <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
+    <div class="navbar w-container"><img class="navbar-settings" sizes="(max-width: 991px) 100vw, 30px" src="images/settings.png" srcset="images/settings-p-500x500.png 500w, images/settings.png 512w" width="32">
+      <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
+        <form data-name="Email Form" id="email-form" name="email-form">
+          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="navbar-hamburger w-nav-button">
+        <div class="navbar-hamburger-text"></div>
+      </div>
+      <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png">
+      </a>
+      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a>
+      </nav>
+      <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="column profile">
+      <div class="profile-cont" data-ix="page-load-fade-in">
+        <div class="profile-header w-clearfix"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+          <div>
+            <div class="cat-profile-name">Lunar</div>
+            <div>
+              <div class="profile-header-text">Kitten</div>
+              <div class="profile-header-text">(Female)</div>
+            </div>
+            <div>
+              <div class="profile-header-text">Age:</div>
+              <div class="profile-header-text">1.6</div>
+              <div class="profile-header-text">years</div>
+            </div>
+            <div>
+              <div class="profile-header-text">Breed:</div>
+              <div class="profile-header-text">Siamese</div>
+            </div>
+          </div>
+          <div class="profile-id-cont">
+            <div class="id-text">#</div>
+            <div class="id-text"></div>
+          </div>
+          <a class="cat-profile-back w-inline-block">
+            <div>&lt; Back</div>
+          </a>
+        </div>
+        <div class="profile-tabs-cont w-tabs">
+          <div class="cat-profile-tabs-menu w-tab-menu">
+            <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="images/cat-01.png">
+            </a>
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="images/medical-01.png">
+            </a>
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img class="cat-profile-tabs-icon" src="images/cat-profile-foster-01.png">
+            </a>
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img class="cat-profile-tabs-icon" src="images/cat-profile-adopter-01.png">
+            </a>
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 5"><img class="cat-profile-tabs-icon" src="images/attachments-01.png">
+            </a>
+            <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 6"><img class="cat-profile-tabs-icon" src="images/more-01.png">
+            </a>
+          </div>
+          <div class="cat-profile-tabs-content w-tab-content">
+            <div class="w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
+              <div class="profile-notification-cont">
+                <div class="tag-cont warning">
+                  <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
+                </div>
+                <div class="info tag-cont">
+                  <div class="tag-text">Playful</div><a class="tag-remove" href="#"></a>
+                </div>
+                <div class="info tag-cont">
+                  <div class="tag-text">good with children</div><a class="tag-remove" href="#"></a>
+                </div>
+                <div class="tag-cont urgent">
+                  <div class="tag-text">dislikes dogs</div><a class="tag-remove" href="#"></a>
+                </div>
+                <div class="tag-cont urgent">
+                  <div class="tag-text">scratches</div><a class="tag-remove" href="#"></a>
+                </div>
+                <div class="success tag-cont">
+                  <div class="tag-text">microchipped</div><a class="tag-remove" href="#"></a>
+                </div>
+              </div>
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Personal Information</div>
+                <div class="profile-field-cont">
+                  <div class="left-justify profile-field-cont">
+                    <div class="profile-field-name">DOB:</div>
+                    <div class="profile-field-text">June 25, 2017</div>
+                  </div>
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Age:</div>
+                    <div class="profile-field-text">1.6</div>
+                    <div class="profile-field-text">months</div>
+                  </div>
+                </div>
+                <div class="profile-field-cont">
+                  <div class="left-justify profile-field-cont">
+                    <div class="profile-field-name">Gender:</div>
+                    <div class="profile-field-text">(Female)</div>
+                  </div>
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Breed:</div>
+                    <div class="profile-field-text">Siamese</div>
+                  </div>
+                </div>
+                <div class="profile-field-cont">
+                  <div class="left-justify profile-field-cont">
+                    <div class="profile-field-name">Coat:</div>
+                    <div class="profile-field-text">Shorthair</div>
+                  </div>
+                  <div class="profile-field-cont right-justify">
+                    <div class="profile-field-name">Color:</div>
+                    <div class="profile-field-text">Yellow</div>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Additional Information</div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Biography:</div>
+                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                  </div>
+                </div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Current Diet:</div>
+                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                  </div>
+                </div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
+                    <div class="profile-field-name">Specialty Notes:</div>
+                    <div class="block profile-field-text">This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-tab-pane" data-w-tab="Tab 2"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 3"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 4"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 5"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notify-cont">
+    <div class="notify-overview">Overview</div>
+    <div class="notify-medical">Medical Information</div>
+    <div class="notify-foster">Foster Home</div>
+    <div class="notify-adopter">Adopter</div>
+    <div class="notify-attachments">Attachments</div>
+    <div class="notify-more">More...</div>
+  </div>
+  <div class="floating-overlay"></div>
+  <div class="button-cont">
+    <a class="button-01 w-inline-block" href="#">
+      <div class="button-icon-text">Edit</div><img data-ix="add-click" src="images/edit-01.png" width="55">
+    </a>
+    <div class="button-02">
+      <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="images/upload-01.png" width="55">
+    </div>
+    <div class="button-03" data-ix="add-click">
+      <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
+    </div>
+    <div class="button-04">
+      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
+    </div>
+  </div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
