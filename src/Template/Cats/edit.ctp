@@ -169,20 +169,6 @@
                             <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div> */ ?>
-                        <?php echo $this->Form->input('specialty_notes', 
-                            array('type' => 'textarea', 'label' => 
-                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
-                                'class' => 'add-field-h3',
-                                'escape' => false], 
-                            'class' => 'add-input multi-line w-input', 
-                            'placeholder' => 'Type specialty notes for this cat...')); ?>
-                        <?php echo $this->Form->input('diet', 
-                            array('type' => 'textarea', 'label' => 
-                                ['text' => 'Current Diet Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
-                                'class' => 'add-field-h3',
-                                'escape' => false], 
-                            'class' => 'add-input multi-line w-input', 
-                            'placeholder' => 'Type the current diet for this cat...')); ?>
                         <?php echo $this->Form->input('bio', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Biography<span class="required-field-indicator"><span class="pre"></span></span>:', 
@@ -190,6 +176,20 @@
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type the biography for this cat...')); ?> 
+                        <?php echo $this->Form->input('diet', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Current Diet Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type the current diet for this cat...')); ?>
+                        <?php echo $this->Form->input('specialty_notes', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type specialty notes for this cat...')); ?>
                         <div class="add-button-cont">
                        <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat->id], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
                        <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
