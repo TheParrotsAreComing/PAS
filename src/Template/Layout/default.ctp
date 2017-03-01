@@ -25,8 +25,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <?= $this->Html->css('normalize.css'); ?>
-  <?= $this->Html->css('webflow.css'); ?>
-  <?= $this->Html->css('paws-administrative-system.webflow.css'); ?>
+  <?= $this->Html->css('components.css'); ?>
+  <?= $this->Html->css('paws-administrative-system.css'); ?>
   <?= $this->Html->script('modernizr.js'); ?>
   <?= $this->Html->css('paws-custom.css'); ?>
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">

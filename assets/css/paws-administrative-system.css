@@ -1,10 +1,3 @@
-body {
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  color: #333;
-  font-size: 14px;
-  line-height: 20px;
-}
-
 .brand {
   height: 50px;
   margin-top: 5px;
@@ -184,7 +177,7 @@ body {
 }
 
 .column.profile {
-  overflow: auto;
+  overflow: hidden;
   padding-top: 15px;
   padding-bottom: 15px;
   -webkit-box-pack: start;
@@ -475,6 +468,7 @@ body {
   margin-left: 30px;
   padding-right: 0px;
   padding-left: 0px;
+  background-color: transparent;
 }
 
 .cat-sort-text {
@@ -648,11 +642,26 @@ body {
 }
 
 .profile-cont {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   width: 555px;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  background-color: transparent;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+  border-radius: 3px;
+  background-color: #fff;
   box-shadow: 0 0 6px 0 #3a3a3a;
 }
 
@@ -662,6 +671,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  height: 22%;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 15%;
@@ -673,9 +683,10 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  background-color: #fff;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .cat-profile-name {
@@ -797,6 +808,10 @@ body {
   -webkit-align-items: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   border-top: 1px solid rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba(0, 0, 0, .1);
   background-color: #f7f9f9;
@@ -804,10 +819,8 @@ body {
   transition: all 300ms ease;
 }
 
-.cat-profile-tabs-content {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  background-color: #fff;
+.profile-tab-wrap {
+  overflow: auto;
   -webkit-transition: all 300ms ease;
   transition: all 300ms ease;
 }
@@ -861,7 +874,11 @@ body {
 }
 
 .cat-profile-tabs-menu-cont.tab-leftmost {
-  border-left: 1px solid rgba(58, 58, 58, .2);
+  border-left: 1px none rgba(58, 58, 58, .2);
+}
+
+.cat-profile-tabs-menu-cont.tabs-rightmost {
+  border-right-style: none;
 }
 
 .profile-id-cont {
@@ -881,6 +898,22 @@ body {
 .id-text {
   display: inline-block;
   font-weight: 700;
+}
+
+.profile-tabs-cont {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 
 .notify-cont {
@@ -915,11 +948,25 @@ body {
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
 .floating-overlay {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
   display: none;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .7);
 }
 
 .button-cont {
@@ -954,10 +1001,7 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding: 10px 15px 10px 10px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -970,7 +1014,7 @@ body {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .profile-field-cont {
@@ -1728,7 +1772,74 @@ body {
 }
 
 .confirm-cont {
-  display: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 300px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+.confirm-text {
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.confirm-button-cont {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.confirm-button {
+  padding: 7px 15px;
+  border-radius: 3px;
+  background-color: #fff;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.confirm-button.delete {
+  border: 1px solid #ec4141;
+  color: #ec4141;
+}
+
+.confirm-button.delete:hover {
+  background-color: #ec4141;
+  color: #fff;
+}
+
+.confirm-button.cancel {
+  border: 1px solid #0172ff;
+  color: #0172ff;
+}
+
+.confirm-button.cancel:hover {
+  background-color: #0172ff;
+  color: #fff;
+}
+
+.confirm-button-wrap {
+  margin-bottom: 0px;
 }
 
 .page {
@@ -1752,10 +1863,98 @@ body {
   align-items: stretch;
   background-color: #4161a0;
   background-image: url('../images/Arctic-Mountains-1920x1080.png');
-  background-position: 50% 50%;
+  background-position: 0px 0px;
   background-size: cover;
-  background-repeat: no-repeat;
   font-family: 'Sf ui display', sans-serif;
+}
+
+.profile-action-cont {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.profile-action-button-cont {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  height: 35px;
+  max-width: 35px;
+  padding-right: 9px;
+  padding-left: 9px;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #0172ff;
+  box-shadow: 0 0 6px 0 #fff;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+.profile-action-button-cont:hover {
+  max-width: 100px;
+}
+
+.profile-action-button-cont.extend {
+  font-family: 'Linea basic elaboration 10', sans-serif;
+}
+
+.profile-action-button-cont.basic {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  font-family: 'Linea basic 10', sans-serif;
+}
+
+.profile-action-button-cont.software {
+  font-family: 'Linea software 10', sans-serif;
+}
+
+.profile-action-button {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.profile-action-button.sofware {
+  font-family: 'Linea software 10', sans-serif;
+}
+
+.profile-action-button.extend {
+  font-family: 'Linea basic elaboration 10', sans-serif;
+}
+
+.profile-action-button.basic {
+  font-family: 'Linea basic 10', sans-serif;
 }
 
 html.w-mod-js *[data-ix="page-load-fade-in"] {
@@ -1936,13 +2135,11 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     padding-bottom: 15px;
   }
   .column.profile {
-    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
     overflow: scroll;
-    margin-top: 0px;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;
@@ -2022,7 +2219,10 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .navbar-search-icon-mobile {
     position: static;
-    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
     width: 30px;
     height: 30px;
     margin-right: 10px;
@@ -2032,6 +2232,9 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;
     -ms-flex-order: 1;
@@ -2107,7 +2310,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     align-items: center;
   }
   .profile-cont {
-    display: block;
     width: 95%;
     margin-right: auto;
     margin-left: auto;
@@ -2120,15 +2322,15 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
   }
   .profile-header {
     display: block;
     padding-top: 50px;
-    padding-bottom: 0px;
+    padding-bottom: 40px;
     padding-left: 20px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -2217,7 +2419,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -ms-flex-align: baseline;
     align-items: baseline;
   }
-  .cat-profile-tabs-content {
+  .profile-tab-wrap {
     height: auto;
     background-color: transparent;
     opacity: 1;
@@ -2359,16 +2561,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-align-self: center;
     -ms-flex-item-align: center;
     align-self: center;
-  }
-  .floating-overlay {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    right: 0px;
-    display: none;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .7);
-    opacity: 0;
   }
   .button-01 {
     position: fixed;
@@ -2720,67 +2912,14 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     margin-left: 3px;
   }
   .confirm-cont {
-    position: fixed;
-    left: 10%;
-    right: 10%;
-    bottom: 45%;
     display: none;
-    padding-top: 15px;
-    padding-bottom: 20px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    border-radius: 3px;
-    background-color: #fff;
-  }
-  .confirm-text {
-    margin-bottom: 20px;
-    padding: 5px 10px;
-    text-align: center;
-  }
-  .confirm-button-cont {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-justify-content: space-around;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-  }
-  .confirm-button {
-    width: 75px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-radius: 3px;
-    -webkit-transition: all 300ms ease;
-    transition: all 300ms ease;
-  }
-  .confirm-button.delete {
-    border: 1px solid #ec4141;
-    background-color: transparent;
-    color: #ec4141;
   }
   .confirm-button.delete:hover {
     background-color: #ec4141;
     color: #fff;
   }
-  .confirm-button.cancel {
-    border: 1px solid #0172ff;
-    background-color: transparent;
-    color: #0172ff;
-  }
-  .confirm-button.cancel:hover {
-    background-color: #0172ff;
-    color: #fff;
-  }
-  .confirm-button-wrap {
-    margin-bottom: 0px;
+  .page {
+    overflow: hidden;
   }
 }
 
@@ -2799,6 +2938,18 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
 @font-face {
   font-family: 'FontAwesome';
   src: url('../fonts/fontawesome-webfont.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Linea software 10';
+  src: url('../fonts/linea-software-10.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Linea basic elaboration 10';
+  src: url('../fonts/linea-basic-elaboration-10.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
