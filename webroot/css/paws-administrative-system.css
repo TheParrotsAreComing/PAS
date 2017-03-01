@@ -917,7 +917,10 @@
 }
 
 .notify-cont {
-    display: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
 }
 
 .profile-notification-cont {
@@ -967,6 +970,7 @@
     -ms-flex-align: center;
     align-items: center;
     background-color: rgba(0, 0, 0, .7);
+    opacity: 0;
 }
 
 .button-cont {
@@ -1772,10 +1776,7 @@
 }
 
 .confirm-cont {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+    display: none;
     width: 300px;
     padding-top: 15px;
     padding-bottom: 20px;
