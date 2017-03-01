@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--  Last Published: Wed Mar 01 2017 03:13:57 GMT+0000 (UTC)  -->
-<html data-wf-page="58a3cc56123f7f9e6d333f84" data-wf-site="58267cb4b29856df44e502fd">
+<html data-wf-page="58afe133e076ab1c0a19b255" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>Cat Add</title>
-  <meta content="Cat Add" property="og:title">
+  <title>Litter Add</title>
+  <meta content="Litter Add" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/components.css" rel="stylesheet" type="text/css">
@@ -111,14 +111,20 @@
     <div class="add-view column">
       <div class="add-cont scroll1" data-ix="page-load-fade-in">
         <div class="add-header">
-          <div class="add-field-h1">Create a cat</div><img class="add-picture" height="90" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" width="90">
+          <div class="add-field-h1">Create a litter</div><img class="add-picture" height="90" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" width="90">
         </div>
         <div class="add-input-form-wrap w-form">
           <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
-            <label class="add-field-h2" for="First-Name">personal information</label>
+            <label class="add-field-h2" for="First-Name">litter information</label>
             <div class="add-field-seperator"></div>
-            <label class="add-field-h3" for="cat_name-2">name:</label>
-            <input autofocus="autofocus" class="add-input w-input" data-name="cat_name" id="cat_name-2" maxlength="256" name="cat_name" placeholder="Bella" required="required" type="text">
+            <label class="add-field-h3" for="litter-name">name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="litter name" id="litter-name" maxlength="256" name="litter-name" placeholder="Monster litter" required="required" type="text">
+            <label class="add-field-h3" for="kc_ref_id">kitten central id:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="kc_ref_id" id="kc_ref_id" maxlength="256" name="kc_ref_id" placeholder="12345" required="required" type="text">
+            <label class="add-field-h3" for="cat_count">number of adult cats:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="cat_count" id="cat_count" maxlength="256" name="cat_count" placeholder="1" required="required" type="text">
+            <label class="add-field-h3" for="kitten_count">number of kittens:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="kitten_count" id="kitten_count" maxlength="256" name="kitten_count" placeholder="4" required="required" type="text">
             <label class="add-field-h3" for="Month">Date of birth:</label>
             <div class="date-cont">
               <select class="date-month w-select" data-name="month" id="month-2" name="month">
@@ -184,149 +190,12 @@
             </div>
             <label class="add-field-h3" for="breed-2">Breed:</label>
             <input class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" type="text">
-            <label class="add-field-h3" for="color">color:</label>
-            <input class="add-input w-input" data-name="color" id="color" maxlength="256" name="color" placeholder="Brown" type="text">
-            <label class="add-field-h3" for="coat-2">coat:</label>
-            <input autofocus="autofocus" class="add-input w-input" data-name="coat" id="coat-2" maxlength="256" name="coat" placeholder="Short" required="required" type="text">
-            <label class="add-field-h3" for="field">size:</label>
-            <div class="w-tabs" data-duration-in="300" data-duration-out="100">
-              <div class="size-cont w-tab-menu">
-                <a class="left size-select w-inline-block w-tab-link" data-w-tab="small">
-                  <div>small</div>
-                </a>
-                <a class="size-select w-inline-block w-tab-link" data-w-tab="medium">
-                  <div>medium</div>
-                </a>
-                <a class="right size-select w-inline-block w-tab-link" data-w-tab="large">
-                  <div>large</div>
-                </a>
-              </div>
-            </div>
-            <label class="add-field-h3" for="E-mail">gender:</label>
-            <div class="gender-cont">
-              <div class="gender-switch w-embed" data-ix="gender-switch">
-                <style>
-                  /* ---------- SWITCH ---------- */
-                  .switch {
-                  	background: #eee;
-                  	border-radius: 32px;
-                  	display: block;
-                  	height: 32px;
-                  	position: relative;
-                  	width: 80px;
-                  }
-                  .switch input {
-                  	height: 32px;
-                  	left: 0;
-                  	opacity: 0;
-                  	position: absolute;
-                  	top: 0;
-                  	width: 80px;
-                  	z-index: 2;
-                  }
-                  .switch input:checked~.toggle {
-                  	left: 4px;
-                  }
-                  .switch input~:checked~.toggle {
-                  	left: 50px;
-                  }
-                  .switch input:checked {
-                  	z-index: 0;
-                  }
-                  .toggle {
-                    background: #0172ff;
-                  	border-radius: 50%;
-                  	height: 28px;
-                  	left: 0;
-                  	position: absolute;
-                  	top: 2px;
-                  	-webkit-transition: left .2s ease;
-                  	-moz-transition: left .2s ease;
-                  	-ms-transition: left .2s ease;
-                  	-o-transition: left .2s ease;
-                  	transition: left .2s ease;
-                  	width: 28px;
-                  	z-index: 1;
-                  }
-                </style>
-                <div class="switch white">
-                  <input type="radio" name="switch" id="female" checked="">
-                  <input type="radio" name="switch" id="male">
-                  <span class="toggle"></span>
-                </div>
-              </div>
-              <div class="gender-female">male</div>
-              <div class="gender-male">female</div>
-            </div>
-            <label class="add-field-h3" for="E-mail">kitten:</label>
-            <div class="gender-cont">
-              <div class="gender-switch w-embed" data-ix="gender-switch">
-                <style>
-                  /* ---------- SWITCH ---------- */
-                  .switch-kitten {
-                  	background: #eee;
-                  	border-radius: 32px;
-                  	display: block;
-                  	height: 32px;
-                  	position: relative;
-                  	width: 80px;
-                  }
-                  .switch-kitten input {
-                  	height: 32px;
-                  	left: 0;
-                  	opacity: 0;
-                  	position: absolute;
-                  	top: 0;
-                  	width: 80px;
-                  	z-index: 2;
-                  }
-                  .switch-kitten input:checked~.toggle {
-                  	left: 4px;
-                  }
-                  .switch-kitten input~:checked~.toggle {
-                  	left: 50px;
-                  }
-                  .switch-kitten input:checked {
-                  	z-index: 0;
-                  }
-                  .toggle {
-                    background: #0172ff;
-                  	border-radius: 50%;
-                  	height: 28px;
-                  	left: 0;
-                  	position: absolute;
-                  	top: 2px;
-                  	-webkit-transition: left .2s ease;
-                  	-moz-transition: left .2s ease;
-                  	-ms-transition: left .2s ease;
-                  	-o-transition: left .2s ease;
-                  	transition: left .2s ease;
-                  	width: 28px;
-                  	z-index: 1;
-                  }
-                </style>
-                <div class="switch white">
-                  <input type="radio" name="switch-kitten" id="kitten" checked="">
-                  <input type="radio" name="switch-kitten" id="adult">
-                  <span class="toggle"></span>
-                </div>
-              </div>
-              <div class="gender-female">adult</div>
-              <div class="gender-male">kitten</div>
-            </div>
-            <label class="add-field-h2" for="First-Name">care Information</label>
-            <div class="add-field-seperator"></div>
-            <label class="add-field-h3" for="microchip-2">microchip #:</label>
-            <input class="add-input w-input" data-name="microchip" id="microchip-2" maxlength="256" name="microchip" placeholder="A1B2C3D4E5" type="text">
-            <label class="add-field-h3" for="adoption_fee">adoption fee:</label>
-            <div class="w-clearfix">
-              <input class="add-input currency w-input" data-name="adoption_fee" id="adoption_fee" maxlength="256" name="adoption_fee" placeholder="65" type="text">
-              <div class="symbol-dollar">$</div>
-            </div>
-            <label class="add-field-h3" for="medical_notes">medical notes:</label>
-            <textarea class="add-input multi-line w-input" data-name="medical_notes" id="medical_notes" maxlength="5000" name="medical_notes" placeholder="Type medical notes for this cat..."></textarea>
-            <label class="add-field-h3" for="caretaker_notes">caretaker notes:</label>
-            <textarea class="add-input multi-line w-input" data-name="caretaker_notes" id="caretaker_notes" maxlength="5000" name="caretaker_notes" placeholder="Type caretaker notes for this cat..."></textarea>
+            <label class="add-field-h3" for="estimated_arrival-2">estimated arrival:</label>
+            <input class="add-input w-input" data-name="estimated_arrival" id="estimated_arrival-2" maxlength="256" name="estimated_arrival" placeholder="Mid-June" type="text">
+            <label class="add-field-h3" for="foster_note-2">foster notes:</label>
+            <input class="add-input w-input" data-name="foster_note" id="foster_note-2" maxlength="256" name="foster_note" placeholder="Notes about initial foster home" type="text">
+            <label class="add-field-h3" for="caretaker_notes">notes:</label>
+            <textarea class="add-input multi-line w-input" data-name="caretaker_notes" id="caretaker_notes" maxlength="5000" name="caretaker_notes" placeholder="e.g. special needs"></textarea>
             <div class="add-button-cont"><a class="add-cancel" href="cat-list.html">Cancel</a>
               <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
             </div>
