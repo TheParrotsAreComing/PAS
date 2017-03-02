@@ -180,15 +180,10 @@
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this cat?</div>
       <div class="confirm-button-wrap w-form">
-        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2"><a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-          <input class="confirm-button delete w-button" data-wait="Please wait..." type="submit" value="Delete">
+        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+            <?= $this->Html->link('Delete', ['controller'=>'cats', 'action'=>'delete', $cat->id], ['class'=>'confirm-button delete w-button']); ?>
         </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
       </div>
     </div>
   </div> 
@@ -202,7 +197,7 @@
     <div class="button-03" data-ix="add-click">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="/img/export-01.png" width="55">
     </div>
-    <div class="button-04">
+    <div class="button-04" data-ix="delete-click">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
