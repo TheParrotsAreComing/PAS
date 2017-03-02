@@ -56,8 +56,8 @@
             <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 6"><img class="cat-profile-tabs-icon" src="/img/more-01.png">
             </a>
           </div>
-          <div class="cat-profile-tabs-content w-tab-content">
-            <div class="w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
+          <div class="profile-tab-wrap scroll1 w-tab-content">
+            <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
               <div class="profile-notification-cont">
                 <div class="tag-cont warning">
                   <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
@@ -148,7 +148,7 @@
           </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
@@ -170,14 +170,29 @@
   </div>
   <div class="notify-cont">
     <div class="notify-overview">Overview</div>
-    <div class="notify-medical">Medical Information</div>
+    <!--<div class="notify-medical">Medical Information</div>-->
     <div class="notify-foster">Foster Home</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
     <div class="notify-more">More...</div>
   </div>
-  <div class="floating-overlay"></div>
-  <div class="button-cont">
+  <div class="floating-overlay">
+    <div class="confirm-cont">
+      <div class="confirm-text">Are you sure you want to delete this cat?</div>
+      <div class="confirm-button-wrap w-form">
+        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2"><a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+          <input class="confirm-button delete w-button" data-wait="Please wait..." type="submit" value="Delete">
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <div class="button-cont w-hidden-main">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="/img/edit-01.png" width="55">
     </a>
@@ -190,6 +205,4 @@
     <div class="button-04">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
-</div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
-
-
+  </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">

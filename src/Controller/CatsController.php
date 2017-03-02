@@ -130,13 +130,33 @@ class CatsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        //$this->request->allowMethod(['post', 'delete']);
         $cat = $this->Cats->get($id);
-        if ($this->Cats->delete($cat)) {
+        $this->request->data['is_deleted'] = 1;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $cat = $this->Cats->patchEntity($cat, $this->request->data);
+            if ($this->Cats->save($cat)) {
+                $this->Flash->success(__('The cat has been saved.'));
+                debug($this->request->data['is_deleted']);die;
+                return $this->redirect(['action' => 'view', $cat->id]);
+            } else {
+                $this->Flash->error(__('The cat could not be saved. Please, try again.'));
+            }
+        }
+        $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
+        $adopters = $this->Cats->Adopters->find('list', ['limit' => 200]);
+        $fosters = $this->Cats->Fosters->find('list', ['limit' => 200]);
+        $files = $this->Cats->Files->find('list', ['limit' => 200]);
+        $adoptionEvents = $this->Cats->AdoptionEvents->find('list', ['limit' => 200]);
+        $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
+        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags'));
+        $this->set('_serialize', ['cat']);
+
+        /*if ($this->Cats->delete($cat)) {
             $this->Flash->success(__('The cat has been deleted.'));
         } else {
             $this->Flash->error(__('The cat could not be deleted. Please, try again.'));
-        }
+        }*/
 
         return $this->redirect(['action' => 'index']);
     }
