@@ -1,4 +1,3 @@
-<?= $this->Html->script('adopters.js'); ?>
 
   <div class="body">
     <div class="add-view column">
@@ -12,10 +11,10 @@
           <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
             <label class="add-field-h2" for="do_not_adopt">Adopt to this person?</label>
 			
-            <div class="switch switch-dna w-embed" data-ix="gender-switch">
+            <div class="switch switch-dna w-embed" >
               <div class="switch switch-dna white">
-                <input value="0" type="radio" name="do_not_adopt" id="adopt" checked>
-				<input value="1" type="radio" name="do_not_adopt" id="do_not_adopt">
+                <input value="0" type="radio" name="do_not_adopt" id="adopt" <?= ($adopter['do_not_adopt']) ? '' : 'checked'; ?>>
+                <input value="1" type="radio" name="do_not_adopt" id="do_not_adopt" <?= ($adopter['do_not_adopt']) ? 'checked' : ''; ?>>
                 <span class="toggle"></span>
               </div>
             </div>
@@ -64,3 +63,11 @@
     </div>
   </div>
   <?= $this->Form->end();?>
+
+<script>
+
+  var dna = <?php echo $adopter['do_not_adopt']; ?>;
+
+</script>
+
+<?= $this->Html->script('adopters.js'); ?>
