@@ -1,9 +1,18 @@
 <?= $this->Html->script('moment.js'); ?>
 <?= $this->Html->script('cats.js'); ?>
 <div class="body">
-    <div class="column profile">
+    <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
-        <div class="profile-header w-clearfix"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="button profile-header">
+            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'index']) ?>" class="profile-back w-inline-block">
+            <div>&lt; Back</div>
+            </a>
+            <div class="profile-id-cont">
+                <div class="id-text">#</div>
+                <div class="id-text"><?= h($cat->id) ?></div>
+            </div>
+        </div>
+        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
             <div class="cat-profile-name"><?= h($cat->cat_name) ?></div>
             <div>
@@ -30,20 +39,14 @@
               <div class="profile-header-text"><?= h($cat->breed) ?></div>
             </div>
           </div>
-          <div class="profile-id-cont">
-            <div class="id-text">#</div>
-            <div class="id-text"><?= h($cat->id) ?></div>
-          </div>
-          <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'index']) ?>" class="cat-profile-back w-inline-block">
-            <div>&lt; Back</div>
-          </a>
+          
         </div>
         <div class="profile-tabs-cont w-tabs">
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="/img/cat-01.png">
             </a>
-            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
-            </a>
+            <!--<a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
+            </a>-->
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img class="cat-profile-tabs-icon" src="/img/cat-profile-foster-01.png">
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img class="cat-profile-tabs-icon" src="/img/cat-profile-adopter-01.png">
@@ -119,6 +122,12 @@
                 </div>
                 <div class="profile-field-cont">
                   <div class="profile-field-cont">
+                    <div class="profile-field-name">Reason not to adopt from this person:</div>
+                    <div class="profile-field-text">0</div>
+                  </div>
+                </div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont">
                     <div class="profile-field-name">Current Diet:</div>
                     <div class="block profile-field-text"><?= h($cat->diet) ?></div>
                   </div>
@@ -131,12 +140,30 @@
                 </div>
               </div>
             </div>
-            <div class="w-tab-pane" data-w-tab="Tab 2"></div>
-            <div class="w-tab-pane" data-w-tab="Tab 3"></div>
+            <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
+            <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 3"></div>
             <div class="w-tab-pane" data-w-tab="Tab 4"></div>
             <div class="w-tab-pane" data-w-tab="Tab 5"></div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
+        </div>
+        <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
+          <a class="profile-action-button-cont w-inline-block" href="#">
+            <div class="profile-action-button sofware">-</div>
+            <div>edit</div>
+          </a>
+          <a class="profile-action-button-cont w-inline-block" href="#">
+            <div class="extend profile-action-button">w</div>
+            <div>upload</div>
+          </a>
+          <a class="profile-action-button-cont w-inline-block" href="#">
+            <div class="basic profile-action-button"></div>
+            <div>export</div>
+          </a>
+          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+            <div class="basic profile-action-button"></div>
+            <div>delete</div>
+          </a>
         </div>
       </div>
     </div>
