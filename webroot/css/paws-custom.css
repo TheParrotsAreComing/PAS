@@ -53,8 +53,17 @@
 }
 
 .flash-div {
-  width: 100%;
+  width: 25%;
   top: 60px;
+  right: 50px;
   position: absolute;
   z-index: 9001;
+}
+
+@media (max-width: 479px) {
+  .flash-div {
+    width: 100%;
+    top: 60px;
+    right: 0px;
+  }
 }
