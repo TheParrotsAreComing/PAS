@@ -163,7 +163,7 @@
                       </div>
                     </div>
                   </a>
-                  <?php if (empty($foster_cats[$foster['id']])): ?>
+                  <?php if (empty($foster['cat_histories'])): ?>
                     <a class="dropdown-cont w-inline-block">
                       This foster doesn't currently have any cats!
                     </a>
@@ -173,7 +173,8 @@
                     </a>
                   <?php endif; ?>
                   <div class="dropdown-results-cont">
-                    <?php foreach ($foster_cats[$foster['id']] as $cat): ?>
+                    <?php foreach ($foster['cat_histories'] as $cat): ?>
+                      <?php $cat = $cat['cat']; ?>
                       <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
                         <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
                       </a>
