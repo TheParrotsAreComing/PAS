@@ -124,7 +124,7 @@
 <!-- -->
 		<?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div>
                 <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
@@ -197,7 +197,7 @@
   <div class="floating-overlay"></div>
   <img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
-    <a class="button-01 w-inline-block" href="cat-add.html">
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
       <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
