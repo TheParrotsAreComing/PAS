@@ -62,14 +62,7 @@ class CatsController extends AppController
             $dob .= '-'.$month.'-'.$day;
             $this->request->data['dob'] = $dob;
 
-            //Extract and put together microchipped date into db format
-            $mdate =  $this->request->data['microchiped_date']['year'];
-            $mmonth = $this->request->data['microchiped_date']['month'];
-            $mday = $this->request->data['microchiped_date']['day'];
-            $mdate .= '-'.$mmonth.'-'.$mday;
-            $this->request->data['microchiped_date'] = $mdate;
-
-            //Initially creation, not deleted 
+            //Initial creation, not deleted 
             $this->request->data['is_deleted'] = 0;
 
             //Converting values to boolean
@@ -112,8 +105,7 @@ class CatsController extends AppController
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
             if ($this->Cats->save($cat)) {
                 $this->Flash->success(__('The cat has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $cat->id]);
             } else {
                 $this->Flash->error(__('The cat could not be saved. Please, try again.'));
             }
