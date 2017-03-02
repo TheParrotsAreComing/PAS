@@ -49,7 +49,7 @@
           <?= $this->Form->input('notes', array('type' => 'textarea', 'label' =>['text' => 'Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
       'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Comments/Concerns')); ?>
   <div class="add-button-cont">
-    <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'index'], ['id'=>'AdopterCancel', 'class'=>'add-cancel w-button']); ?>
+    <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'view', $adopter->id], ['id'=>'AdopterCancel', 'class'=>'add-cancel w-button']); ?>
     <?= $this->Form->submit("Submit",['id'=>'AdopterAdd', 'class'=>'add-submit w-button']); ?>
   </div>
         </form>
