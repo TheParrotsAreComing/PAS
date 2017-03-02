@@ -670,15 +670,11 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
-  height: 22%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 15%;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+  margin-bottom: 20px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -687,6 +683,14 @@
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
+}
+
+.profile-header.button {
+  margin-bottom: 0px;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }
 
 .cat-profile-name {
@@ -701,7 +705,8 @@
   display: block;
   margin-top: 0px;
   margin-right: 10px;
-  float: left;
+  margin-left: -150px;
+  clear: none;
   border-radius: 100%;
 }
 
@@ -882,10 +887,9 @@
 }
 
 .profile-id-cont {
-  position: relative;
-  left: 140px;
-  bottom: 66px;
   display: block;
+  margin-top: 5px;
+  margin-right: 5px;
   padding: 5px 10px;
   float: right;
   border-radius: 3px;
@@ -917,10 +921,7 @@
 }
 
 .notify-cont {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
 }
 
 .profile-notification-cont {
@@ -970,7 +971,6 @@
   -ms-flex-align: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .7);
-  opacity: 0;
 }
 
 .button-cont {
@@ -1242,7 +1242,7 @@
   margin-left: 5px;
 }
 
-.cat-profile-back {
+.profile-back {
   display: none;
   padding: 5px 10px;
   border-radius: 3px;
@@ -1777,9 +1777,7 @@
 
 .confirm-cont {
   display: none;
-  width: 300px;
-  padding-top: 15px;
-  padding-bottom: 20px;
+  padding: 10px 20px 20px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -2146,6 +2144,9 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -ms-flex-align: center;
     align-items: center;
   }
+  .column.profile.scroll1 {
+    overflow: auto;
+  }
   .column.home {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -2312,6 +2313,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .profile-cont {
     width: 95%;
+    height: auto;
     margin-right: auto;
     margin-left: auto;
     -webkit-box-orient: vertical;
@@ -2327,21 +2329,47 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-align-items: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
   }
   .profile-header {
-    display: block;
-    padding-top: 50px;
-    padding-bottom: 40px;
-    padding-left: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: auto;
+    margin-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0%;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
     align-items: flex-start;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+  }
+  .profile-header.button {
+    margin-bottom: 10px;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
   }
   .cat-profile-name {
     margin-top: 0px;
@@ -2349,11 +2377,11 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     font-weight: 600;
   }
   .cat-profile-pic {
+    display: block;
     width: 90px;
     height: 90px;
     margin-top: 0px;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-left: -60px;
   }
   .profile-header-text {
     margin-top: 2px;
@@ -2427,6 +2455,9 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-transition: all 300ms ease;
     transition: all 300ms ease;
   }
+  .profile-tab-wrap.scroll1 {
+    overflow: visible;
+  }
   .cat-profile-tabs-icon {
     display: block;
     height: 25px;
@@ -2449,16 +2480,15 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     border-right-style: none;
   }
   .profile-id-cont {
-    position: relative;
-    left: auto;
-    right: 9px;
-    bottom: 129px;
+    position: static;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    margin-right: 0px;
+    margin-top: 5px;
+    margin-right: 5px;
     padding: 5px 10px;
+    float: none;
     -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
     -ms-flex-pack: start;
@@ -2621,13 +2651,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .profile-content-cont {
     padding-right: 20px;
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
   }
   .profile-field-cont {
     -webkit-box-orient: horizontal;
@@ -2804,17 +2827,15 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     align-self: center;
     background-color: #7b9cc4;
   }
-  .cat-profile-back {
-    position: relative;
-    right: 102px;
-    bottom: 129px;
+  .profile-back {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     width: 65px;
     height: 30px;
-    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -ms-flex-pack: center;
@@ -2911,9 +2932,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .profile-field-text {
     margin-left: 3px;
-  }
-  .confirm-cont {
-    display: none;
   }
   .confirm-button.delete:hover {
     background-color: #ec4141;
