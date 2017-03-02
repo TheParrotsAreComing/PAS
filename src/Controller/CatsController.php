@@ -68,6 +68,7 @@ class CatsController extends AppController
             //Converting values to boolean
             $this->request->data['is_kitten'] = (bool) $this->request->data['is_kitten'];
             $this->request->data['is_female'] = (bool) $this->request->data['is_female'];
+            $this->request->data['is_microchip_registered'] = (bool) $this->request->data['is_microchip_registered'];
 
             $cat = $this->Cats->patchEntity($cat, $this->request->data);
 
