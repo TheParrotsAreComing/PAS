@@ -99,7 +99,7 @@ class AdoptersController extends AppController
             if ($this->Adopters->save($adopter)) {
                 $this->Flash->success(__('The adopter has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $adopter->id]);
             } else {
                 $this->Flash->error(__('The adopter could not be saved. Please, try again.'));
             }

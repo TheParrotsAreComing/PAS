@@ -96,7 +96,7 @@ class FostersController extends AppController
             if ($this->Fosters->save($foster)) {
                 $this->Flash->success(__('The foster has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $foster->id]);
             } else {
                 $this->Flash->error(__('The foster could not be saved. Please, try again.'));
             }
