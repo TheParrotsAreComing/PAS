@@ -132,7 +132,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <div class="flash-div"><?= $this->Flash->render() ?></div>
   <?= $this->fetch('content') ?>
-  <?= $this->Html->script('webflow.js'); ?>
+  <?= $this->Html->script('paws-administrative-system.js'); ?>
   <?= $this->Html->script('webflow-custom.js'); ?>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
