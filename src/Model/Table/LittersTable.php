@@ -41,10 +41,6 @@ class LittersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('KcReves', [
-            'foreignKey' => 'kc_ref_id',
-            'joinType' => 'INNER'
-        ]);
         $this->hasMany('Cats', [
             'foreignKey' => 'litter_id'
         ]);
@@ -117,8 +113,6 @@ class LittersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['kc_ref_id'], 'KcReves'));
-
         return $rules;
     }
 }

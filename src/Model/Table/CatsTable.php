@@ -112,18 +112,11 @@ class CatsTable extends Table
             ->allowEmpty('bio');
 
         $validator
-            ->allowEmpty('caretaker_notes');
-
-        $validator
-            ->allowEmpty('medical_notes');
+            ->allowEmpty('specialty_notes');
 
         $validator
             ->integer('microchip_number')
             ->allowEmpty('microchip_number');
-
-        $validator
-            ->date('microchiped_date')
-            ->allowEmpty('microchiped_date');
 
         $validator
             ->boolean('adoption_fee_paid')
