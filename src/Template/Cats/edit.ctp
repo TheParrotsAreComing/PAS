@@ -3,7 +3,7 @@
         <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
         <div class="add-cont scroll1" data-ix="page-load-fade-in">
             <div class="add-header">
-                <div class="add-field-h1">Create a cat</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+                <div class="add-field-h1">Edit a cat</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
             </div>
             <?= $this->Form->create($cat) ?>
                 <div class="add-input-form-wrap w-form">
@@ -98,8 +98,8 @@
                                     <span class="toggle"></span>
                                 </div>
                             </div>
-                            <div class="gender-female">male</div>
-                            <div class="gender-male">female</div>
+                            <div class="gender-female" id="male-label">male</div>
+                            <div class="gender-male" id="female-label">female</div>
                         </div>
                         <label class="add-field-h3" for="E-mail">kitten/adult<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
@@ -140,8 +140,8 @@
                                     <span class="toggle"></span>
                                 </div>
                             </div>
-                            <div class="gender-female">adult</div>
-                            <div class="gender-male">kitten</div>
+                            <div class="gender-female" id="adult-label">adult</div>
+                            <div class="gender-male" id="kitten-label">kitten</div>
                         </div>
                         <label class="add-field-h2">care information</label>
                         <div class="add-field-seperator"></div>
@@ -200,3 +200,24 @@
     </div>
 </div>
 <?= $this->Form->end() ?>
+<script>
+$(document).ready(function() {
+    var gender = "<?= $cat['is_female']; ?>";
+    var cat = "<?= $cat['is_kitten']; ?>";
+    console.log(cat);
+    if (gender == 1) {
+        $('#switch-female').prop("checked", true);
+        $('#female-label').text("female");
+    } else {
+        $('#switch-male').prop("checked", true);
+        $('#female-label').text("male");
+    }
+    if (cat == 1) {
+        $('#kitten-label').text("kitten");
+        $('#kitten').prop("checked", true);
+    } else {
+        $('#kitten-label').text("adult");
+        $('#adult').prop("checked", true);
+    }
+});
+</script>
