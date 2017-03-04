@@ -165,11 +165,11 @@
                   </a>
                   <?php if (empty($foster["cat_histories"])): ?>
                     <a class="dropdown-cont w-inline-block">
-                      This foster doesn"t currently have any cats!
+                      This foster doesn't currently have any cats!
                     </a>
                   <?php else:?>
                     <a class="cursor-point dropdown-cont w-inline-block" data-ix="dropdown">
-                      Click to see foster"s current cats<div class="dropdown-icon"></div>
+                      Click to see foster's current cats<div class="dropdown-icon"></div>
                     </a>
                   <?php endif; ?>
                   <div class="dropdown-results-cont">
