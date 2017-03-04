@@ -184,7 +184,7 @@
 <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
 <div class="button-cont">
   <div class="button-01">
-    <div class="button-icon-text">Add Cat</div><?= $this->Html->image("add-01.png", ["width"=>"55", "data-ix"=>"add-click", "url"=>["controller"=>"adopters", "action"=>"add"]]); ?>
+    <div class="button-icon-text">Add Adopter</div><?= $this->Html->image("add-01.png", ["width"=>"55", "data-ix"=>"add-click", "url"=>["controller"=>"adopters", "action"=>"add"]]); ?>
   </div>
   <div class="button-02">
     <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
