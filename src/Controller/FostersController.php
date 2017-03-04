@@ -19,21 +19,16 @@ class FostersController extends AppController
      */
     public function index()
     {
-        $fosters = $this->paginate($this->Fosters);
-        $foster_cats = [];
 
-        $cat_history_db = TableRegistry::get('CatHistories');
-        $cat_db = TableRegistry::get('Cats');
-
-        $foster_cats = [];
-        foreach ($fosters as $foster) {
-            $foster_cats[$foster['id']] = [];
-            $cats = $cat_history_db->find('all', ['conditions'=>['foster_id'=>$foster['id'], 'end_date IS NULL']])->toArray();
-            foreach ($cats as $i => $cat) {
-                $foster_cats[$foster['id']][$i] = $cat_db->find('all', ['conditions'=>['id'=>$cat['cat_id']]])->first();
-            }
-        }
-
+        $query = $this->Fosters->find('all', ['conditions'=>['is_deleted'=>false]]);
+        $query->contain([
+            'CatHistories'=>function($q) {
+                return $q->where(['end_date IS NULL']);
+            },
+            'CatHistories.Cats']
+        );
+          
+        $fosters = $this->paginate($query);
         $this->set(compact('fosters', 'foster_cats'));
         $this->set('_serialize', ['fosters']);
     }
@@ -96,7 +91,7 @@ class FostersController extends AppController
             if ($this->Fosters->save($foster)) {
                 $this->Flash->success(__('The foster has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $foster->id]);
             } else {
                 $this->Flash->error(__('The foster could not be saved. Please, try again.'));
             }
@@ -115,10 +110,13 @@ class FostersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        //$this->request->allowMethod(['post', 'delete']);
         $foster = $this->Fosters->get($id);
-        if ($this->Fosters->delete($foster)) {
+        $this->request->data['is_deleted'] = 1;
+        $foster = $this->Fosters->patchEntity($foster, $this->request->data);
+        if ($this->Fosters->save($foster)) {
             $this->Flash->success(__('The foster has been deleted.'));
+            return $this->redirect(['action' => 'index']);
         } else {
             $this->Flash->error(__('The foster could not be deleted. Please, try again.'));
         }
