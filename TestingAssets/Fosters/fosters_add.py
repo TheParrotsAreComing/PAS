@@ -69,6 +69,6 @@ sql_email = str(k[0].get('email'),'utf-8')
 
 assert sql_email == l_name+"@"+f_name+".net"
 
-if sql_email == l_name+"@"+f_name+".net":
-	db.query('DELETE FROM fosters where first_name="'+f_name+'" AND last_name="'+l_name+'";')
+#if sql_email == l_name+"@"+f_name+".net":
+	#db.query('DELETE FROM fosters where first_name="'+f_name+'" AND last_name="'+l_name+'";')
 

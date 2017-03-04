@@ -38,14 +38,16 @@ try:
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
 	driver.get('http://localhost:8765/fosters/view/'+a_id);
-	sys.exit()
 
 
-	cat_name = driver.find_element_by_class_name("cat-profile-name").text
-	if rand_name == cat_name:
+	foster_name = driver.find_element_by_class_name("cat-profile-name").text
+
+	if rand_fname+" "+rand_lname == foster_name:
 		print("pass")
 	else:
 		print("fail")
+
+	driver.quit()
 except Exception as e:
 	print(e)
 	print("fail")

@@ -33,16 +33,6 @@ elem = driver.find_element_by_id("kc-ref-id");
 elem.location_once_scrolled_into_view
 elem.send_keys(kc_ref);
 
-#Adult Cat Count
-elem = driver.find_element_by_id("cat-count");
-elem.location_once_scrolled_into_view
-elem.send_keys(2);
-
-#Kitten Count
-elem = driver.find_element_by_id("kitten-count");
-elem.location_once_scrolled_into_view
-elem.send_keys(2);
-
 #### DOB Select ###
 
 #dob month
