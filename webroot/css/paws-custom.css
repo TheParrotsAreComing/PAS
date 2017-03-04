@@ -31,10 +31,12 @@
 
 .error {
   background: #FF9999;
+  border-color: #ff8181;
 }
 
 .success {
-  background: #a2d392;
+  background: #a2d392;  
+  border-color: #84c46e;
 }
 
 .flash-text {
@@ -42,21 +44,23 @@
 }
 
 .message {
+  position: relative;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
   min-height: 3em;
   text-align: center;
   padding-top:1em;
   padding-bottom:1em;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #666666;
   font-family: 'Sf ui display', sans-serif;
+  cursor: pointer;
 }
 
 .flash-div {
-  width: 25%;
-  top: 60px;
-  right: 50px;
   position: absolute;
+  width: 25%;
+  top: 70px;
+  right: 50px;
   z-index: 9001;
 }
 
@@ -66,4 +70,20 @@
     top: 60px;
     right: 0px;
   }
+}
+
+.success-close {
+  font-size: 15px;
+  position: absolute;
+  top: 0px;
+  right: 7px;
+  font-color: #477f34;
+}
+
+.error-close {
+  font-size: 15px;
+  position: absolute;
+  top: 0px;
+  right: 7px;
+  font-color: #ff8181;
 }
