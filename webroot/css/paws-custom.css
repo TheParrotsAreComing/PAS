@@ -31,10 +31,12 @@
 
 .error {
   background: #FF9999;
+  border-color: #ff8181;
 }
 
 .success {
-  background: #a2d392;
+  background: #a2d392;  
+  border-color: #84c46e;
 }
 
 .flash-text {
@@ -42,6 +44,10 @@
 }
 
 .message {
+  position: relative;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
   min-height: 3em;
   text-align: center;
   padding-top:1em;
@@ -50,11 +56,112 @@
   border-width: 1px;
   border-color: #666666;
   font-family: 'Sf ui display', sans-serif;
+  cursor: pointer;
 }
 
 .flash-div {
   width: 100%;
   top: 60px;
   position: absolute;
+  width: 25%;
+  top: 70px;
+  right: 50px;
   z-index: 9001;
+}
+
+@media (max-width: 479px) {
+  .flash-div {
+    width: 100%;
+    top: 60px;
+    right: 0px;
+  }
+}
+
+.success-close {
+  font-size: 15px;
+  position: absolute;
+  top: 0px;
+  right: 7px;
+  font-color: #477f34;
+}
+
+.error-close {
+  font-size: 15px;
+  position: absolute;
+  top: 0px;
+  right: 7px;
+  font-color: #ff8181;
+}
+
+/* generic switch */
+.switch {
+    background: #eee;
+    border-radius: 32px;
+    display: block;
+    height: 32px;
+    position: relative;
+    width: 80px;
+}
+
+.switch input {
+    height: 32px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 80px;
+    z-index: 2;
+}
+.switch input:checked~.toggle {
+    left: 4px;
+}
+.switch input~:checked~.toggle {
+    left: 50px;
+}
+.switch input:checked {
+    z-index: 0;
+}
+.toggle {
+    background: #0172ff;
+    border-radius: 50%;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    -webkit-transition: left .2s ease;
+    -moz-transition: left .2s ease;
+    -ms-transition: left .2s ease;
+    -o-transition: left .2s ease;
+    transition: left .2s ease;
+    width: 28px;
+    z-index: 1;
+}
+
+/* Adopter DO NOT ADOPT switch */
+.switch-dna input:checked~.toggle {
+    left: 4px;
+    background: #0172ff;
+}
+.switch-dna input~:checked~.toggle {
+    left: 50px;
+    background: #ff0000;
+}
+.adopt-no {
+    color: #ff0000;
+}
+
+/*.dna-card-big {
+    background: #ffb3b3;
+}*/
+
+.dna-card-small {
+    background: #ff8080;
+}
+
+.dna-reason {
+    display: none;
+}
+
+.profile-action-button, .profile-action-button-cont {
+    cursor: pointer;
 }
