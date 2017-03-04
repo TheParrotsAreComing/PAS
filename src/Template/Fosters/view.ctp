@@ -2,6 +2,13 @@
   <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
+        <div class="button profile-header">
+            <a href = "<?= $this->Url->build(['controller' => 'fosters', 'action' => 'index']) ?>" class="profile-back w-inline-block">
+            <div>&lt; Back</div>
+            </a>
+            <div class="profile-id-cont">
+            </div>
+        </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
             <div class="cat-profile-name"><?= h($foster->first_name) ?> <?= h($foster->last_name) ?></div>
