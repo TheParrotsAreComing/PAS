@@ -175,7 +175,7 @@
                   <div class="dropdown-results-cont">
                     <?php foreach ($foster["cat_histories"] as $cat): ?>
                       <?php $cat = $cat["cat"]; ?>
-                      <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image("cat-01.png", ["class"=>"dropdown-cat-pic"]); ?>
+                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image("cat-01.png", ["class"=>"dropdown-cat-pic"]); ?>
                         <div class="dropdown-cat-name"> <?= $cat["cat_name"]; ?> </div>
                       </a>
                     <?php endforeach; ?>
