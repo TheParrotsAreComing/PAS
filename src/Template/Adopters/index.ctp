@@ -177,14 +177,14 @@
           <div class="cat-sort-text">Filter</div>
         </div>
         <nav class="w-dropdown-list"></nav>
-      </div><a class="cat-add w-button" href="<?= $this->Url->build(['controller' => 'Adopters', 'action' => 'add']) ?>">+ New Adopter</a>
+      </div><a class="cat-add w-button" href="<?= $this->Url->build(["controller" => "Adopters", "action" => "add"]) ?>">+ New Adopter</a>
     </div> 
   </div>
 </div>
 <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
 <div class="button-cont">
   <div class="button-01">
-    <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
+    <div class="button-icon-text">Add Cat</div><?= $this->Html->image("add-01.png", ["width"=>"55", "data-ix"=>"add-click", "url"=>["controller"=>"adopters", "action"=>"add"]]); ?>
   </div>
   <div class="button-02">
     <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">

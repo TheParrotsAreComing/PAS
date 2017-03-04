@@ -163,20 +163,20 @@
                       </div>
                     </div>
                   </a>
-                  <?php if (empty($foster['cat_histories'])): ?>
+                  <?php if (empty($foster["cat_histories"])): ?>
                     <a class="dropdown-cont w-inline-block">
-                      This foster doesn't currently have any cats!
+                      This foster doesn"t currently have any cats!
                     </a>
                   <?php else:?>
                     <a class="cursor-point dropdown-cont w-inline-block" data-ix="dropdown">
-                      Click to see foster's current cats<div class="dropdown-icon"></div>
+                      Click to see foster"s current cats<div class="dropdown-icon"></div>
                     </a>
                   <?php endif; ?>
                   <div class="dropdown-results-cont">
-                    <?php foreach ($foster['cat_histories'] as $cat): ?>
-                      <?php $cat = $cat['cat']; ?>
-                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
-                        <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
+                    <?php foreach ($foster["cat_histories"] as $cat): ?>
+                      <?php $cat = $cat["cat"]; ?>
+                      <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image("cat-01.png", ["class"=>"dropdown-cat-pic"]); ?>
+                        <div class="dropdown-cat-name"> <?= $cat["cat_name"]; ?> </div>
                       </a>
                     <?php endforeach; ?>
                   </div>
@@ -191,7 +191,7 @@
 <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
 <div class="button-cont">
   <div class="button-01">
-    <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
+    <div class="button-icon-text">Add Cat</div><?= $this->Html->image("add-01.png", ["data-ix"=>"add-click", "width"=>"55", "url"=>["controller"=>"fosters", "action"=>"add"]]); ?>
   </div>
   <div class="button-02">
     <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
