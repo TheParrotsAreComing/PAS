@@ -1,8 +1,8 @@
 
   <div class="body">
-    <div class="column profile">
+    <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
-        <div class="profile-header w-clearfix"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
             <div class="cat-profile-name"><?= h($foster->first_name) ?> <?= h($foster->last_name) ?></div>
             <div>
@@ -10,9 +10,6 @@
               <div class="profile-header-text"><?= $this->Number->format($foster->rating) ?></div>
             </div>
           </div>
-          <a class="cat-profile-back w-inline-block">
-            <div>&lt; Back</div>
-          </a>
         </div>
         <div class="profile-tabs-cont w-tabs">
             <div class="cat-profile-tabs-menu w-tab-menu">
@@ -26,7 +23,7 @@
               </a>
             </div>
             <div class="profile-tab-wrap scroll1 w-tab-content">
-                <div class="w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
+                <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                     <!--<div class="profile-notification-cont">
                         <div class="tag-cont warning">
                           <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
@@ -149,10 +146,10 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <div class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
-            <div class="basic profile-action-button"></div>
+          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
+            <div class="basic profile-action-button""></div>
             <div>delete</div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -166,17 +163,17 @@
     <div class="notify-more">More...</div>
   </div>-->
   <div class="floating-overlay">
-
+    <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this foster?</div>
       <div class="confirm-button-wrap w-form">
         <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
             <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
             <?= $this->Html->link('Delete', ['controller'=>'fosters', 'action'=>'delete', $foster->id], ['class'=>'confirm-button delete w-button']); ?>
         </form>
-
+      </div>
     </div>
   </div> 
-  <div class="button-cont">
+  <div class="button-cont w-hidden-main">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit', $foster->id], ['escape'=>false]);?>">
         <div class="button-icon-text">Edit</div><img src="<?= $this->Url->image('edit-01.png');?>" width="55">
     </a>
@@ -184,9 +181,9 @@
         <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
     </div>
     <div class="button-03" data-ix="add-click">
-        <div class="button-icon-text">Export</div><img src="<?= $this->Url->image('export-01.png');?>" width="55">
+        <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
     </div>
     <div class="button-04" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div><img data-ix="delete-click" src="<?= $this->Url->image('delete-01.png');?>" width="55">
+        <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">

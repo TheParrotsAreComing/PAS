@@ -117,7 +117,7 @@ class AdoptersController extends AppController
         $adopter = $this->Adopters->get($id);
         $this->request->data['is_deleted'] = 1;
         $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
-        if ($this->Adopters->delete($adopter)) {
+        if ($this->Adopters->save($adopter)) {
             $this->Flash->success(__('The adopter has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {

@@ -114,7 +114,7 @@ class FostersController extends AppController
         $foster = $this->Fosters->get($id);
         $this->request->data['is_deleted'] = 1;
         $foster = $this->Fosters->patchEntity($foster, $this->request->data);
-        if ($this->Fosters->delete($foster)) {
+        if ($this->Fosters->save($foster)) {
             $this->Flash->success(__('The foster has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {

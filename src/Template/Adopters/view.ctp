@@ -1,8 +1,8 @@
 
   <div class="body">
-    <div class="column profile">
+    <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
-        <div class="profile-header w-clearfix"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
             <div class="cat-profile-name"><?= h($adopter->first_name) ?> <?= h($adopter->last_name) ?></div>
       			<div>
@@ -11,9 +11,6 @@
       				<?php endif; ?>            
       			</div>
           </div>
-          <a class="cat-profile-back w-inline-block">
-            <div></div>
-          </a>
         </div>
         <div class="profile-tabs-cont w-tabs">
           <div class="cat-profile-tabs-menu w-tab-menu">
@@ -27,7 +24,7 @@
             </a>
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
-            <div class="w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
+            <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                 <!--<div class="profile-notification-cont">
                   <div class="tag-cont warning">
                     <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
@@ -160,8 +157,8 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click" href="#">
-            <div class="basic profile-action-button" data-ix="delete-click"></div>
+          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+            <div class="basic profile-action-button" ></div>
             <div>delete</div>
           </a>
         </div>
@@ -194,10 +191,10 @@
       <a class="button-02" href="#">
         <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
       </a>
-      <a class="button-03" data-ix="add-click" href="#">
+      <a class="button-03" data-ix="add-click">
         <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
       </a>
       <div class="button-04" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div><img data-ix="delete-click" src="<?= $this->Url->image('delete-01.png');?>" width="55">
+        <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
