@@ -121,7 +121,7 @@
       <div class="list w-dyn-items">
       <?php foreach($adopters as $adopter) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
-          <a class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-profile-adopter-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
+          <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card-big" : ""; ?> w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('cat-profile-adopter-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
             <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
             <div><!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
@@ -143,18 +143,19 @@
               </div>
             </div>
           </a>
-          <?php if (empty($adopter_cats[$adopter['id']])): ?>
-            <a class="dropdown-cont w-inline-block">
-              This person has not adopted any cats... yet!
+          <?php if (empty($adopter['cat_histories'])): ?>
+              <a class="dropdown-cont <?= ($adopter['do_not_adopt']) ? 'dna-card-small' : ''; ?> w-inline-block">
+              <?= ($adopter['do_not_adopt']) ? '<b>DO NOT ADOPT!</b>' : 'This person has not adopted any cats... yet!'; ?>
             </a>
           <?php else: ?>
-            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
-              Click to see adopted cats<div class="dropdown-icon"></div>
+              <a class="cursor-point dropdown-cont <?= ($adopter['do_not_adopt']) ? 'dna-card-small' : ''; ?> w-inline-block" data-ix="dropdown">
+              <?= ($adopter['do_not_adopt']) ? '<b>DO NOT ADOPT!</b><div class="dropdown-icon"></div>' : 'Click to see adopted cats<div class="dropdown-icon"></div>'; ?>
             </a>
           <?php endif; ?>
           <div class="dropdown-results-cont">
-            <?php foreach ($adopter_cats[$adopter['id']] as $cat): ?>
-              <a class="dropdown-cat-cont w-inline-block"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+            <?php foreach ($adopter['cat_histories'] as $cat): ?>
+            <?php $cat = $cat['cat']; ?>
+              <a class="cursor-point dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
                 <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
               </a>
             <?php endforeach; ?>
@@ -176,14 +177,14 @@
           <div class="cat-sort-text">Filter</div>
         </div>
         <nav class="w-dropdown-list"></nav>
-      </div><a class="cat-add w-button" href="<?= $this->Url->build(['controller' => 'Adopters', 'action' => 'add']) ?>">+ New Adopter</a>
+      </div><a class="cat-add w-button" href="<?= $this->Url->build(["controller" => "Adopters", "action" => "add"]) ?>">+ New Adopter</a>
     </div> 
   </div>
 </div>
 <div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
 <div class="button-cont">
   <div class="button-01">
-    <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
+    <div class="button-icon-text">Add Adopter</div><?= $this->Html->image("add-01.png", ["width"=>"55", "data-ix"=>"add-click", "url"=>["controller"=>"adopters", "action"=>"add"]]); ?>
   </div>
   <div class="button-02">
     <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
