@@ -1,5 +1,4 @@
-$(function () {
-	
+function calculateAndPopulateAgeFields() {
 	var cat_dob_divs = $('.cat-dob');
 	var cat_age_divs = $('.cat-age');
 
@@ -20,4 +19,8 @@ $(function () {
 		var ageString = momentdob.fromNow(1);
 		cat_age_divs[i].innerHTML = ageString;
 	}
+}
+
+$(function () {
+
 })

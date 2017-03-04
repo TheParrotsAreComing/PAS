@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -119,6 +120,10 @@ class CatsTable extends Table
             ->allowEmpty('microchip_number');
 
         $validator
+            ->boolean('is_microchip_registered')
+            ->allowEmpty('is_microchip_registered');
+
+        $validator
             ->boolean('adoption_fee_paid')
             ->allowEmpty('adoption_fee_paid');
 
@@ -145,5 +150,20 @@ class CatsTable extends Table
         $rules->add($rules->existsIn(['profile_pic_file_id'], 'Files'));
 
         return $rules;
+    }
+
+    public function attachToLitter($litter_id, $cat) {
+        $litter_table = TableRegistry::get('Litters');
+        $the_litter = $litter_table->get($litter_id);
+
+        if($cat->is_kitten) {
+            $the_litter->kitten_count++;
+        }
+        else {
+            $the_litter->cat_count++;
+        }
+
+        $litter_table->save($the_litter);
+
     }
 }

@@ -210,3 +210,7 @@
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
     </a>
   </div>
+  
+<script>
+  calculateAndPopulateAgeFields();
+</script>

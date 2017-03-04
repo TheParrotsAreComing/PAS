@@ -162,6 +162,48 @@
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
                             'placeholder' => '0123456789')); ?>
+                        <label class="add-field-h3" for="E-mail">is microchip registered?<span class="required-field-indicator"><span class="pre"></span></span></label>
+                        <div class="gender-cont">
+                            <div class="gender-switch w-embed" data-ix="gender-switch">
+                                <style>
+                                    /* ---------- SWITCH ---------- */
+                                    
+                                    .switch-chip {
+                                        background: #eee;
+                                        border-radius: 32px;
+                                        display: block;
+                                        height: 32px;
+                                        position: relative;
+                                        width: 80px;
+                                    }
+                                    .switch-chip input {
+                                        height: 32px;
+                                        left: 0;
+                                        opacity: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        width: 80px;
+                                        z-index: 2;
+                                    }
+                                    .switch-chip input:checked~.toggle {
+                                        left: 4px;
+                                    }
+                                    .switch-chip input~:checked~.toggle {
+                                        left: 50px;
+                                    }
+                                    .switch-chip input:checked {
+                                        z-index: 0;
+                                    }
+                                </style>
+                                <div class="switch-chip white">
+                                    <input value="0" type="radio" name="is_microchip_registered" id="microchip_not_registered" checked>
+                                    <input value="1" type="radio" name="is_microchip_registered" id="microchip_registered">
+                                    <span class="toggle"></span>
+                                </div>
+                            </div>
+                            <div class="gender-female">registered</div>
+                            <div class="gender-male">not registered</div>
+                        </div>
                         <?php echo $this->Form->input('specialty_notes', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
@@ -177,12 +219,35 @@
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type the biography for this cat...')); ?> 
                         <div class="add-button-cont">
-                       <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
-                       <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
+                       
+                       <?= $this->Form->input('addMoreCats', ['type' => 'hidden', 'value' => 0 ]) ?>
+                       
+                       <?php if (empty($litter_id)): 
+                       // show proper buttons, incase we're adding cats to a new litter ?>
+                           <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
+                           <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
+                        <?php else: ?>
+                           <?= $this->Form->submit("Submit and done", ['id'=>'LitterCatAddDone', 'class'=>'add-submit w-button']); ?>
+                           <?= $this->Html->link("Cancel this cat", ['controller'=>'litters', 'action'=>'index'], ['id'=>'LitterCatAddCancel', 'class'=>'add-cancel w-button']); ?>
+                           <?= $this->Form->button("Submit and add another",['id'=>'LitterCatAddAndMore', 'class'=>'add-submit w-button', 'type' => 'button']); ?>
+                        <?php endif; ?>
                         </div>
                     </form>
                 </div>
         </div>
     </div>
 </div>
+
 <?= $this->Form->end() ?>
+
+
+<script>
+    $(function(){
+      $('#LitterCatAddAndMore').click(
+        function(e){
+            $('#addmorecats').val(1);
+            $('form').submit();
+            return true;
+        })
+    })
+</script>
