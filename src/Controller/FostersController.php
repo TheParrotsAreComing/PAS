@@ -20,7 +20,7 @@ class FostersController extends AppController
     public function index()
     {
 
-        $query = $this->Fosters->find();
+        $query = $this->Fosters->find('all', ['conditions'=>['is_deleted'=>false]]);
         $query->contain([
             'CatHistories'=>function($q) {
                 return $q->where(['end_date IS NULL']);

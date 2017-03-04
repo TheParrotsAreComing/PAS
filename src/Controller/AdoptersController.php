@@ -19,7 +19,7 @@ class AdoptersController extends AppController
      */
     public function index()
     {
-        $query = $this->Adopters->find();
+        $query = $this->Adopters->find('all', ['conditions'=>['is_deleted'=>false]]);
         $query->contain([
             'CatHistories'=>function($q){
                 return $q->where(['end_date IS NULL']);
