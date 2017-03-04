@@ -23,7 +23,7 @@ driver.set_window_size(375, 667);
 driver.get('http://localhost:8765/');
 
 
-cat_link = driver.find_element_by_css_selector('a.pas-home-button-link-cont[href="/cats"]')
+cat_link = driver.find_element_by_css_selector('a.pas-home-button-cont[href="/cats"]')
 cat_link.click()
 
 m = re.search('cats',driver.current_url)
@@ -32,7 +32,7 @@ assert m.group(0) == 'cats'
 
 driver.execute_script("window.history.go(-1)")
 
-adopter_link = driver.find_element_by_css_selector('a.pas-home-button-link-cont[href="/adopters"]')
+adopter_link = driver.find_element_by_css_selector('a.pas-home-button-cont[href="/adopters"]')
 adopter_link.click()
 
 al = re.search('adopters',driver.current_url)
@@ -41,7 +41,7 @@ assert al.group(0) == 'adopters'
 
 driver.execute_script("window.history.go(-1)")
 
-fosters_link = driver.find_element_by_css_selector('a.pas-home-button-link-cont[href="/fosters"]')
+fosters_link = driver.find_element_by_css_selector('a.pas-home-button-cont[href="/fosters"]')
 fosters_link.click()
 
 fl = re.search('fosters',driver.current_url)
@@ -50,7 +50,7 @@ assert fl.group(0) == 'fosters'
 
 driver.execute_script("window.history.go(-1)")
 
-litters_link = driver.find_element_by_css_selector('a.pas-home-button-link-cont[href="/litters"]')
+litters_link = driver.find_element_by_css_selector('a.pas-home-button-cont[href="/litters"]')
 litters_link.click()
 
 ll = re.search('litters',driver.current_url)
