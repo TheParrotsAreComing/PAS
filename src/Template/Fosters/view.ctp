@@ -31,26 +31,26 @@
             </div>
             <div class="profile-tab-wrap scroll1 w-tab-content">
                 <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
-                    <!--<div class="profile-notification-cont">
-                        <div class="tag-cont warning">
-                          <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
-                        </div>
-                        <div class="info tag-cont">
-                          <div class="tag-text">Playful</div><a class="tag-remove" href="#"></a>
-                        </div>
-                        <div class="info tag-cont">
-                          <div class="tag-text">good with children</div><a class="tag-remove" href="#"></a>
-                        </div>
-                        <div class="tag-cont urgent">
-                          <div class="tag-text">dislikes dogs</div><a class="tag-remove" href="#"></a>
-                        </div>
-                        <div class="tag-cont urgent">
-                          <div class="tag-text">scratches</div><a class="tag-remove" href="#"></a>
-                        </div>
-                        <div class="success tag-cont">
-                          <div class="tag-text">microchipped</div><a class="tag-remove" href="#"></a>
-                        </div>
-                      </div>-->
+                    <div class="profile-notification-cont">
+                      <div class="tag-cont warning">
+                        <div class="tag-text">cat(s) due for immunization</div><a class="tag-remove" href="#"></a>
+                      </div>
+                      <div class="info tag-cont">
+                        <div class="tag-text">no dogs</div><a class="tag-remove" href="#"></a>
+                      </div>
+                      <div class="info tag-cont">
+                        <div class="tag-text">has small children</div><a class="tag-remove" href="#"></a>
+                      </div>
+                      <div class="tag-cont urgent">
+                        <div class="tag-text">active home</div><a class="tag-remove" href="#"></a>
+                      </div>
+                      <div class="tag-cont urgent">
+                        <div class="tag-text">has guinea pig</div><a class="tag-remove" href="#"></a>
+                      </div>
+                      <div class="success tag-cont">
+                        <div class="tag-text">has cat</div><a class="tag-remove" href="#"></a>
+                      </div>
+                    </div>
                   <div class="profile-content-cont">
                       <div class="profile-text-header">Personal Information</div>
                       <div class="profile-field-cont">
