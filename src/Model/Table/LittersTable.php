@@ -63,14 +63,10 @@ class LittersTable extends Table
             ->notEmpty('litter_name');
 
         $validator
-            ->integer('cat_count')
-            ->requirePresence('cat_count', 'create')
-            ->notEmpty('cat_count');
+            ->integer('cat_count');
 
         $validator
-            ->integer('kitten_count')
-            ->requirePresence('kitten_count', 'create')
-            ->notEmpty('kitten_count');
+            ->integer('kitten_count');
 
         $validator
             ->date('dob')

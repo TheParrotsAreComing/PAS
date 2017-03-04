@@ -14,10 +14,6 @@
             <?= $this->Form->input('litter_name', ['class'=>'add-input w-input', 'data-name'=>'Litter-Name', 'label'=>false, 'placeholder'=>'Name to reference the litter']);?>
             <label class="add-field-h3" for="Kc-Ref-Id">kitten central id<span class="required-field-indicator"><span class="pre"></span></span>:</label>
             <?= $this->Form->input('kc_ref_id', ['class'=>'add-input w-input', 'data-name'=>'Kc-Ref-Id', 'label'=>false, 'placeholder'=>'456123', 'type' => 'text']);?>
-            <label class="add-field-h3" for="cat_count">number of adult cats<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-            <?= $this->Form->input('cat_count', ['class'=>'add-input w-input', 'data-name'=>'Cat-Count', 'label'=>false, 'placeholder'=>'1']);?>
-            <label class="add-field-h3" for="Kitten-Count">number of kittens<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-            <?= $this->Form->input('kitten_count', ['class'=>'add-input w-input', 'data-name'=>'Kitten-Count', 'label'=>false, 'placeholder'=>'4']);?>
             <label class="add-field-h3" for="DOB">Date of birth<span class="required-field-indicator"><span class="pre"></span></span>:</label>
             <div class="date-cont">
                 <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
@@ -34,7 +30,7 @@
             <?= $this->Form->input('notes', ['class'=>'add-input w-input', 'data-name'=>'Notes', 'label'=>false, 'placeholder'=>'e.g. This litter has special needs, such as...']);?>
             <div class="add-button-cont">
               <?= $this->Html->link("Cancel", ['controller'=>'litters', 'action'=>'index'], ['id'=>'Litter-Cancel', 'class'=>'add-cancel w-button']); ?>
-              <?= $this->Form->submit("Submit",['id'=>'Litter-Add', 'class'=>'add-submit w-button']); ?>
+              <?= $this->Form->submit("Submit and Add Cats",['id'=>'Litter-Add', 'class'=>'add-submit w-button']); ?>
             </div>
           </form>
         </div>

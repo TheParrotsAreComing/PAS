@@ -2,6 +2,10 @@
 	Home Page related css
 */
 
+html {
+  height: 100vh;
+}
+
 .pas-home-list {
     width: 100%;
 }
@@ -163,5 +167,9 @@
 }
 
 .profile-action-button, .profile-action-button-cont {
+    cursor: pointer;
+}
+
+.cursor-point {
     cursor: pointer;
 }

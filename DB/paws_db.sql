@@ -118,6 +118,7 @@ CREATE TABLE cats (
     */
     
 	microchip_number INT,
+    is_microchip_registered BOOLEAN,
 	created DATETIME,
 	adoption_fee_amount DECIMAL(10,2),
 	is_paws BOOLEAN,

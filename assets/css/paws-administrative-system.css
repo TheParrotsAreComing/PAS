@@ -546,19 +546,18 @@
 }
 
 .navbar-search-icon-mobile {
-  position: relative;
-  left: 42px;
   display: none;
   margin-top: 20px;
   margin-right: 5px;
   float: right;
   font-family: 'Linea basic 10', sans-serif;
   color: #9f9c99;
-  font-size: 24px;
+  font-size: 0px;
 }
 
 .button-paw {
   display: none;
+  width: 0px;
 }
 
 .navbar-search-exit {
@@ -922,6 +921,8 @@
 
 .notify-cont {
   display: none;
+  width: 0%;
+  height: 0px;
 }
 
 .profile-notification-cont {
@@ -2220,14 +2221,13 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     background-color: #f7f9f9;
   }
   .navbar-search-icon-mobile {
-    position: static;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     width: 30px;
     height: 30px;
-    margin-right: 10px;
+    margin-right: 5px;
     margin-left: 10px;
     float: right;
     -webkit-box-align: center;
@@ -2249,6 +2249,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     left: 80%;
     bottom: 5%;
     display: block;
+    width: 60px;
   }
   .navbar-search-exit {
     display: none;
