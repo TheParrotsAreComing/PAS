@@ -1,6 +1,4 @@
-<?= $this->Html->script('moment.js'); ?>
-<?= $this->Html->script('cats.js'); ?>
-<body class="page">
+
   <div class="body">
     <div class="column profile">
       <div class="profile-cont" data-ix="page-load-fade-in">
@@ -163,7 +161,7 @@
             <div>export</div>
           </a>
           <a class="profile-action-button-cont w-inline-block" data-ix="delete-click" href="#">
-            <div class="basic profile-action-button"></div>
+            <div class="basic profile-action-button" data-ix="delete-click"></div>
             <div>delete</div>
           </a>
         </div>
@@ -199,11 +197,7 @@
       <a class="button-03" data-ix="add-click" href="#">
         <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
       </a>
-      <div class="button-04">
+      <div class="button-04" data-ix="delete-click">
         <div class="button-icon-text">Delete</div><img data-ix="delete-click" src="<?= $this->Url->image('delete-01.png');?>" width="55">
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
-  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-</body>
