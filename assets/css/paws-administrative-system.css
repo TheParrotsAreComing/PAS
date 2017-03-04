@@ -546,19 +546,18 @@
 }
 
 .navbar-search-icon-mobile {
-  position: relative;
-  left: 42px;
   display: none;
   margin-top: 20px;
   margin-right: 5px;
   float: right;
   font-family: 'Linea basic 10', sans-serif;
   color: #9f9c99;
-  font-size: 24px;
+  font-size: 0px;
 }
 
 .button-paw {
   display: none;
+  width: 0px;
 }
 
 .navbar-search-exit {
@@ -686,7 +685,8 @@
 }
 
 .profile-header.button {
-  margin-bottom: 0px;
+  margin-bottom: 20px;
+  padding-top: 0px;
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
@@ -888,8 +888,8 @@
 
 .profile-id-cont {
   display: block;
-  margin-top: 5px;
-  margin-right: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
   padding: 5px 10px;
   float: right;
   border-radius: 3px;
@@ -918,10 +918,6 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-}
-
-.notify-cont {
-  display: none;
 }
 
 .profile-notification-cont {
@@ -1908,8 +1904,8 @@
   border-radius: 50px;
   background-color: #0172ff;
   box-shadow: 0 0 6px 0 #fff;
-  -webkit-transition: all 300ms ease;
-  transition: all 300ms ease;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -2052,7 +2048,19 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     float: none;
   }
   .body {
-    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
   }
   .body.registration {
     overflow: auto;
@@ -2146,6 +2154,10 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .column.profile.scroll1 {
     overflow: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
   }
   .column.home {
     padding-top: 15px;
@@ -2220,14 +2232,13 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     background-color: #f7f9f9;
   }
   .navbar-search-icon-mobile {
-    position: static;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     width: 30px;
     height: 30px;
-    margin-right: 10px;
+    margin-right: 5px;
     margin-left: 10px;
     float: right;
     -webkit-box-align: center;
@@ -2249,6 +2260,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     left: 80%;
     bottom: 5%;
     display: block;
+    width: 60px;
   }
   .navbar-search-exit {
     display: none;
@@ -2357,12 +2369,12 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
     align-items: flex-start;
-    -webkit-align-self: center;
-    -ms-flex-item-align: center;
-    align-self: center;
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
   }
   .profile-header.button {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
@@ -2381,7 +2393,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     width: 90px;
     height: 90px;
     margin-top: 0px;
-    margin-left: -60px;
+    margin-left: -30px;
   }
   .profile-header-text {
     margin-top: 2px;
@@ -2485,8 +2497,8 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
     padding: 5px 10px;
     float: none;
     -webkit-box-pack: start;
@@ -2523,7 +2535,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     align-self: center;
   }
   .notify-cont {
-    position: absolute;
+    position: fixed;
     left: 0%;
     right: 0px;
     bottom: 0px;
@@ -2549,6 +2561,9 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     flex: 1;
     border-radius: 15px;
     background-color: rgba(35, 31, 32, .83);
+    -webkit-transform: translate(0px, 100px);
+    -ms-transform: translate(0px, 100px);
+    transform: translate(0px, 100px);
     color: #fff;
     font-size: 13px;
     font-weight: 400;
@@ -2602,6 +2617,10 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     text-decoration: none;
   }
   .button-cont {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     display: none;
     color: #fff;
     font-size: 12px;
@@ -2834,8 +2853,8 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     display: flex;
     width: 65px;
     height: 30px;
-    margin-top: 5px;
-    margin-left: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -ms-flex-pack: center;
