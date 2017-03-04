@@ -165,3 +165,7 @@
 .profile-action-button, .profile-action-button-cont {
     cursor: pointer;
 }
+
+.cursor-point {
+    cursor: pointer;
+}
