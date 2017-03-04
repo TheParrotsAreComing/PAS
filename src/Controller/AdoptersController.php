@@ -113,10 +113,13 @@ class AdoptersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        //$this->request->allowMethod(['post', 'delete']);
         $adopter = $this->Adopters->get($id);
+        $this->request->data['is_deleted'] = 1;
+        $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
         if ($this->Adopters->delete($adopter)) {
             $this->Flash->success(__('The adopter has been deleted.'));
+            return $this->redirect(['action' => 'index']);
         } else {
             $this->Flash->error(__('The adopter could not be deleted. Please, try again.'));
         }

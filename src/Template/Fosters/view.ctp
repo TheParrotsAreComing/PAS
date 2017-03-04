@@ -151,27 +151,46 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click" href="#">
             <div class="basic profile-action-button"></div>
             <div>delete</div>
           </a>
         </div>
+      </div>
     </div>
   </div>
-  <div class="floating-overlay"></div>
-      <div class="button-cont">
-          <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit', $foster->id], ['escape'=>false]);?>">
-              <div class="button-icon-text">Edit</div><img src="<?= $this->Url->image('edit-01.png');?>" width="55">
-          </a>
-      <div class="button-02">
-          <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
+  <!--<div class="notify-cont">
+    <div class="notify-overview">Overview</div>
+    <div class="notify-medical">Medical Information</div>
+    <div class="notify-foster">Foster Home</div>
+    <div class="notify-adopter">Adopter</div>
+    <div class="notify-attachments">Attachments</div>
+    <div class="notify-more">More...</div>
+  </div>-->
+  <div class="floating-overlay">
+    <div class="confirm-cont">
+      <div class="confirm-text">Are you sure you want to delete this foster?</div>
+      <div class="confirm-button-wrap w-form">
+        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+            <?= $this->Html->link('Delete', ['controller'=>'fosters', 'action'=>'delete', $foster->id], ['class'=>'confirm-button delete w-button']); ?>
+        </form>
       </div>
-      <div class="button-03" data-ix="add-click">
-          <div class="button-icon-text">Export</div><img src="<?= $this->Url->image('export-01.png');?>" width="55">
-      </div>
-      <div class="button-04">
-          <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
-      </div>
+    </div>
+  </div> 
+  <div class="button-cont">
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit', $foster->id], ['escape'=>false]);?>">
+        <div class="button-icon-text">Edit</div><img src="<?= $this->Url->image('edit-01.png');?>" width="55">
+    </a>
+    <div class="button-02">
+        <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
+    </div>
+    <div class="button-03" data-ix="add-click">
+        <div class="button-icon-text">Export</div><img src="<?= $this->Url->image('export-01.png');?>" width="55">
+    </div>
+    <div class="button-04" data-ix="delete-click">
+        <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
+    </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="js/webflow.js" type="text/javascript"></script>

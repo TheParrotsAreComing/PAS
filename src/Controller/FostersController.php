@@ -110,10 +110,13 @@ class FostersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        //$this->request->allowMethod(['post', 'delete']);
         $foster = $this->Fosters->get($id);
+        $this->request->data['is_deleted'] = 1;
+        $foster = $this->Fosters->patchEntity($foster, $this->request->data);
         if ($this->Fosters->delete($foster)) {
             $this->Flash->success(__('The foster has been deleted.'));
+            return $this->redirect(['action' => 'index']);
         } else {
             $this->Flash->error(__('The foster could not be deleted. Please, try again.'));
         }
