@@ -63,13 +63,15 @@ class LittersController extends AppController
 
             // initial creation, not deleted
             $this->request->data['is_deleted'] = 0;
+            $this->request->data['cat_count'] = 0;
+            $this->request->data['kitten_count'] = 0;
 
             $litter = $this->Litters->patchEntity($litter, $this->request->data);
             
             if ($this->Litters->save($litter)) {
                 $this->Flash->success(__('The litter has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'cats', 'action' => 'add', $litter->id]);
             }
             $this->Flash->error(__('The litter could not be saved. Please, try again.'));
         }

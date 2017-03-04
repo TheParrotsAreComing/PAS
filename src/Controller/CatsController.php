@@ -61,10 +61,16 @@ class CatsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($litter_id = null)
     {
         $cat = $this->Cats->newEntity();
+
+
+
         if ($this->request->is('post')) {
+
+            $addMoreCats = $this->request->data['addMoreCats'];
+            unset($this->request->data['addMoreCats']);
 
             //Extract and put together birthdate into db format
             $dob =  $this->request->data['dob']['year'];
@@ -81,23 +87,44 @@ class CatsController extends AppController
             $this->request->data['is_female'] = (bool) $this->request->data['is_female'];
             $this->request->data['is_microchip_registered'] = (bool) $this->request->data['is_microchip_registered'];
 
-            $cat = $this->Cats->patchEntity($cat, $this->request->data);
+            // attach the cat to the litter, and update litter counts 
+            if (!empty($litter_id)) {
+                $this->request->data['litter_id'] = $litter_id;
+                $cat = $this->Cats->patchEntity($cat, $this->request->data);
+                $this->Cats->attachToLitter($litter_id, $cat);
+            }
+            else {
+                $cat = $this->Cats->patchEntity($cat, $this->request->data);
+            }
 
             if ($this->Cats->save($cat)) {
+
                 $this->Flash->success(__('The cat has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                if ($addMoreCats) {
+                    return $this->redirect(['action' => 'add', $litter_id]);
+                }
+                else if (!empty($litter_id)) {
+                    return $this->redirect(['controller' => 'litters', 'action' => 'index']);   
+                }
+                else {
+                    return $this->redirect(['action' => 'index']);
+                }
             } else {
                 $this->Flash->error(__(json_encode($cat->errors())));
             }
         }
+
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
         $adopters = $this->Cats->Adopters->find('list', ['limit' => 200]);
         $fosters = $this->Cats->Fosters->find('list', ['limit' => 200]);
         $files = $this->Cats->Files->find('list', ['limit' => 200]);
         $adoptionEvents = $this->Cats->AdoptionEvents->find('list', ['limit' => 200]);
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags'));
+
+
+
+        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -153,4 +180,6 @@ class CatsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+
 }

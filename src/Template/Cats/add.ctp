@@ -219,12 +219,35 @@
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type the biography for this cat...')); ?> 
                         <div class="add-button-cont">
-                       <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
-                       <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
+                       
+                       <?= $this->Form->input('addMoreCats', ['type' => 'hidden', 'value' => 0 ]) ?>
+                       
+                       <?php if (empty($litter_id)): 
+                       // show proper buttons, incase we're adding cats to a new litter ?>
+                           <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
+                           <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
+                        <?php else: ?>
+                           <?= $this->Form->submit("Submit and done", ['id'=>'LitterCatAddDone', 'class'=>'add-submit w-button']); ?>
+                           <?= $this->Html->link("Cancel this cat", ['controller'=>'litters', 'action'=>'index'], ['id'=>'LitterCatAddCancel', 'class'=>'add-cancel w-button']); ?>
+                           <?= $this->Form->button("Submit and add another",['id'=>'LitterCatAddAndMore', 'class'=>'add-submit w-button', 'type' => 'button']); ?>
+                        <?php endif; ?>
                         </div>
                     </form>
                 </div>
         </div>
     </div>
 </div>
+
 <?= $this->Form->end() ?>
+
+
+<script>
+    $(function(){
+      $('#LitterCatAddAndMore').click(
+        function(e){
+            $('#addmorecats').val(1);
+            $('form').submit();
+            return true;
+        })
+    })
+</script>
