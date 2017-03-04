@@ -122,12 +122,6 @@
                 </div>
                 <div class="profile-field-cont">
                   <div class="profile-field-cont">
-                    <div class="profile-field-name">Reason not to adopt from this person:</div>
-                    <div class="profile-field-text">0</div>
-                  </div>
-                </div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
                     <div class="profile-field-name">Current Diet:</div>
                     <div class="block profile-field-text"><?= h($cat->diet) ?></div>
                   </div>
@@ -141,8 +135,80 @@
               </div>
             </div>
             <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
-            <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 3"></div>
-            <div class="w-tab-pane" data-w-tab="Tab 4"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 3">
+                <div class="profile-content-cont">
+                    <?php if (!empty($cat->foster_id)): ?>
+                        <div class="profile-text-header">Foster Home</div>
+                        <div class="card-cont card-wrapper w-dyn-item">
+                            <?php $foster_id = $cat->foster_id ?>
+                            <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster_id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
+                            <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
+                            <div class="card-field-wrap">
+                                <div class="card-field-cont">
+                                    <div class="card-h3">Rating:</div>
+                                    <div class="card-field-text"><?= h($foster->rating) ?></div>
+                                </div>
+                                <div class="card-field-cont">
+                                    <div class="card-h3">Email:</div>
+                                    <div class="card-field-text"><?= h($foster->email) ?></div>
+                                </div>
+                                <div class="card-field-cont">
+                                    <div class="card-h3">Phone:</div>
+                                    <div class="card-field-text"><?= h($foster->phone) ?></div>
+                                </div>
+                                <div class="card-field-cont">
+                                    <div class="card-h3">Address:</div>
+                                    <div class="card-field-text"><?= h($foster->address) ?></div>
+                                </div>
+                                <div class="card-field-cont">
+                                    <div class="card-h3">Availability:</div>
+                                    <div class="card-field-text"><?= h($foster->avail) ?></div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <a class="card w-clearfix w-inline-block">
+                        <div class="card-h1">This cat is not currently in a foster home.</div>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="w-tab-pane" data-w-tab="Tab 4">
+                <div class="profile-content-cont">
+                    <?php if (!empty($cat->adopter_id)): ?>
+                            <div class="profile-text-header">Adopter</div>
+                            <div class="card-cont card-wrapper w-dyn-item">
+                                <?php $adopter_id = $cat->adopter_id ?>
+                                <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter_id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+                                <div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
+                                <div class="card-field-wrap">
+                                    <div class="card-field-cont">
+                                        <div class="card-h3">Notes:</div>
+                                        <div class="card-field-text"><?= h($adopter->notes) ?></div>
+                                    </div>
+                                    <div class="card-field-cont">
+                                        <div class="card-h3">Email:</div>
+                                        <div class="card-field-text"><?= h($adopter->email) ?></div>
+                                    </div>
+                                    <div class="card-field-cont">
+                                        <div class="card-h3">Phone:</div>
+                                        <div class="card-field-text"><?= h($adopter->phone) ?></div>
+                                    </div>
+                                    <div class="card-field-cont">
+                                        <div class="card-h3">Address:</div>
+                                        <div class="card-field-text"><?= h($adopter->address) ?></div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <a class="card w-clearfix w-inline-block">
+                            <div class="card-h1">This cat is not currently adopted.</div>
+                            </a>
+                    <?php endif; ?>           
+                </div>
+            </div>
             <div class="w-tab-pane" data-w-tab="Tab 5"></div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>

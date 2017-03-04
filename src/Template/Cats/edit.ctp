@@ -46,7 +46,7 @@
                             'placeholder' => 'Shorthair')); ?> 
                         <label class="add-field-h3" for="E-mail">gender<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
-                            <div class="gender-switch w-embed" data-ix="gender-switch">
+                            <div class="gender-switch w-embed">
                                 <style>
                                     /* ---------- SWITCH ---------- */
                                     
@@ -92,8 +92,8 @@
                                         z-index: 1;
                                     }
                                 </style>
-                                <div class="switch white">
-                                    <input value="1" type="radio" name="is_female" id="switch-female" checked>
+                                <div class="switch gender-toggle white">
+                                    <input value="1" type="radio" name="is_female" id="switch-female">
                                     <input value="0" type="radio" name="is_female" id="switch-male">
                                     <span class="toggle"></span>
                                 </div>
@@ -103,7 +103,7 @@
                         </div>
                         <label class="add-field-h3" for="E-mail">kitten/adult<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
-                            <div class="gender-switch w-embed" data-ix="gender-switch">
+                            <div class="gender-switch w-embed" >
                                 <style>
                                     /* ---------- SWITCH ---------- */
                                     
@@ -134,7 +134,7 @@
                                         z-index: 0;
                                     }
                                 </style>
-                                <div class="switch-kitten white">
+                                <div class="switch-kitten cat-toggle white">
                                     <input value="1" type="radio" name="is_kitten" id="kitten">
                                     <input value="0" type="radio" name="is_kitten" id="adult">
                                     <span class="toggle"></span>
@@ -169,6 +169,48 @@
                             <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div> */ ?>
+                       <label class="add-field-h3" for="E-mail">is microchip registered?<span class="required-field-indicator"><span class="pre"></span></span></label>
+                        <div class="gender-cont">
+                            <div class="gender-switch w-embed" data-ix="gender-switch">
+                                <style>
+                                    /* ---------- SWITCH ---------- */
+                                    
+                                    .switch-chip {
+                                        background: #eee;
+                                        border-radius: 32px;
+                                        display: block;
+                                        height: 32px;
+                                        position: relative;
+                                        width: 80px;
+                                    }
+                                    .switch-chip input {
+                                        height: 32px;
+                                        left: 0;
+                                        opacity: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        width: 80px;
+                                        z-index: 2;
+                                    }
+                                    .switch-chip input:checked~.toggle {
+                                        left: 4px;
+                                    }
+                                    .switch-chip input~:checked~.toggle {
+                                        left: 50px;
+                                    }
+                                    .switch-chip input:checked {
+                                        z-index: 0;
+                                    }
+                                </style>
+                                <div class="switch-chip microchip-toggle white">
+                                    <input value="0" type="radio" name="is_microchip_registered" id="microchip_not_registered">
+                                    <input value="1" type="radio" name="is_microchip_registered" id="microchip_registered">
+                                    <span class="toggle"></span>
+                                </div>
+                            </div>
+                            <div class="gender-female" id="registered-label">registered</div>
+                            <div class="gender-male" id="not-registered-label">not registered</div>
+                        </div> 
                         <?php echo $this->Form->input('bio', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Biography<span class="required-field-indicator"><span class="pre"></span></span>:', 
@@ -204,20 +246,65 @@
 $(document).ready(function() {
     var gender = "<?= $cat['is_female']; ?>";
     var cat = "<?= $cat['is_kitten']; ?>";
-    console.log(cat);
+    var register = "<?= $cat['is_microchip_registered']; ?>";
     if (gender == 1) {
         $('#switch-female').prop("checked", true);
-        $('#female-label').text("female");
+        $('#female-label').show();
+        $('#male-label').hide();
     } else {
         $('#switch-male').prop("checked", true);
-        $('#female-label').text("male");
-    }
+        $('#female-label').hide();
+        $('#male-label').show();    }
     if (cat == 1) {
-        $('#kitten-label').text("kitten");
         $('#kitten').prop("checked", true);
+        $('#adult-label').hide();
+        $('#kitten-label').show();
     } else {
-        $('#kitten-label').text("adult");
         $('#adult').prop("checked", true);
+        $('#adult-label').show();
+        $('#kitten-label').hide();
     }
+    if (register == 1) {
+        $('#microchip_registered').prop("checked", true);
+        $('#registered-label').show();
+        $('#not-registered-label').hide();
+    } else {
+        $('#microchip_not_registered').prop("checked", true);
+        $('#registered-label').hide();
+        $('#not-registered-label').show();
+    }
+
+    $('.gender-toggle').on('click', function(e) {
+        if ($('#male-label').is(':visible')) {
+            $('#male-label').hide();
+            $('#female-label').show();
+        } else {
+            $('#male-label').show();
+            $('#female-label').hide();
+        }
+        e.stopPropagation();
+    });
+
+    $('.cat-toggle').on('click', function(e) {
+        if ($('#adult-label').is(':visible')) {
+            $('#adult-label').hide();
+            $('#kitten-label').show();
+        } else {
+            $('#adult-label').show();
+            $('#kitten-label').hide();
+        }
+        e.stopPropagation();
+    });
+
+    $('.microchip-toggle').on('click', function(e) {
+        if ($('#registered-label').is(':visible')) {
+            $('#registered-label').hide();
+            $('#not-registered-label').show();
+        } else {
+            $('#registered-label').show();
+            $('#not-registered-label').hide();
+        }
+        e.stopPropagation();
+    });
 });
 </script>

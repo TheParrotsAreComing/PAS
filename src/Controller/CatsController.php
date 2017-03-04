@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Cats Controller
@@ -40,7 +41,17 @@ class CatsController extends AppController
         $cat = $this->Cats->get($id, [
             'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories']
         ]);
+        $adoptersDB = TableRegistry::get('Adopters');
+        $fostersDB = TableRegistry::get('Fosters');
 
+        $adopter = $adoptersDB->find('all', ['conditions'=>['id'=>$cat['adopter_id']]])->first();
+        $foster = $fostersDB->find('all', ['conditions'=>['id'=>$cat['foster_id']]])->first();
+        //debug($cat);
+        //debug($foster);
+        //debug($adopter);die;
+
+        $this->set('adopter', $adopter);
+        $this->set('foster', $foster);
         $this->set('cat', $cat);
         $this->set('_serialize', ['cat']);
     }
