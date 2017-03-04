@@ -154,7 +154,7 @@
             <div>export</div>
           </a>
           <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
-            <div class="basic profile-action-button""></div>
+            <div class="basic profile-action-button"></div>
             <div>delete</div>
           </a>
         </div>

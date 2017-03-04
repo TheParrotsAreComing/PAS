@@ -127,3 +127,7 @@
 .dna-reason {
     display: none;
 }
+
+.profile-action-button, .profile-action-button-cont {
+    cursor: pointer;
+}
