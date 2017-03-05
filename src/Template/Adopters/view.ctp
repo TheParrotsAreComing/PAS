@@ -6,8 +6,6 @@
             <a href = "<?= $this->Url->build(['controller' => 'adopters', 'action' => 'index']) ?>" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
-            <div class="profile-id-cont">
-            </div>
         </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
