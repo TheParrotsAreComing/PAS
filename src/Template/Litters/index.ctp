@@ -138,10 +138,10 @@
           <div class="card-wrapper w-dyn-item">
             <div class="card-cont">
               <a class="card w-clearfix w-inline-block">
-                <div class="card-h1"><?= $litter->litter_name ?></div>
+                <div class="card-h1">ETA:</div>
+                <div class="card-h1"><?= $litter->est_arrival ?></div>
                 <div>
-                  <div class="card-h2">ETA:</div>
-                  <div class="card-h2"><?= $litter->est_arrival ?></div>
+                  <div class="card-h2"><?= $litter->litter_name ?></div>
                 </div>
                 <div class="card-field-wrap">
                   <div class="card-field-cont">
