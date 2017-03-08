@@ -137,7 +137,7 @@
             <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
             <div class="w-tab-pane" data-w-tab="Tab 3">
                 <div class="profile-content-cont">
-                    <?php if (!empty($cat->foster_id)): ?>
+                    <?php if (!empty($cat->foster_id) && $foster->is_deleted = 0): ?>
                         <div class="profile-text-header">Foster Home</div>
                         <div class="card-cont card-wrapper w-dyn-item">
                             <?php $foster_id = $cat->foster_id ?>
@@ -176,7 +176,7 @@
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 4">
                 <div class="profile-content-cont">
-                    <?php if (!empty($cat->adopter_id)): ?>
+                    <?php if (!empty($cat->adopter_id) && $adopter->is_deleted = 0): ?>
                             <div class="profile-text-header">Adopter</div>
                             <div class="card-cont card-wrapper w-dyn-item">
                                 <?php $adopter_id = $cat->adopter_id ?>
