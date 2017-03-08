@@ -1,4 +1,4 @@
-
+<?= $this->Html->script('cats.js'); ?>
   <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
@@ -100,23 +100,23 @@
                                 <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
                               </div>
                               <div class="card-field-wrap">
-                                 <div class="card-field-cont">
-                                    <div class="card-field-cont">
-                                       <div class="card-h3">DOB:</div>
-                                       <div class="card-field-text cat-dob"><?= $cat->dob ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                         <div class="card-h3">Age:</div>
-                                         <div class="card-field-text cat-age"></div>
-                                    </div>
+                                <div class="card-field-cont">
+                                  <div class="card-field-cont">
+                                    <div class="card-h3">DOB:</div>
+                                    <div class="card-field-text cat-dob"><?= $cat->dob ?></div>
                                   </div>
                                   <div class="card-field-cont">
-                                      <div class="card-field-cont">
-                                          <div class="card-h3">Breed:</div>
-                                          <div class="card-field-text"><?= $cat->breed ?></div>
-                                      </div>
+                                    <div class="card-h3">Age:</div>
+                                    <div class="card-field-text cat-age"></div>
                                   </div>
                                 </div>
+                                <div class="card-field-cont">
+                                  <div class="card-field-cont">
+                                    <div class="card-h3">Breed:</div>
+                                    <div class="card-field-text"><?= $cat->breed ?></div>
+                                  </div>
+                                </div>
+                              </div>
                             </a>
                         </div>
                       <?php endforeach; ?>
@@ -194,3 +194,7 @@
         <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
+
+<script>
+  calculateAndPopulateAgeFields();
+</script>
