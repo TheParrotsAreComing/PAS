@@ -126,7 +126,7 @@
                               </div>
                               <div class="card-field-cont">
                                 <div class="card-h3">Fee paid:</div>
-                                <div class="card-field-text cat-age"><?= $cat->adoption_fee_amount ?></div>
+                                <div class="card-field-text cat-age">$<?= $cat->adoption_fee_amount ?></div>
                               </div>
       											</div>
       										</div>
