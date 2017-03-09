@@ -43,9 +43,9 @@ class FostersController extends AppController
     public function view($id = null)
     {
         $foster = $this->Fosters->get($id, [
-            'contain' => ['Tags', 'CatHistories', 'Cats']
+            'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
-
+        
         $this->set('foster', $foster);
         $this->set('_serialize', ['foster']);
     }

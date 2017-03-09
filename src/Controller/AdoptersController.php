@@ -42,9 +42,9 @@ class AdoptersController extends AppController
     public function view($id = null)
     {
         $adopter = $this->Adopters->get($id, [
-            'contain' => ['Tags', 'CatHistories', 'Cats']
+            'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
-
+        
         $this->set('adopter', $adopter);
         $this->set('_serialize', ['adopter']);
     }

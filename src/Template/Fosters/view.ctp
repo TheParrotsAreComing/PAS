@@ -11,9 +11,10 @@
         </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
-            <div class="cat-profile-name"><?= h($foster->first_name) ?> <?= h($foster->last_name) ?></div>
+            <div class="cat-profile-name"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
             <div>
               <div class="profile-header-text">Rating:</div>
+
               <div class="profile-header-text"><?= $this->Number->format($foster->rating) ?></div>
             </div>
           </div>
@@ -90,40 +91,41 @@
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 2">
                 <div class="profile-content-cont">
-                   <?php if (!empty($foster->cats)): ?>
-                     <div class="profile-text-header">Fostered Cats</div>
-                     <?php foreach($foster->cats as $cat) : ?>
-                        <div class="card-cont card-wrapper w-dyn-item">
-                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
-                              <div class="card-h1"><?= $cat->cat_name?></div>
-                              <div>
-                                <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
+                  <?php if (empty($foster['cat_histories'])): ?>
+                    <a class="card w-clearfix w-inline-block">
+                      <div class="card-h1">This foster home is not fostering any cats at the moment. Please check the foster's availability.</div>
+                    </a>
+                  <?php else: ?> 
+                <div class="profile-text-header">Fostered Cats</div>
+                    <?php foreach ($foster['cat_histories'] as $cat): ?>
+                      <?php $cat = $cat['cat']; ?>
+                      <div class="card-cont card-wrapper w-dyn-item">
+                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+                          <div class="card-h1"><?= $cat['cat_name'];?></div>
+                          <div>
+                            <div class="card-h2"><?= ($cat['is_kitten']) ? "Kitten" : "Cat"; ?></div>
+                          </div>
+                          <div class="card-field-wrap">
+                            <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                <div class="card-h3">DOB:</div>
+                                <div class="card-field-text cat-dob"><?= $cat['dob']; ?></div>
                               </div>
-                              <div class="card-field-wrap">
-                                <div class="card-field-cont">
-                                  <div class="card-field-cont">
-                                    <div class="card-h3">DOB:</div>
-                                    <div class="card-field-text cat-dob"><?= $cat->dob ?></div>
-                                  </div>
-                                  <div class="card-field-cont">
-                                    <div class="card-h3">Age:</div>
-                                    <div class="card-field-text cat-age"></div>
-                                  </div>
-                                </div>
-                                <div class="card-field-cont">
-                                  <div class="card-field-cont">
-                                    <div class="card-h3">Breed:</div>
-                                    <div class="card-field-text"><?= $cat->breed ?></div>
-                                  </div>
-                                </div>
+                              <div class="card-field-cont">
+                                <div class="card-h3">Age:</div>
+                                <div class="card-field-text cat-age"></div>
                               </div>
+                            </div>
+                            <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                <div class="card-h3">Breed:</div>
+                                <div class="card-field-text"><?= $cat['breed']; ?></div>
+                              </div>
+                              </div>
+                            </div>
                             </a>
                         </div>
                       <?php endforeach; ?>
-                  <?php else: ?>
-                      <a class="card w-clearfix w-inline-block">
-                       <div class="card-h1">This foster home is not fostering any cats at the moment. Please check the foster's availability.</div>
-                      </a>
                   <?php endif; ?>
                 </div>
               </div>
