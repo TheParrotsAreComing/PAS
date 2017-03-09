@@ -60,7 +60,6 @@ class AdoptersController extends AppController
         if ($this->request->is('post')) {
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             $adopter['is_deleted'] = 0;
-            $adopter['cat_count'] = 0;
             if (!$adopter['do_not_adopt']) {
               $adopter['dna_reason'] = NULL;
             }

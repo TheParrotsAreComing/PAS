@@ -6,6 +6,8 @@
             <a href = "<?= $this->Url->build(['controller' => 'adopters', 'action' => 'index']) ?>" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
+            <div class="profile-id-cont">
+            </div>
         </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
@@ -84,10 +86,6 @@
               <div class="profile-content-cont">
                 <div class="profile-text-header">Additional Information</div>
                 <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Number of Cats Adopted: </div>
-                    <div class="profile-field-text"><?= h($adopter->cat_count) ?></div>
-                  </div>
                 </div>
                 <div class="profile-field-cont">
                   <div class="profile-field-cont">
