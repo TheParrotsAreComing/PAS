@@ -129,8 +129,12 @@
                                 <div class="card-h3">Breed:</div>
                                 <div class="card-field-text"><?= $cat['breed']; ?></div>
                               </div>
+                              <div class="card-field-cont">
+                                <div class="card-h3">Fee paid:</div>
+                                <div class="card-field-text">$<?= $cat->adoption_fee_amount ?></div>
                               </div>
                             </div>
+                          </div>
                             </a>
                         </div>
                       <?php endforeach; ?>
