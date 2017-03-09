@@ -32,7 +32,7 @@ CREATE TABLE litters (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	kc_ref_id INT NOT NULL,
     litter_name VARCHAR(255) NOT NULL,
-    cat_count INT NOT NULL,
+    the_cat_count INT NOT NULL,
     kitten_count INT NOT NULL,
     dob DATE,
     asn_start DATE,						

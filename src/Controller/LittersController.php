@@ -63,7 +63,7 @@ class LittersController extends AppController
 
             // initial creation, not deleted
             $this->request->data['is_deleted'] = 0;
-            $this->request->data['cat_count'] = 0;
+            $this->request->data['the_cat_count'] = 0;
             $this->request->data['kitten_count'] = 0;
 
             $litter = $this->Litters->patchEntity($litter, $this->request->data);

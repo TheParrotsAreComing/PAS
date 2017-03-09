@@ -1,4 +1,3 @@
-<?= $this->Html->script('moment.js'); ?>
 <?= $this->Html->script('cats.js'); ?>
 <div class="body">
     <div class="column profile scroll1">

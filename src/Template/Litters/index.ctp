@@ -147,7 +147,7 @@
                   <div class="card-field-cont">
                     <div class="card-field-cont">
                       <div class="card-h3">Quantity:</div>
-                      <div class="card-field-text"><?= $litter->cat_count ?> cat(s), <?= $litter->kitten_count ?> kitten(s)</div>
+                      <div class="card-field-text"><?= $litter->the_cat_count ?> cat(s), <?= $litter->kitten_count ?> kitten(s)</div>
                     </div>
                     <div class="card-field-cont">
                       <div class="card-h3">DOB:</div>
