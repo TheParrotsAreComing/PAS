@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Datasource\Exception;
 
 /**
  * Cats Controller
@@ -39,20 +40,21 @@ class CatsController extends AppController
     public function view($id = null)
     {
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories']
+            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
-
+		
         $adopter = $adoptersDB->find('all', ['conditions'=>['id'=>$cat['adopter_id']]])->first();
         $foster = $fostersDB->find('all', ['conditions'=>['id'=>$cat['foster_id']]])->first();
-        //debug($cat);
-        //debug($foster);
-        //debug($adopter);die;
 
-        $this->set('adopter', $adopter);
-        $this->set('foster', $foster);
-        $this->set('cat', $cat);
+        $adopters = $adoptersDB->find('all');
+		$select_adopters = [];
+		foreach($adopters as $ad){
+			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
+		}
+
+		$this->set(compact('cat','foster','adopter','select_adopters'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -180,6 +182,42 @@ class CatsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+
+	public function attachAdopter($adopter_id,$cat_id){
+		//Ajax doesn't need this page to render
+		$this->autoRender = false;
+
+		try{
+			$adopter_table = TableRegistry::get('Adopters');
+			$cat_histories_table = TableRegistry::Get('CatHistories');
+
+			$history_entry = $cat_histories_table->newEntity();
+
+			//We need to adopter info for a dynamic card on the view
+			$attachee = $adopter_table->get($adopter_id);
+			$history_entry->cat_id = $cat_id;
+			$history_entry->adopter_id = $adopter_id;
+			$history_entry->start_date = date('Y-m-d');
+
+			//If it works, let's reutn the adopter
+			if($cat_histories_table->save($history_entry)){
+				$response = json_encode($attachee);
+			}else{
+				//If not return a stringified array so JSON.parse() won't break
+				$response = '[error saving]';
+			}
+
+		}catch(\Exception $e){
+			//Something happened fo sho
+			$response = json_encode($e->getMessage());
+		}
+
+		//Let's return the response
+		ob_clean();
+		echo $response;
+		exit(0);
+	}
 
 
 }
