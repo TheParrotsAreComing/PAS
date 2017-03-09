@@ -123,6 +123,7 @@ CREATE TABLE cats (
 	adoption_fee_amount DECIMAL(10,2),
 	is_paws BOOLEAN,
     is_deleted BOOLEAN NOT NULL,
+    is_exported_to_adoptapet BOOLEAN,
     FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
 	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),
 	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
