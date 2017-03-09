@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $kc_ref_id
  * @property string $litter_name
- * @property int $cat_count
+ * @property int $the_cat_count
  * @property int $kitten_count
  * @property \Cake\I18n\Time $dob
  * @property \Cake\I18n\Time $asn_start
