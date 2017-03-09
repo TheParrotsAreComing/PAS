@@ -1,4 +1,3 @@
-<?= $this->Html->script('moment.js'); ?>
 <?= $this->Html->script('cats.js'); ?>
   <div class="body w-clearfix">
     <div class="filter-bar" data-ix="page-load-slide-right">
