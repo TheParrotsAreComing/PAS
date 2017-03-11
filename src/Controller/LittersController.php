@@ -21,9 +21,28 @@ class LittersController extends AppController
         $this->paginate = [
             'contain' => ['Cats']
         ];
-        $litters = $this->paginate($this->Litters);
 
-        $this->set(compact('litters'));
+		if(!empty($this->request->query['mobile-search'])){
+			$this->paginate['conditions']['litter_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+		}else if(!empty($this->request->query)){
+			$this->paginate['conditions'] = [];
+			foreach($this->request->query as $field => $query){
+				if($field == 'dob'){
+					$this->paginate['conditions'][$field] = date('Y-m-d',strtotime($query));
+				}else if(!empty($query)){
+					if(preg_match('/count/',$field)){
+						$this->paginate['conditions'][$field] = $query;
+					}else{
+						$this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+					}
+				}
+			}
+		}
+
+        $litters = $this->paginate($this->Litters);
+		
+		$count = [0,1,2,3,4,5,6,7,8,10,12,13,14,15];
+        $this->set(compact('litters','count'));
         $this->set('_serialize', ['litters']);
     }
 
