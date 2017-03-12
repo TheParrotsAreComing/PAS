@@ -13,11 +13,11 @@
 		  </div>
 		  <div class="filter-menu w-form">
 			  <div class="filter-criteria">Breed:</div>
-			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a name" type="text">
+			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
 		  </div>
 		  <div class="filter-menu w-form">
 			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="litterDob" maxlength="256" name="dob" placeholder="Enter a name" type="text">
+			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="litterDob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
 		  </div>
 		  <div class="filter-menu w-form">
 			  <div class="filter-criteria"># of Kittens:</div>
