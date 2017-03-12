@@ -24,7 +24,7 @@
         <?php
             echo $this->Form->input('kc_ref_id');
             echo $this->Form->input('litter_name');
-            echo $this->Form->input('cat_count');
+            echo $this->Form->input('the_cat_count');
             echo $this->Form->input('kitten_count');
             echo $this->Form->input('dob', ['empty' => true]);
             echo $this->Form->input('asn_start', ['empty' => true]);
