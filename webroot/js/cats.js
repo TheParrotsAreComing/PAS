@@ -86,7 +86,7 @@ var Cat = function(){
 
 		//The Adopter Name Div
 		var card_h1 = $('<div/>');
-		card_h1.addClass("card-h1");
+		card_h1.addClass("new-adopter-name card-h1");
 		card_h1.text(this.getAdopterCardField('first_name')+" "+this.getAdopterCardField('last_name'));
 		a_card.append(card_h1);
 
