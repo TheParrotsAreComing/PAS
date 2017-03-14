@@ -65,8 +65,6 @@ class CatsController extends AppController
     {
         $cat = $this->Cats->newEntity();
 
-
-
         if ($this->request->is('post')) {
 
             $addMoreCats = $this->request->data['addMoreCats'];
@@ -181,5 +179,36 @@ class CatsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function adoptAPetUpload($cat_id) {
+        $this->autoRender = false;
+        $data = $this->Cats->getAAPUploadArray($cat_id);
+        $_serialize = 'data';
+        $_enclosure = '';
+        $this->response->download('pets.csv');
+        $this->viewBuilder()->className('CsvView.Csv');
+        $this->set(compact('data', '_serialize','_serialize','_enclosure'));
+        $this->autoRender = false;
+        $response = $this->render();
+
+        $cfg = tmpfile();
+        fwrite($cfg, '#1:Id=Id\r\n#2:Animal=Animal\r\n#3:Breed=Breed\r\n#4:Name=Name\r\n#5:Age=Age');
+        fseek($cfg,0);
+        $cfg_meta = stream_get_meta_data($cfg);
+        $cfg_path = $cfg_meta['uri'];
+
+        $csv = tmpfile();
+        fwrite($csv, $response->body());
+        fseek($csv,0);
+        $csv_meta = stream_get_meta_data($csv);
+        $csv_path = $csv_meta['uri'];
+
+        $ftp_stream = ftp_connect('autoupload.adoptapet.com');
+        ftp_login($ftp_stream,'6909','XNNDKIOA'); 
+        ftp_put($ftp_stream,'import.cfg',$cfg_path,FTP_ASCII);
+        ftp_put($ftp_stream,'pets.csv',$csv_path,FTP_ASCII);
+        ftp_close($ftp_stream);
+        $this->Flash->success('Cat data has been sent to Adopt-A-Pet! Please allow up to a few hours for their pet list to reflect any changes.');
+        return $this->redirect(['controller'=>'cats','action'=>'index']);
+    }
 
 }

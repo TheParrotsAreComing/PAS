@@ -166,4 +166,16 @@ class CatsTable extends Table
         $litter_table->save($the_litter);
 
     }
+
+    public function getAAPUploadArray($cat_id) {
+        $data = [];
+        /*$query = $this->find()
+            ->select(['breed','cat_name','dob','is_female','bio']);
+        $data = array_merge($data, $query->toArray());*/
+        $data = [
+            ['Id','Animal','Breed','Name','Age'],
+            ['PAWS-AA001','Cat','Maine Coon','Pupcat','Adult']
+        ];
+        return $data;
+    }
 }
