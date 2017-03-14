@@ -32,7 +32,7 @@ CREATE TABLE litters (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	kc_ref_id INT NOT NULL,
     litter_name VARCHAR(255) NOT NULL,
-    cat_count INT NOT NULL,
+    the_cat_count INT NOT NULL,
     kitten_count INT NOT NULL,
     dob DATE,
     asn_start DATE,						
@@ -57,7 +57,8 @@ CREATE TABLE adopters (
 	notes TEXT,
 	created DATETIME,
     is_deleted BOOLEAN NOT NULL,
-    do_not_adopt BOOLEAN
+    do_not_adopt BOOLEAN,
+    dna_reason TEXT
 ); 
 
 
@@ -103,7 +104,18 @@ CREATE TABLE cats (
 	bio TEXT,
 	diet TEXT,
 	specialty_notes TEXT,					
-	profile_pic_file_id INT,
+	profile_pic_file_id INT,    
+	microchip_number INT,
+    is_microchip_registered BOOLEAN,
+	created DATETIME,
+	adoption_fee_amount DECIMAL(10,2),
+	is_paws BOOLEAN,
+    is_deleted BOOLEAN NOT NULL,
+    is_exported_to_adoptapet BOOLEAN,
+    FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
+	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),
+	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
+	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id)
     
     -- TODO: Need to revisit medical histories as a seperate entities
     /*
@@ -117,17 +129,6 @@ CREATE TABLE cats (
     antibiotics VARCHAR(255), --xxx End additions by Eric xxx
     */
     
-	microchip_number INT,
-    is_microchip_registered BOOLEAN,
-	created DATETIME,
-	adoption_fee_amount DECIMAL(10,2),
-	is_paws BOOLEAN,
-    is_deleted BOOLEAN NOT NULL,
-    is_exported_to_adoptapet BOOLEAN,
-    FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
-	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),
-	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
-	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id)
 ); 
 
 
@@ -184,6 +185,7 @@ CREATE TABLE tags (
 	color VARCHAR(6), /* for hex code */
 	type_bit TINYINT(3), /* Bit mask for type: cats, fosters, adopters, or a combination */
     -- NOTE: We should probably consider splitting this into separate flags for each, for maintainability
+    -- ALSO: Cake seems to hate TINYINT ?
     is_deleted BOOLEAN NOT NULL
 ); 
 

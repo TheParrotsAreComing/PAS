@@ -47,7 +47,6 @@ class CatsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('CounterCache', ['Litters' => ['cat_count'], 'Adopters' => ['cat_count']]);
 
         $this->belongsTo('Litters', [
             'foreignKey' => 'litter_id'
@@ -160,7 +159,7 @@ class CatsTable extends Table
             $the_litter->kitten_count++;
         }
         else {
-            $the_litter->cat_count++;
+            $the_litter->the_cat_count++;
         }
 
         $litter_table->save($the_litter);

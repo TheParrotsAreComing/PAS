@@ -63,7 +63,7 @@ class LittersTable extends Table
             ->notEmpty('litter_name');
 
         $validator
-            ->integer('cat_count');
+            ->integer('the_cat_count');
 
         $validator
             ->integer('kitten_count');
