@@ -19,13 +19,13 @@ class LittersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Cats']
+            'contain' => ['Cats'],
+            'conditions' => ['Litters.is_deleted' => 0]
         ];
 
 		if(!empty($this->request->query['mobile-search'])){
 			$this->paginate['conditions']['litter_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
 		}else if(!empty($this->request->query)){
-			$this->paginate['conditions'] = [];
 			foreach($this->request->query as $field => $query){
 				if($field == 'dob'){
                     if(!empty($query)){

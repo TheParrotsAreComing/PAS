@@ -28,7 +28,6 @@ class CatsController extends AppController
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
-            $this->paginate['conditions'] = [];
             foreach($this->request->query as $field => $query){
                 // check the flags first
                 if($field == 'is_kitten' && !empty($query)){
