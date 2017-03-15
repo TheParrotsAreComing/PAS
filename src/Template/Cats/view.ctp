@@ -134,7 +134,7 @@
               </div>
             </div>
             <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
-            <div class="w-tab-pane" data-w-tab="Tab 3">
+            <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">
                 <div class="profile-content-cont">
                     <?php if (!empty($cat->foster_id) && $foster->is_deleted = 0): ?>
                         <div class="profile-text-header">Foster Home</div>
@@ -170,6 +170,9 @@
                         <a class="card w-clearfix w-inline-block">
 							<div class="card-h1">This cat is not currently in a foster home.</div>
                         </a>
+              <a class="card w-clearfix w-inline-block">
+                <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(1);">+ Add Foster</a>
+              </a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -277,6 +280,20 @@
 	</div>
 </div> 
 
+<div class="add-adopter-floating-overlay add-foster">
+  <div class="confirm-cont add-foster-inner">
+    <div class="confirm-text">Foster this cat to who?</div>
+    <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+      <?= $this->Form->input('Foster',['class'=>'add-input w-input','options'=>$select_fosters]) ?>
+    </form>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <a class="delete add-foster-btn confirm-button w-button" href="#">Foster!</a>
+    </div>
+  </div>
+</div>
+
   <div class="button-cont w-hidden-main">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="/img/edit-01.png" width="55">
@@ -304,5 +321,14 @@ $(function () {
 			current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
 		});
 	});
+  calculateAndPopulateAgeFields();
+  $('.add-foster-btn').click(function(){
+    $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+      $('.add-foster').css('display','none');
+      $('.add-foster-inner').css('display','none');
+      $('.add-foster-inner').css('opacity','0');
+      current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+    });
+  });
 });
 </script>

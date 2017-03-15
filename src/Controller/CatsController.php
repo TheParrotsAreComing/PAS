@@ -53,8 +53,13 @@ class CatsController extends AppController
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
+        $fosters = $fostersDB->find('all');
+        $select_fosters = [];
+        foreach($fosters as $fo){
+            $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
+        }
 
-		$this->set(compact('cat','foster','adopter','select_adopters'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -219,5 +224,40 @@ class CatsController extends AppController
 		exit(0);
 	}
 
+
+    public function attachFoster($foster_id,$cat_id){
+        //Ajax doesn't need this page to render
+        $this->autoRender = false;
+
+        try{
+            $foster_table = TableRegistry::get('Fosters');
+            $cat_histories_table = TableRegistry::Get('CatHistories');
+
+            $history_entry = $cat_histories_table->newEntity();
+
+            //We need to adopter info for a dynamic card on the view
+            $attachee = $foster_table->get($foster_id);
+            $history_entry->cat_id = $cat_id;
+            $history_entry->foster_id = $foster_id;
+            $history_entry->start_date = date('Y-m-d');
+
+            //If it works, let's reutn the adopter
+            if($cat_histories_table->save($history_entry)){
+                $response = json_encode($attachee);
+            }else{
+                //If not return a stringified array so JSON.parse() won't break
+                $response = '[error saving]';
+            }
+
+        }catch(\Exception $e){
+            //Something happened fo sho
+            $response = json_encode($e->getMessage());
+        }
+
+        //Let's return the response
+        ob_clean();
+        echo $response;
+        exit(0);
+    }
 
 }
