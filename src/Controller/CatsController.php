@@ -24,6 +24,30 @@ class CatsController extends AppController
             'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
             'conditions' => ['Cats.is_deleted' => 0]
         ];
+
+        if(!empty($this->request->query['mobile-search'])){
+            $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+        } else if(!empty($this->request->query)){
+            $this->paginate['conditions'] = [];
+            foreach($this->request->query as $field => $query){
+                // check the flags first
+                if($field == 'is_kitten' && !empty($query)){
+                    $this->paginate['conditions'][$field] = ($query - 1);
+                }else if($field == 'is_female' && !empty($query)){
+                    $this->paginate['conditions'][$field] = ($query - 1);
+                }else if($field == 'dob') {
+                    if(!empty($query)){
+                        $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
+                }
+                } else if (!empty($query)) {
+                    $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+                }
+            }
+        }
+
+
+
+
         $cats = $this->paginate($this->Cats);
 
         $this->set(compact('cats'));

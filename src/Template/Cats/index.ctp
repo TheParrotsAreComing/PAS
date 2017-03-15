@@ -1,121 +1,56 @@
 <?= $this->Html->script('cats.js'); ?>
   <div class="body w-clearfix">
+
     <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
       </div>
-      <div class="filter-menu w-form">
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-          <div class="filter-criteria">Breed:</div>
-          <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field">
-            <option value="">Select one...</option>
-            <option value="First">Tabby</option>
-            <option value="Second">Siamese</option>
-            <option value="Third">Third Choice</option>
+      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+      	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
+      	<div class="filter-menu w-form">
+		  <div class="filter-criteria">Name:</div>
+		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
+	    </div>
+	    <div class="filter-menu w-form">
+		  <div class="filter-criteria">Female/Male:</div>
+		  <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="is_female">
+            <option value="">Both</option>
+            <option value="2">Female</option>
+            <option value="1">Male</option>
           </select>
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
-      </div>
-      <div class="filter-menu w-form">
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-          <div class="filter-criteria">Age:</div>
-          <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="Field-3" placeholder="ex: 13 months" required="required" type="text">
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
-      </div>
-      <div class="filter-menu w-form">
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-          <div class="filter-criteria">Color:</div>
-          <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field">
-            <option value="">Select one...</option>
-            <option value="First">Black</option>
-            <option value="Second">Brown</option>
-            <option value="Third">White</option>
+	    </div>
+	    <div class="filter-menu w-form">
+		  <div class="filter-criteria">Adult/Kitten:</div>
+		  <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="is_kitten">
+            <option value="">Both</option>
+            <option value="1">Adult</option>
+            <option value="2">Kitten</option>
           </select>
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
-      </div>
-      <div class="filter-menu filter-select w-form">
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-          <div class="filter-criteria">Gender:</div>
-          <div class="filter-criteria-select">
-            <div class="filter-criteria-radio w-radio">
-              <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-              <label class="w-form-label" for="Alive">Male</label>
-            </div>
-            <div class="filter-criteria-radio w-radio">
-              <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-              <label class="w-form-label" for="Alive">Female</label>
-            </div>
-          </div>
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
-      </div>
-      <div class="filter-menu filter-select w-form">
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-          <div class="filter-criteria">Adoption:</div>
-          <div class="filter-criteria-select">
-            <div class="filter-criteria-radio w-radio">
-              <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-              <label class="w-form-label" for="Alive">Searching</label>
-            </div>
-            <div class="filter-criteria-radio w-radio">
-              <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-              <label class="w-form-label" for="Alive">Adopted</label>
-            </div>
-          </div>
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
-      </div>
-      <div class="filter-menu filter-select w-form">
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-          <div class="filter-criteria">Well-being:</div>
-          <div class="filter-criteria-select">
-            <div class="filter-criteria-radio w-radio">
-              <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-              <label class="w-form-label" for="Alive">Alive</label>
-            </div>
-            <div class="filter-criteria-radio w-radio">
-              <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-              <label class="w-form-label" for="Alive">Deceased</label>
-            </div>
-          </div>
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
-      </div>
-      <div class="filter-apply-cont"><a class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</a>
-      </div>
+	    </div>
+	    <div class="filter-menu w-form">
+		  <div class="filter-criteria">Breed:</div>
+		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+	    </div>
+	    <div class="filter-menu w-form">
+		  <div class="filter-criteria">Color:</div>
+		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="color" placeholder="Enter a color" type="text">
+	    </div>
+	    <div class="filter-menu w-form">
+		  <div class="filter-criteria">Coat:</div>
+		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
+	    </div>
+	    <div class="filter-menu w-form">
+			  <div class="filter-criteria">Date of Birth:</div>
+			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="dob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
+		  </div>
+
+	      <div class="filter-apply-cont">
+	        <button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+	      </div>
+	  </form>
+	  <?= $this->Form->end() ?>
     </div>
+
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
@@ -212,4 +147,12 @@
   
 <script>
   calculateAndPopulateAgeFields();
+</script>
+<script>
+$(function(){
+	$('#dob').datepicker({
+		  changeMonth: true,
+		  changeYear: true
+	});
+});
 </script>
