@@ -28,7 +28,9 @@ class LittersController extends AppController
 			$this->paginate['conditions'] = [];
 			foreach($this->request->query as $field => $query){
 				if($field == 'dob'){
-					$this->paginate['conditions'][$field] = date('Y-m-d',strtotime($query));
+                    if(!empty($query)){
+					   $this->paginate['conditions'][$field] = date('Y-m-d',strtotime($query));
+                    }
 				}else if(!empty($query)){
 					if(preg_match('/count/',$field)){
 						$this->paginate['conditions'][$field] = $query;
@@ -41,7 +43,7 @@ class LittersController extends AppController
 
         $litters = $this->paginate($this->Litters);
 		
-		$count = [0,1,2,3,4,5,6,7,8,10,12,13,14,15];
+		$count = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15];
         $this->set(compact('litters','count'));
         $this->set('_serialize', ['litters']);
     }
