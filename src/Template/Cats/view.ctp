@@ -246,7 +246,7 @@
       </div>
     </div>
   </div>
-  <div class="notify-cont">
+  <div class="notify-cont w-hidden-main">
     <div class="notify-overview">Overview</div>
     <!--<div class="notify-medical">Medical Information</div>-->
     <div class="notify-foster">Foster Home</div>

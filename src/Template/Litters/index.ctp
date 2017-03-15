@@ -7,25 +7,25 @@
         <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
 
 	      <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
-		  <div class="filter-menu w-form">
+		  <div class="filter">
 			  <div class="filter-criteria">Name:</div>
-			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="litter_name" placeholder="Enter a name" type="text">
+			  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="litter_name" placeholder="Enter a name" type="text">
 		  </div>
-		  <div class="filter-menu w-form">
+		  <div class="filter">
 			  <div class="filter-criteria">Breed:</div>
-			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+			  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
 		  </div>
-		  <div class="filter-menu w-form">
+		  <div class="filter">
 			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="litterDob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
+			  <input class="filter-criteria-select w-input" data-name="Field 3" id="litterDob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
 		  </div>
-		  <div class="filter-menu w-form">
+		  <div class="filter">
 			  <div class="filter-criteria"># of Kittens:</div>
-		      <?= $this->Form->input('kitten_count',['label'=>false,'class'=>'filter-age filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
+		      <?= $this->Form->input('kitten_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
-		  <div class="filter-menu w-form">
+		  <div class="filter">
 			  <div class="filter-criteria"># Of Cats:</div>
-		      <?= $this->Form->input('the_cat_count',['label'=>false,'class'=>'filter-age filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
+		      <?= $this->Form->input('the_cat_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
 		  <div class="filter-apply-cont">
 			<button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>

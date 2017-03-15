@@ -7,11 +7,11 @@
       </div>
       <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
-      	<div class="filter-menu w-form">
+      	<div class="filter">
 		  <div class="filter-criteria">Name:</div>
-		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
 	    </div>
-	    <div class="filter-menu w-form">
+	    <div class="filter">
 		  <div class="filter-criteria">Female/Male:</div>
 		  <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="is_female">
             <option value="">Both</option>
@@ -19,7 +19,7 @@
             <option value="1">Male</option>
           </select>
 	    </div>
-	    <div class="filter-menu w-form">
+	    <div class="filter">
 		  <div class="filter-criteria">Adult/Kitten:</div>
 		  <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="is_kitten">
             <option value="">Both</option>
@@ -27,21 +27,21 @@
             <option value="2">Kitten</option>
           </select>
 	    </div>
-	    <div class="filter-menu w-form">
+	    <div class="filter">
 		  <div class="filter-criteria">Breed:</div>
-		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
 	    </div>
-	    <div class="filter-menu w-form">
+	    <div class="filter">
 		  <div class="filter-criteria">Color:</div>
-		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="color" placeholder="Enter a color" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="color" placeholder="Enter a color" type="text">
 	    </div>
-	    <div class="filter-menu w-form">
+	    <div class="filter">
 		  <div class="filter-criteria">Coat:</div>
-		  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
 	    </div>
-	    <div class="filter-menu w-form">
+	    <div class="filter">
 			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="dob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
+			  <input class="filter-criteria-select w-input" data-name="Field 3" id="dob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
 		  </div>
 
 	      <div class="filter-apply-cont">
