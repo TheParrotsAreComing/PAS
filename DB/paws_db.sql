@@ -228,3 +228,13 @@ CREATE TABLE contacts (
 	zip INT(5),
     is_deleted BOOLEAN NOT NULL
 );
+
+CREATE TABLE breeds(
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    breed VARCHAR(24)
+);
+
+CREATE TABLE colors(
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    color VARCHAR(32)
+);
