@@ -10,25 +10,10 @@
         <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="First-Name" maxlength="256" name="first_name" placeholder="ex: John" type="text">
     </div>
     <div class="filter-menu w-form">
+        <div class="filter-criteria">Last Name:</div>
+        <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Last-Name" maxlength="256" name="last_name" placeholder="ex: Doe" type="text">
     </div>
     <div class="filter-menu w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Color:</div>
-        <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field">
-          <option value="">Select one...</option>
-          <option value="First">Black</option>
-          <option value="Second">Brown</option>
-          <option value="Third">White</option>
-        </select>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
-      </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
-      </div>
-    </div>
-    <div class="filter-menu filter-select w-form">
         <div class="filter-criteria">Rating:</div>
           <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Rating" maxlength="256" name="rating" placeholder="Enter rating" type="text">
     </div>
