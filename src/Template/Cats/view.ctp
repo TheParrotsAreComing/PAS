@@ -46,13 +46,13 @@
             </a>
             <!--<a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
             </a>-->
-            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img class="cat-profile-tabs-icon" src="/img/cat-profile-foster-01.png">
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img id="fosterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-foster-01.png">
             </a>
-            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img class="cat-profile-tabs-icon" src="/img/cat-profile-adopter-01.png">
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img id="adopterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-adopter-01.png">
             </a>
-            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 5"><img class="cat-profile-tabs-icon" src="/img/attachments-01.png">
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 5"><img id="fileTab" class="cat-profile-tabs-icon" src="/img/attachments-01.png">
             </a>
-            <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 6"><img class="cat-profile-tabs-icon" src="/img/more-01.png">
+            <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 6"><img id="moreTab" class="cat-profile-tabs-icon" src="/img/more-01.png">
             </a>
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
@@ -134,9 +134,9 @@
               </div>
             </div>
             <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
-            <div class="w-tab-pane" data-w-tab="Tab 3">
+            <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">
                 <div class="profile-content-cont">
-                    <?php if (!empty($cat->foster_id)): ?>
+                    <?php if (!empty($cat->foster_id) && $foster->is_deleted = 0): ?>
                         <div class="profile-text-header">Foster Home</div>
                         <div class="card-cont card-wrapper w-dyn-item">
                             <?php $foster_id = $cat->foster_id ?>
@@ -168,43 +168,64 @@
                         </div>
                     <?php else: ?>
                         <a class="card w-clearfix w-inline-block">
-                        <div class="card-h1">This cat is not currently in a foster home.</div>
+							<div class="card-h1">This cat is not currently in a foster home.</div>
                         </a>
+              <a class="card w-clearfix w-inline-block">
+                <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(1);">+ Add Foster</a>
+              </a>
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="w-tab-pane" data-w-tab="Tab 4">
+            <div class="w-tab-pane" data-w-tab="Tab 4" id="adopterCard">
+				<?php //IF we change this, we must change the JS. Let Rob know if you change this! ?>
                 <div class="profile-content-cont">
-                    <?php if (!empty($cat->adopter_id)): ?>
-                            <div class="profile-text-header">Adopter</div>
-                            <div class="card-cont card-wrapper w-dyn-item">
-                                <?php $adopter_id = $cat->adopter_id ?>
-                                <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter_id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
-                                <div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
-                                <div class="card-field-wrap">
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Notes:</div>
-                                        <div class="card-field-text"><?= h($adopter->notes) ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Email:</div>
-                                        <div class="card-field-text"><?= h($adopter->email) ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Phone:</div>
-                                        <div class="card-field-text"><?= h($adopter->phone) ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Address:</div>
-                                        <div class="card-field-text"><?= h($adopter->address) ?></div>
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
+                    <?php if (!empty($cat->cat_histories)): ?>
+							<?php foreach($cat->cat_histories as $ch): //Find most recent adopter. Spaghetti Code Break out once we find it?>
+								<?php if(!empty($ch->adopter_id)): ?>
+									<?php $adopter = $ch->adopter ?>
+									<?php break; ?>
+								<?php endif; ?>
+							<?php endforeach; ?>
+							<?php if(!empty($adopter)): ?>
+								<div class="profile-text-header">Adopter</div>
+								<div class="card-cont card-wrapper w-dyn-item">
+									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+									<div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
+									<div class="card-field-wrap">
+										<div class="card-field-cont">
+											<div class="card-h3">Notes:</div>
+											<div class="card-field-text"><?= h($adopter->notes) ?></div>
+										</div>
+										<div class="card-field-cont">
+											<div class="card-h3">Email:</div>
+											<div class="card-field-text"><?= h($adopter->email) ?></div>
+										</div>
+										<div class="card-field-cont">
+											<div class="card-h3">Phone:</div>
+											<div class="card-field-text"><?= h($adopter->phone) ?></div>
+										</div>
+										<div class="card-field-cont">
+											<div class="card-h3">Address:</div>
+											<div class="card-field-text"><?= h($adopter->address) ?></div>
+										</div>
+									</div>
+									</a>
+								</div>
+							<?php else: ?>
+								<a class="card w-clearfix w-inline-block">
+									<div class="card-h1">This cat is not currently adopted.</div>
+								</a>
+								<a class="card w-clearfix w-inline-block">
+									<a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
+								</a>
+                        <?php endif; ?>
                         <?php else: ?>
                             <a class="card w-clearfix w-inline-block">
-                            <div class="card-h1">This cat is not currently adopted.</div>
+								<div class="card-h1">This cat is not currently adopted.</div>
                             </a>
+							<a class="card w-clearfix w-inline-block">
+								<a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
+							</a>
                     <?php endif; ?>           
                 </div>
             </div>
@@ -233,7 +254,7 @@
       </div>
     </div>
   </div>
-  <div class="notify-cont">
+  <div class="notify-cont w-hidden-main">
     <div class="notify-overview">Overview</div>
     <!--<div class="notify-medical">Medical Information</div>-->
     <div class="notify-foster">Foster Home</div>
@@ -252,6 +273,35 @@
       </div>
     </div>
   </div> 
+
+<div class="add-adopter-floating-overlay add-adopter">
+	<div class="confirm-cont add-adopter-inner">
+		<div class="confirm-text">Adopt this cat to who?</div>
+		<form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+			<?= $this->Form->input('Adopter',['class'=>'add-input w-input','options'=>$select_adopters]) ?>
+		</form>
+		<br/>
+		<div class="confirm-button-wrap w-form">
+			<a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+			<a class="delete add-adopter-btn confirm-button w-button" href="#">Adopt!</a>
+		</div>
+	</div>
+</div> 
+
+<div class="add-adopter-floating-overlay add-foster">
+  <div class="confirm-cont add-foster-inner">
+    <div class="confirm-text">Foster this cat to who?</div>
+    <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+      <?= $this->Form->input('Foster',['class'=>'add-input w-input','options'=>$select_fosters]) ?>
+    </form>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <a class="delete add-foster-btn confirm-button w-button" href="#">Foster!</a>
+    </div>
+  </div>
+</div>
+
   <div class="button-cont w-hidden-main">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="/img/edit-01.png" width="55">
@@ -259,16 +309,34 @@
     <div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="/img/upload-01.png" width="55">
     </div>
-    <!--<div class="button-03" data-ix="add-click">-->
     <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="/img/export-01.png" width="55">
     </a>
-    <!--</div>-->
     <div class="button-04" data-ix="delete-click">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
 
 <script>
+$(function () {
+	var current_kitty = new Cat();
+	calculateAndPopulateAgeFields();
+	$('.add-adopter-btn').click(function(){
+		$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
+			$('.add-adopter').css('display','none');
+			$('.add-adopter-inner').css('display','none');
+			$('.add-adopter-inner').css('opacity','0');
+			current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+		});
+	});
   calculateAndPopulateAgeFields();
+  $('.add-foster-btn').click(function(){
+    $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+      $('.add-foster').css('display','none');
+      $('.add-foster-inner').css('display','none');
+      $('.add-foster-inner').css('opacity','0');
+      current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+    });
+  });
+});
 </script>

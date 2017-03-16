@@ -156,7 +156,8 @@ class CatsTable extends Table
         $litter_table = TableRegistry::get('Litters');
         $the_litter = $litter_table->get($litter_id);
 
-        if($cat->is_kitten) {
+		//Log::write('debug', printr($cat));
+        if($cat['is_kitten']) {
             $the_litter->kitten_count++;
         }
         else {
@@ -164,6 +165,7 @@ class CatsTable extends Table
         }
 
         $litter_table->save($the_litter);
+
 
     }
 
