@@ -30,18 +30,17 @@ class CatsController extends AppController
         } else if(!empty($this->request->query)){
             foreach($this->request->query as $field => $query){
                 // check the flags first
-                if($field == 'is_kitten' && !empty($query)){
-                    $this->paginate['conditions'][$field] = ($query - 1);
-                }else if($field == 'is_female' && !empty($query)){
-                    $this->paginate['conditions'][$field] = ($query - 1);
+                if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
+                    $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'dob') {
                     if(!empty($query)){
                         $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
                 }
                 } else if (!empty($query)) {
-                    $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+                    $this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
                 }
             }
+			$this->request->data = $this->request->query;
         }
 
 

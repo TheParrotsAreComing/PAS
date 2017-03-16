@@ -5,49 +5,40 @@
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
       </div>
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+		<?= $this->Form->create($cats,['type'=>'get','class'=>'w-clearfix']) ?>
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
       	<div class="filter">
 		  <div class="filter-criteria">Name:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="catNameFilter" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
+		  <?= $this->Form->input('cat_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'catNameFilter']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Female/Male:</div>
-		  <select class="filter-criteria-select w-select" data-name="Field" id="sexFilter" name="is_female">
-            <option value="">Both</option>
-            <option value="2">Female</option>
-            <option value="1">Male</option>
-          </select>
+			<?= $this->Form->input('is_female',['class'=>'filter-criteria-select w-select','label'=>false,'empty'=>'Both','options'=>['Male','Female']])?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Adult/Kitten:</div>
-		  <select class="filter-criteria-select w-select" data-name="Field" id="ageFilter" name="is_kitten">
-            <option value="">Both</option>
-            <option value="1">Adult</option>
-            <option value="2">Kitten</option>
-          </select>
+			<?= $this->Form->input('is_kitten',['class'=>'filter-criteria-select w-select','label'=>false,'empty'=>'Both','options'=>['Adult','Kitten']])?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Breed:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="breedFilter" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+		  <?= $this->Form->input('breed',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a breed']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Color:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="colorFilter" maxlength="256" name="color" placeholder="Enter a color" type="text">
+		  <?= $this->Form->input('color',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a color']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Coat:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="coatFilter" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
+		  <?= $this->Form->input('coat',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a coat']) ?>
 	    </div>
 	    <div class="filter">
-			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="dobFilter" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
-		  </div>
+		  <div class="filter-criteria">Date of Birth:</div>
+		  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a coat']) ?>
+	    </div>
 
 	      <div class="filter-apply-cont">
 	        <button id="searchCatFilter" type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
 	      </div>
-	  </form>
 	  <?= $this->Form->end() ?>
     </div>
 
