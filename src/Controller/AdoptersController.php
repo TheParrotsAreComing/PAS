@@ -19,15 +19,32 @@ class AdoptersController extends AppController
      */
     public function index()
     {
-        $query = $this->Adopters->find('all', ['conditions'=>['is_deleted'=>false]]);
-        $query->contain([
+        $this->paginate = [
+            'contain' => [
             'CatHistories'=>function($q){
                 return $q->where(['end_date IS NULL']);
             }, 
-            'CatHistories.Cats']
-        );
-        
-        $adopters = $this->paginate($query);
+            'CatHistories.Cats'],
+            'conditions' => ['Adopters.is_deleted' => 0]
+        ];
+
+        if(!empty($this->request->query['mobile-search'])){
+            $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+        } else if(!empty($this->request->query)){
+            foreach($this->request->query as $field => $query){
+                if ($field == 'cat_count' && !empty($query)){
+                    if(preg_match('/count/',$field)){
+                        $this->paginate['conditions'][$field] = $query;
+                    }
+                }else if($field == 'do_not_adopt' && !empty($query)){
+                    $this->paginate['conditions'][$field] = ($query - 1);
+                }else if (!empty($query)) {
+                    $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+                }
+            }
+        }
+        $count = [0,1,2,3,4,5];
+        $adopters = $this->paginate($this->Adopters);
         $this->set(compact('adopters'));
         $this->set('_serialize', ['adopters']);
     }

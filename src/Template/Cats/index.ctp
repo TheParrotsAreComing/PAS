@@ -121,7 +121,7 @@
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
         <div class="list w-dyn-items">
 <!-- -->
-		<?php foreach($cats as $cat) : ?>
+        <?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
             <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
               <div class="card-h1"><?= $cat->cat_name?></div>
@@ -157,13 +157,13 @@
                 <div class="dropdown-icon"></div>
               </a>
               <div class="dropdown-results-cont">
-				        <?php foreach($cat->litter->cats as $mate) : ?>
-  				        <?php if($mate->id != $cat->id): ?>
+                <?php foreach($cat->litter->cats as $mate) : ?>
+                  <?php if($mate->id != $cat->id): ?>
                     <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-  					          <div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
-  				          </a>
+                      <div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
+                    </a>
                   <?php endif; ?>
-				        <?php endforeach; ?>
+                <?php endforeach; ?>
               </div>
             <?php else: ?>
               <div class="dropdown-cont dropdown-text">
@@ -173,7 +173,7 @@
               </div>
             <?php endif; ?>
           </div>
-		<?php endforeach; ?>
+    <?php endforeach; ?>
         </div>
       </div>
       <div class="cat-header" data-ix="page-load-slide-down">

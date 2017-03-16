@@ -266,7 +266,6 @@
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
-
 <script>
   calculateAndPopulateAgeFields();
 </script>

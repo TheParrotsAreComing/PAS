@@ -85,7 +85,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
     }

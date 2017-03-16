@@ -46,10 +46,13 @@
           <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
   'placeholder'=>'Enter Phone Number']);?>
+          <label class="add-field-h3" for="Count"># of Cats Adopted<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+          <?= $this->Form->input('cat_count', ['class'=>'add-input w-input', 'data-name'=>'cat_count', 'label'=>false, 
+  'placeholder'=>'Enter Number of Cats']);?>
           <?= $this->Form->input('notes', array('type' => 'textarea', 'label' =>['text' => 'Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
       'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Comments/Concerns')); ?>
   <div class="add-button-cont">
-    <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'view', $adopter->id], ['id'=>'AdopterCancel', 'class'=>'add-cancel w-button']); ?>
+    <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'index', $adopter->id], ['id'=>'AdopterCancel', 'class'=>'add-cancel w-button']); ?>
     <?= $this->Form->submit("Submit",['id'=>'AdopterAdd', 'class'=>'add-submit w-button']); ?>
   </div>
         </form>

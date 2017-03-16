@@ -19,16 +19,29 @@ class FostersController extends AppController
      */
     public function index()
     {
-
-        $query = $this->Fosters->find('all', ['conditions'=>['is_deleted'=>false]]);
-        $query->contain([
-            'CatHistories'=>function($q) {
+        $this->paginate = [
+            'contain' => [
+            'CatHistories'=>function($q){
                 return $q->where(['end_date IS NULL']);
-            },
-            'CatHistories.Cats']
-        );
-          
-        $fosters = $this->paginate($query);
+            }, 
+            'CatHistories.Cats'],
+            'conditions' => ['Fosters.is_deleted' => 0]
+        ];
+
+        if(!empty($this->request->query['mobile-search'])){
+            $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+        } else if(!empty($this->request->query)){
+            foreach($this->request->query as $field => $query){
+                    if(preg_match('/rating/',$field)){
+                        $this->paginate['conditions'][$field] = $query;
+                    }
+                }else if (!empty($query)) {
+                    $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+                }
+            }
+        }
+        $rating = [1,2,3,4,5];
+        $fosters = $this->paginate($this->Fosters);
         $this->set(compact('fosters', 'foster_cats'));
         $this->set('_serialize', ['fosters']);
     }
