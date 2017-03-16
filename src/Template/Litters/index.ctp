@@ -58,7 +58,7 @@
 			<?php foreach($litters as $litter) : ?>
 				  <div class="card-wrapper w-dyn-item">
 					<div class="card-cont">
-					  <a class="card w-clearfix w-inline-block">
+					  <a href = "<?= $this->Url->build(['controller' => 'litters', 'action' => 'view', $litter->id]) ?>" class="card w-clearfix w-inline-block">
 						<div class="card-h1">ETA:</div>
 						<div class="card-h1"><?= $litter->est_arrival ?></div>
 						<div>
