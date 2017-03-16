@@ -173,3 +173,25 @@ html {
 .cursor-point {
     cursor: pointer;
 }
+
+.add-adopter-floating-overlay {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: none;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .7);
+}
+.page{
+  background-image: url('../img/Arctic-Mountains-1920x1080.png');
+}
