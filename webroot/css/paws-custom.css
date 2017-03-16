@@ -3,7 +3,7 @@
 */
 
 html {
-  height: 100vh;
+    height: 100vh;
 }
 
 .pas-home-list {
@@ -29,75 +29,85 @@ html {
 
 .list-id-cont {
     position: relative;
-    left: 319px;
+    left: 317px;
     bottom: 99px;
 }
 
+@media (max-width: 479px) {
+    .list-id-cont {
+        left: 7px;
+        bottom: 128px;
+        float: right;
+    }
+}
+
 .error {
-  background: #FF9999;
-  border-color: #ff8181;
+    background: #FF9999;
+    border-color: #ff8181;
 }
 
 .success {
-  background: #a2d392;  
-  border-color: #84c46e;
+    background: #a2d392;
+    border-color: #84c46e;
 }
 
 .flash-text {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .message {
-  position: relative;
-  border-radius: 10px;
-  border-style: solid;
-  border-width: 3px;
-  min-height: 3em;
-  text-align: center;
-  padding-top:1em;
-  padding-bottom:1em;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #666666;
-  font-family: 'Sf ui display', sans-serif;
-  cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 3px;
+    min-height: 3em;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #666666;
+    font-family: 'Sf ui display', sans-serif;
+    cursor: pointer;
 }
 
 .flash-div {
-  width: 100%;
-  top: 60px;
-  position: absolute;
-  width: 25%;
-  top: 70px;
-  right: 50px;
-  z-index: 9001;
+    width: 100%;
+    top: 60px;
+    position: absolute;
+    width: 25%;
+    top: 70px;
+    right: 50px;
+    z-index: 9001;
 }
 
 @media (max-width: 479px) {
-  .flash-div {
-    width: 100%;
-    top: 60px;
-    right: 0px;
-  }
+    .flash-div {
+        width: 100%;
+        top: 60px;
+        right: 0px;
+    }
 }
 
 .success-close {
-  font-size: 15px;
-  position: absolute;
-  top: 0px;
-  right: 7px;
-  font-color: #477f34;
+    font-size: 15px;
+    position: absolute;
+    top: 0px;
+    right: 7px;
+    font-color: #477f34;
 }
 
 .error-close {
-  font-size: 15px;
-  position: absolute;
-  top: 0px;
-  right: 7px;
-  font-color: #ff8181;
+    font-size: 15px;
+    position: absolute;
+    top: 0px;
+    right: 7px;
+    font-color: #ff8181;
 }
 
+
 /* generic switch */
+
 .switch {
     background: #eee;
     border-radius: 32px;
@@ -116,15 +126,19 @@ html {
     width: 80px;
     z-index: 2;
 }
+
 .switch input:checked~.toggle {
     left: 4px;
 }
+
 .switch input~:checked~.toggle {
     left: 50px;
 }
+
 .switch input:checked {
     z-index: 0;
 }
+
 .toggle {
     background: #0172ff;
     border-radius: 50%;
@@ -141,18 +155,23 @@ html {
     z-index: 1;
 }
 
+
 /* Adopter DO NOT ADOPT switch */
+
 .switch-dna input:checked~.toggle {
     left: 4px;
     background: #0172ff;
 }
+
 .switch-dna input~:checked~.toggle {
     left: 50px;
     background: #ff0000;
 }
+
 .adopt-no {
     color: #ff0000;
 }
+
 
 /*.dna-card-big {
     background: #ffb3b3;
@@ -166,7 +185,8 @@ html {
     display: none;
 }
 
-.profile-action-button, .profile-action-button-cont {
+.profile-action-button,
+.profile-action-button-cont {
     cursor: pointer;
 }
 
@@ -175,23 +195,24 @@ html {
 }
 
 .add-adopter-floating-overlay {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  display: none;
-  height: 100%;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, .7);
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: none;
+    height: 100%;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .7);
 }
-.page{
-  background-image: url('../img/Arctic-Mountains-1920x1080.png');
+
+.page {
+    background-image: url('../img/Arctic-Mountains-1920x1080.png');
 }
