@@ -144,24 +144,34 @@
                             <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
                             <div class="card-field-wrap">
                                 <div class="card-field-cont">
+                                  <div class="card-field-cont">
                                     <div class="card-h3">Rating:</div>
                                     <div class="card-field-text"><?= h($foster->rating) ?></div>
                                 </div>
+                                </div>
+                                <div class="card-field-cont">
                                 <div class="card-field-cont">
                                     <div class="card-h3">Email:</div>
                                     <div class="card-field-text"><?= h($foster->email) ?></div>
                                 </div>
+                                </div>
+                                <div class="card-field-cont">
                                 <div class="card-field-cont">
                                     <div class="card-h3">Phone:</div>
                                     <div class="card-field-text"><?= h($foster->phone) ?></div>
                                 </div>
+                                </div>
+                                <div class="card-field-cont">
                                 <div class="card-field-cont">
                                     <div class="card-h3">Address:</div>
                                     <div class="card-field-text"><?= h($foster->address) ?></div>
                                 </div>
+                                </div>
+                                <div class="card-field-cont">
                                 <div class="card-field-cont">
                                     <div class="card-h3">Availability:</div>
                                     <div class="card-field-text"><?= h($foster->avail) ?></div>
+                                </div>
                                 </div>
                             </div>
                             </a>
@@ -192,22 +202,30 @@
 									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
 									<div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
 									<div class="card-field-wrap">
+                    <div class="card-field-cont">
 										<div class="card-field-cont">
 											<div class="card-h3">Notes:</div>
 											<div class="card-field-text"><?= h($adopter->notes) ?></div>
 										</div>
+                    </div>
 										<div class="card-field-cont">
+                      <div class="card-field-cont">
 											<div class="card-h3">Email:</div>
 											<div class="card-field-text"><?= h($adopter->email) ?></div>
 										</div>
+                    </div>
+                    <div class="card-field-cont">
 										<div class="card-field-cont">
 											<div class="card-h3">Phone:</div>
 											<div class="card-field-text"><?= h($adopter->phone) ?></div>
 										</div>
+                    </div>
 										<div class="card-field-cont">
+                    <div class="card-field-cont">
 											<div class="card-h3">Address:</div>
 											<div class="card-field-text"><?= h($adopter->address) ?></div>
 										</div>
+                    </div>
 									</div>
 									</a>
 								</div>
