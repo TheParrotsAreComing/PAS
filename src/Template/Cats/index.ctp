@@ -4,6 +4,7 @@
     <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
+        <div class="symbol" data-ix="filter-cancel"></div>
       </div>
 		<?= $this->Form->create($cats,['type'=>'get','class'=>'w-clearfix']) ?>
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
@@ -37,7 +38,8 @@
 	    </div>
 
 	      <div class="filter-apply-cont">
-	        <button id="searchCatFilter" type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+          <a class="cancel filter-button w-button" href="#">Cancel</a>
+	        <button id="searchCatFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 	      </div>
 	  <?= $this->Form->end() ?>
     </div>
@@ -49,7 +51,7 @@
 <!-- -->
 		<?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div>
                 <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
@@ -85,7 +87,7 @@
               <div class="dropdown-results-cont">
 				        <?php foreach($cat->litter->cats as $mate) : ?>
   				        <?php if($mate->id != $cat->id): ?>
-                    <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+                    <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
   					          <div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
   				          </a>
                   <?php endif; ?>
@@ -126,7 +128,7 @@
       <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
     </a>
     <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">

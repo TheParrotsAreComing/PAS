@@ -205,7 +205,7 @@ class CatsController extends AppController
             $this->Flash->success(__('The cat has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {
-            $this->Flash->error(__('The cat could not be saved. Please, try again.'));
+            $this->Flash->error(__('The cat could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
     }
