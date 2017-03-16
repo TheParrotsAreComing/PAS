@@ -4,6 +4,7 @@
     <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
+        <div class="symbol" data-ix="filter-cancel"></div>
       </div>
       <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
@@ -136,7 +137,7 @@
       <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
     </a>
     <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
