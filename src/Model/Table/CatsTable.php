@@ -6,6 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
 
 /**
  * Cats Model
@@ -166,15 +167,37 @@ class CatsTable extends Table
 
     }
 
-    public function getAAPUploadArray($cat_id) {
-        $data = [];
-        /*$query = $this->find()
-            ->select(['breed','cat_name','dob','is_female','bio']);
-        $data = array_merge($data, $query->toArray());*/
-        $data = [
-            ['Id','Animal','Breed','Name','Age'],
-            ['PAWS-AA001','Cat','Maine Coon','Pupcat','Adult']
-        ];
-        return $data;
+    public function getAAPUploadArray($cat_id, $data) {
+        $query = $this->find()
+            ->select(['id','breed','coat','cat_name','dob','is_female','bio','good_with_kids','good_with_dogs','good_with_cats','special_needs','needs_experienced_adopter',])
+            ->where(['id'=>$cat_id]);
+        $result = $query->first()->toArray();
+        $result['Animal'] = 'Cat';
+        $result['Sex'] = ($result['is_female']) ? 'F' : 'M';
+
+        if ($result['dob']->wasWithinLast('6 months')) {
+            $result['Age'] = 'Kitten';
+        } else if ($result['dob']->wasWithinLast('1 year')) {
+            $result['Age'] = 'Young';
+        } else if ($result['dob']->wasWithinLast('7 years')) {
+            $result['Age'] = 'Adult';
+        } else {
+            $result['Age'] = 'Senior';
+        }
+
+        $result['Status'] = $data['status'];
+        $result['Color'] = $data['aap_color'];
+        $result['SpayedNeutered'] = (boolean) $data['SpayedNeutered'];
+        $result['ShotsCurrent'] = (boolean) $data['ShotsCurrent'];
+        $result['Declawed'] = (boolean) $data['Declawed'];
+        $result['Housetrained'] = (boolean) $data['Housetrained'];
+        $result['id'] = 'PAWS'.sprintf('%05d', $result['id']);
+
+        unset($result['is_female']);
+        unset($result['dob']);
+        $output = [];
+        $output[] = array_keys($result);
+        $output[] = array_values($result);
+        return $output;
     }
 }

@@ -3,11 +3,34 @@
         <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
         <div class="add-cont scroll1" data-ix="page-load-fade-in">
             <div class="add-header">
-                <div class="add-field-h1">Create a cat</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+                <div class="add-field-h1">Upload to Adopt-A-Pet</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
             </div>
-            <?= $this->Form->create($cat) ?>
+            <?= $this->Form->create($cat, ['type'=>'post']) ?>
                 <div class="add-input-form-wrap w-form">
                     <form class="add-input-form">
+                        <label class="add-field-h2">Enter the following new information for Adopt-A-Pet</label>
+                        <div class="add-field-seperator"></div>
+                        <?= $this->Form->input('status', 
+                            array('label' => 
+                                ['text' => 'Adoption Status<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'options' => ['Available'=>'Available', 'Adopted'=>'Adopted', 'Deleted'=>'Deleted', 'Hidden'=>'Hidden'],
+                            'value' => 'Available'));?>
+                        <?= $this->Form->input('aap_color', 
+                            array('label' => 
+                                ['text' => 'Color<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'options' => $colors,
+                            'empty' => 'Select an accepted color')); ?>  
+                        <?= $this->Form->input('  Spayed and Neutered', ['type'=>'checkbox', 'name'=>'SpayedNeutered', 'checked'=>true]);?>
+                        <?= $this->Form->input('  Shots Current', ['type'=>'checkbox', 'name'=>'ShotsCurrent', 'checked'=>true]);?>
+                        <?= $this->Form->input('  Housetrained', ['type'=>'checkbox', 'name'=>'Housetrained', 'checked'=>true]);?>
+                        <?= $this->Form->input('  Declawed', ['type'=>'checkbox', 'name'=>'Declawed']);?>
+
                         <label class="add-field-h2" for="First-Name">personal information</label>
                         <div class="add-field-seperator"></div>
                         <?php echo $this->Form->input('cat_name', 
@@ -19,9 +42,9 @@
                             'placeholder' => 'Bella')); ?>
                         <label class="add-field-h3">Date of birth<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
-                            <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
-                            <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
-                            <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
+                            <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
+                            <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
+                            <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div>
                         <?php echo $this->Form->input('breed', 
                             array('label' => 
@@ -29,26 +52,18 @@
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
-                            'empty' => 'Select breed that MOST fits',
+                            'empty' => 'Select a breed',
                             'placeholder' => 'Siamese')); ?>
-                         <?php echo $this->Form->input('color', 
-                            array('label' => 
-                                ['text' => 'Color<span class="required-field-indicator"><span class="pre"></span></span>:', 
-                                'class' => 'add-field-h3',
-                                'escape' => false], 
-                            'class' => 'add-input w-input', 
-                            'placeholder' => 'Brown')); ?>   
-                         <?php echo $this->Form->input('coat', 
+                        <?php echo $this->Form->input('coat', 
                             array('label' => 
                                 ['text' => 'Coat<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
-                            'options' => ['Short'=>'Short', 'Medium'=>'Medium', 'Long'=>'Long'],
-                            'placeholder' => 'Shorthair')); ?>    
+                            'placeholder' => 'Shorthair')); ?> 
                         <label class="add-field-h3" for="E-mail">gender<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
-                            <div class="gender-switch w-embed" data-ix="gender-switch">
+                            <div class="gender-switch w-embed">
                                 <style>
                                     /* ---------- SWITCH ---------- */
                                     
@@ -94,18 +109,18 @@
                                         z-index: 1;
                                     }
                                 </style>
-                                <div class="switch white">
-                                    <input value="1" type="radio" name="is_female" id="switch-female" checked>
+                                <div class="switch gender-toggle white">
+                                    <input value="1" type="radio" name="is_female" id="switch-female">
                                     <input value="0" type="radio" name="is_female" id="switch-male">
                                     <span class="toggle"></span>
                                 </div>
                             </div>
-                            <div class="gender-female">male</div>
-                            <div class="gender-male">female</div>
+                            <div class="gender-female" id="male-label">male</div>
+                            <div class="gender-male" id="female-label">female</div>
                         </div>
                         <label class="add-field-h3" for="E-mail">kitten/adult<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="gender-cont">
-                            <div class="gender-switch w-embed" data-ix="gender-switch">
+                            <div class="gender-switch w-embed" >
                                 <style>
                                     /* ---------- SWITCH ---------- */
                                     
@@ -136,14 +151,14 @@
                                         z-index: 0;
                                     }
                                 </style>
-                                <div class="switch-kitten white">
-                                    <input value="1" type="radio" name="is_kitten" id="kitten" checked>
+                                <div class="switch-kitten cat-toggle white">
+                                    <input value="1" type="radio" name="is_kitten" id="kitten">
                                     <input value="0" type="radio" name="is_kitten" id="adult">
                                     <span class="toggle"></span>
                                 </div>
                             </div>
-                            <div class="gender-female">adult</div>
-                            <div class="gender-male">kitten</div>
+                            <div class="gender-female" id="adult-label">adult</div>
+                            <div class="gender-male" id="kitten-label">kitten</div>
                         </div>
                         <label class="add-field-h2">care information</label>
                         <div class="add-field-seperator"></div>
@@ -164,7 +179,14 @@
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
                             'placeholder' => '0123456789')); ?>
-                        <label class="add-field-h3" for="E-mail">is microchip registered?<span class="required-field-indicator"><span class="pre"></span></span></label>
+                        <?php /*
+                        <label class="add-field-h3">Microchip Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+                        <div class="date-cont">
+                            <?php echo $this->Form->month('microchiped_date', array('class' => 'date-month w-select', 'empty' => 'Month')); ?>
+                            <?php echo $this->Form->day('microchiped_date', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
+                            <?php echo $this->Form->year('microchiped_date', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
+                        </div> */ ?>
+                       <label class="add-field-h3" for="E-mail">is microchip registered?<span class="required-field-indicator"><span class="pre"></span></span></label>
                         <div class="gender-cont">
                             <div class="gender-switch w-embed" data-ix="gender-switch">
                                 <style>
@@ -197,27 +219,22 @@
                                         z-index: 0;
                                     }
                                 </style>
-                                <div class="switch-chip white">
-                                    <input value="0" type="radio" name="is_microchip_registered" id="microchip_not_registered" checked>
+                                <div class="switch-chip microchip-toggle white">
+                                    <input value="0" type="radio" name="is_microchip_registered" id="microchip_not_registered">
                                     <input value="1" type="radio" name="is_microchip_registered" id="microchip_registered">
                                     <span class="toggle"></span>
                                 </div>
                             </div>
-                            <div class="gender-female">registered</div>
-                            <div class="gender-male">not registered</div>
-                        </div>
-                        <?= $this->Form->input('  Good with Kids', ['type'=>'checkbox', 'name'=>'good_with_kids']); ?>
-                        <?= $this->Form->input('  Good with Dogs', ['type'=>'checkbox', 'name'=>'good_with_dogs']); ?>
-                        <?= $this->Form->input('  Good with Cats', ['type'=>'checkbox', 'name'=>'good_with_cats']); ?>
-                        <?= $this->Form->input('  Special Needs', ['type'=>'checkbox', 'name'=>'special_needs']); ?>
-                        <?= $this->Form->input('  Needs Experienced Adopter', ['type'=>'checkbox', 'name'=>'needs_experienced_adopter']); ?>
-                        <?php echo $this->Form->input('specialty_notes', 
-                            array('type' => 'textarea', 'label' => 
-                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
-                                'class' => 'add-field-h3',
-                                'escape' => false], 
-                            'class' => 'add-input multi-line w-input', 
-                            'placeholder' => 'Type specialty notes for this cat...')); ?>
+                            <div class="gender-female" id="registered-label">registered</div>
+                            <div class="gender-male" id="not-registered-label">not registered</div>
+                        </div> 
+
+                        <?= $this->Form->input('  Good with Kids', ['type'=>'checkbox', 'name'=>'good_with_kids', 'checked'=>$gwkids]); ?>
+                        <?= $this->Form->input('  Good with Dogs', ['type'=>'checkbox', 'name'=>'good_with_dogs', 'checked'=>$gwdogs]); ?>
+                        <?= $this->Form->input('  Good with Cats', ['type'=>'checkbox', 'name'=>'good_with_cats', 'checked'=>$gwcats]); ?>
+                        <?= $this->Form->input('  Special Needs', ['type'=>'checkbox', 'name'=>'special_needs', 'checked'=>$special]); ?>
+                        <?= $this->Form->input('  Needs Experienced Adopter', ['type'=>'checkbox', 'name'=>'needs_experienced_adopter', 'checked'=>$exp]); ?>
+
                         <?php echo $this->Form->input('bio', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Biography<span class="required-field-indicator"><span class="pre"></span></span>:', 
@@ -225,36 +242,93 @@
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type the biography for this cat...')); ?> 
+                        <?php echo $this->Form->input('diet', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Current Diet Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type the current diet for this cat...')); ?>
+                        <?php echo $this->Form->input('specialty_notes', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type specialty notes for this cat...')); ?>
                         <div class="add-button-cont">
-                       
-                       <?= $this->Form->input('addMoreCats', ['type' => 'hidden', 'value' => 0 ]) ?>
-                       
-                       <?php if (empty($litter_id)): 
-                       // show proper buttons, incase we're adding cats to a new litter ?>
-                           <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
-                           <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
-                        <?php else: ?>
-                           <?= $this->Form->submit("Submit and done", ['id'=>'LitterCatAddDone', 'class'=>'add-submit w-button']); ?>
-                           <?= $this->Html->link("Cancel this cat", ['controller'=>'litters', 'action'=>'index'], ['id'=>'LitterCatAddCancel', 'class'=>'add-cancel w-button']); ?>
-                           <?= $this->Form->button("Submit and add another",['id'=>'LitterCatAddAndMore', 'class'=>'add-submit w-button', 'type' => 'button']); ?>
-                        <?php endif; ?>
+                       <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat->id], ['id'=>'CatCancel', 'class'=>'add-cancel w-button']); ?>
+                       <?= $this->Form->submit("Submit",['id'=>'CatAdd', 'class'=>'add-submit w-button']); ?>
                         </div>
                     </form>
                 </div>
         </div>
     </div>
 </div>
-
 <?= $this->Form->end() ?>
-
-
 <script>
-    $(function(){
-      $('#LitterCatAddAndMore').click(
-        function(e){
-            $('#addmorecats').val(1);
-            $('form').submit();
-            return true;
-        })
-    })
+$(document).ready(function() {
+    var gender = "<?= $cat['is_female']; ?>";
+    var cat = "<?= $cat['is_kitten']; ?>";
+    var register = "<?= $cat['is_microchip_registered']; ?>";
+    if (gender == 1) {
+        $('#switch-female').prop("checked", true);
+        $('#female-label').show();
+        $('#male-label').hide();
+    } else {
+        $('#switch-male').prop("checked", true);
+        $('#female-label').hide();
+        $('#male-label').show();    }
+    if (cat == 1) {
+        $('#kitten').prop("checked", true);
+        $('#adult-label').hide();
+        $('#kitten-label').show();
+    } else {
+        $('#adult').prop("checked", true);
+        $('#adult-label').show();
+        $('#kitten-label').hide();
+    }
+    if (register == 1) {
+        $('#microchip_registered').prop("checked", true);
+        $('#registered-label').show();
+        $('#not-registered-label').hide();
+    } else {
+        $('#microchip_not_registered').prop("checked", true);
+        $('#registered-label').hide();
+        $('#not-registered-label').show();
+    }
+
+    $('.gender-toggle').on('click', function(e) {
+        if ($('#male-label').is(':visible')) {
+            $('#male-label').hide();
+            $('#female-label').show();
+        } else {
+            $('#male-label').show();
+            $('#female-label').hide();
+        }
+        e.stopPropagation();
+    });
+
+    $('.cat-toggle').on('click', function(e) {
+        if ($('#adult-label').is(':visible')) {
+            $('#adult-label').hide();
+            $('#kitten-label').show();
+        } else {
+            $('#adult-label').show();
+            $('#kitten-label').hide();
+        }
+        e.stopPropagation();
+    });
+
+    $('.microchip-toggle').on('click', function(e) {
+        if ($('#registered-label').is(':visible')) {
+            $('#registered-label').hide();
+            $('#not-registered-label').show();
+        } else {
+            $('#registered-label').show();
+            $('#not-registered-label').hide();
+        }
+        e.stopPropagation();
+    });
+});
 </script>

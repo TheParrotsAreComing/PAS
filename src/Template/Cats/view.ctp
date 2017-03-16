@@ -221,7 +221,7 @@
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
@@ -259,9 +259,11 @@
     <div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="/img/upload-01.png" width="55">
     </div>
-    <div class="button-03" data-ix="add-click">
+    <!--<div class="button-03" data-ix="add-click">-->
+    <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="/img/export-01.png" width="55">
-    </div>
+    </a>
+    <!--</div>-->
     <div class="button-04" data-ix="delete-click">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
