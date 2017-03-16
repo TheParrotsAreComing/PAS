@@ -5,34 +5,32 @@
         <div class="filter-header">FILTER</div>
 				<div class="symbol" data-ix="filter-cancel"></div>
       </div>
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-
+        <?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
 	      <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
 		  <div class="filter">
 			  <div class="filter-criteria">Name:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="litter_name" placeholder="Enter a name" type="text">
+			  <?= $this->Form->input('litter_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'litterNameFilter','placeholder'=>'Enter a name']) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria">Breed:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+			  <?= $this->Form->input('breed',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a breed']) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="litterDob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
+			  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'litterDob','placeholder'=>'Enter a Date']) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria"># of Kittens:</div>
-		      <?= $this->Form->input('kitten_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
+		      <?= $this->Form->input('kitten_count',['empty' => 'Select Count', 'label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria"># Of Cats:</div>
-		      <?= $this->Form->input('the_cat_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
+		      <?= $this->Form->input('the_cat_count',['empty' => 'Select Count', 'label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
 		  <div class="filter-apply-cont">
-				<a class="cancel filter-button w-button" href="#">Cancel</a>
+				<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
 				<button type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 		  </div>
-		</form>
 	    <?= $this->Form->end() ?>
     </div>
 

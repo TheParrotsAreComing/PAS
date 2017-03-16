@@ -39,6 +39,7 @@ class LittersController extends AppController
 					}
 				}
 			}
+            $this->request->data = $this->request->query;
 		}
 
         $litters = $this->paginate($this->Litters);
