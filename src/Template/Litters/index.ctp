@@ -28,7 +28,8 @@
 		      <?= $this->Form->input('the_cat_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
 		  <div class="filter-apply-cont">
-			<button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+				<a class="cancel filter-button w-button" href="#">Cancel</a>
+				<button type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 		  </div>
 		</form>
 	    <?= $this->Form->end() ?>
@@ -100,7 +101,7 @@
 						</a>
 						<div class="dropdown-results-cont">
 						<?php foreach($litter->cats as $cat) : ?>
-							<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+							<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
 								<div class="dropdown-cat-name"><?= $cat->cat_name ?></div>
 							</a>
 						<?php endforeach; ?>
