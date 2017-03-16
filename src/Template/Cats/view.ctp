@@ -180,37 +180,45 @@
 				<?php //IF we change this, we must change the JS. Let Rob know if you change this! ?>
                 <div class="profile-content-cont">
                     <?php if (!empty($cat->cat_histories)): ?>
-                            <div class="profile-text-header">Adopter</div>
-                            <div class="card-cont card-wrapper w-dyn-item">
-					
-                                <?php foreach($cat->cat_histories as $ch): //Find most recent adopter. Spaghetti Code Break out once we find it?>
-									<?php if(!empty($ch->adopter_id)): ?>
-										<?php $adopter = $ch->adopter ?>
-										<?php break; ?>
-									<?php endif; ?>
-                                <?php endforeach; ?>
-                                <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
-                                <div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
-                                <div class="card-field-wrap">
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Notes:</div>
-                                        <div class="card-field-text"><?= h($adopter->notes) ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Email:</div>
-                                        <div class="card-field-text"><?= h($adopter->email) ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Phone:</div>
-                                        <div class="card-field-text"><?= h($adopter->phone) ?></div>
-                                    </div>
-                                    <div class="card-field-cont">
-                                        <div class="card-h3">Address:</div>
-                                        <div class="card-field-text"><?= h($adopter->address) ?></div>
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
+							<?php foreach($cat->cat_histories as $ch): //Find most recent adopter. Spaghetti Code Break out once we find it?>
+								<?php if(!empty($ch->adopter_id)): ?>
+									<?php $adopter = $ch->adopter ?>
+									<?php break; ?>
+								<?php endif; ?>
+							<?php endforeach; ?>
+							<?php if(!empty($adopter)): ?>
+								<div class="profile-text-header">Adopter</div>
+								<div class="card-cont card-wrapper w-dyn-item">
+									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+									<div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
+									<div class="card-field-wrap">
+										<div class="card-field-cont">
+											<div class="card-h3">Notes:</div>
+											<div class="card-field-text"><?= h($adopter->notes) ?></div>
+										</div>
+										<div class="card-field-cont">
+											<div class="card-h3">Email:</div>
+											<div class="card-field-text"><?= h($adopter->email) ?></div>
+										</div>
+										<div class="card-field-cont">
+											<div class="card-h3">Phone:</div>
+											<div class="card-field-text"><?= h($adopter->phone) ?></div>
+										</div>
+										<div class="card-field-cont">
+											<div class="card-h3">Address:</div>
+											<div class="card-field-text"><?= h($adopter->address) ?></div>
+										</div>
+									</div>
+									</a>
+								</div>
+							<?php else: ?>
+								<a class="card w-clearfix w-inline-block">
+									<div class="card-h1">This cat is not currently adopted.</div>
+								</a>
+								<a class="card w-clearfix w-inline-block">
+									<a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
+								</a>
+                        <?php endif; ?>
                         <?php else: ?>
                             <a class="card w-clearfix w-inline-block">
 								<div class="card-h1">This cat is not currently adopted.</div>
