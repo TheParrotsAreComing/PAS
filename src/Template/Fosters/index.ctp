@@ -2,20 +2,21 @@
   <div class="filter-bar">
     <div class="filter-header">
       <div class="filter-header">FILTER</div>
+      <div class="symbol" data-ix="filter-cancel"></div>
     </div>
     <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
     <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
     <div class="filter-menu w-form">
         <div class="filter-criteria">First Name:</div>
-        <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="First-Name" maxlength="256" name="first_name" placeholder="ex: John" type="text">
+        <input class="filter-criteria-select w-input" data-name="Field 3" id="First-Name" maxlength="256" name="first_name" placeholder="Enter first name" type="text">
     </div>
     <div class="filter-menu w-form">
         <div class="filter-criteria">Last Name:</div>
-        <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Last-Name" maxlength="256" name="last_name" placeholder="ex: Doe" type="text">
+        <input class="filter-criteria-select w-input" data-name="Field 3" id="Last-Name" maxlength="256" name="last_name" placeholder="Enter last name" type="text">
     </div>
     <div class="filter-menu w-form">
         <div class="filter-criteria">Rating:</div>
-          <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Rating" maxlength="256" name="rating" placeholder="Enter rating" type="text">
+          <input class="filter-criteria-select w-input" data-name="Field 3" id="Rating" maxlength="256" name="rating" placeholder="Enter rating" type="text">
     </div>
     <div class="filter-apply-cont"><button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
     </div>

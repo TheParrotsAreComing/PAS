@@ -2,33 +2,33 @@
   <div class="filter-bar">
     <div class="filter-header">
       <div class="filter-header">FILTER</div>
+      <div class="symbol" data-ix="filter-cancel"></div>
     </div>
     <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-    <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
+    <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>   
     <div class="filter-menu w-form">
         <div class="filter-criteria">First Name:</div>
-        <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="First-Name" maxlength="256" name="first_name" placeholder="Enter first name" type="text">
+        <input class="filter-criteria-select w-input" data-name="Field 3" id="First-Name" maxlength="256" name="first_name" placeholder="Enter first name" type="text">
     </div>
     <div class="filter-menu w-form">
         <div class="filter-criteria">Last Name:</div>
-        <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Last-Name" maxlength="256" name="last_name" placeholder="Enter last name" type="text">
+        <input class="filter-criteria-select w-input" data-name="Field 3" id="Last-Name" maxlength="256" name="last_name" placeholder="Enter last name" type="text">
     </div>
     <div class="filter-menu w-form">
         <div class="filter-criteria">Last Adopted:</div>
-          <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="startDate" maxlength="256" name="start_date" placeholder="Enter date" type="text">
+          <input class="filter-criteria-select w-input" data-name="Field 3" id="startDate" maxlength="256" name="start_date" placeholder="Enter date" type="text">
     </div>
     <div class="filter-menu w-form">
         <div class="filter-criteria">Cats Adopted:</div>
-          <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Cat-Count" maxlength="256" name="cat_count" placeholder="Enter number of cats" type="text">
+          <input class="filter-criteria-select w-input" data-name="Field 3" id="Cat-Count" maxlength="256" name="cat_count" placeholder="Enter number of cats" type="text">
     </div>
     <div class="filter-menu w-form">
         <div class="filter-criteria">Do Not Adopt</div>
-          <select class="filter-criteria-select w-select" data-name="Field 3" id="Do-Not-Adopt" name="do_not_adopt">
-          <option value="1"></option>
+          <select class="filter-criteria-select w-select" data-name="Field 3" id="Adoptability" name="do_not_adopt">
+          <option value=""></option>
           <option value="2">True</option>
           </select>
     </div>
-
     <div class="filter-apply-cont"><button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
     </div>
     </form>
@@ -115,12 +115,4 @@
     <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
   </div>
 </div>
-
-<script>
-$(function(){
-  $('#startDate').datepicker({
-      changeMonth: true,
-      changeYear: true
-  });
-});
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
