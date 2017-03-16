@@ -192,3 +192,6 @@ html {
   align-items: center;
   background-color: rgba(0, 0, 0, .7);
 }
+.page{
+  background-image: url('../img/Arctic-Mountains-1920x1080.png');
+}

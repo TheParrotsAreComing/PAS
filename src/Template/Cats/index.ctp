@@ -9,11 +9,11 @@
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
       	<div class="filter">
 		  <div class="filter-criteria">Name:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="catNameFilter" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Female/Male:</div>
-		  <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="is_female">
+		  <select class="filter-criteria-select w-select" data-name="Field" id="sexFilter" name="is_female">
             <option value="">Both</option>
             <option value="2">Female</option>
             <option value="1">Male</option>
@@ -21,7 +21,7 @@
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Adult/Kitten:</div>
-		  <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="is_kitten">
+		  <select class="filter-criteria-select w-select" data-name="Field" id="ageFilter" name="is_kitten">
             <option value="">Both</option>
             <option value="1">Adult</option>
             <option value="2">Kitten</option>
@@ -29,23 +29,23 @@
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Breed:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="breedFilter" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Color:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="color" placeholder="Enter a color" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="colorFilter" maxlength="256" name="color" placeholder="Enter a color" type="text">
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Coat:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
+		  <input class="filter-criteria-select w-input" data-name="Field 3" id="coatFilter" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
 	    </div>
 	    <div class="filter">
 			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="dob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
+			  <input class="filter-criteria-select w-input" data-name="Field 3" id="dobFilter" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
 		  </div>
 
 	      <div class="filter-apply-cont">
-	        <button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+	        <button id="searchCatFilter" type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
 	      </div>
 	  </form>
 	  <?= $this->Form->end() ?>

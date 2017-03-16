@@ -1137,7 +1137,7 @@
 }
 
 .dropdown-results-cont {
-  display: block;
+  display: none;
   overflow: hidden;
   max-height: 600px;
   border-bottom: 1px solid #dfdfe0;
