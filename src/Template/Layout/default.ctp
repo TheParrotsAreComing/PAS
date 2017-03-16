@@ -28,8 +28,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->css('components.css'); ?>
   <?= $this->Html->css('paws-administrative-system.css'); ?>
   <?= $this->Html->script('modernizr.js'); ?>
+  <?= $this->Html->script('global.js'); ?>
   <?= $this->Html->script('moment.js'); ?>
   <?= $this->Html->css('paws-custom.css'); ?>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
   <style>
@@ -99,15 +103,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?php $srcset = $this->Url->image("settings-p-500x500.png").' 500w, '.$this->Url->image("settings.png").', 512w'; ?>
     <div class="navbar w-container"><?= $this->Html->image("settings.png", ["class"=>"navbar-settings", "width"=>"32", "sizes"=>"(max-width: 991px) 100vw, 30px", "srcset"=>$srcset]); ?>
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
-        <form data-name="Email Form" id="email-form" name="email-form">
-          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="name-5" placeholder="Search" type="text">
-        </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
+		<?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
+          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="mobile-search" placeholder="Search" type="text">
+		<?= $this->Form->end() ?>
       </div>
       <div class="navbar-hamburger w-nav-button">
         <div class="navbar-hamburger-text"></div>
@@ -131,6 +129,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <div class="flash-div"><?= $this->Flash->render() ?></div>
   <?= $this->fetch('content') ?>
   <?= $this->Html->script('paws-administrative-system.js'); ?>
