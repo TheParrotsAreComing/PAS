@@ -6,11 +6,11 @@
         <div class="filter-header">FILTER</div>
         <div class="symbol" data-ix="filter-cancel"></div>
       </div>
-		<?= $this->Form->create($cats,['type'=>'get','class'=>'w-clearfix']) ?>
+		<?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
       	<div class="filter">
 		  <div class="filter-criteria">Name:</div>
-		  <?= $this->Form->input('cat_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'catNameFilter']) ?>
+		  <?= $this->Form->input('cat_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'catNameFilter','placeholder'=>'Enter a name']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Female/Male:</div>
@@ -34,11 +34,11 @@
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Date of Birth:</div>
-		  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a coat']) ?>
+		  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'dobFilter','placeholder'=>'Enter a DOB']) ?>
 	    </div>
 
 	      <div class="filter-apply-cont">
-          <a class="cancel filter-button w-button" href="#">Cancel</a>
+			<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
 	        <button id="searchCatFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 	      </div>
 	  <?= $this->Form->end() ?>
@@ -143,7 +143,7 @@
 </script>
 <script>
 $(function(){
-	$('#dob').datepicker({
+	$('#dobFilter').datepicker({
 		  changeMonth: true,
 		  changeYear: true
 	});
