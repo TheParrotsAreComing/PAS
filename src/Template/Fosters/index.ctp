@@ -1,27 +1,44 @@
 <div class="body w-clearfix">
-  <div class="filter-bar">
+  <div class="filter-bar" data-ix="page-load-slide-right">
     <div class="filter-header">
       <div class="filter-header">FILTER</div>
       <div class="symbol" data-ix="filter-cancel"></div>
     </div>
-    <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+    <?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
     <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
-    <div class="filter-menu w-form">
-        <div class="filter-criteria">First Name:</div>
-        <input class="filter-criteria-select w-input" data-name="Field 3" id="First-Name" maxlength="256" name="first_name" placeholder="Enter first name" type="text">
-    </div>
-    <div class="filter-menu w-form">
-        <div class="filter-criteria">Last Name:</div>
-        <input class="filter-criteria-select w-input" data-name="Field 3" id="Last-Name" maxlength="256" name="last_name" placeholder="Enter last name" type="text">
-    </div>
-    <div class="filter-menu w-form">
-        <div class="filter-criteria">Rating:</div>
-          <input class="filter-criteria-select w-input" data-name="Field 3" id="Rating" maxlength="256" name="rating" placeholder="Enter rating" type="text">
-    </div>
-    <div class="filter-apply-cont"><button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
-    </div>
-    </form>
-  <?= $this->Form->end() ?>
+      <div class="filter">
+          <div class="filter-criteria">First Name:</div>
+          <?= $this->Form->input('first_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'First-Name','placeholder'=>'Enter first name']) ?>
+      </div>
+      <div class="filter">
+          <div class="filter-criteria">Last Name:</div>
+          <?= $this->Form->input('last-name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Last-Name','placeholder'=>'Enter last name']) ?>
+      </div>
+      <div class="filter">
+          <div class="filter-criteria">Rating:</div>
+          <?= $this->Form->input('rating',['class'=>'filter-criteria-select w-select','label'=>false,'options'=>['Select Rating','1','2','3','4','5']])?>
+      </div>
+      <div class="filter">
+          <div class="filter-criteria">Availability:</div>
+          <?= $this->Form->input('avail',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Availability','placeholder'=>'Enter availability']) ?>
+      </div>
+      <div class="filter">
+          <div class="filter-criteria">Phone #:</div>
+          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Phone','placeholder'=>'Enter phone number']) ?>
+      </div>
+      <div class="filter">
+          <div class="filter-criteria">Email:</div>
+          <?= $this->Form->input('email',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Email','placeholder'=>'Enter email']) ?>
+      </div>
+      <div class="filter">
+          <div class="filter-criteria">Address:</div>
+          <?= $this->Form->input('address',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Address','placeholder'=>'Enter address']) ?>
+      </div>
+      <div class="filter-apply-cont">
+        <a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
+        <button id="filterFosters" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+      </div>
+    <?= $this->Form->end() ?>
   </div>
   <div class="column">
     <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -102,7 +119,7 @@
     <div class="button-icon-text">Add Foster</div><?= $this->Html->image("add-01.png", ["data-ix"=>"add-click", "width"=>"55", "url"=>["controller"=>"fosters", "action"=>"add"]]); ?>
   </div>
   <div class="button-02">
-    <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
+    <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
   </div>
   <div class="button-03" data-ix="add-click">
     <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">

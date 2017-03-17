@@ -41,9 +41,9 @@ class FostersController extends AppController
                 }
             }
         }
-        $rating = [1,2,3,4,5];
+        $rating = [0,1,2,3,4,5];
         $fosters = $this->paginate($this->Fosters);
-        $this->set(compact('fosters', 'foster_cats'));
+        $this->set(compact('fosters', 'foster_cats', 'rating'));
         $this->set('_serialize', ['fosters']);
     }
 

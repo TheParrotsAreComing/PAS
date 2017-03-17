@@ -36,8 +36,8 @@ class AdoptersController extends AppController
                     if(preg_match('/count/',$field)){
                         $this->paginate['conditions'][$field] = $query;
                     }
-                }else if($field == 'do_not_adopt' && !empty($query)){
-                    $this->paginate['conditions'][$field] = ($query - 1);
+                }else if($field == 'do_not_adopt' && $query != ''){
+                    $this->paginate['conditions'][$field] = $query;
                 }else if (!empty($query)) {
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
