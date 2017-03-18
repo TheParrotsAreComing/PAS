@@ -148,7 +148,7 @@
                         <div class="w-clearfix">
                             <?php echo $this->Form->input('adoption_fee_amount', 
                                 array('label' => 
-                                    ['text' => 'Adoption Fee<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                    ['text' => 'Adoption Fee:', 
                                     'class' => 'add-field-h3',
                                     'escape' => false], 
                                 'class' => 'add-input currency w-input', 
@@ -157,12 +157,12 @@
                         </div>
                         <?php echo $this->Form->input('microchip_number', 
                             array('type' => 'text', 'label' => 
-                                ['text' => 'Microchip #<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                ['text' => 'Microchip #:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
                             'placeholder' => '0123456789')); ?>
-                        <label class="add-field-h3" for="E-mail">is microchip registered?<span class="required-field-indicator"><span class="pre"></span></span></label>
+                        <label class="add-field-h3" for="E-mail">is microchip registered?</label>
                         <div class="gender-cont">
                             <div class="gender-switch w-embed" data-ix="gender-switch">
                                 <style>
