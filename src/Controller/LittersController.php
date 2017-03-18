@@ -39,6 +39,7 @@ class LittersController extends AppController
 					}
 				}
 			}
+            $this->request->data = $this->request->query;
 		}
 
         $litters = $this->paginate($this->Litters);
@@ -134,14 +135,15 @@ class LittersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $litter = $this->Litters->get($id);
-        if ($this->Litters->delete($litter)) {
-            $this->Flash->success(__('The litter has been deleted.'));
+        $this->request->data['is_deleted'] = 1;
+        $litter = $this->Litters->patchEntity($litter, $this->request->data);
+        if ($this->Litters->save($litter)) {
+            $this->Flash->success(__('The litter has been deleted'));
+            return $this->redirect(['controller' => 'litters', 'action' => 'index']);
         } else {
             $this->Flash->error(__('The litter could not be deleted. Please, try again.'));
         }
-
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'litters', 'action' => 'index']);
     }
 }
