@@ -4,28 +4,21 @@
     <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
+        <div class="symbol" data-ix="filter-cancel"></div>
       </div>
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+		<?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
       	<?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
       	<div class="filter">
 		  <div class="filter-criteria">Name:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="catNameFilter" maxlength="256" name="cat_name" placeholder="Enter a name" type="text">
+		  <?= $this->Form->input('cat_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'catNameFilter','placeholder'=>'Enter a name']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Female/Male:</div>
-		  <select class="filter-criteria-select w-select" data-name="Field" id="sexFilter" name="is_female">
-            <option value="">Both</option>
-            <option value="2">Female</option>
-            <option value="1">Male</option>
-          </select>
+			<?= $this->Form->input('is_female',['class'=>'filter-criteria-select w-select','label'=>false,'empty'=>'Both','options'=>['Male','Female']])?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Adult/Kitten:</div>
-		  <select class="filter-criteria-select w-select" data-name="Field" id="ageFilter" name="is_kitten">
-            <option value="">Both</option>
-            <option value="1">Adult</option>
-            <option value="2">Kitten</option>
-          </select>
+			<?= $this->Form->input('is_kitten',['class'=>'filter-criteria-select w-select','label'=>false,'empty'=>'Both','options'=>['Adult','Kitten']])?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Breed:</div>
@@ -33,21 +26,21 @@
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Color:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="colorFilter" maxlength="256" name="color" placeholder="Enter a color" type="text">
+		  <?= $this->Form->input('color',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a color']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Coat:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="coatFilter" maxlength="256" name="coat" placeholder="Enter a coat" type="text">
+		  <?= $this->Form->input('coat',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a coat']) ?>
 	    </div>
 	    <div class="filter">
-			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="dobFilter" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
-		  </div>
+		  <div class="filter-criteria">Date of Birth:</div>
+		  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'dobFilter','placeholder'=>'Enter a DOB']) ?>
+	    </div>
 
 	      <div class="filter-apply-cont">
-	        <button id="searchCatFilter" type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+			<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
+	        <button id="searchCatFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 	      </div>
-	  </form>
 	  <?= $this->Form->end() ?>
     </div>
 
@@ -56,9 +49,9 @@
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
         <div class="list w-dyn-items">
 <!-- -->
-		<?php foreach($cats as $cat) : ?>
+        <?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div>
                 <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
@@ -92,13 +85,13 @@
                 <div class="dropdown-icon"></div>
               </a>
               <div class="dropdown-results-cont">
-				        <?php foreach($cat->litter->cats as $mate) : ?>
-  				        <?php if($mate->id != $cat->id): ?>
-                    <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
-  					          <div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
-  				          </a>
-                  <?php endif; ?>
-				        <?php endforeach; ?>
+				<?php foreach($cat->litter->cats as $mate) : ?>
+					<?php if($mate->id != $cat->id): ?>
+						<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+							<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
+						</a>
+					<?php endif; ?>
+				<?php endforeach; ?>
               </div>
             <?php else: ?>
               <div class="dropdown-cont dropdown-text">
@@ -108,7 +101,7 @@
               </div>
             <?php endif; ?>
           </div>
-		<?php endforeach; ?>
+    <?php endforeach; ?>
         </div>
       </div>
       <div class="cat-header" data-ix="page-load-slide-down">
@@ -135,7 +128,7 @@
       <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
     </a>
     <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
@@ -150,7 +143,7 @@
 </script>
 <script>
 $(function(){
-	$('#dob').datepicker({
+	$('#dobFilter').datepicker({
 		  changeMonth: true,
 		  changeYear: true
 	});

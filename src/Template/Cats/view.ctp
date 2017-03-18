@@ -170,45 +170,82 @@
             <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
             <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">
                 <div class="profile-content-cont">
-                    <?php if (!empty($cat->foster_id) && $foster->is_deleted = 0): ?>
-                        <div class="profile-text-header">Foster Home</div>
+                  <?php if (!empty($cat->cat_histories)): ?>
+                    <?php $fosters = [] ?>
+                    <?php foreach($cat->cat_histories as $ch): ?>
+                      <?php if(!empty($ch->foster_id)): ?>
+                        <?php $fosters[] = $ch->foster ?>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php if(!empty($fosters)) :?>
+                      <div class="profile-text-header">Foster Home</div>
+                      <?php foreach($fosters as $foster): ?>
                         <div class="card-cont card-wrapper w-dyn-item">
-                            <?php $foster_id = $cat->foster_id ?>
-                            <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster_id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
-                            <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
-                            <div class="card-field-wrap">
+                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
+                          <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
+                          <div class="card-field-wrap">
+                              <div class="card-field-cont">
                                 <div class="card-field-cont">
-                                    <div class="card-h3">Rating:</div>
-                                    <div class="card-field-text"><?= h($foster->rating) ?></div>
-                                </div>
-                                <div class="card-field-cont">
-                                    <div class="card-h3">Email:</div>
-                                    <div class="card-field-text"><?= h($foster->email) ?></div>
-                                </div>
-                                <div class="card-field-cont">
-                                    <div class="card-h3">Phone:</div>
-                                    <div class="card-field-text"><?= h($foster->phone) ?></div>
-                                </div>
-                                <div class="card-field-cont">
-                                    <div class="card-h3">Address:</div>
-                                    <div class="card-field-text"><?= h($foster->address) ?></div>
-                                </div>
-                                <div class="card-field-cont">
-                                    <div class="card-h3">Availability:</div>
-                                    <div class="card-field-text"><?= h($foster->avail) ?></div>
-                                </div>
-                            </div>
-                            </a>
+                                  <div class="card-h3">Rating:</div>
+                                  <div class="card-field-text"><?= h($foster->rating) ?></div>
+                              </div>
+                              </div>
+                              <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                  <div class="card-h3">Email:</div>
+                                  <div class="card-field-text"><?= h($foster->email) ?></div>
+                              </div>
+                              </div>
+                              <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                  <div class="card-h3">Phone:</div>
+                                  <div class="card-field-text"><?= h($foster->phone) ?></div>
+                              </div>
+                              </div>
+                              <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                  <div class="card-h3">Address:</div>
+                                  <div class="card-field-text"><?= h($foster->address) ?></div>
+                              </div>
+                              </div>
+                              <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                  <div class="card-h3">Availability:</div>
+                                  <div class="card-field-text"><?= h($foster->avail) ?></div>
+                              </div>
+                              </div>
+                              <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                  <div class="card-h3">Start Date:</div>
+                                  <div class="card-field-text"><?= h($ch->start_date) ?></div>
+                              </div>
+                                  <div class="card-h3">End Date:</div>
+                                  <div class="card-field-text"><?= h($ch->end_date) ?></div>
+                              </div>
+                          </div>
+                          </a>
                         </div>
+                      <?php endforeach; ?>
+                      <a class="card w-clearfix w-inline-block">
+                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+                      </a>
                     <?php else: ?>
-                        <a class="card w-clearfix w-inline-block">
-							<div class="card-h1">This cat is not currently in a foster home.</div>
-                        </a>
-              <a class="card w-clearfix w-inline-block">
-                <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(1);">+ Add Foster</a>
-              </a>
+                      <a class="card w-clearfix w-inline-block"> 
+                        <div class="card-h1">This cat is currently not in a foster home. </div>
+                      </a>
+                      <a class="card w-clearfix w-inline-block">
+                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+                      </a>
                     <?php endif; ?>
-                </div>
+                    <?php else: ?>
+                      <a class="card w-clearfix w-inline-block">
+                        <div class="card-h1">This cat is not currently in a foster home.</div>
+                      </a>
+                      <a class="card w-clearfix w-inline-block">
+                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+                      </a>
+                    <?php endif; ?>
+              </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 4" id="adopterCard">
 				<?php //IF we change this, we must change the JS. Let Rob know if you change this! ?>
@@ -226,22 +263,30 @@
 									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
 									<div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
 									<div class="card-field-wrap">
+                    <div class="card-field-cont">
 										<div class="card-field-cont">
 											<div class="card-h3">Notes:</div>
 											<div class="card-field-text"><?= h($adopter->notes) ?></div>
 										</div>
+                    </div>
 										<div class="card-field-cont">
+                      <div class="card-field-cont">
 											<div class="card-h3">Email:</div>
 											<div class="card-field-text"><?= h($adopter->email) ?></div>
 										</div>
+                    </div>
+                    <div class="card-field-cont">
 										<div class="card-field-cont">
 											<div class="card-h3">Phone:</div>
 											<div class="card-field-text"><?= h($adopter->phone) ?></div>
 										</div>
+                    </div>
 										<div class="card-field-cont">
+                    <div class="card-field-cont">
 											<div class="card-h3">Address:</div>
 											<div class="card-field-text"><?= h($adopter->address) ?></div>
 										</div>
+                    </div>
 									</div>
 									</a>
 								</div>
@@ -350,7 +395,6 @@
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
-
 <script>
 $(function () {
 	var current_kitty = new Cat();

@@ -28,6 +28,8 @@
           <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
           'placeholder'=>'Enter Phone Number']);?>
+          <label class="add-field-h2" for="First-Name">Other Information</label>
+          <div class="add-field-seperator"></div>
           <?= $this->Form->input('exp', array('type' => 'textarea', 'label' =>['text' => 'Experience<span class="required-field-indicator"><span class="pre"></span></span>:', 
           'class' => 'add-field-h3','escape' => false],'class' => 'add-input multi-line w-input','placeholder' => 'Enter any experience fostering')); ?>
           <?= $this->Form->input('avail', array('type' => 'textarea', 'label' =>['text' => 'Availability<span class="required-field-indicator"><span class="pre"></span></span>:', 

@@ -101,6 +101,9 @@
                       </a>
                     </div>
                   <?php endforeach; ?>
+                  <a class="card w-clearfix w-inline-block">
+                    <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Cat</a>
+                  </a>
                 <?php else: ?>
                   <div class="card-h1">This litter currently has no cat(s) or kitten(s).</div>
                 <?php endif; ?>
@@ -148,13 +151,13 @@
       <div class="confirm-button-wrap w-form">
         <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
             <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-            <?= $this->Html->link('Delete', ['controller'=>'cats', 'action'=>'delete', $litter->id], ['class'=>'confirm-button delete w-button']); ?>
+            <?= $this->Html->link('Delete', ['controller'=>'litters', 'action'=>'delete', $litter->id], ['class'=>'confirm-button delete w-button']); ?>
         </form>
       </div>
     </div>
   </div> 
   <div class="button-cont w-hidden-main">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $cat->id]) ?> ">
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="/img/edit-01.png" width="55">
     </a>
     <div class="button-02">

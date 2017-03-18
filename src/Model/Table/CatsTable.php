@@ -113,10 +113,10 @@ class CatsTable extends Table
             ->notEmpty('breed_id');
 
         $validator
-            ->allowEmpty('bio');
+            ->notEmpty('bio');
 
         $validator
-            ->allowEmpty('specialty_notes');
+            ->notEmpty('specialty_notes');
 
         $validator
             ->integer('microchip_number')
@@ -127,8 +127,8 @@ class CatsTable extends Table
             ->allowEmpty('is_microchip_registered');
 
         $validator
-            ->boolean('adoption_fee_paid')
-            ->allowEmpty('adoption_fee_paid');
+            ->boolean('adoption_fee_amount')
+            ->allowEmpty('adoption_fee_amount');
 
         $validator
             ->boolean('is_deleted')
