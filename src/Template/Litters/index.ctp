@@ -29,7 +29,7 @@
 		  </div>
 		  <div class="filter-apply-cont">
 				<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
-				<button type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
+				<button id="litterFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 		  </div>
 	    <?= $this->Form->end() ?>
     </div>
