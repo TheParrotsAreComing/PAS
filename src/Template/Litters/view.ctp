@@ -102,7 +102,11 @@
                     </div>
                   <?php endforeach; ?>
                   <a class="card w-clearfix w-inline-block">
-                    <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Cat</a>
+                    <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add',$litter->id])?>">+ Add New Cat</a>
+                  </a>
+				<br/>
+                  <a class="card w-clearfix w-inline-block">
+                    <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Existing Cat</a>
                   </a>
                 <?php else: ?>
                   <div class="card-h1">This litter currently has no cat(s) or kitten(s).</div>
