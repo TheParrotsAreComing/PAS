@@ -99,6 +99,7 @@ CREATE TABLE cats (
 	dob DATE NOT NULL,
 	is_female BOOLEAN NOT NULL,
 	breed VARCHAR(75) NOT NULL,
+    breed_id INT,
 	color VARCHAR(75) NOT NULL,
 	coat VARCHAR(75) NOT NULL,
 	bio TEXT,
@@ -112,10 +113,16 @@ CREATE TABLE cats (
 	is_paws BOOLEAN,
     is_deleted BOOLEAN NOT NULL,
     is_exported_to_adoptapet BOOLEAN,
+    good_with_kids BOOLEAN,
+    good_with_dogs BOOLEAN,
+    good_with_cats BOOLEAN,
+    special_needs BOOLEAN,
+    needs_experienced_adopter BOOLEAN,
     FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
 	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),
 	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
-	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id)
+	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id),
+    FOREIGN KEY breed_ref (breed_id) REFERENCES breeds(id)
     
     -- TODO: Need to revisit medical histories as a seperate entities
     /*

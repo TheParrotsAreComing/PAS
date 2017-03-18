@@ -22,6 +22,7 @@ THEN
 ALTER TABLE litters CHANGE cat_count the_cat_count INT NOT NULL;
 END IF;
 
+-- add fields to cat for adopt a pet
 IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='cats' AND column_name='good_with_kids'))
 THEN
 ALTER TABLE cats ADD good_with_kids BOOLEAN;
@@ -47,7 +48,15 @@ THEN
 ALTER TABLE cats ADD needs_experienced_adopter BOOLEAN;
 END IF;
 
+-- add a breed table for cats and exporting to adopt a pet
+IF NOT EXISTS ((SELECT * FROM information_schema.tables where table_name = 'breeds'))
+THEN
 CREATE TABLE breeds(id INT AUTO_INCREMENT PRIMARY KEY, breed VARCHAR(24));
+END IF;
+
+-- add the initial breeds
+IF NOT EXISTS ((SELECT * FROM breeds))
+THEN
 INSERT INTO breeds(breed) VALUES ("Abyssinian");
 INSERT INTO breeds(breed) VALUES ("American Bobtail");
 INSERT INTO breeds(breed) VALUES ("American Curl");
@@ -100,8 +109,26 @@ INSERT INTO breeds(breed) VALUES ("Sphynx");
 INSERT INTO breeds(breed) VALUES ("Tonkinese");
 INSERT INTO breeds(breed) VALUES ("Turkish Angora");
 INSERT INTO breeds(breed) VALUES ("Turkish Van");
+END IF;
 
+-- add the breed reference to cat
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='cats' AND column_name='breed_id'))
+THEN
+ALTER TABLE cats ADD breed_id INT;
+ALTER TABLE cats ADD CONSTRAINT breed_ref FOREIGN KEY (breed_id) REFERENCES breeds(id);
+END IF;
+
+
+-- add colors for exporting to adopt a pet
+IF NOT EXISTS ((SELECT * FROM information_schema.tables where table_name = 'colors'))
+THEN
 CREATE TABLE colors(id INT AUTO_INCREMENT PRIMARY KEY, color VARCHAR(32));
+END IF;
+
+-- populate the colors table if need be
+
+IF NOT EXISTS ((SELECT * FROM colors))
+THEN
 INSERT INTO colors(color) VALUES ("Black (All)");
 INSERT INTO colors(color) VALUES ("Black (Mostly)");
 INSERT INTO colors(color) VALUES ("Black & White or Tuxedo");
@@ -124,6 +151,7 @@ INSERT INTO colors(color) VALUES ("Tiger Striped");
 INSERT INTO colors(color) VALUES ("Tortoiseshell");
 INSERT INTO colors(color) VALUES ("White");
 INSERT INTO colors(color) VALUES ("White (Mostly)");
+END IF;
 
 END $$
 
