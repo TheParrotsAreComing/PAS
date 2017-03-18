@@ -46,7 +46,7 @@
       <div class="list w-dyn-items">
       <?php foreach($adopters as $adopter) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
-          <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card-big" : ""; ?> w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('cat-profile-adopter-01.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
+          <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card-big" : ""; ?> w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
             <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
             <div><!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
@@ -80,7 +80,7 @@
           <div class="dropdown-results-cont">
             <?php foreach ($adopter['cat_histories'] as $cat): ?>
             <?php $cat = $cat['cat']; ?>
-              <a class="cursor-point dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-01.png', ['class'=>'dropdown-cat-pic']); ?>
+              <a class="cursor-point dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']); ?>
                 <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
               </a>
             <?php endforeach; ?>

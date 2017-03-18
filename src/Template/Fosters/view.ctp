@@ -100,7 +100,7 @@
                     <?php foreach ($foster['cat_histories'] as $cat): ?>
                       <?php $cat = $cat['cat']; ?>
                       <div class="card-cont card-wrapper w-dyn-item">
-                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
                           <div class="card-h1"><?= $cat['cat_name'];?></div>
                           <div>
                             <div class="card-h2"><?= ($cat['is_kitten']) ? "Kitten" : "Cat"; ?></div>
