@@ -197,5 +197,5 @@ html {
 }
 
 .full-width {
-    width: 100%;
+    display: inline-block;
 }

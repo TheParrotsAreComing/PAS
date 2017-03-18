@@ -113,33 +113,33 @@
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Relationship Information</div>
-                <div class="profile-field-cont full-width">
+                <div class="profile-field-cont">
                   <div class="profile-field-cont full-width">
-                    <div class="profile-field-name full-width">Good with Kids:</div>
+                    <div class="profile-field-name">Good with Kids:</div>
                     <div class="block profile-field-text"><?= ($cat->good_with_kids) ? "Yes" : "No" ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont full-width">
                   <div class="profile-field-cont full-width">
-                    <div class="profile-field-name full-width">Good with Dogs:</div>
+                    <div class="profile-field-name">Good with Dogs:</div>
                     <div class="block profile-field-text"><?= ($cat->good_with_dogs) ? "Yes" : "No" ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont full-width">
                   <div class="profile-field-cont full-width">
-                    <div class="profile-field-name full-width">Good with Cats:</div>
+                    <div class="profile-field-name">Good with Cats:</div>
                     <div class="block profile-field-text"><?= ($cat->good_with_cats) ? "Yes" : "No" ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont full-width">
                   <div class="profile-field-cont full-width">
-                    <div class="profile-field-name full-width">Special Needs:</div>
+                    <div class="profile-field-name">Special Needs:</div>
                     <div class="block profile-field-text"><?= ($cat->special_needs) ? "Yes" : "No" ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont full-width">
                   <div class="profile-field-cont full-width">
-                    <div class="profile-field-name full-width">Needs Experienced Adopter:</div>
+                    <div class="profile-field-name">Needs Experienced Adopter:</div>
                     <div class="block profile-field-text"><?= ($cat->needs_experienced_adopter) ? "Yes" : "No" ?></div>
                   </div>
                 </div>
