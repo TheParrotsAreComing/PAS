@@ -146,42 +146,41 @@
                     <?php if(!empty($foster)) :?>
                       <div class="profile-text-header">Foster Home</div>
                       <div class="card-cont card-wrapper w-dyn-item">
-                          <?php $foster_id = $cat->foster_id ?>
-                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster_id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
-                          <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
-                          <div class="card-field-wrap">
+                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
+                        <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
+                        <div class="card-field-wrap">
+                            <div class="card-field-cont">
                               <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Rating:</div>
-                                  <div class="card-field-text"><?= h($foster->rating) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Email:</div>
-                                  <div class="card-field-text"><?= h($foster->email) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Phone:</div>
-                                  <div class="card-field-text"><?= h($foster->phone) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Address:</div>
-                                  <div class="card-field-text"><?= h($foster->address) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Availability:</div>
-                                  <div class="card-field-text"><?= h($foster->avail) ?></div>
-                              </div>
-                              </div>
-                          </div>
-                          </a>
+                                <div class="card-h3">Rating:</div>
+                                <div class="card-field-text"><?= h($foster->rating) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Email:</div>
+                                <div class="card-field-text"><?= h($foster->email) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Phone:</div>
+                                <div class="card-field-text"><?= h($foster->phone) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Address:</div>
+                                <div class="card-field-text"><?= h($foster->address) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Availability:</div>
+                                <div class="card-field-text"><?= h($foster->avail) ?></div>
+                            </div>
+                            </div>
+                        </div>
+                        </a>
                       </div>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block"> 
