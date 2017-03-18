@@ -263,7 +263,7 @@ class CatsController extends AppController
             $history_entry->foster_id = $foster_id;
             $history_entry->start_date = date('Y-m-d');
 
-            //If it works, let's reutn the adopter
+            //If it works, let's return the foster
             if($cat_histories_table->save($history_entry)){
                 $response = json_encode($attachee);
             }else{

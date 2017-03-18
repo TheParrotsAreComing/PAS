@@ -130,7 +130,7 @@
   <img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
+      <div class="button-icon-text">Add Litter</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
       <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">

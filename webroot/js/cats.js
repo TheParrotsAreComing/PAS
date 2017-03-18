@@ -219,10 +219,11 @@ var Cat = function(){
 
 		//I wanna iterate instead of typing a lot...
 		var card_fields_text = {
-			'notes':'Notes',
+			'rating':'Rating',
 			'email':'Email',
 			'phone':'Phone',
-			'address':'Address'
+			'address':'Address',
+			'avail':'Availability'
 		};
 
 		//Within the $.each() the context is switched, which means "this" inside the $.each() does not reference
