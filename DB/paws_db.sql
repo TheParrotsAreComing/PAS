@@ -23,6 +23,8 @@ from scratch
     DROP TABLE IF EXISTS fosters; 
     DROP TABLE IF EXISTS adopters; 
     DROP TABLE IF EXISTS litters;
+    DROP TABLE IF EXISTS breeds;
+    DROP TABLE IF EXISTS colors;
     
     
 */
@@ -89,6 +91,11 @@ CREATE TABLE files (
 ); 
 
 
+CREATE TABLE breeds(
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    breed VARCHAR(24)
+);
+
 CREATE TABLE cats ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	litter_id INT,
@@ -98,7 +105,7 @@ CREATE TABLE cats (
 	is_kitten BOOLEAN NOT NULL,
 	dob DATE NOT NULL,
 	is_female BOOLEAN NOT NULL,
-	breed VARCHAR(75) NOT NULL,
+    breed_id INT NOT NULL,
 	color VARCHAR(75) NOT NULL,
 	coat VARCHAR(75) NOT NULL,
 	bio TEXT,
@@ -112,10 +119,16 @@ CREATE TABLE cats (
 	is_paws BOOLEAN,
     is_deleted BOOLEAN NOT NULL,
     is_exported_to_adoptapet BOOLEAN,
+    good_with_kids BOOLEAN,
+    good_with_dogs BOOLEAN,
+    good_with_cats BOOLEAN,
+    special_needs BOOLEAN,
+    needs_experienced_adopter BOOLEAN,
     FOREIGN KEY profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
 	FOREIGN KEY litter_ref (litter_id) REFERENCES litters(id),
 	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
-	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id)
+	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id),
+    FOREIGN KEY breed_ref (breed_id) REFERENCES breeds(id)
     
     -- TODO: Need to revisit medical histories as a seperate entities
     /*
@@ -227,4 +240,9 @@ CREATE TABLE contacts (
 	state VARCHAR(2),
 	zip INT(5),
     is_deleted BOOLEAN NOT NULL
+);
+
+CREATE TABLE colors(
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    color VARCHAR(32)
 );
