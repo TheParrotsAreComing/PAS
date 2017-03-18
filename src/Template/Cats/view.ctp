@@ -143,7 +143,7 @@
                         <?php break; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
-                    <?php if(!empty($foster)) :?>
+                    <?php if(!empty($foster) && $foster->is_deleted == 0) :?>
                       <div class="profile-text-header">Foster Home</div>
                       <div class="card-cont card-wrapper w-dyn-item">
                         <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
@@ -186,12 +186,16 @@
                       <a class="card w-clearfix w-inline-block"> 
                         <div class="card-h1">This cat is currently not in a foster home. </div>
                       </a>
-                <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-                </a>
+                      <a class="card w-clearfix w-inline-block">
+                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+                      </a>
                     <?php endif; ?>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block">
                         <div class="card-h1">This cat is not currently in a foster home.</div>
+                      </a>
+                      <a class="card w-clearfix w-inline-block">
+                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
                       </a>
                     <?php endif; ?>
               </div>
@@ -206,7 +210,7 @@
 									<?php break; ?>
 								<?php endif; ?>
 							<?php endforeach; ?>
-							<?php if(!empty($adopter)): ?>
+							<?php if(!empty($adopter) && $adopter->is_deleted == 0): ?>
 								<div class="profile-text-header">Adopter</div>
 								<div class="card-cont card-wrapper w-dyn-item">
 									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">

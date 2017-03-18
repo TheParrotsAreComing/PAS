@@ -157,7 +157,7 @@
     </div>
   </div> 
   <div class="button-cont w-hidden-main">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $cat->id]) ?> ">
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="/img/edit-01.png" width="55">
     </a>
     <div class="button-02">
