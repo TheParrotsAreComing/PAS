@@ -32,16 +32,15 @@ class AdoptersController extends AppController
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
             foreach($this->request->query as $field => $query){
-                if ($field == 'cat_count' && !empty($query)){
-                    if(preg_match('/count/',$field)){
-                        $this->paginate['conditions'][$field] = $query;
-                    }
+                if ($field === 'cat_count' && ($query === 0 || $query != '')){
+                    $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'do_not_adopt' && $query != ''){
                     $this->paginate['conditions'][$field] = $query;
                 }else if (!empty($query)) {
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
-            }
+            } 
+            $this->request->data = $this->request->query;
         }
         $count = [0,1,2,3,4,5];
         $adopters = $this->paginate($this->Adopters);

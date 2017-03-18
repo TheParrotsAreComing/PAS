@@ -38,7 +38,7 @@
           <label class="add-field-h3" for="E-mail">E-mail<span class="required-field-indicator"><span class="pre"></span></span>:</label>
     <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false, 
   'placeholder'=>'Enter Valid Email']);?>            
-    <label class="add-field-h2" for="First-Name">Contact Information</label>
+          <label class="add-field-h2" for="First-Name">Contact Information</label>
           <div class="add-field-seperator"></div>
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
     <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
@@ -46,6 +46,8 @@
           <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
   'placeholder'=>'Enter Phone Number']);?>
+          <label class="add-field-h2" for="First-Name">Adoption Information</label>
+          <div class="add-field-seperator"></div>
           <label class="add-field-h3" for="Count"># of Cats Adopted<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('cat_count', ['class'=>'add-input w-input', 'data-name'=>'cat_count', 'label'=>false, 
   'placeholder'=>'Enter Number of Cats']);?>
