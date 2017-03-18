@@ -46,13 +46,14 @@
                             <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day')); ?>
                             <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year')); ?>
                         </div>
-                        <?php echo $this->Form->input('breed', 
+                        <?php echo $this->Form->input('breed_id', 
                             array('label' => 
                                 ['text' => 'Breed<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
-                            'empty' => 'Select a breed',
+                            'options' => $breeds,
+                            'empty' => 'Select breed that MOST fits',
                             'placeholder' => 'Siamese')); ?>
                         <?php echo $this->Form->input('coat', 
                             array('label' => 

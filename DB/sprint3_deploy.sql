@@ -114,7 +114,7 @@ END IF;
 -- add the breed reference to cat
 IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='cats' AND column_name='breed_id'))
 THEN
-ALTER TABLE cats ADD breed_id INT;
+ALTER TABLE cats ADD breed_id INT NOT NULL;
 ALTER TABLE cats ADD CONSTRAINT breed_ref FOREIGN KEY (breed_id) REFERENCES breeds(id);
 END IF;
 

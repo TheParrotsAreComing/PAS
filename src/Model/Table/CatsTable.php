@@ -106,8 +106,8 @@ class CatsTable extends Table
             ->notEmpty('is_female');
 
         $validator
-            ->requirePresence('breed', 'create')
-            ->notEmpty('breed');
+            ->requirePresence('breed_id', 'create')
+            ->notEmpty('breed_id');
 
         $validator
             ->allowEmpty('bio');
@@ -171,11 +171,12 @@ class CatsTable extends Table
 
     public function getAAPUploadArray($cat_id, $data) {
         $query = $this->find()
-            ->select(['id','breed','coat','cat_name','dob','is_female','bio','good_with_kids','good_with_dogs','good_with_cats','special_needs','needs_experienced_adopter',])
+            ->select(['id','breed_id','coat','cat_name','dob','is_female','bio','good_with_kids','good_with_dogs','good_with_cats','special_needs','needs_experienced_adopter',])
             ->where(['id'=>$cat_id]);
         $result = $query->first()->toArray();
         $result['Animal'] = 'Cat';
         $result['Sex'] = ($result['is_female']) ? 'F' : 'M';
+        $result['breed'] = TableRegistry::get('Breeds')->find()->where(['id'=>$result['breed_id']])->first()->breed;
 
         if ($result['dob']->wasWithinLast('6 months')) {
             $result['Age'] = 'Kitten';
@@ -197,6 +198,7 @@ class CatsTable extends Table
 
         unset($result['is_female']);
         unset($result['dob']);
+        unset($result['breed_id']);
         $output = [];
         $output[] = array_keys($result);
         $output[] = array_values($result);

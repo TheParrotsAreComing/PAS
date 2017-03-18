@@ -68,6 +68,8 @@ class CatsController extends AppController
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
 		
+        $cat['breed'] = TableRegistry::get('Breeds')->find()->where(['id'=>$cat['breed_id']])->first()->breed;
+
         $adopter = $adoptersDB->find('all', ['conditions'=>['id'=>$cat['adopter_id']]])->first();
         $foster = $fostersDB->find('all', ['conditions'=>['id'=>$cat['foster_id']]])->first();
 
@@ -154,7 +156,7 @@ class CatsController extends AppController
         $files = $this->Cats->Files->find('list', ['limit' => 200]);
         $adoptionEvents = $this->Cats->AdoptionEvents->find('list', ['limit' => 200]);
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
-        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'breed', 'valueField'=>'breed']);
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
 
         $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id', 'breeds'));
         $this->set('_serialize', ['cat']);
@@ -195,7 +197,7 @@ class CatsController extends AppController
         $files = $this->Cats->Files->find('list', ['limit' => 200]);
         $adoptionEvents = $this->Cats->AdoptionEvents->find('list', ['limit' => 200]);
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
-        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'breed', 'valueField'=>'breed']);
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
         $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'breeds'));
         $this->set('_serialize', ['cat']);
     }
@@ -229,7 +231,7 @@ class CatsController extends AppController
         $gwcats = ($cat->good_with_cats) ? true : false;
         $special = ($cat->special_needs) ? true : false;
         $exp = ($cat->needs_experienced_adopter) ? true : false;
-        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'breed', 'valueField'=>'breed']);
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
         $colors = TableRegistry::get('Colors')->find('list', ['keyField'=>'color', 'valueField'=>'color']);
 
         if ($this->request->is('post')) {
