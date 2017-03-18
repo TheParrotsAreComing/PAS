@@ -13,7 +13,7 @@
         </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
-            <div class="cat-profile-name"><?= h($litter->litter_name) ?></div>
+            <div class="cat-profile-name" id="litterName"><?= h($litter->litter_name) ?></div>
             <div>
               <div class="profile-header-text"><?= h($litter->the_cat_count) ?> cat(s)</div>
               <div class="profile-header-text"><?= h($litter->kitten_count) ?> kitten(s)</div>
