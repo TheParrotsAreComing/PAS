@@ -52,6 +52,9 @@ class CatsTable extends Table
         $this->belongsTo('Litters', [
             'foreignKey' => 'litter_id'
         ]);
+        $this->belongsTo('Breeds', [
+            'foreignKey' => 'breed_id'
+        ]);
         $this->belongsTo('Adopters', [
             'foreignKey' => 'adopter_id'
         ]);

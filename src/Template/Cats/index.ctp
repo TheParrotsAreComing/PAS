@@ -29,7 +29,7 @@
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Breed:</div>
-		  <input class="filter-criteria-select w-input" data-name="Field 3" id="breedFilter" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+      <?= $this->Form->input('breed_id', ['label' => false, 'class' => 'filter-criteria-select w-input', 'id' => 'breedFilter', 'options' => $breeds, 'empty' => 'Select a breed...']) ?>
 	    </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Color:</div>
@@ -78,7 +78,7 @@
                 <div class="card-field-cont">
                   <div class="card-field-cont">
                     <div class="card-h3">Breed:</div>
-                    <div class="card-field-text"><?= $cat->breed ?></div>
+                    <div class="card-field-text"><?= h($cat->breed->breed) ?></div>
                   </div>
                 </div>
               </div>

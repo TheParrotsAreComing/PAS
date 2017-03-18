@@ -153,6 +153,12 @@ INSERT INTO colors(color) VALUES ("White");
 INSERT INTO colors(color) VALUES ("White (Mostly)");
 END IF;
 
+-- remove the old breed field from the cats table
+IF EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='cats' AND column_name='breed'))
+THEN
+ALTER TABLE cats DROP COLUMN breed;
+END IF;
+
 END $$
 
 -- run the stored procedure

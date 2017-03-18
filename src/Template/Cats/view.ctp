@@ -35,7 +35,7 @@
             </div>
             <div>
               <div class="profile-header-text">Breed:</div>
-              <div class="profile-header-text"><?= h($cat->breed) ?></div>
+              <div class="profile-header-text"><?= h($cat->breed->breed) ?></div>
             </div>
           </div>
           
@@ -78,7 +78,7 @@
                 </div>
               </div>
               <div class="profile-content-cont">
-                <div class="profile-text-header">Personal Information</div>
+                <div class="profile-text-header">Cat Information</div>
                 <div class="profile-field-cont">
                   <div class="left-justify profile-field-cont">
                     <div class="profile-field-name">DOB:</div>
@@ -97,7 +97,7 @@
                   </div>
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Breed:</div>
-                    <div class="profile-field-text"><?= h($cat->breed) ?></div>
+                    <div class="profile-field-text"><?= h($cat->breed->breed) ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont">

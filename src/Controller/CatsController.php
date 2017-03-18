@@ -21,9 +21,11 @@ class CatsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
             'conditions' => ['Cats.is_deleted' => 0]
         ];
+
+
 
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
@@ -37,19 +39,21 @@ class CatsController extends AppController
                 }else if($field == 'dob') {
                     if(!empty($query)){
                         $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
-                }
+                    }
+                } else if($field == 'breed_id' && !empty($query)) {
+                    $this->paginate['conditions'][$field] = $query;
                 } else if (!empty($query)) {
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
             }
+            $this->request->data = $this->request->query;
         }
 
-
-
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
 
         $cats = $this->paginate($this->Cats);
 
-        $this->set(compact('cats'));
+        $this->set(compact('cats', 'breeds'));
         $this->set('_serialize', ['cats']);
     }
 
@@ -63,12 +67,10 @@ class CatsController extends AppController
     public function view($id = null)
     {
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
-		
-        $cat['breed'] = TableRegistry::get('Breeds')->find()->where(['id'=>$cat['breed_id']])->first()->breed;
 
         $adopter = $adoptersDB->find('all', ['conditions'=>['id'=>$cat['adopter_id']]])->first();
         $foster = $fostersDB->find('all', ['conditions'=>['id'=>$cat['foster_id']]])->first();
