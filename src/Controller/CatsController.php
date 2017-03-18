@@ -67,15 +67,14 @@ class CatsController extends AppController
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
 		
-        $adopter = $adoptersDB->find('all', ['conditions'=>['id'=>$cat['adopter_id']]])->first();
-        $foster = $fostersDB->find('all', ['conditions'=>['id'=>$cat['foster_id']]])->first();
-
         $adopters = $adoptersDB->find('all');
+        $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
         $fosters = $fostersDB->find('all');
+        $fosters->where(['is_deleted' => 0]);
         $select_fosters = [];
         foreach($fosters as $fo){
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
