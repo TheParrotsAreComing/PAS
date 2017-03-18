@@ -1,119 +1,44 @@
 <div class="body w-clearfix">
-  <div class="filter-bar">
+  <div class="filter-bar" data-ix="page-load-slide-right">
     <div class="filter-header">
       <div class="filter-header">FILTER</div>
+      <div class="symbol" data-ix="filter-cancel"></div>
     </div>
-    <div class="filter-menu w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Breed:</div>
-        <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field">
-          <option value="">Select one...</option>
-          <option value="First">Tabby</option>
-          <option value="Second">Siamese</option>
-          <option value="Third">Third Choice</option>
-        </select>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
+    <?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
+    <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
+      <div class="filter">
+          <div class="filter-criteria">First Name:</div>
+          <?= $this->Form->input('first_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'First-Name','placeholder'=>'Enter first name']) ?>
       </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
+      <div class="filter">
+          <div class="filter-criteria">Last Name:</div>
+          <?= $this->Form->input('last-name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Last-Name','placeholder'=>'Enter last name']) ?>
       </div>
-    </div>
-    <div class="filter-menu w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Age:</div>
-        <input class="filter-age filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="Field-3" placeholder="ex: 13 months" required="required" type="text">
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
+      <div class="filter">
+          <div class="filter-criteria">Rating:</div>
+          <?= $this->Form->input('rating',['class'=>'filter-criteria-select w-select','label'=>false,'options'=>['Select Rating','1','2','3','4','5']])?>
       </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
+      <div class="filter">
+          <div class="filter-criteria">Availability:</div>
+          <?= $this->Form->input('avail',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Availability','placeholder'=>'Enter availability']) ?>
       </div>
-    </div>
-    <div class="filter-menu w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Color:</div>
-        <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field">
-          <option value="">Select one...</option>
-          <option value="First">Black</option>
-          <option value="Second">Brown</option>
-          <option value="Third">White</option>
-        </select>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
+      <div class="filter">
+          <div class="filter-criteria">Phone #:</div>
+          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Phone','placeholder'=>'Enter phone number']) ?>
       </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
+      <div class="filter">
+          <div class="filter-criteria">Email:</div>
+          <?= $this->Form->input('email',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Email','placeholder'=>'Enter email']) ?>
       </div>
-    </div>
-    <div class="filter-menu filter-select w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Gender:</div>
-        <div class="filter-criteria-select">
-          <div class="filter-criteria-radio w-radio">
-            <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-            <label class="w-form-label" for="Alive">Male</label>
-          </div>
-          <div class="filter-criteria-radio w-radio">
-            <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-            <label class="w-form-label" for="Alive">Female</label>
-          </div>
-        </div>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
+      <div class="filter">
+          <div class="filter-criteria">Address:</div>
+          <?= $this->Form->input('address',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Address','placeholder'=>'Enter address']) ?>
       </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
+      <div class="filter-apply-cont">
+        <a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
+        <button id="filterFosters" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">APPLY FILTER</button>
       </div>
-    </div>
-    <div class="filter-menu filter-select w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Adoption:</div>
-        <div class="filter-criteria-select">
-          <div class="filter-criteria-radio w-radio">
-            <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-            <label class="w-form-label" for="Alive">Searching</label>
-          </div>
-          <div class="filter-criteria-radio w-radio">
-            <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-            <label class="w-form-label" for="Alive">Adopted</label>
-          </div>
-        </div>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
-      </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
-      </div>
-    </div>
-    <div class="filter-menu filter-select w-form">
-      <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-        <div class="filter-criteria">Well-being:</div>
-        <div class="filter-criteria-select">
-          <div class="filter-criteria-radio w-radio">
-            <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-            <label class="w-form-label" for="Alive">Alive</label>
-          </div>
-          <div class="filter-criteria-radio w-radio">
-            <input class="w-radio-input" data-name="Radio" id="Alive" name="Radio" type="radio" value="Alive">
-            <label class="w-form-label" for="Alive">Deceased</label>
-          </div>
-        </div>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
-      </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
-      </div>
-    </div>
-    <div class="filter-apply-cont"><a class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</a>
-    </div>
+    <?= $this->Form->end() ?>
   </div>
   <div class="column">
     <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -139,7 +64,7 @@
             <div class="card-wrapper w-dyn-item">
               <div class="card-full-cont">
                 <div class="card-cont">
-                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><?= $this->Html->image('cat-profile-foster-01.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
+                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><?= $this->Html->image('foster-01.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
                   <div class="card-h1"><?= $foster['first_name'].' '.$foster['last_name']; ?></div>
                     <div>
                       <div class="card-h2">Rating:</div>
@@ -175,8 +100,8 @@
                   <div class="dropdown-results-cont">
                     <?php foreach ($foster["cat_histories"] as $cat): ?>
                       <?php $cat = $cat["cat"]; ?>
-                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image("cat-01.png", ["class"=>"dropdown-cat-pic"]); ?>
-                        <div class="dropdown-cat-name"> <?= $cat["cat_name"]; ?> </div>
+                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']); ?>
+                        <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
                       </a>
                     <?php endforeach; ?>
                   </div>
@@ -194,7 +119,7 @@
     <div class="button-icon-text">Add Foster</div><?= $this->Html->image("add-01.png", ["data-ix"=>"add-click", "width"=>"55", "url"=>["controller"=>"fosters", "action"=>"add"]]); ?>
   </div>
   <div class="button-02">
-    <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
+    <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
   </div>
   <div class="button-03" data-ix="add-click">
     <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">

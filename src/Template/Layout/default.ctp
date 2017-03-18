@@ -32,10 +32,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->script('moment.js'); ?>
   <?= $this->Html->css('paws-custom.css'); ?>
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+  <?= $this->Html->css('jquery-ui.css'); ?>
 
-  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <link href="<?= $this->Url->image('paws-favicon-01.png'); ?>" rel="shortcut icon" type="image/x-icon">
+  <link href="<?= $this->Url->image('paws-favicon-01.png'); ?>" rel="apple-touch-icon">
   <style>
     .scroll {
       width: 20px;
@@ -89,7 +90,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       position: relative;
       }
     label {
-    	padding-top: 5px;
+      padding-top: 5px;
       padding-bottom: 5px;
       margin-bottom: 0;
     }
@@ -128,8 +129,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <?= $this->Html->script('jquery.min.js'); ?>
+  <?= $this->Html->script('jquery-ui.js'); ?>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <div class="flash-div"><?= $this->Flash->render() ?></div>
   <?= $this->fetch('content') ?>
   <?= $this->Html->script('paws-administrative-system.js'); ?>
