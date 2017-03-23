@@ -142,8 +142,8 @@
   -webkit-transform: translate(-300px, 0px);
   -ms-transform: translate(-300px, 0px);
   transform: translate(-300px, 0px);
-  -webkit-transition: all 300ms ease;
-  transition: all 300ms ease;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 
 .filter-header {
@@ -2707,6 +2707,9 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     width: auto;
     height: auto;
     border-radius: 3px;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
   }
   .filter-header {
     display: -webkit-box;
@@ -3378,12 +3381,10 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     margin-left: auto;
   }
   .dropdown-results-cont {
-    display: none;
     -webkit-align-self: stretch;
     -ms-flex-item-align: stretch;
     align-self: stretch;
     border-bottom: 1px solid #dfdfe0;
-    background-color: #fff;
     -webkit-transition: all 300ms ease;
     transition: all 300ms ease;
   }
