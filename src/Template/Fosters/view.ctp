@@ -1,4 +1,5 @@
 <?= $this->Html->script('cats.js'); ?>
+<?= $this->Html->script('fosters.js'); ?>
   <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
@@ -155,7 +156,7 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
+          <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
             <div class="basic profile-action-button"></div>
             <div>delete</div>
           </a>
@@ -193,10 +194,27 @@
         <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
     </div>
     <div class="button-04" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
+        <div class="delete-button button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
 <script>
   calculateAndPopulateAgeFields();
+	var foster = new Foster();
+	$(function(){
+		$('.delete-button').click(function(e){
+			e.preventDefault();
+			$.when(foster.deleteCheck(<?= $foster->id ?>)).done(function(){
+				if(foster.empty == '1'){
+					var confirm_text = $('<div class="confirm-text"/>');
+					confirm_text.text('This foster currently has a cat/kitten.');
+					$('.confirm-text').after(confirm_text);
+
+					var confirm_text_2 = $('<div class="confirm-text"/>');
+					confirm_text_2.text('Deleting this foster will also mark the cat/kitten as unfostered.');
+					confirm_text.after(confirm_text_2);
+				}
+			});
+		});
+	});
 </script>

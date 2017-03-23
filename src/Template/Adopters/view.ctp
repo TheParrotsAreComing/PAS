@@ -1,3 +1,4 @@
+ <?= $this->Html->script('adopters.js'); ?> 
  <?= $this->Html->script('cats.js'); ?> 
   <div class="body">
     <div class="column profile scroll1">
@@ -165,7 +166,7 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+          <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
             <div class="basic profile-action-button" ></div>
             <div>delete</div>
           </a>
@@ -202,11 +203,32 @@
       <a class="button-03" data-ix="add-click">
         <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
       </a>
-      <div class="button-04" data-ix="delete-click">
+      <div class="delete-button button-04" data-ix="delete-click">
         <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
+	<div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
+	</div>
+
 <script>
-  calculateAndPopulateAgeFields();
+	calculateAndPopulateAgeFields();
+	var adopter = new Adopter();
+	$(function(){
+		$('.delete-button').click(function(e){
+			e.preventDefault();
+			$.when(adopter.deleteCheck(<?= $adopter->id ?>)).done(function(){
+				if(adopter.empty == '1'){
+					var confirm_text = $('<div class="confirm-text"/>');
+					confirm_text.text('This adopter currently has a cat/kitten.');
+					$('.confirm-text').after(confirm_text);
+
+					var confirm_text_2 = $('<div class="confirm-text"/>');
+					confirm_text_2.text('Deleting this adopter will also mark the cat/kitten as unadopted.');
+					confirm_text.after(confirm_text_2);
+				}
+			});
+		});
+	});
 </script>
