@@ -186,11 +186,6 @@ var Cat = function(){
 		var profile_content = $('<div/>');
 		profile_content.addClass("profile-content-cont");
 
-		//Label Dom
-		var profile_text_header = $('<div/>');
-		profile_text_header.addClass("profile-text-header");
-		profile_text_header.text("Foster");
-
 		//Anchor Tag Parent
 		var card_cont = $('<div/>');
 		card_cont.addClass("card-cont card-wrapper w-dyn-item");
@@ -219,10 +214,11 @@ var Cat = function(){
 
 		//I wanna iterate instead of typing a lot...
 		var card_fields_text = {
-			'notes':'Notes',
+			'rating':'Rating',
 			'email':'Email',
 			'phone':'Phone',
-			'address':'Address'
+			'address':'Address',
+			'avail':'Availability'
 		};
 
 		//Within the $.each() the context is switched, which means "this" inside the $.each() does not reference
@@ -258,9 +254,6 @@ var Cat = function(){
 
 		//append anchor to parent
 		card_cont.append(a_card);
-
-		//alter html of super parent with the title 
-		profile_content.html(profile_text_header);
 
 		//append the content
 		profile_content.append(card_cont);

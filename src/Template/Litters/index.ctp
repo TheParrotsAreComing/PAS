@@ -3,34 +3,34 @@
     <div class="filter-bar" data-ix="page-load-slide-right">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
+				<div class="symbol" data-ix="filter-cancel"></div>
       </div>
-        <form class="w-clearfix" data-name="Email Form 3" id="email-form-3" name="email-form-3">
-
+        <?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
 	      <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
 		  <div class="filter">
 			  <div class="filter-criteria">Name:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="litter_name" placeholder="Enter a name" type="text">
+			  <?= $this->Form->input('litter_name',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'litterNameFilter','placeholder'=>'Enter a name']) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria">Breed:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="Field-4" maxlength="256" name="breed" placeholder="Enter a breed" type="text">
+			  <?= $this->Form->input('breed',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'breedFilter','placeholder'=>'Enter a breed']) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria">Date of Birth:</div>
-			  <input class="filter-criteria-select w-input" data-name="Field 3" id="litterDob" maxlength="256" name="dob" placeholder="Select a DOB" type="text">
+			  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'litterDob','placeholder'=>'Enter a Date']) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria"># of Kittens:</div>
-		      <?= $this->Form->input('kitten_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
+		      <?= $this->Form->input('kitten_count',['empty' => 'Select Count', 'label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
 		  <div class="filter">
 			  <div class="filter-criteria"># Of Cats:</div>
-		      <?= $this->Form->input('the_cat_count',['label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
+		      <?= $this->Form->input('the_cat_count',['empty' => 'Select Count', 'label'=>false,'class'=>'filter-criteria-select w-input','data-name'=>'kitten count','placeholder'=>'Enter a name','type'=>'select','options'=>$count]) ?>
 		  </div>
 		  <div class="filter-apply-cont">
-			<button type="submit" class="filter-apply w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+				<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
+				<button id="litterFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
 		  </div>
-		</form>
 	    <?= $this->Form->end() ?>
     </div>
 
@@ -100,7 +100,7 @@
 						</a>
 						<div class="dropdown-results-cont">
 						<?php foreach($litter->cats as $cat) : ?>
-							<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
+							<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
 								<div class="dropdown-cat-name"><?= $cat->cat_name ?></div>
 							</a>
 						<?php endforeach; ?>
@@ -130,10 +130,10 @@
   <img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
   <div class="button-cont">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
-      <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="img/add-01.png" width="55">
+      <div class="button-icon-text">Add Litter</div><img data-ix="add-click" src="img/add-01.png" width="55">
     </a>
     <a class="button-02 w-inline-block" href="#">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="img/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
     </a>
     <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">

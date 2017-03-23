@@ -21,35 +21,38 @@ class CatsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
             'conditions' => ['Cats.is_deleted' => 0]
         ];
+
+
 
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
             foreach($this->request->query as $field => $query){
                 // check the flags first
-                if($field == 'is_kitten' && !empty($query)){
-                    $this->paginate['conditions'][$field] = ($query - 1);
-                }else if($field == 'is_female' && !empty($query)){
-                    $this->paginate['conditions'][$field] = ($query - 1);
+                if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
+                    $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'dob') {
                     if(!empty($query)){
                         $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
-                }
+                    }
+                } else if($field == 'breed_id' && !empty($query)) {
+                    $this->paginate['conditions'][$field] = $query;
                 } else if (!empty($query)) {
-                    $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+                    $this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
                 }
             }
+
+            $this->request->data = $this->request->query;
         }
 
-
-
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
 
         $cats = $this->paginate($this->Cats);
 
-        $this->set(compact('cats'));
+        $this->set(compact('cats', 'breeds'));
         $this->set('_serialize', ['cats']);
     }
 
@@ -63,20 +66,19 @@ class CatsController extends AppController
     public function view($id = null)
     {
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
-		
-        $adopter = $adoptersDB->find('all', ['conditions'=>['id'=>$cat['adopter_id']]])->first();
-        $foster = $fostersDB->find('all', ['conditions'=>['id'=>$cat['foster_id']]])->first();
-
+        
         $adopters = $adoptersDB->find('all');
+        $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
         $fosters = $fostersDB->find('all');
+        $fosters->where(['is_deleted' => 0]);
         $select_fosters = [];
         foreach($fosters as $fo){
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
@@ -94,8 +96,6 @@ class CatsController extends AppController
     public function add($litter_id = null)
     {
         $cat = $this->Cats->newEntity();
-
-
 
         if ($this->request->is('post')) {
 
@@ -116,6 +116,11 @@ class CatsController extends AppController
             $this->request->data['is_kitten'] = (bool) $this->request->data['is_kitten'];
             $this->request->data['is_female'] = (bool) $this->request->data['is_female'];
             $this->request->data['is_microchip_registered'] = (bool) $this->request->data['is_microchip_registered'];
+            $this->request->data['good_with_kids'] = (bool) $this->request->data['good_with_kids'];
+            $this->request->data['good_with_dogs'] = (bool) $this->request->data['good_with_dogs'];
+            $this->request->data['good_with_cats'] = (bool) $this->request->data['good_with_cats'];
+            $this->request->data['special_needs'] = (bool) $this->request->data['special_needs'];
+            $this->request->data['needs_experienced_adopter'] = (bool) $this->request->data['needs_experienced_adopter'];
 
             // attach the cat to the litter, and update litter counts 
             if (!empty($litter_id)) {
@@ -151,10 +156,9 @@ class CatsController extends AppController
         $files = $this->Cats->Files->find('list', ['limit' => 200]);
         $adoptionEvents = $this->Cats->AdoptionEvents->find('list', ['limit' => 200]);
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
 
-
-
-        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id'));
+        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id', 'breeds'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -179,13 +183,22 @@ class CatsController extends AppController
                 $this->Flash->error(__('The cat could not be saved. Please, try again.'));
             }
         }
+
+        $gwkids = ($cat->good_with_kids) ? true : false;
+        $gwdogs = ($cat->good_with_dogs) ? true : false;
+        $gwcats = ($cat->good_with_cats) ? true : false;
+        $special = ($cat->special_needs) ? true : false;
+        $exp = ($cat->needs_experienced_adopter) ? true : false;
+        $this->set(compact('gwkids','gwdogs','gwcats','special','exp'));
+
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
         $adopters = $this->Cats->Adopters->find('list', ['limit' => 200]);
         $fosters = $this->Cats->Fosters->find('list', ['limit' => 200]);
         $files = $this->Cats->Files->find('list', ['limit' => 200]);
         $adoptionEvents = $this->Cats->AdoptionEvents->find('list', ['limit' => 200]);
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags'));
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
+        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'breeds'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -206,11 +219,62 @@ class CatsController extends AppController
             $this->Flash->success(__('The cat has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {
-            $this->Flash->error(__('The cat could not be saved. Please, try again.'));
+            $this->Flash->error(__('The cat could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
     }
 
+    public function aapUpload($cat_id) {
+        $cat = $this->Cats->get($cat_id);
+        $gwkids = ($cat->good_with_kids) ? true : false;
+        $gwdogs = ($cat->good_with_dogs) ? true : false;
+        $gwcats = ($cat->good_with_cats) ? true : false;
+        $special = ($cat->special_needs) ? true : false;
+        $exp = ($cat->needs_experienced_adopter) ? true : false;
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
+        $colors = TableRegistry::get('Colors')->find('list', ['keyField'=>'color', 'valueField'=>'color']);
+
+        if ($this->request->is('post')) {
+            $cat = $this->Cats->patchEntity($cat, $this->request->data);
+            $this->Cats->save($cat);
+            $data = $this->Cats->getAAPUploadArray($cat_id, $this->request->data);
+            $_serialize = 'data';
+            $_enclosure = '"';
+            $this->response->download('pets.csv');
+            $this->viewBuilder()->className('CsvView.Csv');
+            $this->set(compact('data', '_serialize','_serialize','_enclosure'));
+            $this->autoRender = false;
+            $response = $this->render();
+
+            $cfg = tmpfile();
+            fwrite($cfg, "#1:id=Id\r\n#2:breed=Breed\r\n#3:coat=HairLength\r\n#4:cat_name=Name\r\n#5:bio=Description\r\n#6:good_with_kids=GoodWKids\r\n#7:good_with_dogs=GoodWDogs\r\n#8:good_with_cats=GoodWCats\r\n#9:special_needs=SpecialNeeds\r\n#10:needs_experienced_adopter=NeedsExperiencedAdopter\r\n#11:Animal=Animal\r\n#12:Sex=Sex\r\n#13:Age=Age\r\n#14:Status=Status\r\n#15:Color=Color\r\n#16:SpayedNeutered=SpayedNeutered\r\n#17:ShotsCurrent=ShotsCurrent\r\n#18:Declawed=Declawed\r\n#19:Housetrained=Housetrained");
+            fseek($cfg,0);
+            $cfg_meta = stream_get_meta_data($cfg);
+            $cfg_path = $cfg_meta['uri'];
+
+            $csv = tmpfile();
+            fwrite($csv, $response->body());
+            fseek($csv,0);
+            $csv_meta = stream_get_meta_data($csv);
+            $csv_path = $csv_meta['uri'];
+
+            $ftp_stream = ftp_connect('autoupload.adoptapet.com');
+            ftp_login($ftp_stream,'6909','XNNDKIOA'); 
+            if (ftp_put($ftp_stream,'import.cfg',$cfg_path,FTP_ASCII)) {
+                if (ftp_put($ftp_stream,'pets.csv',$csv_path,FTP_ASCII)) {
+                    ftp_close($ftp_stream);
+                    $this->Flash->success('Cat data has been sent to Adopt-A-Pet! Please allow up to a few hours for their pet list to reflect any changes.');
+                    return $this->redirect(['controller'=>'cats','action'=>'index']);
+                }
+            } 
+            ftp_close($ftp_stream);
+            $this->Flash->error('There was a problem with the upload!');
+            return $this->redirect($this->referer());
+        }
+
+        $this->set(compact('cat','gwkids','gwdogs','gwcats','special','exp','breeds','colors'));
+
+    }
 
 	public function attachAdopter($adopter_id,$cat_id){
 		//Ajax doesn't need this page to render
@@ -264,7 +328,7 @@ class CatsController extends AppController
             $history_entry->foster_id = $foster_id;
             $history_entry->start_date = date('Y-m-d');
 
-            //If it works, let's reutn the adopter
+            //If it works, let's return the foster
             if($cat_histories_table->save($history_entry)){
                 $response = json_encode($attachee);
             }else{

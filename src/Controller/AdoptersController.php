@@ -60,7 +60,7 @@ class AdoptersController extends AppController
         $adopter = $this->Adopters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
-        
+
         $this->set('adopter', $adopter);
         $this->set('_serialize', ['adopter']);
     }

@@ -34,6 +34,11 @@
           <div class="profile-tab-wrap scroll1 w-tab-content">
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                 <div class="profile-notification-cont">
+                  <?php foreach ($adopter['tags'] as $tag): ?>                
+                    <div class="tag-cont warning">
+                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" href="#"></a>
+                    </div>
+                  <?php endforeach; ?>
                   <div class="tag-cont warning">
                     <div class="tag-text">cat(s) due for immunization</div><a class="tag-remove" href="#"></a>
                   </div>
