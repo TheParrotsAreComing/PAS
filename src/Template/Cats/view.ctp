@@ -177,7 +177,7 @@
                         <?php break; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
-                    <?php if(!empty($foster) && $foster->is_deleted == 0) :?>
+                    <?php if(!empty($foster)) :?>
                       <div class="profile-text-header">Foster Home</div>
                       <div class="card-cont card-wrapper w-dyn-item">
                         <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
@@ -244,7 +244,7 @@
 									<?php break; ?>
 								<?php endif; ?>
 							<?php endforeach; ?>
-							<?php if(!empty($adopter) && $adopter->is_deleted == 0): ?>
+							<?php if(!empty($adopter)): ?>
 								<div class="profile-text-header">Adopter</div>
 								<div class="card-cont card-wrapper w-dyn-item">
 									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
