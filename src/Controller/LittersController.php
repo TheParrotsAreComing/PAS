@@ -118,7 +118,7 @@ class LittersController extends AppController
             if ($this->Litters->save($litter)) {
                 $this->Flash->success(__('The litter has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $litter->id]);
             }
             $this->Flash->error(__('The litter could not be saved. Please, try again.'));
         }

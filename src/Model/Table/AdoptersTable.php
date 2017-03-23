@@ -73,25 +73,25 @@ class AdoptersTable extends Table
 
         $validator
             ->requirePresence('last_name', 'create')
-            ->notEmpty('last_name');
+            ->allowEmpty('last_name');
 
         $validator
             ->requirePresence('phone', 'create')
-            ->notEmpty('phone');
+            ->allowEmpty('phone');
 
         $validator
             ->integer('cat_count')
             ->requirePresence('cat_count', 'create')
-            ->notEmpty('cat_count');
+            ->allowEmpty('cat_count');
 
         $validator
             ->requirePresence('address', 'create')
-            ->notEmpty('address');
+            ->allowEmpty('address');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmpty('email');
+            ->allowEmpty('email');
 
         $validator
             ->allowEmpty('notes');

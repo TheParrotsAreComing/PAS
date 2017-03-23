@@ -1,4 +1,4 @@
-
+ <?= $this->Html->script('cats.js'); ?> 
   <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
@@ -6,10 +6,12 @@
             <a href = "<?= $this->Url->build(['controller' => 'adopters', 'action' => 'index']) ?>" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
+            <div class="profile-id-cont">
+            </div>
         </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
-            <div class="cat-profile-name"><?= h($adopter->first_name) ?> <?= h($adopter->last_name) ?></div>
+            <div class="cat-profile-name"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
       			<div>
       				<?php if($adopter->do_not_adopt == 1): ?>
       					<div class="profile-header-text">DO NOT ADOPT</div>
@@ -84,10 +86,6 @@
               <div class="profile-content-cont">
                 <div class="profile-text-header">Additional Information</div>
                 <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Number of Cats Adopted: </div>
-                    <div class="profile-field-text"><?= h($adopter->cat_count) ?></div>
-                  </div>
                 </div>
                 <div class="profile-field-cont">
                   <div class="profile-field-cont">
@@ -98,44 +96,49 @@
               </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 2">
-      				<div class="profile-content-cont">
-      						<?php if (!empty($adopter->cats)): ?>
-                    <div class="profile-text-header">Adopted Cats</div>
-      							<?php foreach($adopter->cats as $cat) : ?>
-      								<div class="card-cont card-wrapper w-dyn-item">
-      									<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('cat-01.png'); ?>">
-      										<div class="card-h1"><?= $cat->cat_name?></div>
-      										<div>
-      											<div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
-      										</div>
-      										<div class="card-field-wrap">
-      											<div class="card-field-cont">
-      												<div class="card-field-cont">
-      													<div class="card-h3">DOB:</div>
-      													<div class="card-field-text cat-dob"><?= $cat->dob ?></div>
-      												</div>
-      												<div class="card-field-cont">
-      													<div class="card-h3">Age:</div>
-      													<div class="card-field-text cat-age"></div>
-      												</div>
-      											</div>
-      											<div class="card-field-cont">
-      												<div class="card-field-cont">
-      													<div class="card-h3">Breed:</div>
-      													<div class="card-field-text"><?= $cat->breed ?></div>
-      												</div>
-      											</div>
-      										</div>
-      									</a>
-      								</div>
-      							<?php endforeach; ?>
-      						<?php else: ?>
-      							<a class="card w-clearfix w-inline-block">
-      								<div class="card-h1">This person has not adopted any cats.</div>
-      							</a>
-      						<?php endif; ?>	
-      				</div>
-				    </div>
+                <div class="profile-content-cont">
+                  <?php if (empty($adopter['cat_histories'])): ?>
+                    <a class="card w-clearfix w-inline-block">
+                      <div class="card-h1">This person has not adopted a cat.</div>
+                    </a>
+                  <?php else: ?> 
+                <div class="profile-text-header">Adopted Cats</div>
+                    <?php foreach ($adopter['cat_histories'] as $cat): ?>
+                      <?php $cat = $cat['cat']; ?>
+                      <div class="card-cont card-wrapper w-dyn-item">
+                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+                          <div class="card-h1"><?= $cat['cat_name'];?></div>
+                          <div>
+                            <div class="card-h2"><?= ($cat['is_kitten']) ? "Kitten" : "Cat"; ?></div>
+                          </div>
+                          <div class="card-field-wrap">
+                            <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                <div class="card-h3">DOB:</div>
+                                <div class="card-field-text cat-dob"><?= $cat['dob']; ?></div>
+                              </div>
+                              <div class="card-field-cont">
+                                <div class="card-h3">Age:</div>
+                                <div class="card-field-text cat-age"></div>
+                              </div>
+                            </div>
+                            <div class="card-field-cont">
+                              <div class="card-field-cont">
+                                <div class="card-h3">Breed:</div>
+                                <div class="card-field-text"><?= $cat['breed']; ?></div>
+                              </div>
+                              <div class="card-field-cont">
+                                <div class="card-h3">Fee paid:</div>
+                                <div class="card-field-text">$<?= $cat['adoption_fee_amount'] ?></div>
+                              </div>
+                            </div>
+                          </div>
+                            </a>
+                        </div>
+                      <?php endforeach; ?>
+                  <?php endif; ?>
+                </div>
+              </div>
             <div class="w-tab-pane" data-w-tab="Tab 3">
       				<div class="profile-content-cont">
       					<div class="profile-text-header">Attachments</div>
@@ -203,3 +206,7 @@
         <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
+
+<script>
+  calculateAndPopulateAgeFields();
+</script>

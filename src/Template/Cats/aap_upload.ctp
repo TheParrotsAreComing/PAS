@@ -3,11 +3,34 @@
         <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
         <div class="add-cont scroll1" data-ix="page-load-fade-in">
             <div class="add-header">
-                <div class="add-field-h1">Edit a cat</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+                <div class="add-field-h1">Upload to Adopt-A-Pet</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
             </div>
-            <?= $this->Form->create($cat) ?>
+            <?= $this->Form->create($cat, ['type'=>'post']) ?>
                 <div class="add-input-form-wrap w-form">
                     <form class="add-input-form">
+                        <label class="add-field-h2">Enter the following new information for Adopt-A-Pet</label>
+                        <div class="add-field-seperator"></div>
+                        <?= $this->Form->input('status', 
+                            array('label' => 
+                                ['text' => 'Adoption Status<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'options' => ['Available'=>'Available', 'Adopted'=>'Adopted', 'Deleted'=>'Deleted', 'Hidden'=>'Hidden'],
+                            'value' => 'Available'));?>
+                        <?= $this->Form->input('aap_color', 
+                            array('label' => 
+                                ['text' => 'Color<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input w-input', 
+                            'options' => $colors,
+                            'empty' => 'Select an accepted color')); ?>  
+                        <?= $this->Form->input('  Spayed and Neutered', ['type'=>'checkbox', 'name'=>'SpayedNeutered', 'checked'=>true]);?>
+                        <?= $this->Form->input('  Shots Current', ['type'=>'checkbox', 'name'=>'ShotsCurrent', 'checked'=>true]);?>
+                        <?= $this->Form->input('  Housetrained', ['type'=>'checkbox', 'name'=>'Housetrained', 'checked'=>true]);?>
+                        <?= $this->Form->input('  Declawed', ['type'=>'checkbox', 'name'=>'Declawed']);?>
+
                         <label class="add-field-h2" for="First-Name">personal information</label>
                         <div class="add-field-seperator"></div>
                         <?php echo $this->Form->input('cat_name', 
@@ -30,16 +53,9 @@
                                 'escape' => false], 
                             'class' => 'add-input w-input', 
                             'options' => $breeds,
-                            'empty'=>'Select breed that MOST fits',
+                            'empty' => 'Select breed that MOST fits',
                             'placeholder' => 'Siamese')); ?>
-                         <?php echo $this->Form->input('color', 
-                            array('label' => 
-                                ['text' => 'Color<span class="required-field-indicator"><span class="pre"></span></span>:', 
-                                'class' => 'add-field-h3',
-                                'escape' => false], 
-                            'class' => 'add-input w-input', 
-                            'placeholder' => 'Brown')); ?>   
-                         <?php echo $this->Form->input('coat', 
+                        <?php echo $this->Form->input('coat', 
                             array('label' => 
                                 ['text' => 'Coat<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',

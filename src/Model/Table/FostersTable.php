@@ -89,7 +89,7 @@ class FostersTable extends Table
             ->notEmpty('email');
 
         $validator
-            ->allowEmpty('exp');
+            ->notEmpty('exp');
 
         $validator
             ->allowEmpty('pets');
@@ -98,14 +98,14 @@ class FostersTable extends Table
             ->allowEmpty('kids');
 
         $validator
-            ->allowEmpty('avail');
+            ->notEmpty('avail');
 
         $validator
             ->integer('rating')
-            ->allowEmpty('rating');
+            ->notEmpty('rating');
 
         $validator
-            ->allowEmpty('notes');
+            ->notEmpty('notes');
 
         $validator
             ->boolean('is_deleted')
