@@ -4,7 +4,7 @@
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
         <div class="button profile-header">
-            <a href = "<?= $this->Url->build(['controller' => 'adopters', 'action' => 'index']) ?>" class="profile-back w-inline-block">
+            <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
             <div class="profile-id-cont">
