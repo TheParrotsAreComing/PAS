@@ -1,7 +1,7 @@
 <?= $this->Html->script('cats.js'); ?>
   <div class="body w-clearfix">
 
-    <div class="filter-bar" data-ix="page-load-slide-right">
+    <div class="filter-bar">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
         <div class="symbol" data-ix="filter-cancel"></div>
