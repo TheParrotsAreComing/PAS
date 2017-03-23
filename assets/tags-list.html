@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <!--  Last Published: Thu Mar 23 2017 07:31:53 GMT+0000 (UTC)  -->
-<html data-wf-page="58267cb4b29856df44e502fe" data-wf-site="58267cb4b29856df44e502fd">
+<html data-wf-page="58d324afc12c633c3cd92fa1" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>PAWS Administrative System</title>
+  <title>Tags List</title>
+  <meta content="Tags List" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/components.css" rel="stylesheet" type="text/css">
@@ -102,6 +103,11 @@
       -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
   </style>
+  <style>
+    select option:first-child {
+        color: #99a5c2;
+    }
+  </style>
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
@@ -130,23 +136,72 @@
     </div>
   </div>
   <div class="body">
-    <div class="login-registration-wrapper w-form">
-      <form class="login-cont" data-name="Email Form" id="email-form" name="email-form">
-        <div>
-          <input class="login-field w-input" data-name="Name" id="name" maxlength="256" name="name" placeholder="username" required="required" type="text">
-          <input class="login-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="password" required="required" type="password">
+    <div class="add-view column">
+      <div class="add-cont scroll1" data-ix="page-load-fade-in">
+        <div class="add-header">
+          <div class="add-field-h1">tag editor</div>
+          <div class="add-input-form-wrap w-form">
+            <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
+              <label class="add-field-h3" for="breed-2">all:</label>
+              <div class="add-tag-cont">
+                <div class="tag-cont warning">
+                  <div class="tag-text">due for immunization</div><a class="tag-remove warning" href="#"></a>
+                </div>
+                <div class="success tag-cont">
+                  <div class="tag-text">microchipped</div><a class="success tag-remove" href="#"></a>
+                </div>
+                <div class="info tag-cont">
+                  <div class="tag-text">good with children</div><a class="info tag-remove" href="#"></a>
+                </div>
+                <div class="tag-cont urgent">
+                  <div class="tag-text">dislikes dogs</div><a class="tag-remove urgent" href="#"></a>
+                </div>
+              </div>
+            </form>
+            <div class="w-form-done">
+              <div>Thank you! Your submission has been received!</div>
+            </div>
+            <div class="w-form-fail">
+              <div>Oops! Something went wrong while submitting the form</div>
+            </div>
+          </div>
         </div>
-        <div class="registration-buttons">
-          <a class="login-submit w-inline-block" href="pas-home.html">
-            <div>Login</div>
-          </a>
+        <div class="add-input-form-wrap w-form">
+          <form class="add-tag-input-cont" data-name="Email Form 5" id="email-form-5" name="email-form-5">
+            <input class="add-tag-input w-input" data-name="tag" id="tag" maxlength="256" name="tag" placeholder="Enter a tag..." type="text">
+            <div class="add-tag-checkbox-wrap">
+              <div class="add-tag-checkbox-cont w-checkbox">
+                <input class="w-checkbox-input" data-name="Checkbox" id="checkbox" name="checkbox" type="checkbox">
+                <label class="w-form-label" for="checkbox">cat</label>
+              </div>
+              <div class="add-tag-checkbox-cont w-checkbox">
+                <input class="w-checkbox-input" data-name="Checkbox 3" id="checkbox-3" name="checkbox-3" type="checkbox">
+                <label class="w-form-label" for="checkbox-3">foster</label>
+              </div>
+              <div class="add-tag-checkbox-cont w-checkbox">
+                <input class="w-checkbox-input" data-name="Checkbox 2" id="checkbox-2" name="checkbox-2" type="checkbox">
+                <label class="w-form-label" for="checkbox-2">adopter</label>
+              </div>
+            </div>
+            <div class="add-tag-color-wrap">
+              <ul class="add-tag-color-cont w-list-unstyled">
+                <li class="add-tag-color"></li>
+                <li class="add-tag-color"></li>
+                <li class="add-tag-color"></li>
+              </ul>
+              <input class="add-tag-color-input w-input" data-name="Field" id="Field-2" maxlength="256" name="Field" placeholder="#123abc" required="required" type="text">
+            </div>
+          </form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
+          </div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form</div>
+          </div>
         </div>
-      </form>
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
-      </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
+        <div class="add-button-cont"><a class="add-cancel" href="cat-list.html">Cancel</a>
+          <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Save">
+        </div>
       </div>
     </div>
   </div>
