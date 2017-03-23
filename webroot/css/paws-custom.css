@@ -219,3 +219,12 @@ html {
 .full-width {
     display: inline-block;
 }
+
+.example-tag-wrapper {
+    text-align: center;
+}
+
+.example-tag-div {
+    display: inline-block;
+    margin-bottom: 3em;
+}
