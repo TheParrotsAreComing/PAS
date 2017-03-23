@@ -216,3 +216,6 @@ html {
 .page {
     background-image: url('../img/Arctic-Mountains-1920x1080.png');
 }
+.full-width {
+    display: inline-block;
+}

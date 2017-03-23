@@ -35,7 +35,7 @@
             </div>
             <div>
               <div class="profile-header-text">Breed:</div>
-              <div class="profile-header-text"><?= h($cat->breed) ?></div>
+              <div class="profile-header-text"><?= h($cat->breed->breed) ?></div>
             </div>
           </div>
           
@@ -78,7 +78,7 @@
                 </div>
               </div>
               <div class="profile-content-cont">
-                <div class="profile-text-header">Personal Information</div>
+                <div class="profile-text-header">Cat Information</div>
                 <div class="profile-field-cont">
                   <div class="left-justify profile-field-cont">
                     <div class="profile-field-name">DOB:</div>
@@ -97,7 +97,7 @@
                   </div>
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Breed:</div>
-                    <div class="profile-field-text"><?= h($cat->breed) ?></div>
+                    <div class="profile-field-text"><?= h($cat->breed->breed) ?></div>
                   </div>
                 </div>
                 <div class="profile-field-cont">
@@ -110,6 +110,40 @@
                     <div class="profile-field-text"><?= h($cat->color) ?></div>
                   </div>
                 </div>
+              </div>
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Relationship Information</div>
+                <div class="profile-field-cont">
+                  <div class="profile-field-cont full-width">
+                    <div class="profile-field-name">Good with Kids:</div>
+                    <div class="block profile-field-text"><?= ($cat->good_with_kids) ? "Yes" : "No" ?></div>
+                  </div>
+                </div>
+                <div class="profile-field-cont full-width">
+                  <div class="profile-field-cont full-width">
+                    <div class="profile-field-name">Good with Dogs:</div>
+                    <div class="block profile-field-text"><?= ($cat->good_with_dogs) ? "Yes" : "No" ?></div>
+                  </div>
+                </div>
+                <div class="profile-field-cont full-width">
+                  <div class="profile-field-cont full-width">
+                    <div class="profile-field-name">Good with Cats:</div>
+                    <div class="block profile-field-text"><?= ($cat->good_with_cats) ? "Yes" : "No" ?></div>
+                  </div>
+                </div>
+                <div class="profile-field-cont full-width">
+                  <div class="profile-field-cont full-width">
+                    <div class="profile-field-name">Special Needs:</div>
+                    <div class="block profile-field-text"><?= ($cat->special_needs) ? "Yes" : "No" ?></div>
+                  </div>
+                </div>
+                <div class="profile-field-cont full-width">
+                  <div class="profile-field-cont full-width">
+                    <div class="profile-field-name">Needs Experienced Adopter:</div>
+                    <div class="block profile-field-text"><?= ($cat->needs_experienced_adopter) ? "Yes" : "No" ?></div>
+                  </div>
+                </div>
+
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Additional Information</div>
@@ -287,7 +321,7 @@
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
@@ -354,33 +388,69 @@
     <div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="/img/upload-01.png" width="55">
     </div>
-    <div class="button-03" data-ix="add-click">
+    <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
       <div class="button-icon-text">Export</div><img data-ix="add-click" src="/img/export-01.png" width="55">
-    </div>
+    </a>
     <div class="button-04" data-ix="delete-click">
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
+<div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
+</div>
+
+<div id="dialog-confirm-foster" title="Foster this kitten?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
+</div>
 <script>
 $(function () {
 	var current_kitty = new Cat();
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){
-		$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
-			$('.add-adopter').css('display','none');
-			$('.add-adopter-inner').css('display','none');
-			$('.add-adopter-inner').css('opacity','0');
-			current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+
+	 $( "#dialog-confirm" ).dialog({
+		  resizable: false,
+		  height: "auto",
+		  width: 400,
+		  modal: true,
+		  buttons: {
+			"Adopt!": function() {
+			    $( this ).dialog( "close" );
+				$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
+					$('.add-adopter').css('display','none');
+					$('.add-adopter-inner').css('display','none');
+					$('.add-adopter-inner').css('opacity','0');
+					current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+				});
+			},
+			Cancel: function() {
+			  $( this ).dialog( "close" );
+			}
+		  }
 		});
 	});
   calculateAndPopulateAgeFields();
   $('.add-foster-btn').click(function(){
-    $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
-      $('.add-foster').css('display','none');
-      $('.add-foster-inner').css('display','none');
-      $('.add-foster-inner').css('opacity','0');
-      current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
-    });
+	 $( "#dialog-confirm-foster" ).dialog({
+		  resizable: false,
+		  height: "auto",
+		  width: 400,
+		  modal: true,
+		  buttons: {
+			"Foster!": function() {
+			    $( this ).dialog( "close" );
+				$.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+				  $('.add-foster').css('display','none');
+				  $('.add-foster-inner').css('display','none');
+				  $('.add-foster-inner').css('opacity','0');
+				  current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+				});
+			},
+			Cancel: function() {
+			  $( this ).dialog( "close" );
+			}
+		  }
+		});
   });
 });
 </script>
