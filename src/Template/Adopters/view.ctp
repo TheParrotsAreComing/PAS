@@ -1,4 +1,5 @@
  <?= $this->Html->script('cats.js'); ?> 
+ <?= $this->Html->script('adopters.js'); ?> 
   <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
@@ -162,7 +163,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" data-ix="add-tag" href="#">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -212,6 +213,54 @@
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
+  <div class="add-adopter-floating-overlay add-tag">
+    <div class="confirm-cont add-tag-inner">
+      <h4>Select a tag to add</h4>
+      <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+        <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$adopter_tags]) ?>
+      </form>
+      <br/>
+      <div class="confirm-button-wrap w-form">
+        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+        <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
+      </div>
+    </div>
+  </div> 
+
 <script>
-  calculateAndPopulateAgeFields();
+  $(document).ready(function() {
+    calculateAndPopulateAgeFields();
+
+    $('.add-tag-btn').click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      $.ajax({
+        url : "<?= $this->Url->build(['controller'=>'adopters','action'=>'attachTag']); ?>",
+        type : 'POST',
+        data : {
+          tag_id : $('#tag').val(),
+          adopter_id : '<?= $adopter->id ?>'
+        }
+      }).done(function(result) {
+        result = JSON.parse(result);
+        $('.add-tag').css('display','none');
+        $('.add-tag-inner').css('display','none');
+        $('.add-tag-inner').css('opacity','0');
+
+        var tag_cont = $('<div/>');
+        tag_cont.addClass('tag-cont');
+        tag_cont.addClass('warning');
+        tag_cont.css('background-color',result['color']);
+
+        var tag_text = $('<div/>');
+        tag_text.addClass('tag-text');
+        tag_text.text(result['label']);
+
+        tag_cont.append(tag_text);
+        tag_cont.append('<a class="tag-remove" href="#"></a>');
+
+        $('.profile-notification-cont').prepend(tag_cont);
+      });
+    });
+  });
 </script>

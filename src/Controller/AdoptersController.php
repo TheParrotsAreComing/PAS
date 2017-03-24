@@ -57,11 +57,12 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
+        $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10');
         $adopter = $this->Adopters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
 
-        $this->set('adopter', $adopter);
+        $this->set(compact('adopter', 'adopter_tags'));
         $this->set('_serialize', ['adopter']);
     }
 
@@ -141,5 +142,18 @@ class AdoptersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function attachTag() {
+        $this->autoRender = false;
+        $tags_adopters = TableRegistry::get('Tags_Adopters');
+        $ta = $tags_adopters->newEntity();
+        $ta = $tags_adopters->patchEntity($ta, $this->request->data);
+        $tags_adopters->save($ta);
+
+        $tag = TableRegistry::get('Tags')->find()->select(['label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        ob_clean();
+        echo json_encode($tag);
+        exit(0);
     }
 }
