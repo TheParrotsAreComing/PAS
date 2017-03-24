@@ -135,6 +135,15 @@ class AdoptersController extends AppController
         $this->request->data['is_deleted'] = 1;
         $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
         if ($this->Adopters->save($adopter)) {
+
+			$cat_histories_table = TableRegistry::get('CatHistories');
+			$associations = $cat_histories_table->query();
+			$associations->update()
+				->set(['end_date'=>date('Y-m-d')])
+				->where(['adopter_id'=>$id])
+				->andWhere(["end_date IS NULL"])
+				->execute();
+
             $this->Flash->success(__('The adopter has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {
@@ -142,7 +151,18 @@ class AdoptersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
+	}
+
+	public function checkAssociations($adopter_id){
+		$this->autoRender = false;
+		$cat_histories_table = TableRegistry::get('CatHistories');
+		$associations = $cat_histories_table->findByAdopterId($adopter_id);
+		$associations->where(["end_date IS NULL"]);
+
+		ob_clean();
+		echo empty($associations->toArray()) ? '0' : '1';
+		exit(0);
+	}
 
     public function attachTag() {
         $this->autoRender = false;
