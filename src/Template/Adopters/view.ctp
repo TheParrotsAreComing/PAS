@@ -4,7 +4,7 @@
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
         <div class="button profile-header">
-            <a href = "<?= $this->Url->build(['controller' => 'adopters', 'action' => 'index']) ?>" class="profile-back w-inline-block">
+            <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
             <div class="profile-id-cont">
@@ -57,6 +57,9 @@
                   <div class="success tag-cont">
                     <div class="tag-text">has cat</div><a class="tag-remove" href="#"></a>
                   </div>
+                </div>
+                <div class="example-tag-wrapper">
+                  <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
                 </div>
   			     <?php if($adopter->do_not_adopt == 1): ?>
                 <div class="profile-content-cont">
@@ -163,7 +166,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="add-tag" href="#">
+          <a class="profile-action-button-cont w-inline-block" href="#">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -171,7 +174,7 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+          <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
             <div class="basic profile-action-button" ></div>
             <div>delete</div>
           </a>
@@ -208,10 +211,14 @@
       <a class="button-03" data-ix="add-click">
         <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
       </a>
-      <div class="button-04" data-ix="delete-click">
+      <div class="delete-button button-04" data-ix="delete-click">
         <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
+
+	<div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
+	</div>
 
   <div class="add-adopter-floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
@@ -228,39 +235,54 @@
   </div> 
 
 <script>
-  $(document).ready(function() {
-    calculateAndPopulateAgeFields();
+	calculateAndPopulateAgeFields();
+	var adopter = new Adopter();
+	$(function(){
+		$('.delete-button').click(function(e){
+			e.preventDefault();
+			$.when(adopter.deleteCheck(<?= $adopter->id ?>)).done(function(){
+				if(adopter.empty == '1'){
+					var confirm_text = $('<div class="confirm-text"/>');
+					confirm_text.text('This adopter currently has a cat/kitten.');
+					$('.confirm-text').after(confirm_text);
 
-    $('.add-tag-btn').click(function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      $.ajax({
-        url : "<?= $this->Url->build(['controller'=>'adopters','action'=>'attachTag']); ?>",
-        type : 'POST',
-        data : {
-          tag_id : $('#tag').val(),
-          adopter_id : '<?= $adopter->id ?>'
-        }
-      }).done(function(result) {
-        result = JSON.parse(result);
-        $('.add-tag').css('display','none');
-        $('.add-tag-inner').css('display','none');
-        $('.add-tag-inner').css('opacity','0');
+					var confirm_text_2 = $('<div class="confirm-text"/>');
+					confirm_text_2.text('Deleting this adopter will also mark the cat/kitten as unadopted.');
+					confirm_text.after(confirm_text_2);
+				}
+			});
+		});
 
-        var tag_cont = $('<div/>');
-        tag_cont.addClass('tag-cont');
-        tag_cont.addClass('warning');
-        tag_cont.css('background-color',result['color']);
+		$('.add-tag-btn').click(function(e) {
+		  e.stopPropagation();
+		  e.preventDefault();
+		  $.ajax({
+		    url : "<?= $this->Url->build(['controller'=>'adopters','action'=>'attachTag']); ?>",
+		    type : 'POST',
+		    data : {
+		      tag_id : $('#tag').val(),
+		      adopter_id : '<?= $adopter->id ?>'
+		    }
+		  }).done(function(result) {
+		    result = JSON.parse(result);
+		    $('.add-tag').css('display','none');
+		    $('.add-tag-inner').css('display','none');
+		    $('.add-tag-inner').css('opacity','0');
 
-        var tag_text = $('<div/>');
-        tag_text.addClass('tag-text');
-        tag_text.text(result['label']);
+		    var tag_cont = $('<div/>');
+		    tag_cont.addClass('tag-cont');
+		    tag_cont.addClass('warning');
+		    tag_cont.css('background-color',result['color']);
 
-        tag_cont.append(tag_text);
-        tag_cont.append('<a class="tag-remove" href="#"></a>');
+		    var tag_text = $('<div/>');
+		    tag_text.addClass('tag-text');
+		    tag_text.text(result['label']);
 
-        $('.profile-notification-cont').prepend(tag_cont);
-      });
-    });
-  });
+		    tag_cont.append(tag_text);
+		    tag_cont.append('<a class="tag-remove" href="#"></a>');
+
+		    $('.profile-notification-cont').prepend(tag_cont);
+		  });
+		});
+	});
 </script>

@@ -130,6 +130,15 @@ class FostersController extends AppController
         $this->request->data['is_deleted'] = 1;
         $foster = $this->Fosters->patchEntity($foster, $this->request->data);
         if ($this->Fosters->save($foster)) {
+
+			$cat_histories_table = TableRegistry::get('CatHistories');
+			$associations = $cat_histories_table->query();
+			$associations->update()
+				->set(['end_date'=>date('Y-m-d')])
+				->where(['foster_id'=>$id])
+				->andWhere(["end_date IS NULL"])
+				->execute();
+
             $this->Flash->success(__('The foster has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {
@@ -138,4 +147,15 @@ class FostersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+	public function checkAssociations($foster_id){
+		$this->autoRender = false;
+		$cat_histories_table = TableRegistry::get('CatHistories');
+		$associations = $cat_histories_table->findByFosterId($foster_id);
+		$associations->where(["end_date IS NULL"]);
+
+		ob_clean();
+		echo empty($associations->toArray()) ? '0' : '1';
+		exit(0);
+	}
 }
