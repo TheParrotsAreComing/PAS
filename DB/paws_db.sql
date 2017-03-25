@@ -84,9 +84,11 @@ CREATE TABLE fosters (
 
 CREATE TABLE files ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	entity_id INT,
-	filetype VARCHAR(12),
-	file_path VARCHAR(256),
+	entity_type INT NOT NULL,
+    entity_id INT NOT NULL,
+	is_photo BOOLEAN NOT NULL,
+	file_path VARCHAR(256) NOT NULL,
+    created DATETIME NOT NULL,
     is_deleted BOOLEAN NOT NULL
 ); 
 
