@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--  Last Published: Thu Mar 16 2017 03:51:52 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu Mar 23 2017 07:31:53 GMT+0000 (UTC)  -->
 <html data-wf-page="582934cabb1a1e38054b7acc" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -173,25 +173,25 @@
             </a>
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
-            <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
-              <div class="profile-notification-cont">
+            <div class="profile-tab-cont w--tab-active w-tab-pane" data-w-tab="Tab 1">
+              <div class="profile-notification-cont scroll1">
                 <div class="tag-cont warning">
-                  <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
+                  <div class="tag-text">due for immunization</div><a class="tag-remove warning" href="#"></a>
                 </div>
                 <div class="info tag-cont">
-                  <div class="tag-text">Playful</div><a class="tag-remove" href="#"></a>
+                  <div class="tag-text">Playful</div><a class="info tag-remove" href="#"></a>
                 </div>
                 <div class="info tag-cont">
-                  <div class="tag-text">good with children</div><a class="tag-remove" href="#"></a>
+                  <div class="tag-text">good with children</div><a class="info tag-remove" href="#"></a>
                 </div>
                 <div class="tag-cont urgent">
-                  <div class="tag-text">scratches</div><a class="tag-remove" href="#"></a>
+                  <div class="tag-text">scratches</div><a class="tag-remove urgent" href="#"></a>
                 </div>
                 <div class="success tag-cont">
-                  <div class="tag-text">microchipped</div><a class="tag-remove" href="#"></a>
+                  <div class="tag-text">microchipped</div><a class="success tag-remove" href="#"></a>
                 </div>
                 <div class="tag-cont urgent">
-                  <div class="tag-text">dislikes dogs</div><a class="tag-remove" href="#"></a>
+                  <div class="tag-text">dislikes dogs</div><a class="tag-remove urgent" href="#"></a>
                 </div>
               </div>
               <div class="profile-content-cont">
@@ -251,11 +251,11 @@
           </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="left profile-action-button-cont w-inline-block" href="#">
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" data-ix="upload-click-desktop" href="#">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -263,7 +263,7 @@
             <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+          <a class="profile-action-button-cont right w-inline-block" data-ix="delete-click-desktop" href="#">
             <div class="basic profile-action-button"></div>
             <div>delete</div>
           </a>
@@ -294,12 +294,39 @@
         </div>
       </div>
     </div>
+    <div class="upload-cont">
+      <div class="upload-message-cont">
+        <div class="success upload-message-symbol">H</div>
+        <div class="error upload-message-symbol">I</div>
+        <div class="success upload-message">File has been uploaded.</div>
+        <div class="error upload-message">An error has occurred.</div>
+      </div>
+      <div class="upload-input-wrap w-form">
+        <form class="upload-input-cont" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+          <input class="upload-input w-input" data-name="file_upload" id="file_upload" maxlength="256" name="file_upload" placeholder="No file chosen..." type="text">
+          <input class="browse confirm-button w-button" data-wait="Please wait..." type="submit" value="Browse">
+        </form>
+        <div class="w-form-done"></div>
+        <div class="w-form-fail"></div>
+      </div>
+      <div class="confirm-button-wrap w-form">
+        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2"><a class="cancel confirm-button w-button" data-ix="upload-cancel" href="#">Cancel</a>
+          <input class="confirm-button submit w-button" data-wait="Please wait..." type="submit" value="Submit">
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="button-cont w-hidden-main">
     <a class="button-01 w-inline-block" href="#">
       <div class="button-icon-text">Edit</div><img data-ix="add-click" src="images/edit-01.png" width="55">
     </a>
-    <div class="button-02">
+    <div class="button-02" data-ix="upload-click">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="images/upload-01.png" width="55">
     </div>
     <div class="button-03" data-ix="add-click">
