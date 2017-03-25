@@ -295,8 +295,12 @@
                     <?php endif; ?>           
                 </div>
             </div>
+			<!-- File Settings -->
             <div class="w-tab-pane" data-w-tab="Tab 5"></div>
-            <div class="w-tab-pane" data-w-tab="Tab 6"></div>
+			<!-- Extra Settings -->
+            <div class="w-tab-pane" data-w-tab="Tab 6">
+				<?= $this->Html->Link('Add To Litter',['controller'=>'litters','action'=>'addCat',$cat->id])?>
+			</div>
           </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
