@@ -299,4 +299,19 @@ $(function () {
 		$('.add-foster-inner').css('display','none');
 		$('.add-foster-inner').css('opacity','0');
 	});
+
+	//Show me the new select option for photos
+	$('a[data-ix="add-photo-click-desktop"]').click(function(){
+		$('.add-photo').css('display','flex');
+		$('.add-photo-inner').css('display','flex');
+		$('.add-photo-inner').css('opacity','1');
+	});
+
+	//I don't want to see the select for photos
+	$('.cancel').click(function(){
+		$('.add-photo').css('display','none');
+		$('.add-photo-inner').css('display','none');
+		$('.add-photo-inner').css('opacity','0');
+	});
+
 });

@@ -41,6 +41,18 @@ THEN
 ALTER TABLE files ADD entity_type INT NOT NULL;
 END IF;
 
+-- add file size
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='file_size'))
+THEN
+ALTER TABLE files ADD file_size INT NOT NULL;
+END IF;
+
+-- add mime type
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='mime_type'))
+THEN
+ALTER TABLE files ADD mime_type VARCHAR(128) NOT NULL;
+END IF;
+
 
 
 END $$

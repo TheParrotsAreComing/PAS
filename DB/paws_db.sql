@@ -87,6 +87,8 @@ CREATE TABLE files (
 	entity_type INT NOT NULL,
     entity_id INT NOT NULL,
 	is_photo BOOLEAN NOT NULL,
+    mime_type VARCHAR(128) NOT NULL,
+    file_size INT NOT NULL,
 	file_path VARCHAR(256) NOT NULL,
     created DATETIME NOT NULL,
     is_deleted BOOLEAN NOT NULL

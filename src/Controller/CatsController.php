@@ -70,6 +70,7 @@ class CatsController extends AppController
         ]);
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
+        $filesDB = TableRegistry::get('Files');
         
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
@@ -84,7 +85,42 @@ class CatsController extends AppController
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters'));
+        $file = null;
+        if($this->request->is('post')) {
+            if(!empty($this->request->data['file']['name'])){
+
+                $fileName = $this->request->data['file']['name'];
+                $uploadPath =  WWW_ROOT.'files/cats/';
+                $uploadFile = $uploadPath.$fileName;
+
+                if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+                    $file = $filesDB->newEntity();
+                    $file->entity_type = 1;
+                    $file->entity_id = 1;
+                    $file->is_photo = true;
+                    $file->mime_type = $this->request->data['file']['type'];
+                    $file->file_size = $this->request->data['file']['size'];
+                    $file->file_path = $uploadPath;
+                    $file->created = date("Y-m-d H:i:s");
+                    $file->is_deleted = false;
+
+                    if ($filesDB->save($file)) {
+                        $this->Flash->success(__('File has been uploaded and saved successfully.'));
+                    } else{
+                        $this->Flash->error(__('Unable to upload file, please try again.'));
+                    }
+                } else{
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
+            } else {
+                $this->Flash->error(__('Please choose a file.'));
+            }
+        }
+
+        $files = $filesDB->find('all', ['order' => ['Files.created'=>'DESC']]);
+        $filesRowNum = $files->count();
+
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'file', 'files', 'filesRowNum'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -346,5 +382,4 @@ class CatsController extends AppController
         echo $response;
         exit(0);
     }
-
 }
