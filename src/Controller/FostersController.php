@@ -57,11 +57,12 @@ class FostersController extends AppController
      */
     public function view($id = null)
     {
+        $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1');
         $foster = $this->Fosters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
         
-        $this->set('foster', $foster);
+        $this->set(compact('foster', 'foster_tags'));
         $this->set('_serialize', ['foster']);
     }
 
@@ -158,4 +159,17 @@ class FostersController extends AppController
 		echo empty($associations->toArray()) ? '0' : '1';
 		exit(0);
 	}
+
+    public function attachTag() {
+        $this->autoRender = false;
+        $tags_fosters = TableRegistry::get('Tags_Fosters');
+        $ta = $tags_fosters->newEntity();
+        $ta = $tags_fosters->patchEntity($ta, $this->request->data);
+        $tags_fosters->save($ta);
+
+        $tag = TableRegistry::get('Tags')->find()->select(['label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        ob_clean();
+        echo json_encode($tag);
+        exit(0);
+    }
 }

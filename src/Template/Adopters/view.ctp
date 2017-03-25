@@ -35,28 +35,10 @@
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                 <div class="profile-notification-cont">
                   <?php foreach ($adopter['tags'] as $tag): ?>                
-                    <div class="tag-cont warning">
+                    <div class="tag-cont warning" style="background-color:#<?= $tag['color'] ?>">
                       <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" href="#"></a>
                     </div>
                   <?php endforeach; ?>
-                  <div class="tag-cont warning">
-                    <div class="tag-text">cat(s) due for immunization</div><a class="tag-remove" href="#"></a>
-                  </div>
-                  <div class="info tag-cont">
-                    <div class="tag-text">no dogs</div><a class="tag-remove" href="#"></a>
-                  </div>
-                  <div class="info tag-cont">
-                    <div class="tag-text">has small children</div><a class="tag-remove" href="#"></a>
-                  </div>
-                  <div class="tag-cont urgent">
-                    <div class="tag-text">active home</div><a class="tag-remove" href="#"></a>
-                  </div>
-                  <div class="tag-cont urgent">
-                    <div class="tag-text">has guinea pig</div><a class="tag-remove" href="#"></a>
-                  </div>
-                  <div class="success tag-cont">
-                    <div class="tag-text">has cat</div><a class="tag-remove" href="#"></a>
-                  </div>
                 </div>
                 <div class="example-tag-wrapper">
                   <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
@@ -66,7 +48,7 @@
           				<div class="profile-text-header">Reason to NOT Adopt</div>
         					<div class="profile-field-cont">
         					  <div class="left-justify profile-field-cont">
-        						  <div class="profile-field-text"><?= h($adopter->dna_reason) ?></div>
+        						  <div class="profile-field-text"><?= nl2br(h($adopter->dna_reason)) ?></div>
         					  </div>
         				  </div>
   				      </div>
@@ -99,7 +81,7 @@
                 <div class="profile-field-cont">
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Notes: </div>
-                    <div class="block profile-field-text"><?= h($adopter->notes) ?></div>
+                    <div class="block profile-field-text"><?= nl2br(h($adopter->notes)) ?></div>
                   </div>
                 </div>
               </div>
@@ -182,14 +164,11 @@
       </div>
     </div>
   </div>
-    <!--<div class="notify-cont">
-    <div class="notify-overview">Overview</div>
-    <div class="notify-medical">Medical Information</div>
-    <div class="notify-foster">Foster Home</div>
+    <div class="notify-overview">Adopted Cats</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
     <div class="notify-more">More...</div>
-  </div>-->
+  </div>
   <div class="floating-overlay">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this adopter?</div>

@@ -34,58 +34,55 @@
             <div class="profile-tab-wrap scroll1 w-tab-content">
                 <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                     <div class="profile-notification-cont">
-                      <div class="tag-cont warning">
-                        <div class="tag-text">cat(s) due for immunization</div><a class="tag-remove" href="#"></a>
-                      </div>
-                      <div class="info tag-cont">
-                        <div class="tag-text">no dogs</div><a class="tag-remove" href="#"></a>
-                      </div>
-                      <div class="info tag-cont">
-                        <div class="tag-text">has small children</div><a class="tag-remove" href="#"></a>
-                      </div>
-                      <div class="tag-cont urgent">
-                        <div class="tag-text">active home</div><a class="tag-remove" href="#"></a>
-                      </div>
-                      <div class="tag-cont urgent">
-                        <div class="tag-text">has guinea pig</div><a class="tag-remove" href="#"></a>
-                      </div>
-                      <div class="success tag-cont">
-                        <div class="tag-text">has cat</div><a class="tag-remove" href="#"></a>
-                      </div>
+                    <?php foreach ($foster['tags'] as $tag): ?>                
+                    <div class="tag-cont warning" style="background-color:#<?= $tag['color'] ?>">
+                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" href="#"></a>
+                    </div>
+                  <?php endforeach; ?>
+                      
+                    </div>
+                    <div class="example-tag-wrapper">
+                      <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
                     </div>
                   <div class="profile-content-cont">
                       <div class="profile-text-header">Personal Information</div>
                       <div class="profile-field-cont">
                         <div class="left-justify profile-field-cont">
                           <div class="profile-field-name">Phone: </div>
-                          <div class="profile-field-text"><?= h($foster->phone) ?></div>
+                          <div class="block profile-field-text"><?= h($foster->phone) ?></div>
                         </div>
                       </div>
                     <div class="profile-field-cont">
                       <div class="left-justify profile-field-cont">
                         <div class="profile-field-name">Email: </div>
-                        <div class="profile-field-text"><?= h($foster->email) ?></div>
+                        <div class="block profile-field-text"><?= h($foster->email) ?></div>
                       </div>
                     </div>
                     <div class="profile-field-cont">
                       <div class="left-justify profile-field-cont">
                         <div class="profile-field-name">Address: </div>
-                        <div class="profile-field-text"><?= h($foster->address) ?></div>
+                        <div class="block profile-field-text"><?= h($foster->address) ?></div>
                       </div>
                     </div>
                   </div>
                   <div class="profile-content-cont">
                     <div class="profile-text-header">Additional Information</div>
                     <div class="profile-field-cont">
-                      <div class="profile-field-cont">
+                      <div class="left-justify profile-field-cont">
                         <div class="profile-field-name">Availability: </div>
-                        <div class="block profile-field-text"><?= h($foster->avail) ?></div>
+                        <div class="block profile-field-text"><?= nl2br(h($foster->avail)) ?></div>
                       </div>
                     </div>
                     <div class="profile-field-cont">
-                      <div class="profile-field-cont">
+                      <div class="left-justify profile-field-cont">
                         <div class="profile-field-name">Experience: </div>
-                        <div class="block profile-field-text"><?= h($foster->exp) ?></div>
+                        <div class="block profile-field-text"><?= nl2br(h($foster->exp)) ?></div>
+                      </div>
+                    </div>
+                    <div class="profile-field-cont">
+                      <div class="left-justify profile-field-cont">
+                        <div class="profile-field-name">Notes: </div>
+                        <div class="block profile-field-text"><?= nl2br(h($foster->notes)) ?></div>
                       </div>
                     </div>
                   </div>
@@ -164,14 +161,12 @@
       </div>
     </div>
   </div>
-  <!--<div class="notify-cont">
-    <div class="notify-overview">Overview</div>
-    <div class="notify-medical">Medical Information</div>
+  <div class="notify-cont w-hidden-main">
+    <div class="notify-overview">Fostered Cats</div>
     <div class="notify-foster">Foster Home</div>
-    <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
     <div class="notify-more">More...</div>
-  </div>-->
+  </div>
   <div class="floating-overlay">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this foster?</div>
@@ -198,6 +193,20 @@
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
+  <div class="add-adopter-floating-overlay add-tag">
+    <div class="confirm-cont add-tag-inner">
+      <h4>Select a tag to add</h4>
+      <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+        <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$foster_tags]) ?>
+      </form>
+      <br/>
+      <div class="confirm-button-wrap w-form">
+        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+        <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
+      </div>
+    </div>
+  </div> 
+
 <script>
   calculateAndPopulateAgeFields();
 	var foster = new Foster();
@@ -216,5 +225,38 @@
 				}
 			});
 		});
+
+    $('.add-tag-btn').click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      $.ajax({
+        url : "<?= $this->Url->build(['controller'=>'fosters','action'=>'attachTag']); ?>",
+        type : 'POST',
+        data : {
+          tag_id : $('#tag').val(),
+          foster_id : '<?= $foster->id ?>'
+        }
+      }).done(function(result) {
+        result = JSON.parse(result);
+        $('.add-tag').css('display','none');
+        $('.add-tag-inner').css('display','none');
+        $('.add-tag-inner').css('opacity','0');
+
+        var tag_cont = $('<div/>');
+        tag_cont.addClass('tag-cont');
+        tag_cont.addClass('warning');
+        tag_cont.css('background-color',result['color']);
+
+        var tag_text = $('<div/>');
+        tag_text.addClass('tag-text');
+        tag_text.text(result['label']);
+
+        tag_cont.append(tag_text);
+        tag_cont.append('<a class="tag-remove" href="#"></a>');
+
+        $('.profile-notification-cont').prepend(tag_cont);
+      });
+    });
 	});
+
 </script>
