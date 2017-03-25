@@ -164,6 +164,7 @@
       </div>
     </div>
   </div>
+    <div class="notify-cont w-hidden-main">
     <div class="notify-overview">Adopted Cats</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
