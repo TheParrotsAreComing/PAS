@@ -71,7 +71,21 @@ class CatsController extends AppController
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
-        
+     
+            //debug("another test of debug");
+            //$v = Imagick::getVersion();
+            //$im = new \imagick();
+            //debug($im->getVersion());
+            //debug( phpinfo());
+            //preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $v['versionString'], $v);
+            //if(version_compare($v[1],'6.2.8')<=0){
+            //   debug("the version is old!");
+               //print "Your ImageMagick Version {$v[1]} is '6.2.8' or older, please upgrade!";
+            //} else {
+                //debug("the version is good?");
+            //}
+            //die;
+
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
@@ -89,18 +103,45 @@ class CatsController extends AppController
         if($this->request->is('post')) {
             if(!empty($this->request->data['file']['name'])){
 
+                //debug("another test of debug");
+                //$v = Imagick::getVersion();
+                //preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $v['versionString'], $v);
+                //if(version_compare($v[1],'6.2.8')<=0){
+                   //debug("the version is old!");
+                   //print "Your ImageMagick Version {$v[1]} is '6.2.8' or older, please upgrade!";
+                //} else {
+                    //debug("the version is good?");
+                //}
+                //die;
+
                 $fileName = $this->request->data['file']['name'];
                 $uploadPath =  WWW_ROOT.'files/cats/';
                 $uploadFile = $uploadPath.$fileName;
 
                 if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+
+                    // make a thumbnail...
+                    debug("1");
+                    $im = new \imagick();
+                    debug("2");
+                    $im->setResolution(400,300);
+                    debug("3");
+                    $im->readImage($uploadFile);
+                    debug("4");
+                    $im->setImageBackgroundColor('white');
+                    $im->scaleImage('400','300', true);
+                    $im->setImageFormat('jpg');
+                    $im->writeImage($uploadPath.'tn.jpg');
+                    $im->clear();
+                    $im->destroy();
+
                     $file = $filesDB->newEntity();
                     $file->entity_type = 1;
                     $file->entity_id = 1;
                     $file->is_photo = true;
                     $file->mime_type = $this->request->data['file']['type'];
                     $file->file_size = $this->request->data['file']['size'];
-                    $file->file_path = $uploadPath;
+                    $file->file_path = $uploadFile;
                     $file->created = date("Y-m-d H:i:s");
                     $file->is_deleted = false;
 
@@ -117,8 +158,15 @@ class CatsController extends AppController
             }
         }
 
+        
+
         $files = $filesDB->find('all', ['order' => ['Files.created'=>'DESC']]);
         $filesRowNum = $files->count();
+
+        //foreach($files as $f){
+        //    debug($f);
+        //}
+        //die;
 
 		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'file', 'files', 'filesRowNum'));
         $this->set('_serialize', ['cat']);

@@ -307,7 +307,7 @@
 		               <?php foreach($files as $file): $count++;?>
 		               <tr>
 		                 <td><?php echo $count; ?></td>
-		                 <td><?= $this->Html->link('View File', ['controller' => 'files', 'action' => 'viewFile', $file->id]) ?></td>
+		                 <td>Placeholder for thumbnail eventually...</td>
 		                 <td><?php echo $file->created; ?></td>
 		               </tr>
 		               <?php endforeach; ?>
