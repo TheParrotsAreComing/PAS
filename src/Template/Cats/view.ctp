@@ -58,25 +58,16 @@
           <div class="profile-tab-wrap scroll1 w-tab-content">
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
               <div class="profile-notification-cont">
-                <div class="tag-cont warning">
-                  <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="info tag-cont">
-                  <div class="tag-text">Playful</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="info tag-cont">
-                  <div class="tag-text">good with children</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="tag-cont urgent">
-                  <div class="tag-text">dislikes dogs</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="tag-cont urgent">
-                  <div class="tag-text">scratches</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="success tag-cont">
-                  <div class="tag-text">microchipped</div><a class="tag-remove" href="#"></a>
-                </div>
+                <?php foreach ($cat['tags'] as $tag): ?>                
+                    <div class="tag-cont" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;"">
+                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" data-ix="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                    </div>
+                  <?php endforeach; ?>
+                      
               </div>
+              <div class="example-tag-wrapper">
+                      <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
+                    </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Cat Information</div>
                 <div class="profile-field-cont">
@@ -395,6 +386,21 @@
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
+
+  <div class="add-adopter-floating-overlay add-tag">
+    <div class="confirm-cont add-tag-inner">
+      <h4>Select a tag to add</h4>
+      <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+        <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$cat_tags]) ?>
+      </form>
+      <br/>
+      <div class="confirm-button-wrap w-form">
+        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+        <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
+      </div>
+    </div>
+  </div> 
+
 <script>
 $(function () {
 	var current_kitty = new Cat();
@@ -416,5 +422,36 @@ $(function () {
       current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
     });
   });
-});
+
+$('.add-tag-btn').click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      $.ajax({
+        url : "<?= $this->Url->build(['controller'=>'cats','action'=>'attachTag']); ?>",
+        type : 'POST',
+        data : {
+          tag_id : $('#tag').val(),
+          cat_id : '<?= $cat->id ?>'
+        }
+      }).done(function(result) {
+        result = JSON.parse(result);
+        $('.add-tag').css('display','none');
+        $('.add-tag-inner').css('display','none');
+        $('.add-tag-inner').css('opacity','0');
+
+        var tag_cont = $('<div/>');
+        tag_cont.addClass('tag-cont');
+        tag_cont.css('background-color',result['color']);
+
+        var tag_text = $('<div/>');
+        tag_text.addClass('tag-text');
+        tag_text.text(result['label']);
+
+        tag_cont.append(tag_text);
+        tag_cont.append('<a class="tag-remove" href="#"></a>');
+
+        $('.profile-notification-cont').prepend(tag_cont);
+      });
+    });
+  });
 </script>

@@ -35,8 +35,8 @@
                 <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                     <div class="profile-notification-cont">
                     <?php foreach ($foster['tags'] as $tag): ?>                
-                    <div class="tag-cont warning" style="background-color:#<?= $tag['color'] ?>">
-                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" href="#"></a>
+                    <div class="tag-cont" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;"">
+                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" data-ix="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                     </div>
                   <?php endforeach; ?>
                       
@@ -244,7 +244,6 @@
 
         var tag_cont = $('<div/>');
         tag_cont.addClass('tag-cont');
-        tag_cont.addClass('warning');
         tag_cont.css('background-color',result['color']);
 
         var tag_text = $('<div/>');
