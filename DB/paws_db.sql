@@ -148,6 +148,18 @@ CREATE TABLE cats (
     
 ); 
 
+CREATE TABLE cat_medical_histories (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	cat_id INT NOT NULL,
+	is_fvrcp BOOLEAN,
+	is_deworm BOOLEAN,
+	is_flea BOOLEAN,
+	is_rabies BOOLEAN,
+	administered_date DATE NOT NULL,
+	notes TEXT,
+	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id)
+);
+
 
 CREATE TABLE cat_histories ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
