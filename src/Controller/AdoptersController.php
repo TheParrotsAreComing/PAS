@@ -57,7 +57,10 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
-        $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10');
+        $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
+        $attached_tags = TableRegistry::get('Tags_Adopters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['adopter_id'=>$id])->toArray();
+
+        $adopter_tags = array_diff_key($adopter_tags,$attached_tags);
         $adopter = $this->Adopters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
@@ -171,9 +174,21 @@ class AdoptersController extends AppController
         $ta = $tags_adopters->patchEntity($ta, $this->request->data);
         $tags_adopters->save($ta);
 
-        $tag = TableRegistry::get('Tags')->find()->select(['label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
         ob_clean();
         echo json_encode($tag);
+        exit(0);
+    }
+
+    public function deleteTag() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        $tags_adopters = TableRegistry::get('Tags_Adopters');
+        $toDelete = $tags_adopters->find()->where(['tag_id'=>$data['tag_id'], 'adopter_id'=>$data['adopter_id']])->first();
+        $tags_adopters->delete($toDelete);
+
+        ob_clean();
+        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
         exit(0);
     }
 }

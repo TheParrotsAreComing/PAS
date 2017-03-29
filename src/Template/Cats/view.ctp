@@ -59,7 +59,7 @@
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
               <div class="profile-notification-cont">
                 <?php foreach ($cat['tags'] as $tag): ?>                
-                    <div class="tag-cont" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;"">
+                    <div class="tag-cont" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
                       <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" data-ix="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                     </div>
                   <?php endforeach; ?>
@@ -391,7 +391,9 @@
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-        <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$cat_tags]) ?>
+        <div class="tag_options">
+          <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$cat_tags]) ?>
+        </div>
       </form>
       <br/>
       <div class="confirm-button-wrap w-form">
@@ -403,55 +405,81 @@
 
 <script>
 $(function () {
-	var current_kitty = new Cat();
-	calculateAndPopulateAgeFields();
-	$('.add-adopter-btn').click(function(){
-		$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
-			$('.add-adopter').css('display','none');
-			$('.add-adopter-inner').css('display','none');
-			$('.add-adopter-inner').css('opacity','0');
-			current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
-		});
-	});
-  calculateAndPopulateAgeFields();
-  $('.add-foster-btn').click(function(){
-    $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
-      $('.add-foster').css('display','none');
-      $('.add-foster-inner').css('display','none');
-      $('.add-foster-inner').css('opacity','0');
-      current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+    var current_kitty = new Cat();
+    calculateAndPopulateAgeFields();
+    $('.add-adopter-btn').click(function(){
+        $.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
+            $('.add-adopter').css('display','none');
+            $('.add-adopter-inner').css('display','none');
+            $('.add-adopter-inner').css('opacity','0');
+            current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+        });
     });
-  });
-
-$('.add-tag-btn').click(function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      $.ajax({
-        url : "<?= $this->Url->build(['controller'=>'cats','action'=>'attachTag']); ?>",
-        type : 'POST',
-        data : {
-          tag_id : $('#tag').val(),
-          cat_id : '<?= $cat->id ?>'
-        }
-      }).done(function(result) {
-        result = JSON.parse(result);
-        $('.add-tag').css('display','none');
-        $('.add-tag-inner').css('display','none');
-        $('.add-tag-inner').css('opacity','0');
-
-        var tag_cont = $('<div/>');
-        tag_cont.addClass('tag-cont');
-        tag_cont.css('background-color',result['color']);
-
-        var tag_text = $('<div/>');
-        tag_text.addClass('tag-text');
-        tag_text.text(result['label']);
-
-        tag_cont.append(tag_text);
-        tag_cont.append('<a class="tag-remove" href="#"></a>');
-
-        $('.profile-notification-cont').prepend(tag_cont);
-      });
+    calculateAndPopulateAgeFields();
+    $('.add-foster-btn').click(function(){
+        $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+            $('.add-foster').css('display','none');
+            $('.add-foster-inner').css('display','none');
+            $('.add-foster-inner').css('opacity','0');
+            current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+        });
     });
-  });
+
+    $('.add-tag-btn').click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $.ajax({
+            url : "<?= $this->Url->build(['controller'=>'cats','action'=>'attachTag']); ?>",
+                type : 'POST',
+                data : {
+                    tag_id : $('#tag').val(),
+                        cat_id : '<?= $cat->id ?>'
+                }
+        }).done(function(result) {
+            result = JSON.parse(result);
+            $('.add-tag').css('display','none');
+            $('.add-tag-inner').css('display','none');
+            $('.add-tag-inner').css('opacity','0');
+
+            var tag_cont = $('<div/>');
+            tag_cont.addClass('tag-cont');
+            tag_cont.css('border-color','#'+result['color']);
+            tag_cont.css('color','#'+result['color']);
+            tag_cont.attr('data-id', result['id']);
+
+            var tag_text = $('<div/>');
+            tag_text.addClass('tag-text');
+            tag_text.text(result['label']);
+
+            var tag_rmv = $('<a/>');
+            tag_rmv.addClass('tag-remove');
+            tag_rmv.attr('href', '#');
+            tag_rmv.css('color', '#'+result['color']);
+            tag_rmv.text('');
+
+            tag_cont.append(tag_text);
+            tag_cont.append(tag_rmv);
+
+            $('.profile-notification-cont').prepend(tag_cont);
+
+            var dropdown_option = $('.tag_options option[value='+result['id']+']');
+            dropdown_option.remove();
+        });
+    });
+
+    $('.profile-notification-cont').on('click', '.tag-remove', function() {
+        var parent_div = $(this).closest('.tag-cont');
+        var tag_id = parent_div.attr('data-id');
+        $.ajax({
+            url : "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>",
+            type : 'POST',
+            data : {
+                'cat_id' : '<?= $cat->id ?>',
+                'tag_id' : tag_id
+            }
+        }).done(function(result) {
+            parent_div.fadeOut();
+        });
+    });
+});
 </script>

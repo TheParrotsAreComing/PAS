@@ -65,7 +65,10 @@ class CatsController extends AppController
      */
     public function view($id = null)
     {
-        $cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100');
+        $cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100')->toArray();
+        $attached_tags = TableRegistry::get('Tags_Cats')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['cat_id'=>$id])->toArray();
+        $cat_tags = array_diff_key($cat_tags,$attached_tags);
+
         $cat = $this->Cats->get($id, [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
@@ -355,10 +358,17 @@ class CatsController extends AppController
         $ta = $tags_cats->patchEntity($ta, $this->request->data);
         $tags_cats->save($ta);
 
-        $tag = TableRegistry::get('Tags')->find()->select(['label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
         ob_clean();
         echo json_encode($tag);
         exit(0);
     }
 
+    public function deleteTag() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        $tags_cats = TableRegistry::get('Tags_Cats');
+        $toDelete = $tags_cats->find()->where(['tag_id'=>$data['tag_id'], 'cat_id'=>$data['cat_id']])->first();
+        $tags_cats->delete($toDelete);
+    }
 }

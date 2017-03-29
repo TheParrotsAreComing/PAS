@@ -35,7 +35,7 @@
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
                 <div class="profile-notification-cont">
                   <?php foreach ($adopter['tags'] as $tag): ?>                
-                    <div class="tag-cont" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;"">
+                    <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
                       <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                     </div>
                   <?php endforeach; ?>
@@ -204,7 +204,9 @@
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-        <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$adopter_tags]) ?>
+        <div class="tag_options">
+          <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$adopter_tags]) ?>
+        </div>
       </form>
       <br/>
       <div class="confirm-button-wrap w-form">
@@ -251,18 +253,45 @@
 
 		    var tag_cont = $('<div/>');
 		    tag_cont.addClass('tag-cont');
-		    tag_cont.addClass('warning');
-		    tag_cont.css('background-color',result['color']);
+		    tag_cont.css('border-color','#'+result['color']);
+		    tag_cont.css('color','#'+result['color']);
+            tag_cont.attr('data-id', result['id']);
 
 		    var tag_text = $('<div/>');
 		    tag_text.addClass('tag-text');
 		    tag_text.text(result['label']);
 
+            var tag_rmv = $('<a/>');
+            tag_rmv.addClass('tag-remove');
+            tag_rmv.attr('href', '#');
+            tag_rmv.css('color', '#'+result['color']);
+            tag_rmv.text('');
+
 		    tag_cont.append(tag_text);
-		    tag_cont.append('<a class="tag-remove" href="#"></a>');
+            tag_cont.append(tag_rmv);
 
 		    $('.profile-notification-cont').prepend(tag_cont);
+
+            var dropdown_option = $('.tag_options option[value='+result['id']+']');
+            dropdown_option.remove();
 		  });
 		});
+
+        $('.profile-notification-cont').on('click', '.tag-remove', function() {
+            var parent_div = $(this).closest('.tag-cont');
+            var tag_id = parent_div.attr('data-id');
+            $.ajax({
+                url : "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>",
+                type : 'POST',
+                data : {
+                    'adopter_id' : '<?= $adopter->id ?>',
+                    'tag_id' : tag_id
+                }
+            }).done(function(result) {
+                result = JSON.parse(result);
+                parent_div.fadeOut();
+                $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+            });
+        });
 	});
 </script>
