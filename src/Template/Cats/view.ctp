@@ -295,7 +295,27 @@
                     <?php endif; ?>           
                 </div>
             </div>
-            <div class="w-tab-pane" data-w-tab="Tab 5"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 5">
+            	<div class="profile-text-header">Uploaded Files</div>
+		           <table class="table">
+		             <tr>
+		               <th width="5%">#</th>
+		               <th width="20%">File</th>
+		               <th width="12%">Upload Date</th>
+		             </tr>
+		             <?php if($filesRowNum > 0):$count = 0; ?>
+		               <?php foreach($files as $file): $count++;?>
+		               <tr>
+		                 <td><?php echo $count; ?></td>
+		                 <td><?= $this->Html->link('View File', ['controller' => 'files', 'action' => 'viewFile', $file->id]) ?></td>
+		                 <td><?php echo $file->created; ?></td>
+		               </tr>
+		               <?php endforeach; ?>
+		             <?php else: ?>
+		               <tr><td colspan="3">No file(s) found...</td></tr>
+		             <?php endif; ?>
+		           </table>
+            </div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
         </div>
@@ -304,7 +324,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -339,6 +359,26 @@
       </div>
     </div>
   </div> 
+
+<div class="add-adopter-floating-overlay add-photo">
+  <div class="confirm-cont add-photo-inner">
+    <div class="confirm-text">Choose a Photo...</div>
+      <?php 
+        echo $this->Form->create($file, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('file', ['type' => 'file']);
+        //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <!-- <a class="delete add-photo-btn confirm-button w-button" href="#">Upload!</a> -->
+      <?php
+      	echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+      	echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
 
 <div class="add-adopter-floating-overlay add-adopter">
 	<div class="confirm-cont add-adopter-inner">
@@ -416,7 +456,7 @@ $(function () {
 		  }
 		});
 	});
-  calculateAndPopulateAgeFields();
+  
   $('.add-foster-btn').click(function(){
 	 $( "#dialog-confirm-foster" ).dialog({
 		  resizable: false,
@@ -439,5 +479,36 @@ $(function () {
 		  }
 		});
   });
+
+  $('.add-photo-btn').click(function(){
+
+    //alert('you clicked the button!');
+   
+   /*
+   $( "#dialog-confirm-upload" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+      "Foster!": function() {
+          $( this ).dialog( "close" );
+        $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+          $('.add-foster').css('display','none');
+          $('.add-foster-inner').css('display','none');
+          $('.add-foster-inner').css('opacity','0');
+          current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+        });
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+      }
+    });
+    */
+
+
+  });
+
 });
 </script>
