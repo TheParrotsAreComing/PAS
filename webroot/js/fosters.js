@@ -11,17 +11,17 @@ function Foster(){
 }
 
 $(document).ready(function() {
-	
-	  $('a[data-ix="add-tag"]').click(function() {
-			$('.add-tag').css('display','flex');
-			$('.add-tag-inner').css('display','flex');
-			$('.add-tag-inner').css('opacity','1');
-	  });
+	// add an existing tag
+  $('a[data-ix="add-tag"]').click(function() {
+		$('.add-tag').css('display','flex');
+		$('.add-tag-inner').css('display','flex');
+		$('.add-tag-inner').css('opacity','1');
+  });
 
-	  $('.cancel').click(function() {
-			$('.add-tag').css('display','none');
-			$('.add-tag-inner').css('display','none');
-			$('.add-tag-inner').css('opacity','0');
-	  });
+  $('.cancel').click(function() {
+		$('.add-tag').css('display','none');
+		$('.add-tag-inner').css('display','none');
+		$('.add-tag-inner').css('opacity','0');
+  });
 
 });

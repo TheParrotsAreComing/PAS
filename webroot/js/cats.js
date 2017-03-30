@@ -292,7 +292,7 @@ $(function () {
 		$('.add-foster-inner').css('opacity','0');
 	});
 
-	//tags
+	// add an existing tag
 	$('a[data-ix="add-tag"]').click(function() {
 		$('.add-tag').css('display','flex');
 		$('.add-tag-inner').css('display','flex');

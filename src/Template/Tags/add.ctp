@@ -45,7 +45,10 @@ $(document).ready(function() {
     
   $('#color').on('change', function() {
     $('.example-tag').removeClass('info');
-    $('.example-tag').css('background-color', '#'+$(this).val());
+    $('.example-tag').css('color', '#'+$(this).val());
+    $('.example-tag').css('border-color', '#'+$(this).val());
+
+    $('.tag-remove').css('color', '#'+$(this).val());
   });
 
   $('#label').on('keyup', function() {

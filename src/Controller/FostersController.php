@@ -166,9 +166,9 @@ class FostersController extends AppController
     public function attachTag() {
         $this->autoRender = false;
         $tags_fosters = TableRegistry::get('Tags_Fosters');
-        $ta = $tags_fosters->newEntity();
-        $ta = $tags_fosters->patchEntity($ta, $this->request->data);
-        $tags_fosters->save($ta);
+        $tf = $tags_fosters->newEntity();
+        $tf = $tags_fosters->patchEntity($tf, $this->request->data);
+        $tags_fosters->save($tf);
 
         $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
         ob_clean();
@@ -180,7 +180,11 @@ class FostersController extends AppController
         $this->autoRender = false;
         $data = $this->request->data;
         $tags_fosters = TableRegistry::get('Tags_Fosters');
-        $toDelete = $tags_adopters->find()->where(['tag_id'=>$data['tag_id'], 'foster_id'=>$data['foster_id']])->first();
+        $toDelete = $tags_fosters->find()->where(['tag_id'=>$data['tag_id'], 'foster_id'=>$data['foster_id']])->first();
         $tags_fosters->delete($toDelete);
+
+        ob_clean();
+        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
+        exit(0);
     }
 }

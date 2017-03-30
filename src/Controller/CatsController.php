@@ -354,9 +354,9 @@ class CatsController extends AppController
     public function attachTag() {
         $this->autoRender = false;
         $tags_cats = TableRegistry::get('Tags_Cats');
-        $ta = $tags_cats->newEntity();
-        $ta = $tags_cats->patchEntity($ta, $this->request->data);
-        $tags_cats->save($ta);
+        $tc = $tags_cats->newEntity();
+        $tc = $tags_cats->patchEntity($tc, $this->request->data);
+        $tags_cats->save($tc);
 
         $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
         ob_clean();
@@ -370,5 +370,9 @@ class CatsController extends AppController
         $tags_cats = TableRegistry::get('Tags_Cats');
         $toDelete = $tags_cats->find()->where(['tag_id'=>$data['tag_id'], 'cat_id'=>$data['cat_id']])->first();
         $tags_cats->delete($toDelete);
+
+        ob_clean();
+        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
+        exit(0);
     }
 }
