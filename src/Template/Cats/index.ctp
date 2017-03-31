@@ -1,7 +1,7 @@
 <?= $this->Html->script('cats.js'); ?>
   <div class="body w-clearfix">
 
-    <div class="filter-bar" data-ix="page-load-slide-right">
+    <div class="filter-bar">
       <div class="filter-header">
         <div class="filter-header">FILTER</div>
         <div class="symbol" data-ix="filter-cancel"></div>
@@ -53,9 +53,9 @@
           <div class="card-cont card-wrapper w-dyn-item">
             <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
               <div class="card-h1"><?= $cat->cat_name?></div>
-              <div>
-                <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
-                <div class="card-h2"></div>
+              <div class="card-h2-cont">
+                <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "C" : "D" ?></div>
+                <div class="card-h2 <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
               </div>
               <div class="card-field-wrap">
                 <div class="card-field-cont">

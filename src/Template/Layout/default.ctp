@@ -124,7 +124,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Volunteers', ['controller'=>'volunteers', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?= $this->Html->link('Settings', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Settings', ['controller'=>'settings', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
