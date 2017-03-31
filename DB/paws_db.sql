@@ -90,6 +90,7 @@ CREATE TABLE files (
     mime_type VARCHAR(128) NOT NULL,
     file_size INT NOT NULL,
 	file_path VARCHAR(256) NOT NULL,
+    file_ext VARCHAR(10) NOT NULL,
     created DATETIME NOT NULL,
     is_deleted BOOLEAN NOT NULL
 ); 

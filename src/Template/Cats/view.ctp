@@ -296,25 +296,26 @@
                 </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 5">
-            	<div class="profile-text-header">Uploaded Files</div>
+            	<div class="profile-text-header">Uploaded Photos</div>
 		           <table class="table">
 		             <tr>
 		               <th width="5%">#</th>
 		               <th width="20%">File</th>
 		               <th width="12%">Upload Date</th>
 		             </tr>
-		             <?php if($filesRowNum > 0):$count = 0; ?>
-		               <?php foreach($files as $file): $count++;?>
+		             <?php if($photosCountTotal > 0): $count = 0; ?>
+		               <?php foreach($photos as $photo): $count++;?>
 		               <tr>
 		                 <td><?php echo $count; ?></td>
-		                 <td>Placeholder for thumbnail eventually...</td>
-		                 <td><?php echo $file->created; ?></td>
+		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'.'.$photo->file_ext); ?></td>
+		                 <td><?php echo $photo->created; ?></td>
 		               </tr>
 		               <?php endforeach; ?>
 		             <?php else: ?>
 		               <tr><td colspan="3">No file(s) found...</td></tr>
 		             <?php endif; ?>
 		           </table>
+               <div class="profile-text-header">Uploaded Files (todo...)</div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
@@ -364,8 +365,8 @@
   <div class="confirm-cont add-photo-inner">
     <div class="confirm-text">Choose a Photo...</div>
       <?php 
-        echo $this->Form->create($file, ['enctype' => 'multipart/form-data']);
-        echo $this->Form->input('file', ['type' => 'file']);
+        echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
         //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
       ?>
     <br/>

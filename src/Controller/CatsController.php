@@ -65,33 +65,24 @@ class CatsController extends AppController
      */
     public function view($id = null)
     {
+
         $cat = $this->Cats->get($id, [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
+
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
-     
-            //debug("another test of debug");
-            //$v = Imagick::getVersion();
-            //$im = new \imagick();
-            //debug($im->getVersion());
-            //debug( phpinfo());
-            //preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $v['versionString'], $v);
-            //if(version_compare($v[1],'6.2.8')<=0){
-            //   debug("the version is old!");
-               //print "Your ImageMagick Version {$v[1]} is '6.2.8' or older, please upgrade!";
-            //} else {
-                //debug("the version is good?");
-            //}
-            //die;
 
+        // available adopters
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
+
+        // available fosters
         $fosters = $fostersDB->find('all');
         $fosters->where(['is_deleted' => 0]);
         $select_fosters = [];
@@ -99,76 +90,52 @@ class CatsController extends AppController
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
 
-        $file = null;
+        // get photos and count
+        $photos = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => true,
+                'Files.entity_type' => $this->Cats->getEntityTypeId(),
+                'entity_id' => $cat->id
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $photosCountTotal = $photos->count();
+
+        // for form on page
+        $uploaded_photo = null;
+
         if($this->request->is('post')) {
-            if(!empty($this->request->data['file']['name'])){
 
-                //debug("another test of debug");
-                //$v = Imagick::getVersion();
-                //preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $v['versionString'], $v);
-                //if(version_compare($v[1],'6.2.8')<=0){
-                   //debug("the version is old!");
-                   //print "Your ImageMagick Version {$v[1]} is '6.2.8' or older, please upgrade!";
-                //} else {
-                    //debug("the version is good?");
-                //}
-                //die;
+            if(!empty($this->request->data['uploaded_photo']['name'])){
 
-                $fileName = $this->request->data['file']['name'];
-                $uploadPath =  WWW_ROOT.'files/cats/';
-                $uploadFile = $uploadPath.$fileName;
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_photo']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
 
-                if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
+                $uploadPath = 'files/cats/'.$cat->id;
+                $entityTypeId = $this->Cats->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_photo']['type'];
+                $fileSize = $this->request->data['uploaded_photo']['size'];
 
-                    // make a thumbnail...
-                    debug("1");
-                    $im = new \imagick();
-                    debug("2");
-                    $im->setResolution(400,300);
-                    debug("3");
-                    $im->readImage($uploadFile);
-                    debug("4");
-                    $im->setImageBackgroundColor('white');
-                    $im->scaleImage('400','300', true);
-                    $im->setImageFormat('jpg');
-                    $im->writeImage($uploadPath.'tn.jpg');
-                    $im->clear();
-                    $im->destroy();
+                // attempt to upload the photo with the file behavior
+                if ($this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $cat->id, $mimeType, $fileSize)){
 
-                    $file = $filesDB->newEntity();
-                    $file->entity_type = 1;
-                    $file->entity_id = 1;
-                    $file->is_photo = true;
-                    $file->mime_type = $this->request->data['file']['type'];
-                    $file->file_size = $this->request->data['file']['size'];
-                    $file->file_path = $uploadFile;
-                    $file->created = date("Y-m-d H:i:s");
-                    $file->is_deleted = false;
-
-                    if ($filesDB->save($file)) {
-                        $this->Flash->success(__('File has been uploaded and saved successfully.'));
-                    } else{
-                        $this->Flash->error(__('Unable to upload file, please try again.'));
-                    }
-                } else{
-                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                     $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
+                        $photosCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload photo, please try again.'));
                 }
+
             } else {
-                $this->Flash->error(__('Please choose a file.'));
+                $this->Flash->error(__('Please choose a photo.'));
             }
         }
 
-        
 
-        $files = $filesDB->find('all', ['order' => ['Files.created'=>'DESC']]);
-        $filesRowNum = $files->count();
-
-        //foreach($files as $f){
-        //    debug($f);
-        //}
-        //die;
-
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'file', 'files', 'filesRowNum'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal'));
         $this->set('_serialize', ['cat']);
     }
 
