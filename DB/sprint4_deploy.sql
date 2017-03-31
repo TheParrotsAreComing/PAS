@@ -68,6 +68,12 @@ THEN
 ALTER TABLE files ADD mime_type VARCHAR(128) NOT NULL;
 END IF;
 
+-- add file ext
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='file_ext'))
+THEN
+ALTER TABLE files ADD file_ext VARCHAR(10) NOT NULL;
+END IF;
+
 
 
 END $$
