@@ -168,14 +168,59 @@
               </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 2" id="medHistory">
-              <div class="profile-content-cont">
-                <div class="profile-text-header">Medical Record History</div>
-                <?php if (!empty($medicalHistories)): ?>
-                  <?php foreach($medicalHistories as $mh): ?>
-                    <?= h($mh->id) ?>
+              <div class="expand profile-content-cont">
+                <div class="profile-text-header">Medical History</div>
+                <div class="medical-wrap">
+                  <div class="medical-header-cont">
+                    <div class="medical-type-cont">
+                      <div class="medical-header">Type</div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-header">Date</div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-header">Notes</div>
+                    </div>
+                  </div>
+                  <?php if (!empty($medicalHistories)): ?>
+                    <?php foreach($medicalHistories as $mh): ?>
+                    <?php $type = "";
+                      if ($mh->is_fvrcp) {$type = "FVRCP";} 
+                      else if ($mh->deworm) {$type = "Deworm";} 
+                      else if ($mh->is_flea) {$type = "Flea";} 
+                      else {$type = "Rabies";}
+                    ?>
+                    <div class="medical-data-wrap scroll1">
+                      <div class="medical-data-cont" data-ix="medical-data-click">
+                        <div class="medical-type-cont">
+                          <div class="medical-data-type"><?= $type ?></div>
+                        </div>
+                        <div class="medical-date-cont">
+                          <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
+                        </div>
+                        <div class="medical-notes-cont">
+                          <div class="medical-data-notes"><?= h($mh->notes) ?></div>
+                        </div>
+                        <div class="medical-data-action-cont">
+                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id]) ?>">
+                            <div class="profile-action-button sofware">-</div>
+                            <div>edit</div>
+                          </a>
+                          <a class="medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete', $mh->id, $cat->id]) ?>">
+                            <div class="basic profile-action-button"></div>
+                            <div>delete</div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   <?php endforeach; ?>
-                <?php endif; ?>
-                <a class="cat-add w-button" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                  <?php else: ?>
+                    <a class="card w-clearfix w-inline-block"> 
+                          <div class="card-h1">This cat currently has no medical records.</div>
+                    </a>
+                  <?php endif; ?>
+                <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                </div>
               </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">

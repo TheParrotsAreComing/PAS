@@ -18,7 +18,6 @@
                             <?php echo $this->Form->day('administered_date', array('class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
                             <?php echo $this->Form->year('administered_date', array('class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
                         </div>
-
                         <?php echo $this->Form->input('notes', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
@@ -27,7 +26,7 @@
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type notes for this record...')); ?>
                         <div class="add-button-cont">    
-                        <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'index'], ['id'=>'MHCancel', 'class'=>'add-cancel w-button']); ?>
+                        <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat_id], ['id'=>'MHCancel', 'class'=>'add-cancel w-button']); ?>
                         <?= $this->Form->submit("Submit",['id'=>'MHAdd', 'class'=>'add-submit w-button']); ?>
                         </div>
                     </form>
