@@ -44,8 +44,8 @@
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="/img/cat-01.png">
             </a>
-            <!--<a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
-            </a>-->
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
+            </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img id="fosterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-foster-01.png">
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img id="adopterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-adopter-01.png">
@@ -167,7 +167,17 @@
                 </div>
               </div>
             </div>
-            <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
+            <div class="w-tab-pane" data-w-tab="Tab 2" id="medHistory">
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Medical Record History</div>
+                <?php if (!empty($medicalHistories)): ?>
+                  <?php foreach($medicalHistories as $mh): ?>
+                    <?= h($mh->id) ?>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+                <a class="cat-add w-button" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+              </div>
+            </div>
             <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">
                 <div class="profile-content-cont">
                   <?php if (!empty($cat->cat_histories)): ?>
@@ -342,7 +352,7 @@
   </div>
   <div class="notify-cont w-hidden-main">
     <div class="notify-overview">Overview</div>
-    <!--<div class="notify-medical">Medical Information</div>-->
+    <div class="notify-medical">Medical Information</div>
     <div class="notify-foster">Foster Home</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
@@ -431,6 +441,13 @@
 </div>
 <script>
 $(function () {
+  /*var MH_PATH = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action' => '']) ?>"
+  $.ajax({
+      url:MH_PATH,
+      type: 'get'
+  }).done(function(result){
+      $('#medHistory').html(result);
+  })*/
 	var current_kitty = new Cat();
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){

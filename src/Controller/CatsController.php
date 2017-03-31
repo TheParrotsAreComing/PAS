@@ -71,7 +71,10 @@ class CatsController extends AppController
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
-        
+        $medicalDB = TableRegistry::get('CatMedicalHistories');
+       
+        $medicalHistories = $medicalDB->find('all');
+        $medicalHistories->where(['cat_id' => $id]); 
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
@@ -120,7 +123,7 @@ class CatsController extends AppController
         $files = $filesDB->find('all', ['order' => ['Files.created'=>'DESC']]);
         $filesRowNum = $files->count();
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'file', 'files', 'filesRowNum'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'file', 'files', 'filesRowNum', 'medicalHistories'));
         $this->set('_serialize', ['cat']);
     }
 

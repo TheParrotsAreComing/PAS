@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * CatMedicalHistories Controller
@@ -49,20 +50,43 @@ class CatMedicalHistoriesController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($cat_id = null)
     {
+        $catsDB = TableRegistry::get('Cats');
         $catMedicalHistory = $this->CatMedicalHistories->newEntity();
+        $medOption = null;
         if ($this->request->is('post')) {
+            $medOption = $this->request->data['medOption'];
+            if($medOption == ''){
+                $this->Flash->success(__('The cat medical history has been saved.'));
+                return;
+            }
+            switch ($medOption) {
+                case 0:
+                    $catMedicalHistory->is_fvrcp = true;
+                    break;
+                case 1:
+                    $catMedicalHistory->is_deworm = true;
+                    break;
+                case 2:
+                    $catMedicalHistory->is_flea = true;
+                    break;
+                case 3:
+                    $catMedicalHistory->is_rabies = true;
+                    break;
+                default:
+                    $this->flash->error(__('Please pick a medical option and try again'));
+            }
             $catMedicalHistory = $this->CatMedicalHistories->patchEntity($catMedicalHistory, $this->request->data);
+            $catMedicalHistory->cat_id = $cat_id; 
             if ($this->CatMedicalHistories->save($catMedicalHistory)) {
                 $this->Flash->success(__('The cat medical history has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'cats', 'action' => 'view', $cat_id]);
             }
             $this->Flash->error(__('The cat medical history could not be saved. Please, try again.'));
         }
         $cats = $this->CatMedicalHistories->Cats->find('list', ['limit' => 200]);
-        $this->set(compact('catMedicalHistory', 'cats'));
+        $this->set(compact('catMedicalHistory', 'cats', 'cat_id', 'cat', 'cat_name', 'medOption'));
         $this->set('_serialize', ['catMedicalHistory']);
     }
 
