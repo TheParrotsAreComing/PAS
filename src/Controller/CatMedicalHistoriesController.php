@@ -113,6 +113,22 @@ class CatMedicalHistoriesController extends AppController
         $catMedicalHistory = $this->CatMedicalHistories->get($id, [
             'contain' => []
         ]);
+        $medOption = "";
+        if ($catMedicalHistory->is_fvrcp) {
+            $medOption = 0;
+        }
+        if ($catMedicalHistory->is_deworm) {
+            $medOption = 1;
+        }
+        if ($catMedicalHistory->is_flea) {
+            $medOption = 2;
+        }
+        if ($catMedicalHistory->is_rabies) {
+            $medOption = 3;
+        }
+        if ($catMedicalHistory->is_other) {
+            $medOption = 4;
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
            $medOption = $this->request->data['medOption'];
             if($medOption == ''){
@@ -122,17 +138,37 @@ class CatMedicalHistoriesController extends AppController
             switch ($medOption) {
                 case 0:
                     $catMedicalHistory->is_fvrcp = true;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_other = false;
                     break;
                 case 1:
+                    $catMedicalHistory->is_fvrcp = false;
                     $catMedicalHistory->is_deworm = true;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_other = false;
                     break;
                 case 2:
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
                     $catMedicalHistory->is_flea = true;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_other = false;
                     break;
                 case 3:
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
                     $catMedicalHistory->is_rabies = true;
+                    $catMedicalHistory->is_other = false;
                     break;
                 case 4:
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
                     $catMedicalHistory->is_other = true;
                     break;
                 default:
@@ -147,7 +183,7 @@ class CatMedicalHistoriesController extends AppController
             $this->Flash->error(__('The cat medical history could not be saved. Please, try again.'));
         }
         $cats = $this->CatMedicalHistories->Cats->find('list', ['limit' => 200]);
-        $this->set(compact('catMedicalHistory', 'cats', 'cat_id'));
+        $this->set(compact('catMedicalHistory', 'cats', 'cat_id', 'medOption'));
         $this->set('_serialize', ['catMedicalHistory']);
     }
 

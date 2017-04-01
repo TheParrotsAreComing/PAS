@@ -184,6 +184,7 @@
                   </div>
                   <?php if (!empty($medicalHistories)): ?>
                     <?php foreach($medicalHistories as $mh): ?>
+
                     <?php $type = "";
                       if ($mh->is_fvrcp) {$type = "FVRCP";} 
                       else if ($mh->is_deworm) {$type = "Deworm";} 
@@ -208,7 +209,7 @@
                             <div class="profile-action-button sofware">-</div>
                             <div>edit</div>
                           </a>
-                          <a class="medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete', $mh->id, $cat->id]) ?>">
+                          <a class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
                             <div class="basic profile-action-button"></div>
                             <div>delete</div>
                           </a>
@@ -488,13 +489,17 @@
 <div id="dialog-confirm-foster" title="Foster this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
 </div>
+
+<div id="dialog-confirm-record" title="Delete this record?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
+</div>
 <script>
 $(function () {
 
 	var current_kitty = new Cat();
+  var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){
-
 	 $( "#dialog-confirm" ).dialog({
 		  resizable: false,
 		  height: "auto",
@@ -540,6 +545,27 @@ $(function () {
 		});
   });
 
+  $('.delete-record-btn').click(function(e){
+   var parent = $(this).parent().parent().parent();
+   var that = $(this); 
+   $( "#dialog-confirm-record" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+      "Delete!": function() {
+        $.get(deleteRecord+'/'+that.data('mh'));
+        $(this).dialog( "close" );
+        parent.remove();
+      },
+      Cancel: function() {
+        $(this).dialog( "close" );
+        $('.no-horizontal-scroll').scrollLeft(0);
+      }
+      }
+    });
+  });
   $('.add-photo-btn').click(function(){
 
     //alert('you clicked the button!');
