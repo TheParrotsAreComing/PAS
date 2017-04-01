@@ -314,4 +314,16 @@ $(function () {
 		$('.add-photo-inner').css('opacity','0');
 	});
 
+	$('a[data-ix="add-tag"]').click(function() {
+		$('.add-tag').css('display','flex');
+		$('.add-tag-inner').css('display','flex');
+		$('.add-tag-inner').css('opacity','1');
+ 	});
+
+  	$('.cancel').click(function() {
+		$('.add-tag').css('display','none');
+		$('.add-tag-inner').css('display','none');
+		$('.add-tag-inner').css('opacity','0');
+  	});
+
 });

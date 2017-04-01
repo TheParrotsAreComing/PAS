@@ -35,7 +35,7 @@
                     <div class="profile-notification-cont">
                       <?php foreach ($foster['tags'] as $tag): ?>                
                         <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
-                          <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" data-ix="delete-tag" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                          <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>"  class="tag-remove" data-ix="delete-tag" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                         </div>
                       <?php endforeach; ?>   
                     </div>
@@ -205,21 +205,17 @@
     </div>
   </div>
 
-  <div class="floating-overlay delete-tag">
-    <div class="confirm-cont tag-remove-inner">
-      <h4>Are you sure you want to delete this tag?</h4>
-      <div class="confirm-button-wrap w-form">
-        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-            <?= $this->Html->link('Delete Tag', ['controller'=>'fosters', 'action'=>'deleteTag', $tag->id], ['class'=>'delete confirm-button w-button']); ?>
-        </form>
-      </div>
-    </div>
-  </div> 
+
+  <div id="dialog-confirm" title="Delete this tag?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
+  </div>
 
 <script>
   calculateAndPopulateAgeFields();
 	var foster = new Foster();
+
+  var tagDel = "<?= $this->Url->build(['controller'=>'fosters','action'=>'deleteTag']); ?>";
+
 	$(function(){
 		$('.delete-button').click(function(e){
 			e.preventDefault();
@@ -276,6 +272,34 @@
         var dropdown_option = $('.tag_options option[value='+result['id']+']');
         dropdown_option.remove();
       });
+    });
+
+    $('.tag-remove').click(function(){
+      var that = $(this); 
+      var tag_id = that.attr('data-id');
+       $( "#dialog-confirm" ).dialog({
+          resizable: false,
+          height: "auto",
+          width: 400,
+          modal: true,
+          buttons: {
+          "Delete": function() {
+            $.ajax({
+              url : tagDel,
+            type : 'POST',
+              data : {
+                'foster_id' : '<?= $foster->id ?>',
+                'tag_id' : tag_id
+            }
+          }).done(function(result){console.log(result);});
+            that.parent().remove();
+            $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+          }
+          }
+        });
     });
 
 
