@@ -176,15 +176,17 @@ class FostersController extends AppController
         exit(0);
     }
 
-    public function deleteTag() {
+    public function deleteTag($tag_id) {
         $this->autoRender = false;
-        $data = $this->request->data;
+        //$data = $this->request->data;
         $tags_fosters = TableRegistry::get('Tags_Fosters');
-        $toDelete = $tags_fosters->find()->where(['tag_id'=>$data['tag_id'], 'foster_id'=>$data['foster_id']])->first();
+
+        $toDelete = $tags_fosters->get($tag_id);
         $tags_fosters->delete($toDelete);
 
-        ob_clean();
-        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
-        exit(0);
+        //ob_clean();
+        //echo json_encode($tag_id);
+        //exit(0);
+        return $this->redirect(['action' => 'view', $foster_id]);
     }
 }
