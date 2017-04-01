@@ -67,7 +67,7 @@ class CatMedicalHistoriesController extends AppController
                 $this->Flash->error(__('Please pick a medical option and try again'));
                 return;
             }
-            //debug($medOption);die;
+
             switch ($medOption) {
                 case 0:
                     $catMedicalHistory->is_fvrcp = true;
