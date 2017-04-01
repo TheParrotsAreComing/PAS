@@ -57,11 +57,17 @@ class FostersController extends AppController
      */
     public function view($id = null)
     {
+        $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
+
+        $attached_tags = TableRegistry::get('Tags_Fosters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['foster_id'=>$id])->toArray();
+
+        $foster_tags = array_diff_key($foster_tags, $attached_tags);
+
         $foster = $this->Fosters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
         
-        $this->set('foster', $foster);
+        $this->set(compact('foster', 'foster_tags'));
         $this->set('_serialize', ['foster']);
     }
 
@@ -130,6 +136,15 @@ class FostersController extends AppController
         $this->request->data['is_deleted'] = 1;
         $foster = $this->Fosters->patchEntity($foster, $this->request->data);
         if ($this->Fosters->save($foster)) {
+
+			$cat_histories_table = TableRegistry::get('CatHistories');
+			$associations = $cat_histories_table->query();
+			$associations->update()
+				->set(['end_date'=>date('Y-m-d')])
+				->where(['foster_id'=>$id])
+				->andWhere(["end_date IS NULL"])
+				->execute();
+
             $this->Flash->success(__('The foster has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {
@@ -138,4 +153,42 @@ class FostersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+	public function checkAssociations($foster_id){
+		$this->autoRender = false;
+		$cat_histories_table = TableRegistry::get('CatHistories');
+		$associations = $cat_histories_table->findByFosterId($foster_id);
+		$associations->where(["end_date IS NULL"]);
+
+		ob_clean();
+		echo empty($associations->toArray()) ? '0' : '1';
+		exit(0);
+	}
+
+    public function attachTag() {
+        $this->autoRender = false;
+        $tags_fosters = TableRegistry::get('Tags_Fosters');
+        $tf = $tags_fosters->newEntity();
+        $tf = $tags_fosters->patchEntity($tf, $this->request->data);
+        $tags_fosters->save($tf);
+
+        $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        ob_clean();
+        echo json_encode($tag);
+        exit(0);
+    }
+
+
+    public function deleteTag() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        $tags_fosters = TableRegistry::get('Tags_Fosters');
+        $toDelete = $tags_fosters->find()->where(['tag_id'=>$data['tag_id'], 'foster_id'=>$data['foster_id']])->first();
+        $tags_fosters->delete($toDelete);
+
+        ob_clean();
+        echo json_encode($toDelete);
+        exit(0);
+    }
+
 }

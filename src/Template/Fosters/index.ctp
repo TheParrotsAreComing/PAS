@@ -69,9 +69,9 @@
                     <div>
                       <div class="card-h2">Rating:</div>
                       <div class="card-h2"><?= $foster['rating']; ?></div>
-					  <?php echo str_repeat("&nbsp;", 10); ?>
+					           <?php echo str_repeat("&nbsp;", 5); ?>
                       <div class="card-h2">Availability:</div>
-                      <div class="card-h2"><?= $foster['avail']; ?></div>
+                      <div class="card-h2"><?= $this->Text->truncate($foster['avail'],25, ['ellipsis'=>'...', 'exact'=>true]); ?></div>
                     </div>
                     <div class="card-field-wrap">
                       <div class="card-field-cont left-justify">

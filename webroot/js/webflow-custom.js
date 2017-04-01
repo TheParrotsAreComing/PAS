@@ -38,5 +38,4 @@ Webflow.require('ix').init([
     { "slug": "button-switch-click-2", "name": "button-switch-click 2", "value": { "style": {}, "triggers": [{ "type": "click", "selector": ".underline-1", "stepsA": [{ "opacity": 0 }], "stepsB": [] }, { "type": "click", "selector": ".underline-1", "descend": true, "preserve3d": true, "stepsA": [{ "x": "0px", "y": "50px", "z": "0px" }, { "opacity": 1, "transition": "opacity 800ms ease 0, transform 500ms ease 0", "x": "0px", "y": "0px", "z": "0px" }], "stepsB": [] }] } },
     { "slug": "tag-action-show-hide", "name": "tag-action (Show-Hide)", "value": { "style": {}, "triggers": [{ "type": "click", "selector": ".tag-actions-cont", "descend": true, "stepsA": [{ "max-width": "150px" }], "stepsB": [{ "max-width": "0px" }] }] } },
     { "slug": "medical-data-click","name":"medical-data-click","value":{"style":{},"triggers":[{"type":"click","selector":".medical-data-action-cont","descend":true,"preserve3d":true,"stepsA":[{"transition":"transform 300ms ease 0","x":"0px","y":"0px","z":"0px"}],"stepsB":[{"transition":"transform 300ms ease 0","x":"250px","y":"0px","z":"0px"}]}]}}
-
 ]);

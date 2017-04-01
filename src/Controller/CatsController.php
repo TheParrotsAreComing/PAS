@@ -66,6 +66,11 @@ class CatsController extends AppController
     public function view($id = null)
     {
 
+        $cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100')->toArray();
+        $attached_tags = TableRegistry::get('Tags_Cats')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['cat_id'=>$id])->toArray();
+        $cat_tags = array_diff_key($cat_tags,$attached_tags);
+
+
         $cat = $this->Cats->get($id, [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
@@ -93,6 +98,7 @@ class CatsController extends AppController
         foreach($fosters as $fo){
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
+
 
         // get photos and count
         $photos = $filesDB->find('all', [
@@ -138,7 +144,8 @@ class CatsController extends AppController
             }
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories', 'cat_tags'));
+
         $this->set('_serialize', ['cat']);
     }
 
@@ -400,4 +407,31 @@ class CatsController extends AppController
         echo $response;
         exit(0);
     }
+
+
+    public function attachTag() {
+        $this->autoRender = false;
+        $tags_cats = TableRegistry::get('Tags_Cats');
+        $tc = $tags_cats->newEntity();
+        $tc = $tags_cats->patchEntity($tc, $this->request->data);
+        $tags_cats->save($tc);
+
+        $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        ob_clean();
+        echo json_encode($tag);
+        exit(0);
+    }
+
+    public function deleteTag() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        $tags_cats = TableRegistry::get('Tags_Cats');
+        $toDelete = $tags_cats->find()->where(['tag_id'=>$data['tag_id'], 'cat_id'=>$data['cat_id']])->first();
+        $tags_cats->delete($toDelete);
+
+        ob_clean();
+        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
+        exit(0);
+    }
+
 }

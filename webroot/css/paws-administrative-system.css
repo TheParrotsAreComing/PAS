@@ -3134,6 +3134,10 @@
   font-weight: 500;
 }
 
+.div-block-2 {
+  display: block;
+}
+
 html.w-mod-js *[data-ix="page-load-fade-in"] {
   opacity: 0;
 }
