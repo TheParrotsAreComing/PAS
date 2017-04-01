@@ -247,7 +247,7 @@ html {
     border-radius: 5px;
 }
 
-.tag-div-scroll {
+.no-horizontal-scroll {
     overflow-y: scroll;
     overflow-x: hidden;
 }

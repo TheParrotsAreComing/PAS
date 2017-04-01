@@ -1,6 +1,113 @@
 use paws_db;
 
 
+-- first, seed database with adopt a pet values, if needed...
+-- add in the default db items if they aren't there...
+DELIMITER $$
+DROP PROCEDURE IF EXISTS add_initial_aap_data $$
+
+-- create the stored procedure to perform the needed changes
+CREATE PROCEDURE add_initial_aap_data()
+BEGIN
+
+-- add breeds for adopt a pet, if needed
+IF NOT EXISTS ((SELECT * FROM breeds))
+THEN
+INSERT INTO breeds(breed) VALUES ("Abyssinian");
+INSERT INTO breeds(breed) VALUES ("American Bobtail");
+INSERT INTO breeds(breed) VALUES ("American Curl");
+INSERT INTO breeds(breed) VALUES ("American Shorthair");
+INSERT INTO breeds(breed) VALUES ("American Wirehair");
+INSERT INTO breeds(breed) VALUES ("Balinese");
+INSERT INTO breeds(breed) VALUES ("Bengal");
+INSERT INTO breeds(breed) VALUES ("Birman");
+INSERT INTO breeds(breed) VALUES ("Bombay");
+INSERT INTO breeds(breed) VALUES ("British Shorthair");
+INSERT INTO breeds(breed) VALUES ("Burmese");
+INSERT INTO breeds(breed) VALUES ("Calico");
+INSERT INTO breeds(breed) VALUES ("Chartreux");
+INSERT INTO breeds(breed) VALUES ("Colorpoint Shorthair");
+INSERT INTO breeds(breed) VALUES ("Cornish Rex");
+INSERT INTO breeds(breed) VALUES ("Cymric");
+INSERT INTO breeds(breed) VALUES ("Devon Rex");
+INSERT INTO breeds(breed) VALUES ("Domestic Longhair");
+INSERT INTO breeds(breed) VALUES ("Domestic Mediumhair");
+INSERT INTO breeds(breed) VALUES ("Domestic Shorthair");
+INSERT INTO breeds(breed) VALUES ("Egyptian Mau");
+INSERT INTO breeds(breed) VALUES ("European Burmese");
+INSERT INTO breeds(breed) VALUES ("Exotic");
+INSERT INTO breeds(breed) VALUES ("Havana Brown");
+INSERT INTO breeds(breed) VALUES ("Hemingway/Polydactyl");
+INSERT INTO breeds(breed) VALUES ("Himalayan");
+INSERT INTO breeds(breed) VALUES ("Japanese Bobtail");
+INSERT INTO breeds(breed) VALUES ("Javanese");
+INSERT INTO breeds(breed) VALUES ("Korat");
+INSERT INTO breeds(breed) VALUES ("LaPerm");
+INSERT INTO breeds(breed) VALUES ("Maine Coon");
+INSERT INTO breeds(breed) VALUES ("Manx");
+INSERT INTO breeds(breed) VALUES ("Munchkin");
+INSERT INTO breeds(breed) VALUES ("Norwegian Forest Cat");
+INSERT INTO breeds(breed) VALUES ("Ocicat");
+INSERT INTO breeds(breed) VALUES ("Oriental");
+INSERT INTO breeds(breed) VALUES ("Persian");
+INSERT INTO breeds(breed) VALUES ("Polydactyl/Hemingway");
+INSERT INTO breeds(breed) VALUES ("RagaMuffin");
+INSERT INTO breeds(breed) VALUES ("Ragdoll");
+INSERT INTO breeds(breed) VALUES ("Russian Blue");
+INSERT INTO breeds(breed) VALUES ("Scottish Fold");
+INSERT INTO breeds(breed) VALUES ("Selkirk Rex");
+INSERT INTO breeds(breed) VALUES ("Siamese");
+INSERT INTO breeds(breed) VALUES ("Siberian");
+INSERT INTO breeds(breed) VALUES ("Singapura");
+INSERT INTO breeds(breed) VALUES ("Snowshoe");
+INSERT INTO breeds(breed) VALUES ("Somali");
+INSERT INTO breeds(breed) VALUES ("Sphynx");
+INSERT INTO breeds(breed) VALUES ("Tonkinese");
+INSERT INTO breeds(breed) VALUES ("Turkish Angora");
+INSERT INTO breeds(breed) VALUES ("Turkish Van");
+END IF;
+
+-- add colors for adopt a pet, if needed
+IF NOT EXISTS ((SELECT * FROM colors))
+THEN
+INSERT INTO colors(color) VALUES ("Black (All)");
+INSERT INTO colors(color) VALUES ("Black (Mostly)");
+INSERT INTO colors(color) VALUES ("Black & White or Tuxedo");
+INSERT INTO colors(color) VALUES ("Brown or Chocolate");
+INSERT INTO colors(color) VALUES ("Brown or Chocolate (Mostly)");
+INSERT INTO colors(color) VALUES ("Brown Tabby");
+INSERT INTO colors(color) VALUES ("Calico or Dilute Calico");
+INSERT INTO colors(color) VALUES ("Cream or Ivory");
+INSERT INTO colors(color) VALUES ("Cream or Ivory (Mostly)");
+INSERT INTO colors(color) VALUES ("Gray, Blue, or Silver Tabby");
+INSERT INTO colors(color) VALUES ("Gray or Blue");
+INSERT INTO colors(color) VALUES ("Gray or Blue (Mostly)");
+INSERT INTO colors(color) VALUES ("Orange or Red");
+INSERT INTO colors(color) VALUES ("Orange or Red (Mostly)");
+INSERT INTO colors(color) VALUES ("Orange or Red Tabby");
+INSERT INTO colors(color) VALUES ("Spotted Tabby/Leopard Spotted");
+INSERT INTO colors(color) VALUES ("Tan or Fawn");
+INSERT INTO colors(color) VALUES ("Tan or Fawn (Mostly)");
+INSERT INTO colors(color) VALUES ("Tiger Striped");
+INSERT INTO colors(color) VALUES ("Tortoiseshell");
+INSERT INTO colors(color) VALUES ("White");
+INSERT INTO colors(color) VALUES ("White (Mostly)");
+END IF;
+
+
+END $$
+
+-- run the stored procedure
+CALL add_initial_aap_data() $$
+
+-- drop the stored procedure
+DROP PROCEDURE IF EXISTS add_initial_aap_data $$
+
+DELIMITER ;
+
+
+
+
 -- first, create a full set of data, marked deleted
 
 	-- create a deleted litter, with a mom and 2 kittens
@@ -245,5 +352,4 @@ VALUES (NULL, "Whiskers", 1, '2017-01-18', 1, "Dark brown", "Short and rough", "
 
 INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
 VALUES (NULL, "Jabba", 0, '2013-01-21', 0, "Dark brown", "Short and rough", "cat bio and background...", "should really just be left to sit and eat its own fat", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, true, true, 7);
-
 
