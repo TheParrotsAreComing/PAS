@@ -192,7 +192,7 @@
                       else if ($mh->is_other) {$type = "Other";} 
                       else {$type = "No Type";} 
                     ?>
-                    <div class="medical-data-wrap scroll1">
+                    <div class="scroll1 no-horizontal-scroll">
                       <div class="medical-data-cont" data-ix="medical-data-click">
                         <div class="medical-type-cont">
                           <div class="medical-data-type"><?= $type ?></div>
@@ -418,6 +418,7 @@
     </div>
   </div> 
 
+
 <div class="add-adopter-floating-overlay add-photo">
   <div class="confirm-cont add-photo-inner">
     <div class="confirm-text">Choose a Photo...</div>
@@ -489,13 +490,7 @@
 </div>
 <script>
 $(function () {
-  /*var MH_PATH = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action' => '']) ?>"
-  $.ajax({
-      url:MH_PATH,
-      type: 'get'
-  }).done(function(result){
-      $('#medHistory').html(result);
-  })*/
+
 	var current_kitty = new Cat();
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){

@@ -27,7 +27,7 @@
                             'placeholder' => 'Type notes for this record...')); ?>
                         <div class="add-button-cont">    
                         <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat_id], ['id'=>'MHCancel', 'class'=>'add-cancel w-button']); ?>
-                        <?= $this->Form->submit("Submit",['id'=>'MHAdd', 'class'=>'add-submit w-button']); ?>
+                        <?= $this->Form->submit("Submit",['id'=>'MHEdit', 'class'=>'add-submit w-button']); ?>
                         </div>
                     </form>
                 </div>
