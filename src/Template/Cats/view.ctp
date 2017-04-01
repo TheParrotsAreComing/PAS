@@ -204,7 +204,7 @@
                           <div class="medical-data-notes"><?= h($mh->notes) ?></div>
                         </div>
                         <div class="medical-data-action-cont">
-                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id]) ?>">
+                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
                             <div class="profile-action-button sofware">-</div>
                             <div>edit</div>
                           </a>
@@ -364,7 +364,7 @@
 		               <?php foreach($photos as $photo): $count++;?>
 		               <tr>
 		                 <td><?php echo $count; ?></td>
-		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'.'.$photo->file_ext); ?></td>
+		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext); ?></td>
 		                 <td><?php echo $photo->created; ?></td>
 		               </tr>
 		               <?php endforeach; ?>

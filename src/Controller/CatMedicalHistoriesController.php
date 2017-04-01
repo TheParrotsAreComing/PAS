@@ -132,6 +132,9 @@ class CatMedicalHistoriesController extends AppController
                 case 3:
                     $catMedicalHistory->is_rabies = true;
                     break;
+                case 4:
+                    $catMedicalHistory->is_other = true;
+                    break;
                 default:
                     $this->flash->error(__('Please pick a medical option and try again'));
             } 
