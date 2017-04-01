@@ -65,18 +65,28 @@ class CatsController extends AppController
      */
     public function view($id = null)
     {
+
         $cat = $this->Cats->get($id, [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
+
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
-        
+        $filesDB = TableRegistry::get('Files');
+        $medicalDB = TableRegistry::get('CatMedicalHistories');
+       
+        $medicalHistories = $medicalDB->find('all');
+        $medicalHistories->where(['cat_id' => $id]); 
+
+        // available adopters
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
+
+        // available fosters
         $fosters = $fostersDB->find('all');
         $fosters->where(['is_deleted' => 0]);
         $select_fosters = [];
@@ -84,7 +94,51 @@ class CatsController extends AppController
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters'));
+        // get photos and count
+        $photos = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => true,
+                'Files.entity_type' => $this->Cats->getEntityTypeId(),
+                'entity_id' => $cat->id
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $photosCountTotal = $photos->count();
+
+        // for form on page
+        $uploaded_photo = null;
+
+        if($this->request->is('post')) {
+
+            if(!empty($this->request->data['uploaded_photo']['name'])){
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_photo']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
+                $uploadPath = 'files/cats/'.$cat->id;
+                $entityTypeId = $this->Cats->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_photo']['type'];
+                $fileSize = $this->request->data['uploaded_photo']['size'];
+
+                // attempt to upload the photo with the file behavior
+                if ($this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $cat->id, $mimeType, $fileSize)){
+
+                     $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
+                        $photosCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload photo, please try again.'));
+                }
+
+            } else {
+                $this->Flash->error(__('Please choose a photo.'));
+            }
+        }
+
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -346,5 +400,4 @@ class CatsController extends AppController
         echo $response;
         exit(0);
     }
-
 }

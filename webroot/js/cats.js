@@ -186,6 +186,11 @@ var Cat = function(){
 		var profile_content = $('<div/>');
 		profile_content.addClass("profile-content-cont");
 
+		//Label Dom
+		var profile_text_header = $('<div/>');
+		profile_text_header.addClass("profile-text-header");
+		profile_text_header.text("Foster");
+
 		//Anchor Tag Parent
 		var card_cont = $('<div/>');
 		card_cont.addClass("card-cont card-wrapper w-dyn-item");
@@ -255,6 +260,9 @@ var Cat = function(){
 		//append anchor to parent
 		card_cont.append(a_card);
 
+		//alter html of super parent with the title 
+		profile_content.html(profile_text_header);
+
 		//append the content
 		profile_content.append(card_cont);
 
@@ -291,4 +299,19 @@ $(function () {
 		$('.add-foster-inner').css('display','none');
 		$('.add-foster-inner').css('opacity','0');
 	});
+
+	//Show me the new select option for photos
+	$('a[data-ix="add-photo-click-desktop"]').click(function(){
+		$('.add-photo').css('display','flex');
+		$('.add-photo-inner').css('display','flex');
+		$('.add-photo-inner').css('opacity','1');
+	});
+
+	//I don't want to see the select for photos
+	$('.cancel').click(function(){
+		$('.add-photo').css('display','none');
+		$('.add-photo-inner').css('display','none');
+		$('.add-photo-inner').css('opacity','0');
+	});
+
 });

@@ -44,8 +44,8 @@
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="/img/cat-01.png">
             </a>
-            <!--<a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
-            </a>-->
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
+            </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img id="fosterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-foster-01.png">
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img id="adopterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-adopter-01.png">
@@ -167,68 +167,113 @@
                 </div>
               </div>
             </div>
-            <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
+            <div class="w-tab-pane" data-w-tab="Tab 2" id="medHistory">
+              <div class="expand profile-content-cont">
+                <div class="profile-text-header">Medical History</div>
+                <div class="medical-wrap">
+                  <div class="medical-header-cont">
+                    <div class="medical-type-cont">
+                      <div class="medical-header">Type</div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-header">Date</div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-header">Notes</div>
+                    </div>
+                  </div>
+                  <?php if (!empty($medicalHistories)): ?>
+                    <?php foreach($medicalHistories as $mh): ?>
+
+                    <?php $type = "";
+                      if ($mh->is_fvrcp) {$type = "FVRCP";} 
+                      else if ($mh->is_deworm) {$type = "Deworm";} 
+                      else if ($mh->is_flea) {$type = "Flea";} 
+                      else if ($mh->is_rabies) {$type = "Rabies";} 
+                      else if ($mh->is_other) {$type = "Other";} 
+                      else {$type = "No Type";} 
+                    ?>
+                    <div class="scroll1 no-horizontal-scroll">
+                      <div class="medical-data-cont" data-ix="medical-data-click">
+                        <div class="medical-type-cont">
+                          <div class="medical-data-type"><?= $type ?></div>
+                        </div>
+                        <div class="medical-date-cont">
+                          <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
+                        </div>
+                        <div class="medical-notes-cont">
+                          <div class="medical-data-notes"><?= h($mh->notes) ?></div>
+                        </div>
+                        <div class="medical-data-action-cont">
+                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
+                            <div class="profile-action-button sofware">-</div>
+                            <div>edit</div>
+                          </a>
+                          <a class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
+                            <div class="basic profile-action-button"></div>
+                            <div>delete</div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  <?php endforeach; ?>
+                  <?php else: ?>
+                    <a class="card w-clearfix w-inline-block"> 
+                          <div class="card-h1">This cat currently has no medical records.</div>
+                    </a>
+                  <?php endif; ?>
+                <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                </div>
+              </div>
+            </div>
             <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">
                 <div class="profile-content-cont">
                   <?php if (!empty($cat->cat_histories)): ?>
-                    <?php $fosters = [] ?>
                     <?php foreach($cat->cat_histories as $ch): ?>
                       <?php if(!empty($ch->foster_id)): ?>
-                        <?php $fosters[] = $ch->foster ?>
+                        <?php $foster = $ch->foster ?>
+                        <?php break; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
-                    <?php if(!empty($fosters)) :?>
+                    <?php if(!empty($foster)) :?>
                       <div class="profile-text-header">Foster Home</div>
-                      <?php foreach($fosters as $foster): ?>
-                        <div class="card-cont card-wrapper w-dyn-item">
-                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
-                          <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
-                          <div class="card-field-wrap">
+                      <div class="card-cont card-wrapper w-dyn-item">
+                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
+                        <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
+                        <div class="card-field-wrap">
+                            <div class="card-field-cont">
                               <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Rating:</div>
-                                  <div class="card-field-text"><?= h($foster->rating) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Email:</div>
-                                  <div class="card-field-text"><?= h($foster->email) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Phone:</div>
-                                  <div class="card-field-text"><?= h($foster->phone) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Address:</div>
-                                  <div class="card-field-text"><?= h($foster->address) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Availability:</div>
-                                  <div class="card-field-text"><?= h($foster->avail) ?></div>
-                              </div>
-                              </div>
-                              <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                  <div class="card-h3">Start Date:</div>
-                                  <div class="card-field-text"><?= h($ch->start_date) ?></div>
-                              </div>
-                                  <div class="card-h3">End Date:</div>
-                                  <div class="card-field-text"><?= h($ch->end_date) ?></div>
-                              </div>
-                          </div>
-                          </a>
+                                <div class="card-h3">Rating:</div>
+                                <div class="card-field-text"><?= h($foster->rating) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Email:</div>
+                                <div class="card-field-text"><?= h($foster->email) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Phone:</div>
+                                <div class="card-field-text"><?= h($foster->phone) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Address:</div>
+                                <div class="card-field-text"><?= h($foster->address) ?></div>
+                            </div>
+                            </div>
+                            <div class="card-field-cont">
+                            <div class="card-field-cont">
+                                <div class="card-h3">Availability:</div>
+                                <div class="card-field-text"><?= h($foster->avail) ?></div>
+                            </div>
+                            </div>
                         </div>
-                      <?php endforeach; ?>
-                      <a class="card w-clearfix w-inline-block">
-                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-                      </a>
+                        </a>
+                      </div>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block"> 
                         <div class="card-h1">This cat is currently not in a foster home. </div>
@@ -308,7 +353,28 @@
                     <?php endif; ?>           
                 </div>
             </div>
-            <div class="w-tab-pane" data-w-tab="Tab 5"></div>
+            <div class="w-tab-pane" data-w-tab="Tab 5">
+            	<div class="profile-text-header">Uploaded Photos</div>
+		           <table class="table">
+		             <tr>
+		               <th width="5%">#</th>
+		               <th width="20%">File</th>
+		               <th width="12%">Upload Date</th>
+		             </tr>
+		             <?php if($photosCountTotal > 0): $count = 0; ?>
+		               <?php foreach($photos as $photo): $count++;?>
+		               <tr>
+		                 <td><?php echo $count; ?></td>
+		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext); ?></td>
+		                 <td><?php echo $photo->created; ?></td>
+		               </tr>
+		               <?php endforeach; ?>
+		             <?php else: ?>
+		               <tr><td colspan="3">No file(s) found...</td></tr>
+		             <?php endif; ?>
+		           </table>
+               <div class="profile-text-header">Uploaded Files (todo...)</div>
+            </div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
         </div>
@@ -317,7 +383,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -335,7 +401,7 @@
   </div>
   <div class="notify-cont w-hidden-main">
     <div class="notify-overview">Overview</div>
-    <!--<div class="notify-medical">Medical Information</div>-->
+    <div class="notify-medical">Medical Information</div>
     <div class="notify-foster">Foster Home</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
@@ -352,6 +418,27 @@
       </div>
     </div>
   </div> 
+
+
+<div class="add-adopter-floating-overlay add-photo">
+  <div class="confirm-cont add-photo-inner">
+    <div class="confirm-text">Choose a Photo...</div>
+      <?php 
+        echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
+        //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <!-- <a class="delete add-photo-btn confirm-button w-button" href="#">Upload!</a> -->
+      <?php
+      	echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+      	echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
 
 <div class="add-adopter-floating-overlay add-adopter">
 	<div class="confirm-cont add-adopter-inner">
@@ -395,26 +482,119 @@
       <div class="button-icon-text">Delete</div><img data-ix="add-click" src="/img/delete-01.png" width="55">
     </div>
   </div><img class="button-paw" data-ix="paw-click" src="/img/add-paw.png" width="60">
+<div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
+</div>
+
+<div id="dialog-confirm-foster" title="Foster this kitten?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
+</div>
+
+<div id="dialog-confirm-record" title="Delete this record?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
+</div>
 <script>
 $(function () {
+
 	var current_kitty = new Cat();
+  var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){
-		$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
-			$('.add-adopter').css('display','none');
-			$('.add-adopter-inner').css('display','none');
-			$('.add-adopter-inner').css('opacity','0');
-			current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+	 $( "#dialog-confirm" ).dialog({
+		  resizable: false,
+		  height: "auto",
+		  width: 400,
+		  modal: true,
+		  buttons: {
+			"Adopt!": function() {
+			    $( this ).dialog( "close" );
+				$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
+					$('.add-adopter').css('display','none');
+					$('.add-adopter-inner').css('display','none');
+					$('.add-adopter-inner').css('opacity','0');
+					current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+				});
+			},
+			Cancel: function() {
+			  $( this ).dialog( "close" );
+			}
+		  }
 		});
 	});
-  calculateAndPopulateAgeFields();
+  
   $('.add-foster-btn').click(function(){
-    $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
-      $('.add-foster').css('display','none');
-      $('.add-foster-inner').css('display','none');
-      $('.add-foster-inner').css('opacity','0');
-      current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+	 $( "#dialog-confirm-foster" ).dialog({
+		  resizable: false,
+		  height: "auto",
+		  width: 400,
+		  modal: true,
+		  buttons: {
+			"Foster!": function() {
+			    $( this ).dialog( "close" );
+				$.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+				  $('.add-foster').css('display','none');
+				  $('.add-foster-inner').css('display','none');
+				  $('.add-foster-inner').css('opacity','0');
+				  current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+				});
+			},
+			Cancel: function() {
+			  $( this ).dialog( "close" );
+			}
+		  }
+		});
+  });
+
+  $('.delete-record-btn').click(function(e){
+   var parent = $(this).parent().parent().parent();
+   var that = $(this); 
+   $( "#dialog-confirm-record" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+      "Delete!": function() {
+        $.get(deleteRecord+'/'+that.data('mh'));
+        $(this).dialog( "close" );
+        parent.remove();
+      },
+      Cancel: function() {
+        $(this).dialog( "close" );
+        $('.no-horizontal-scroll').scrollLeft(0);
+      }
+      }
     });
   });
+  $('.add-photo-btn').click(function(){
+
+    //alert('you clicked the button!');
+   
+   /*
+   $( "#dialog-confirm-upload" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+      "Foster!": function() {
+          $( this ).dialog( "close" );
+        $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
+          $('.add-foster').css('display','none');
+          $('.add-foster-inner').css('display','none');
+          $('.add-foster-inner').css('opacity','0');
+          current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+        });
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+      }
+    });
+    */
+
+
+  });
+
 });
 </script>
