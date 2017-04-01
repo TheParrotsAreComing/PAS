@@ -18,10 +18,35 @@ class TagsController extends AppController
      */
     public function index()
     {
-        $tags = $this->paginate($this->Tags);
+        $query = $this->Tags->find()->where(['is_deleted'=>0]);
+        $tags = $this->paginate($query);
 
         $this->set(compact('tags'));
         $this->set('_serialize', ['tags']);
+
+        if ($this->request->is('POST')) {
+            $data = $this->request->data;
+            $data['type_bit'] = 0;
+            $data['label'] = $data['tag'];
+            $data['color'] = $data['custom-color'];
+            $data['type_bit'] += $data['cat-checkbox'];
+            $data['type_bit'] += $data['adopter-checkbox'] * 10;
+            $data['type_bit'] += $data['foster-checkbox'] * 100;
+            $data['is_deleted'] = false;
+            if (empty($data['tag-id'])) {
+                $tag = $this->Tags->newEntity();
+                $tag = $this->Tags->patchEntity($tag, $data);
+                $this->Tags->save($tag);
+            } else {
+                $tag = $this->Tags->get($data['tag-id']);
+                $tag['label'] = $data['tag'];
+                $tag['color'] = $data['custom-color'];
+                $tag['type_bit'] = $data['type_bit'];
+                $this->Tags->save($tag);
+            }
+
+            $this->redirect(['controller'=>'tags','action'=>'index']);
+        }
     }
 
     /**
@@ -137,5 +162,13 @@ class TagsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function ajaxDelete() {
+        $this->autoRender = false;
+        $tag = $this->Tags->get($this->request->data['tag_id']);
+        $tag['is_deleted'] = 1;
+        $this->Tags->save($tag);
     }
 }

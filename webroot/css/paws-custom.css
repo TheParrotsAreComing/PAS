@@ -233,7 +233,6 @@ html {
     display: inline-block;
 }
 
-
 .example-tag-wrapper {
     text-align: center;
 }
@@ -251,4 +250,8 @@ html {
 .no-horizontal-scroll {
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.display-none {
+  display: none; 
 }

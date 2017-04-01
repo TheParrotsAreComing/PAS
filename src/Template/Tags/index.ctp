@@ -1,72 +1,3 @@
-<style>
-    select option:first-child {
-        color: #99a5c2;
-    }
-
-    .scroll {
-      width: 20px;
-      height: 200px;
-      overflow: auto;
-      float: left;
-      margin: 0 10px;
-    }
-    .scroll1::-webkit-scrollbar {
-      width: 5px;
-    }
-    .scroll1::-webkit-scrollbar-track {
-      background: #fff;
-    }
-    .scroll1::-webkit-scrollbar-thumb {
-      background: #5d5d5d
-    }
-    .star-rating {
-      font-family: 'FontAwesome';
-    }
-    .star-rating > fieldset {
-      border: none;
-    }
-    .star-rating > fieldset:not(:checked) > input {
-      position: absolute;
-      clip: rect(0, 0, 0, 0);
-    }
-    .star-rating > fieldset:not(:checked) > label {
-      float: right;
-      overflow: hidden;
-      white-space: nowrap;
-      cursor: pointer;
-      color: #0172FF;
-      font-weight: 100;
-    }
-    .star-rating > fieldset:not(:checked) > label:before {
-      content: '\f006  ';
-    }
-    .star-rating > fieldset:not(:checked) > label:hover,
-    .star-rating > fieldset:not(:checked) > label:hover ~ label {
-      color: #0172FF;
-      text-shadow: 0 0 3px #0172FF;
-    }
-    .star-rating > fieldset:not(:checked) > label:hover:before,
-    .star-rating > fieldset:not(:checked) > label:hover ~ label:before {
-      content: '\f005  ';
-    }
-    .star-rating > fieldset > input:checked ~ label:before {
-      content: '\f005  ';
-    }
-    .star-rating > fieldset > label:active {
-      position: relative;
-      }
-    label {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      margin-bottom: 0;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-      a {
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      }
-</style>
-
-
   <div class="body">
     <div class="add-view column">
       <div class="add-cont scroll1" data-ix="page-load-fade-in">
@@ -101,41 +32,47 @@
             
             </div>
           </div>
-          <form class="add-tag-input-cont" data-name="Email Form 5" id="email-form-5" name="email-form-5">
-            <div class="add-field-h2">create/edit tag:</div>
-            <input class="add-tag-input w-input" data-name="tag" id="tag" maxlength="256" name="tag" placeholder="Enter a tag..." type="text">
+
+          <?= $this->Form->create('Tags'); ?>
+          <div class="add-tag-input-cont" data-name="Email Form 5" name="email-form-5" id="email-form-5">
+            <div class="add-field-h2"><span class="create-label">create</span><span class="edit-label display-none">edit "<span class="edit-label-original"></span>"</span> tag:</div>
+            <?= $this->Form->input('tag-id', ['type'=>'hidden', 'id'=>'tag-id']); ?>
+            <?= $this->Form->input('tag', ['class'=>'add-tag-input w-input', 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'tag', 'maxlength'=>256, 'name'=>'tag', 'placeholder'=>'Enter a tag...', 'type'=>'text', 'label'=>false]); ?>
             <div class="add-tag-checkbox-wrap">
-              <div class="add-tag-checkbox-cont w-checkbox">
+              <div class="cat-checkbox-div add-tag-checkbox-cont w-checkbox checked">
                 <div class="checkbox-label-symbol">E</div>
-                <input class="checkbox-webflow w-checkbox-input" data-name="Checkbox" id="checkbox" name="checkbox" type="checkbox">
+                <?= $this->Form->checkbox('cat', ['checked'=>true, 'class'=>'checkbox-webflow w-checkbox-input cat-checkbox', 'data-name'=>'cat-checkbox', 'id'=>'cat-checkbox', 'name'=>'cat-checkbox', 'label'=>false]); ?>
                 <label class="checkbox-label w-form-label" for="checkbox">cat</label>
               </div>
-              <div class="add-tag-checkbox-cont w-checkbox">
+              <div class="adopter-checkbox-div add-tag-checkbox-cont w-checkbox">
                 <div class="checkbox-label-symbol">F</div>
-                <input class="checkbox-webflow w-checkbox-input" data-name="Checkbox 3" id="checkbox-3" name="checkbox-3" type="checkbox">
+                <?= $this->Form->checkbox('adopter', ['class'=>'checkbox-webflow w-checkbox-input adopter-checkbox', 'data-name'=>'adopter-checkbox', 'id'=>'adopter-checkbox', 'name'=>'adopter-checkbox', 'label'=>false]); ?>
                 <label class="checkbox-label w-form-label" for="checkbox-3">adopter</label>
               </div>
-              <div class="add-tag-checkbox-cont checked w-checkbox">
+              <div class="foster-checkbox-div add-tag-checkbox-cont w-checkbox">
                 <div class="checkbox-label-symbol">G</div>
-                <input checked="checked" class="checkbox-webflow w-checkbox-input" data-name="Checkbox 4" id="checkbox-4" name="checkbox-4" type="checkbox">
+                <?= $this->Form->checkbox('foster', ['class'=>'checkbox-webflow w-checkbox-input foster-checkbox', 'data-name'=>'foster-checkbox', 'id'=>'foster-checkbox', 'name'=>'foster-checkbox', 'label'=>false]); ?>
                 <label class="checkbox-label w-form-label" for="checkbox-4">foster</label>
               </div>
             </div>
             <div class="add-tag-color-wrap">
               <ul class="add-tag-color-cont w-list-unstyled">
-                <li class="add-tag-color"></li>
-                <li class="add-tag-color green"></li>
-                <li class="add-tag-color orange"></li>
-                <li class="add-tag-color red"></li>
+                <li class="add-tag-color cursor-point blue" data-color="2485ff"></li>
+                <li class="add-tag-color cursor-point green" data-color="3ed84a"></li>
+                <li class="add-tag-color cursor-point orange" data-color="ffa722"></li>
+                <li class="add-tag-color cursor-point red" data-color="ec4141"></li>
               </ul>
               <div class="custom-color-wrap">
-                <div>Custom Color:</div>
-                <input class="add-tag-color-input w-input" data-name="Field" id="Field-2" maxlength="256" name="Field" placeholder="#123abc" required="required" type="text">
+                <div>Custom Color: #</div>
+                <?= $this->Form->input('Custom Color', ['label'=>false, 'class'=>'add-tag-color-input w-input', 'data-name'=>'Custom Color', 'id'=>'custom-color', 'maxlength'=>'6', 'name'=>'custom-color', 'placeholder'=>'123abc', 'required'=>true, 'type'=>'text']); ?>
               </div>
             </div>
-          </form>
+          </div>
+          <div class="cancel-edit-div display-none example-tag-wrapper">
+            <?= $this->Form->button('Cancel Edit', ['class'=>'add-cancel', 'type'=>'button', 'id'=>'cancel-edit']); ?>
+          </div>
           <div class="add-button-cont"><a class="add-cancel" href="cat-list.html">Cancel</a>
-            <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Save">
+            <?= $this->Form->submit('Submit', ['class'=>'add-submit w-button', 'data-wait'=>'Please wait...']); ?>
           </div>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
@@ -150,22 +87,27 @@
   <div class="floating-overlay">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this tag?</div>
-      <div class="tag-cont warning" data-ix="tag-action-show-hide">
-        <div class="tag-text">due for immunization sdasd a dsad asd sda</div>
+      <div class="tag-to-delete-div">
       </div>
       <div class="confirm-button-wrap w-form">
-        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2"><a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-          <input class="confirm-button delete w-button" data-wait="Please wait..." type="submit" value="Delete">
+        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+          <?= $this->Form->button('Cancel', ['class'=>'cancel confirm-button w-button', 'data-ix'=>'confirm-cancel', 'data-id'=>'confirm-cancel', 'type'=>'button']); ?>
+          <!--<a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>-->
+          <?= $this->Form->button('Delete', ['class'=>'confirm-button delete w-button', 'data-wait'=>'Please wait...', 'type'=>'button']); ?>
+          <!--<input class="confirm-button delete w-button" data-wait="Please wait..." type="submit" value="Delete">-->
         </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
         </div>
+
+
         <div class="w-form-fail">
           <div>Oops! Something went wrong while submitting the form</div>
         </div>
       </div>
     </div>
   </div>
+  <?= $this->Form->end(); ?>
 
 <script>
 
@@ -191,17 +133,96 @@
 }).call(this);
 
 $(document).ready(function() {
-  var tags = JSON.parse('<?= json_encode($tags) ?>');
-  console.log(tags);
+  var tags = JSON.parse("<?= addslashes(json_encode($tags)) ?>");
+
+  $('#cancel-edit').on('click', function() {
+    $('.cancel-edit-div').slideUp();
+    $('#tag-id').val('');
+    $('.create-label').css('display', 'inline');
+    $('.edit-label').hide();
+    $('#tag').val('');
+  });
   
   $('.index-tag-cont').on('click', '.edit-tag', function() {
+
     var tag_div = $(this).closest('.index-tag');
     var tag_id = tag_div.attr('data-id');
 
-    //var tag = $.grep(tags, function(e){ return e.id == tag_id; })[0];
-    //console.log(tag['label']);
+    var tag = $.grep(tags, function(e){ return e.id == tag_id; })[0];
 
-    //$('#tag').val(tag['label']);
+    $('.cancel-edit-div').slideDown();
+    $('#tag-id').val(tag_id);
+    $('.create-label').hide();
+    $('.edit-label-original').text(tag['label']);
+    $('.edit-label').css('display', 'inline');
+
+    $('#tag').val(tag['label']);
+    $('.w-checkbox').removeClass('checked');
+    if (tag['type_bit'] & 100) {
+      $('.cat-checkbox-div').addClass('checked');
+      $('.cat-checkbox').prop('checked',true);
+    } else {
+      $('.cat-checkbox').prop('checked',false);
+    }
+    if (tag['type_bit'] & 10) {
+      $('.adopter-checkbox-div').addClass('checked');
+      $('.adopter-checkbox').prop('checked',true);
+    } else {
+      $('.adopter-checkbox').prop('checked',false);
+    }
+    if (tag['type_bit'] & 1) {
+      $('.foster-checkbox-div').addClass('checked');
+      $('.foster-checkbox').prop('checked',true);
+    } else {
+      $('.foster-checkbox').prop('checked',false);
+    }
+    $('.add-tag-color').css('box-shadow','');
+    $('.add-tag-color[data-color="'+tag['color']+'"]').css('box-shadow','0 0 12px 0 #303030');
+    $('#custom-color').val(tag['color']);
+  });
+
+  $('.w-checkbox-input').on('click', function() {
+    if ($(this).is(':checked')) {
+      $(this).closest('.w-checkbox').addClass('checked');
+    } else {
+      $(this).closest('.w-checkbox').removeClass('checked');
+    }
+  });
+
+  $('.add-tag-color').on('click', function() {
+    $('.add-tag-color').css('box-shadow','');
+    $(this).css('box-shadow','0 0 12px 0 #303030');
+    $('#custom-color').val($(this).data('color'));
+  });
+
+  $('.delete-tag').on('click', function() {
+    $('.tag-to-delete-div').empty();
+    $('#tag-id').val($(this).closest('.index-tag').attr('data-id'));
+    var tag_id = $('#tag-id').val();
+
+    var tag = $.grep(tags, function(e){ return e.id == tag_id; })[0];
+    var tag_to_delete = $('<div/>');
+    tag_to_delete.addClass('tag-cont');
+    tag_to_delete.css('color', '#'+tag['color']);
+    tag_to_delete.css('border-color', '#'+tag['color']);
+
+    var tag_text = $('<div/>');
+    tag_text.addClass('tag-text');
+    tag_text.text(tag['label']);
+
+    tag_to_delete.append(tag_text);
+    $('.tag-to-delete-div').append(tag_to_delete);
+  });
+
+  $('.delete').on('click', function() {
+    var tag_id = $('#tag-id').val();
+    $.ajax({
+      'url' : '<?= $this->Url->build(['controller'=>'tags','action'=>'ajaxDelete']); ?>',
+      'type' : 'POST',
+      'data' : { 'tag_id' : tag_id }
+    }).done(function() {
+      location.reload();
+    });
   });
 
 });
