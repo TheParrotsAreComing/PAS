@@ -44,8 +44,8 @@
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="/img/cat-01.png">
             </a>
-            <!--<a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
-            </a>-->
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="/img/medical-01.png">
+            </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="foster-notification" data-w-tab="Tab 3"><img id="fosterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-foster-01.png">
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img id="adopterTab" class="cat-profile-tabs-icon" src="/img/cat-profile-adopter-01.png">
@@ -167,7 +167,64 @@
                 </div>
               </div>
             </div>
-            <!--<div class="w-tab-pane" data-w-tab="Tab 2"></div>-->
+            <div class="w-tab-pane" data-w-tab="Tab 2" id="medHistory">
+              <div class="expand profile-content-cont">
+                <div class="profile-text-header">Medical History</div>
+                <div class="medical-wrap">
+                  <div class="medical-header-cont">
+                    <div class="medical-type-cont">
+                      <div class="medical-header">Type</div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-header">Date</div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-header">Notes</div>
+                    </div>
+                  </div>
+                  <?php if (!empty($medicalHistories)): ?>
+                    <?php foreach($medicalHistories as $mh): ?>
+                    <?php $type = "";
+                      if ($mh->is_fvrcp) {$type = "FVRCP";} 
+                      else if ($mh->is_deworm) {$type = "Deworm";} 
+                      else if ($mh->is_flea) {$type = "Flea";} 
+                      else if ($mh->is_rabies) {$type = "Rabies";} 
+                      else if ($mh->is_other) {$type = "Other";} 
+                      else {$type = "No Type";} 
+                    ?>
+                    <div class="medical-data-wrap scroll1">
+                      <div class="medical-data-cont" data-ix="medical-data-click">
+                        <div class="medical-type-cont">
+                          <div class="medical-data-type"><?= $type ?></div>
+                        </div>
+                        <div class="medical-date-cont">
+                          <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
+                        </div>
+                        <div class="medical-notes-cont">
+                          <div class="medical-data-notes"><?= h($mh->notes) ?></div>
+                        </div>
+                        <div class="medical-data-action-cont">
+                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id]) ?>">
+                            <div class="profile-action-button sofware">-</div>
+                            <div>edit</div>
+                          </a>
+                          <a class="medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete', $mh->id, $cat->id]) ?>">
+                            <div class="basic profile-action-button"></div>
+                            <div>delete</div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  <?php endforeach; ?>
+                  <?php else: ?>
+                    <a class="card w-clearfix w-inline-block"> 
+                          <div class="card-h1">This cat currently has no medical records.</div>
+                    </a>
+                  <?php endif; ?>
+                <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                </div>
+              </div>
+            </div>
             <div class="w-tab-pane" data-w-tab="Tab 3" id="fosterCard">
                 <div class="profile-content-cont">
                   <?php if (!empty($cat->cat_histories)): ?>
@@ -296,25 +353,26 @@
                 </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 5">
-            	<div class="profile-text-header">Uploaded Files</div>
+            	<div class="profile-text-header">Uploaded Photos</div>
 		           <table class="table">
 		             <tr>
 		               <th width="5%">#</th>
 		               <th width="20%">File</th>
 		               <th width="12%">Upload Date</th>
 		             </tr>
-		             <?php if($filesRowNum > 0):$count = 0; ?>
-		               <?php foreach($files as $file): $count++;?>
+		             <?php if($photosCountTotal > 0): $count = 0; ?>
+		               <?php foreach($photos as $photo): $count++;?>
 		               <tr>
 		                 <td><?php echo $count; ?></td>
-		                 <td><?= $this->Html->link('View File', ['controller' => 'files', 'action' => 'viewFile', $file->id]) ?></td>
-		                 <td><?php echo $file->created; ?></td>
+		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'.'.$photo->file_ext); ?></td>
+		                 <td><?php echo $photo->created; ?></td>
 		               </tr>
 		               <?php endforeach; ?>
 		             <?php else: ?>
 		               <tr><td colspan="3">No file(s) found...</td></tr>
 		             <?php endif; ?>
 		           </table>
+               <div class="profile-text-header">Uploaded Files (todo...)</div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
@@ -342,7 +400,7 @@
   </div>
   <div class="notify-cont w-hidden-main">
     <div class="notify-overview">Overview</div>
-    <!--<div class="notify-medical">Medical Information</div>-->
+    <div class="notify-medical">Medical Information</div>
     <div class="notify-foster">Foster Home</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
@@ -364,8 +422,8 @@
   <div class="confirm-cont add-photo-inner">
     <div class="confirm-text">Choose a Photo...</div>
       <?php 
-        echo $this->Form->create($file, ['enctype' => 'multipart/form-data']);
-        echo $this->Form->input('file', ['type' => 'file']);
+        echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
         //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
       ?>
     <br/>
@@ -431,6 +489,13 @@
 </div>
 <script>
 $(function () {
+  /*var MH_PATH = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action' => '']) ?>"
+  $.ajax({
+      url:MH_PATH,
+      type: 'get'
+  }).done(function(result){
+      $('#medHistory').html(result);
+  })*/
 	var current_kitty = new Cat();
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){

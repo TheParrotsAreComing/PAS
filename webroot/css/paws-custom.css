@@ -27,6 +27,19 @@ html {
     content: '*';
 }
 
+
+/*
+	Fixes the weird horizontal scrollbar showing when doing transitions
+*/
+
+.list-wrapper {
+    overflow-x: hidden;
+}
+
+/*
+	Fixes the positioning of the ID on cards
+*/
+
 .list-id-cont {
     position: relative;
     left: 317px;

@@ -71,6 +71,10 @@ class CatMedicalHistoriesTable extends Table
             ->allowEmpty('is_rabies');
 
         $validator
+            ->boolean('is_other')
+            ->allowEmpty('is_other');
+
+        $validator
             ->date('administered_date')
             ->requirePresence('administered_date', 'create')
             ->notEmpty('administered_date');

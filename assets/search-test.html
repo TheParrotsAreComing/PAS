@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--  Last Published: Thu Mar 30 2017 19:40:41 GMT+0000 (UTC)  -->
-<html data-wf-page="589f9ebccf4e78737d592725" data-wf-site="58267cb4b29856df44e502fd">
+<html data-wf-page="58cae9258f2a72903d126f44" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>Fosters Add</title>
-  <meta content="Fosters Add" property="og:title">
+  <title>Search Test</title>
+  <meta content="Search Test" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/components.css" rel="stylesheet" type="text/css">
@@ -131,44 +131,65 @@
     </div>
   </div>
   <div class="body">
-    <div class="add-view column">
-      <div class="add-cont scroll1" data-ix="page-load-fade-in">
-        <div class="add-header">
-          <div class="add-field-h1">Create a Foster</div><img class="add-picture" height="90" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" width="90">
+    <div class="column search">
+      <div class="search-type-wrap w-tabs" data-duration-in="300" data-duration-out="100">
+        <div class="search-type-cont w-tab-menu">
+          <a class="w--current w-inline-block w-tab-link" data-w-tab="Tab 1">
+            <div>Tab 1</div>
+          </a>
+          <a class="w-inline-block w-tab-link" data-w-tab="Tab 2">
+            <div>Tab 2</div>
+          </a>
+          <a class="tab-link w-inline-block w-tab-link" data-w-tab="Tab 3">
+            <div>Tab 3</div>
+          </a>
         </div>
-        <div class="add-input-form-wrap w-form">
-          <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
-            <label class="add-field-h2" for="First-Name">Personal Information</label>
-            <div class="add-field-seperator"></div>
-            <label class="add-field-h3" for="First-Name">First Name:</label>
-            <input autofocus="autofocus" class="add-input w-input" data-name="First Name" id="First-Name" maxlength="256" name="First-Name" placeholder="John" required="required" type="text">
-            <label class="add-field-h3" for="Last-Name">Last Name:</label>
-            <input class="add-input w-input" data-name="Last Name" id="Last-Name" maxlength="256" name="Last-Name" placeholder="Doe" required="required" type="text">
-            <label class="add-field-h3" for="E-mail">e-mail:</label>
-            <input class="add-input w-input" data-name="E-mail" id="E-mail" maxlength="256" name="E-mail" placeholder="john.doe@gmail.com" type="email">
-            <label class="add-field-h2" for="First-Name">Contact Information</label>
-            <div class="add-field-seperator"></div>
-            <label class="add-field-h3" for="Address">Address:</label>
-            <input class="add-input w-input" data-name="Address" id="Address" maxlength="256" name="Address" placeholder="1234 Elementary Avenue" required="required" type="text">
-            <label class="add-field-h3" for="City">City:</label>
-            <input class="add-input w-input" data-name="City" id="City" maxlength="256" name="City" placeholder="Jacksonville" required="required" type="text">
-            <label class="add-field-h3" for="State">State:</label>
-            <input class="add-input w-input" data-name="State" id="State" maxlength="256" name="State" placeholder="Alabama" required="required" type="text">
-            <label class="add-field-h3" for="Phone">Phone:</label>
-            <input class="add-input w-input" data-name="Phone" id="Phone" maxlength="256" name="Phone" placeholder="(123) 456-7890" required="required" type="email">
-            <div class="add-button-cont"><a class="add-cancel" href="foster-list.html">Cancel</a>
-              <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
-            </div>
-          </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form</div>
-          </div>
+        <div class="search-results-cont w-tab-content">
+          <div class="w--tab-active w-tab-pane" data-w-tab="Tab 1"></div>
+          <div class="w-tab-pane" data-w-tab="Tab 2"></div>
+          <div class="w-tab-pane" data-w-tab="Tab 3"></div>
         </div>
       </div>
+      <div class="search-type-wrap">
+        <a class="left profile-action-button-cont w-inline-block" href="#">
+          <div class="search-icon">e</div>
+          <div>cats</div>
+        </a>
+        <a class="left profile-action-button-cont w-inline-block" href="#">
+          <div class="search-icon">f</div>
+          <div>adopters</div>
+        </a>
+        <a class="left profile-action-button-cont w-inline-block" href="#">
+          <div class="search-icon">g</div>
+          <div>fosters</div>
+        </a>
+      </div>
+      <div class="search-filter-sort-cont">
+        <a class="left profile-action-button-cont w-inline-block" href="#">
+          <div class="profile-action-button sofware">-</div>
+          <div>fiLTER</div>
+        </a>
+        <a class="left profile-action-button-cont w-inline-block" href="#">
+          <div class="profile-action-button sofware">-</div>
+          <div>SORT</div>
+        </a>
+      </div>
     </div>
+    <div class="floating-overlay"></div>
+    <div class="button-cont">
+      <a class="button-01 w-inline-block" href="cat-add.html">
+        <div class="button-icon-text">Add Cat</div><img data-ix="add-click" src="images/add-01.png" width="55">
+      </a>
+      <a class="button-02 w-inline-block" data-ix="filter-click" href="#">
+        <div class="button-icon-text">Sort/Filter</div><img data-ix="add-click" src="images/filter-01.png" width="55">
+      </a>
+      <a class="button-03 w-inline-block" href="#">
+        <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
+      </a>
+      <a class="button-04 w-inline-block" href="#">
+        <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
+      </a>
+    </div><img class="button-paw" data-ix="paw-click" src="images/add-paw.png" width="60">
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="js/paws-administrative-system.js" type="text/javascript"></script>

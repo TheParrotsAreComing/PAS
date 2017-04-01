@@ -87,6 +87,10 @@ class FilesTable extends Table
             ->requirePresence('mime_type', 'create')
             ->notEmpty('mime_type');
 
+        $validator
+            ->requirePresence('file_ext', 'create')
+            ->notEmpty('file_ext');
+
         return $validator;
     }
 

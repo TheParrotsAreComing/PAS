@@ -90,6 +90,7 @@ CREATE TABLE files (
     mime_type VARCHAR(128) NOT NULL,
     file_size INT NOT NULL,
 	file_path VARCHAR(256) NOT NULL,
+    file_ext VARCHAR(10) NOT NULL,
     created DATETIME NOT NULL,
     is_deleted BOOLEAN NOT NULL
 ); 
@@ -155,6 +156,7 @@ CREATE TABLE cat_medical_histories (
 	is_deworm BOOLEAN,
 	is_flea BOOLEAN,
 	is_rabies BOOLEAN,
+    is_other BOOLEAN,
 	administered_date DATE NOT NULL,
 	notes TEXT,
 	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id)

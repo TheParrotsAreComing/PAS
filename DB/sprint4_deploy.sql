@@ -25,6 +25,12 @@ CREATE TABLE cat_medical_histories (
 );
 END IF;
 
+-- add is_other to medical histories
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='cat_medical_histories' AND column_name='is_other'))
+THEN
+ALTER TABLE cat_medical_histories ADD is_other BOOLEAN cat_medical_histories;
+END IF;
+
 -- change columns in files to all be not nullable
 IF EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='entity_id' AND is_nullable = 'YES'))
 THEN
@@ -66,6 +72,12 @@ END IF;
 IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='mime_type'))
 THEN
 ALTER TABLE files ADD mime_type VARCHAR(128) NOT NULL;
+END IF;
+
+-- add file ext
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='file_ext'))
+THEN
+ALTER TABLE files ADD file_ext VARCHAR(10) NOT NULL;
 END IF;
 
 
