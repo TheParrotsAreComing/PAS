@@ -232,3 +232,8 @@ html {
 .full-width {
     display: inline-block;
 }
+
+.no-horizontal-scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

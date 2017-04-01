@@ -17,6 +17,7 @@ from scratch
     DROP TABLE IF EXISTS users; 
     DROP TABLE IF EXISTS cats_adoption_events; 
     DROP TABLE IF EXISTS adoption_events; 
+    DROP TABLE IF EXISTS cat_medical_histories;
     DROP TABLE IF EXISTS cat_histories;
     DROP TABLE IF EXISTS cats;
     DROP TABLE IF EXISTS files;
