@@ -364,7 +364,7 @@
 		               <?php foreach($photos as $photo): $count++;?>
 		               <tr>
 		                 <td><?php echo $count; ?></td>
-		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'.'.$photo->file_ext); ?></td>
+		                 <td><?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext); ?></td>
 		                 <td><?php echo $photo->created; ?></td>
 		               </tr>
 		               <?php endforeach; ?>
