@@ -79,7 +79,7 @@
               <div class="index-tag-header">all tags:</div>
               <div class="text-accent">click on an existing tag to edit!</div>
             </div>
-            <div class="index-tag-cont tag-div-scroll scroll1">
+            <div class="index-tag-cont no-horizontal-scroll scroll1">
 
               <?php foreach ($tags as $tag): ?>
                 <div class="index-tag" data-ix="medical-data-click" data-id="<?= $tag->id ?>">
