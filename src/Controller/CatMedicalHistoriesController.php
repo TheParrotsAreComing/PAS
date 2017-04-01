@@ -64,9 +64,10 @@ class CatMedicalHistoriesController extends AppController
             $this->request->data['administered_date'] = $date;
             $medOption = $this->request->data['medOption'];
             if($medOption == ''){
-                $this->Flash->success(__('The cat medical history has been saved.'));
+                $this->Flash->error(__('Please pick a medical option and try again'));
                 return;
             }
+            //debug($medOption);die;
             switch ($medOption) {
                 case 0:
                     $catMedicalHistory->is_fvrcp = true;
@@ -80,8 +81,12 @@ class CatMedicalHistoriesController extends AppController
                 case 3:
                     $catMedicalHistory->is_rabies = true;
                     break;
+                case 4:
+                	$catMedicalHistory->is_other = true;
+                	break;
                 default:
                     $this->flash->error(__('Please pick a medical option and try again'));
+                    return;
             }
             $catMedicalHistory = $this->CatMedicalHistories->patchEntity($catMedicalHistory, $this->request->data);
             $catMedicalHistory->cat_id = $cat_id; 

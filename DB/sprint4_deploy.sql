@@ -25,6 +25,12 @@ CREATE TABLE cat_medical_histories (
 );
 END IF;
 
+-- add is_other to medical histories
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='cat_medical_histories' AND column_name='is_other'))
+THEN
+ALTER TABLE cat_medical_histories ADD is_other BOOLEANcat_medical_histories;
+END IF;
+
 -- change columns in files to all be not nullable
 IF EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='files' AND column_name='entity_id' AND is_nullable = 'YES'))
 THEN

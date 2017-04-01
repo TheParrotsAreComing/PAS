@@ -156,6 +156,7 @@ CREATE TABLE cat_medical_histories (
 	is_deworm BOOLEAN,
 	is_flea BOOLEAN,
 	is_rabies BOOLEAN,
+    is_other BOOLEAN,
 	administered_date DATE NOT NULL,
 	notes TEXT,
 	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id)

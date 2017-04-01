@@ -186,9 +186,11 @@
                     <?php foreach($medicalHistories as $mh): ?>
                     <?php $type = "";
                       if ($mh->is_fvrcp) {$type = "FVRCP";} 
-                      else if ($mh->deworm) {$type = "Deworm";} 
+                      else if ($mh->is_deworm) {$type = "Deworm";} 
                       else if ($mh->is_flea) {$type = "Flea";} 
-                      else {$type = "Rabies";}
+                      else if ($mh->is_rabies) {$type = "Rabies";} 
+                      else if ($mh->is_other) {$type = "Other";} 
+                      else {$type = "No Type";} 
                     ?>
                     <div class="medical-data-wrap scroll1">
                       <div class="medical-data-cont" data-ix="medical-data-click">
