@@ -35,7 +35,7 @@
                     <div class="profile-notification-cont">
                       <?php foreach ($foster['tags'] as $tag): ?>                
                         <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
-                          <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" data-ix="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                          <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" data-ix="delete-tag" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                         </div>
                       <?php endforeach; ?>   
                     </div>
@@ -205,6 +205,17 @@
     </div>
   </div>
 
+  <div class="floating-overlay delete-tag">
+    <div class="confirm-cont tag-remove-inner">
+      <h4>Are you sure you want to delete this tag?</h4>
+      <div class="confirm-button-wrap w-form">
+        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+            <?= $this->Html->link('Delete Tag', ['controller'=>'fosters', 'action'=>'deleteTag', $tag->id], ['class'=>'delete confirm-button w-button']); ?>
+        </form>
+      </div>
+    </div>
+  </div> 
 
 <script>
   calculateAndPopulateAgeFields();
@@ -225,63 +236,48 @@
 			});
 		});
 
-        $('.add-tag-btn').click(function(e) {
-          e.stopPropagation();
-          e.preventDefault();
-          $.ajax({
-            url : "<?= $this->Url->build(['controller'=>'fosters','action'=>'attachTag']); ?>",
-            type : 'POST',
-            data : {
-              tag_id : $('#tag').val(),
-              foster_id : '<?= $foster->id ?>'
-            }
-          }).done(function(result) {
-            result = JSON.parse(result);
-            $('.add-tag').css('display','none');
-            $('.add-tag-inner').css('display','none');
-            $('.add-tag-inner').css('opacity','0');
+    $('.add-tag-btn').click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      $.ajax({
+        url : "<?= $this->Url->build(['controller'=>'fosters','action'=>'attachTag']); ?>",
+        type : 'POST',
+        data : {
+          tag_id : $('#tag').val(),
+          foster_id : '<?= $foster->id ?>'
+        }
+      }).done(function(result) {
+        result = JSON.parse(result);
+        $('.add-tag').css('display','none');
+        $('.add-tag-inner').css('display','none');
+        $('.add-tag-inner').css('opacity','0');
 
-            var tag_cont = $('<div/>');
-            tag_cont.addClass('tag-cont');
-            tag_cont.css('border-color','#'+result['color']);
-            tag_cont.css('color','#'+result['color']);
-            tag_cont.attr('data-id', result['id']);
+        var tag_cont = $('<div/>');
+        tag_cont.addClass('tag-cont');
+        tag_cont.css('border-color','#'+result['color']);
+        tag_cont.css('color','#'+result['color']);
+        tag_cont.attr('data-id', result['id']);
 
-            var tag_text = $('<div/>');
-            tag_text.addClass('tag-text');
-            tag_text.text(result['label']);
+        var tag_text = $('<div/>');
+        tag_text.addClass('tag-text');
+        tag_text.text(result['label']);
 
-            var tag_rmv = $('<a/>');
-            tag_rmv.addClass('tag-remove');
-            tag_rmv.attr('href', '#');
-            tag_rmv.css('color', '#'+result['color']);
-            tag_rmv.text('');
+        var tag_rmv = $('<a/>');
+        tag_rmv.addClass('tag-remove');
+        tag_rmv.attr('href', '#');
+        tag_rmv.css('color', '#'+result['color']);
+        tag_rmv.text('');
 
-            tag_cont.append(tag_text);
-            tag_cont.append(tag_rmv);
+        tag_cont.append(tag_text);
+        tag_cont.append(tag_rmv);
 
-            $('.profile-notification-cont').prepend(tag_cont);
+        $('.profile-notification-cont').prepend(tag_cont);
 
-            var dropdown_option = $('.tag_options option[value='+result['id']+']');
-            dropdown_option.remove();
-          });
-        });
+        var dropdown_option = $('.tag_options option[value='+result['id']+']');
+        dropdown_option.remove();
+      });
+    });
 
-        $('.profile-notification-cont').on('click', '.tag-remove', function() {
-            var parent_div = $(this).closest('.tag-cont');
-            var tag_id = parent_div.attr('data-id');
-            $.ajax({
-                url : "<?= $this->Url->build(['controller'=>'fosters','action'=>'deleteTag']); ?>",
-                type : 'POST',
-                data : {
-                    'foster_id' : '<?= $foster->id ?>',
-                    'tag_id' : tag_id
-                }
-            }).done(function(result) {
-                result = JSON.parse(result);
-                parent_div.fadeOut();
-                $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
-            });
-        });
+
     });
 </script>

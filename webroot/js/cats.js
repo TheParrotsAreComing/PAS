@@ -300,19 +300,6 @@ $(function () {
 		$('.add-foster-inner').css('opacity','0');
 	});
 
-
-	// add an existing tag
-	$('a[data-ix="add-tag"]').click(function() {
-		$('.add-tag').css('display','flex');
-		$('.add-tag-inner').css('display','flex');
-		$('.add-tag-inner').css('opacity','1');
-	});
-
-	$('.cancel').click(function() {
-		$('.add-tag').css('display','none');
-		$('.add-tag-inner').css('display','none');
-		$('.add-tag-inner').css('opacity','0');
-
 	//Show me the new select option for photos
 	$('a[data-ix="add-photo-click-desktop"]').click(function(){
 		$('.add-photo').css('display','flex');
@@ -325,8 +312,6 @@ $(function () {
 		$('.add-photo').css('display','none');
 		$('.add-photo-inner').css('display','none');
 		$('.add-photo-inner').css('opacity','0');
-
 	});
 
 });
-
