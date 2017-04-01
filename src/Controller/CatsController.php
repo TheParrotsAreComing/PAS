@@ -144,7 +144,7 @@ class CatsController extends AppController
             }
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories', 'cat_tags'));
 
         $this->set('_serialize', ['cat']);
     }

@@ -58,24 +58,14 @@
           <div class="profile-tab-wrap scroll1 w-tab-content">
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
               <div class="profile-notification-cont">
-                <div class="tag-cont warning">
-                  <div class="tag-text">due for immunization</div><a class="tag-remove" href="#"></a>
+                  <?php foreach ($cat['tags'] as $tag): ?>                
+                    <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
+                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                    </div>
+                  <?php endforeach; ?>
                 </div>
-                <div class="info tag-cont">
-                  <div class="tag-text">Playful</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="info tag-cont">
-                  <div class="tag-text">good with children</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="tag-cont urgent">
-                  <div class="tag-text">dislikes dogs</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="tag-cont urgent">
-                  <div class="tag-text">scratches</div><a class="tag-remove" href="#"></a>
-                </div>
-                <div class="success tag-cont">
-                  <div class="tag-text">microchipped</div><a class="tag-remove" href="#"></a>
-                </div>
+              <div class="example-tag-wrapper">
+                <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Cat Information</div>
@@ -488,6 +478,25 @@
 <div id="dialog-confirm-foster" title="Foster this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
 </div>
+
+<div class="floating-overlay add-tag">
+    <div class="confirm-cont add-tag-inner">
+      <h4>Select a tag to add</h4>
+      <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+        <div class="tag_options">
+          <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$cat_tags]) ?>
+        </div>
+      </form>
+      <br/>
+      <div class="confirm-button-wrap w-form">
+        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+        <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
+      </div>
+    </div>
+  </div> 
+
+
+
 <script>
 $(function () {
 
@@ -569,6 +578,65 @@ $(function () {
 
 
   });
+
+  $('.add-tag-btn').click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      $.ajax({
+        url : "<?= $this->Url->build(['controller'=>'cats','action'=>'attachTag']); ?>",
+        type : 'POST',
+        data : {
+          tag_id : $('#tag').val(),
+          cat_id : '<?= $cat->id ?>'
+        }
+      }).done(function(result) {
+        result = JSON.parse(result);
+        $('.add-tag').css('display','none');
+        $('.add-tag-inner').css('display','none');
+        $('.add-tag-inner').css('opacity','0');
+
+        var tag_cont = $('<div/>');
+        tag_cont.addClass('tag-cont');
+        tag_cont.css('border-color','#'+result['color']);
+        tag_cont.css('color','#'+result['color']);
+            tag_cont.attr('data-id', result['id']);
+
+        var tag_text = $('<div/>');
+        tag_text.addClass('tag-text');
+        tag_text.text(result['label']);
+
+        var tag_rmv = $('<a/>');
+        tag_rmv.addClass('tag-remove');
+        tag_rmv.attr('href', '#');
+        tag_rmv.css('color', '#'+result['color']);
+        tag_rmv.text('');
+
+        tag_cont.append(tag_text);
+        tag_cont.append(tag_rmv);
+
+        $('.profile-notification-cont').prepend(tag_cont);
+
+        var dropdown_option = $('.tag_options option[value='+result['id']+']');
+        dropdown_option.remove();
+      });
+    });
+
+    $('.profile-notification-cont').on('click', '.tag-remove', function() {
+        var parent_div = $(this).closest('.tag-cont');
+        var tag_id = parent_div.attr('data-id');
+        $.ajax({
+            url : "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>",
+            type : 'POST',
+            data : {
+                'cat_id' : '<?= $cat->id ?>',
+                'tag_id' : tag_id
+            }
+        }).done(function(result) {
+            result = JSON.parse(result);
+            parent_div.fadeOut();
+            $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+        });
+    });
 
 });
 </script>

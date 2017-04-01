@@ -58,7 +58,9 @@ class FostersController extends AppController
     public function view($id = null)
     {
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
+
         $attached_tags = TableRegistry::get('Tags_Fosters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['foster_id'=>$id])->toArray();
+
         $foster_tags = array_diff_key($foster_tags, $attached_tags);
 
         $foster = $this->Fosters->get($id, [
@@ -176,17 +178,17 @@ class FostersController extends AppController
         exit(0);
     }
 
-    public function deleteTag($tag_id) {
-        $this->autoRender = false;
-        //$data = $this->request->data;
-        $tags_fosters = TableRegistry::get('Tags_Fosters');
 
-        $toDelete = $tags_fosters->get($tag_id);
+    public function deleteTag() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        $tags_fosters = TableRegistry::get('Tags_Fosters');
+        $toDelete = $tags_fosters->find()->where(['tag_id'=>$data['tag_id'], 'foster_id'=>$data['foster_id']])->first();
         $tags_fosters->delete($toDelete);
 
-        //ob_clean();
-        //echo json_encode($tag_id);
-        //exit(0);
-        return $this->redirect(['action' => 'view', $foster_id]);
+        ob_clean();
+        echo json_encode($toDelete);
+        exit(0);
     }
+
 }
