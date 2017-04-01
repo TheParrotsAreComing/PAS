@@ -204,7 +204,7 @@
                           <div class="medical-data-notes"><?= h($mh->notes) ?></div>
                         </div>
                         <div class="medical-data-action-cont">
-                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id]) ?>">
+                          <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
                             <div class="profile-action-button sofware">-</div>
                             <div>edit</div>
                           </a>
