@@ -29,9 +29,9 @@ class TagsController extends AppController
             $data['type_bit'] = 0;
             $data['label'] = $data['tag'];
             $data['color'] = $data['custom-color'];
-            $data['type_bit'] += $data['cat-checkbox'];
+            $data['type_bit'] += $data['foster-checkbox'];
             $data['type_bit'] += $data['adopter-checkbox'] * 10;
-            $data['type_bit'] += $data['foster-checkbox'] * 100;
+            $data['type_bit'] += $data['cat-checkbox'] * 100;
             $data['is_deleted'] = false;
             if (empty($data['tag-id'])) {
                 $tag = $this->Tags->newEntity();
