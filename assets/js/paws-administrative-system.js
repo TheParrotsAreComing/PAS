@@ -576,14 +576,7 @@
     window.location = url;
   };
 
-  // Webflow.app - Designer-specific methods
-  Webflow.app = Webflow.env() ? {} : null;
-  if (Webflow.app) {
-
-    // Trigger redraw for specific elements
-    var redraw = new Event('__wf_redraw');
-    Webflow.app.redrawElement = function(i, el) { el.dispatchEvent(redraw); };
-
+  if (Webflow.env()) {
     // Webflow.location - Re-route location change to trigger an event
     Webflow.location = function(url) {
       window.dispatchEvent(new CustomEvent('__wf_location', { detail: url }));
@@ -2910,5 +2903,6 @@ Webflow.require('ix').init([
   {"slug":"button-switch-click-2","name":"button-switch-click 2","value":{"style":{},"triggers":[{"type":"click","selector":".underline-1","stepsA":[{"opacity":0}],"stepsB":[]},{"type":"click","selector":".underline-1","descend":true,"preserve3d":true,"stepsA":[{"x":"0px","y":"50px","z":"0px"},{"opacity":1,"transition":"opacity 800ms ease 0, transform 500ms ease 0","x":"0px","y":"0px","z":"0px"}],"stepsB":[]}]}},
   {"slug":"tag-action-show-hide","name":"tag-action (Show-Hide)","value":{"style":{},"triggers":[{"type":"click","selector":".tag-actions-cont","descend":true,"stepsA":[],"stepsB":[]}]}},
   {"slug":"medical-data-click","name":"medical-data-click","value":{"style":{},"triggers":[{"type":"click","selector":".medical-data-action-cont","descend":true,"preserve3d":true,"stepsA":[{"transition":"transform 300ms ease 0","x":"0px","y":"0px","z":"0px"}],"stepsB":[{"transition":"transform 300ms ease 0","x":"250px","y":"0px","z":"0px"}]}]}},
-  {"slug":"profile-notification-expand","name":"profile-notification-expand","value":{"style":{},"triggers":[{"type":"click","selector":".profile-add-symbol","descend":true,"preserve3d":true,"stepsA":[{"transition":"transform 300ms ease 0","rotateX":"0deg","rotateY":"0deg","rotateZ":"180deg"}],"stepsB":[{"transition":"transform 300ms ease 0","rotateX":"0deg","rotateY":"0deg","rotateZ":"0deg"}]}]}}
+  {"slug":"profile-notification-expand","name":"profile-notification-expand","value":{"style":{},"triggers":[{"type":"click","selector":".profile-add-symbol","descend":true,"preserve3d":true,"stepsA":[{"transition":"transform 300ms ease 0","rotateX":"0deg","rotateY":"0deg","rotateZ":"180deg"}],"stepsB":[{"transition":"transform 300ms ease 0","rotateX":"0deg","rotateY":"0deg","rotateZ":"0deg"}]}]}},
+  {"slug":"new-interaction","name":"New Interaction","value":{"style":{},"triggers":[{"type":"scroll","stepsA":[],"stepsB":[]}]}}
 ]);

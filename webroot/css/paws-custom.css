@@ -233,16 +233,8 @@ html {
     display: inline-block;
 }
 
-.example-tag-wrapper {
-    text-align: center;
-}
 
-.example-tag-div {
-    display: inline-block;
-    margin-bottom: 3em;
-}
-
-.new-tag-btn {
-    background-color: #3898EC;
-    border-radius: 5px;
+.no-horizontal-scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
