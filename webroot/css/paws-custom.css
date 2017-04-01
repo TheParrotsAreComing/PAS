@@ -246,3 +246,8 @@ html {
     background-color: #3898EC;
     border-radius: 5px;
 }
+
+.tag-div-scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
