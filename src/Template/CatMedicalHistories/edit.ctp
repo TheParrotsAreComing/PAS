@@ -11,7 +11,7 @@
                         <label class="add-field-h2" for="First-Name">Edit Record</label>
                         <div class="add-field-seperator"></div>
                         <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-                        <?= $this->Form->input('medOption', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'empty'=>'Select Medical Option', 'options'=>['FVRCP', 'Deworm', 'Flea', 'Rabies', 'Other']]); ?>
+                        <?= $this->Form->input('medOption', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'empty'=>'Select Medical Option', 'value'=>$medOption, 'options'=>['FVRCP', 'Deworm', 'Flea', 'Rabies', 'Other']]); ?>
                         <label class="add-field-h3">Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
                             <?php echo $this->Form->month('administered_date', array('class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
@@ -27,7 +27,7 @@
                             'placeholder' => 'Type notes for this record...')); ?>
                         <div class="add-button-cont">    
                         <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat_id], ['id'=>'MHCancel', 'class'=>'add-cancel w-button']); ?>
-                        <?= $this->Form->submit("Submit",['id'=>'MHAdd', 'class'=>'add-submit w-button']); ?>
+                        <?= $this->Form->submit("Submit",['id'=>'MHEdit', 'class'=>'add-submit w-button']); ?>
                         </div>
                     </form>
                 </div>
@@ -35,3 +35,6 @@
     </div>
 </div>
 <?= $this->Form->end() ?>
+<script>
+    $()
+</script>
