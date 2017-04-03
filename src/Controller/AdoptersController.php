@@ -57,11 +57,15 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
+        $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
+        $attached_tags = TableRegistry::get('Tags_Adopters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['adopter_id'=>$id])->toArray();
+
+        $adopter_tags = array_diff_key($adopter_tags,$attached_tags);
         $adopter = $this->Adopters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
-        
-        $this->set('adopter', $adopter);
+
+        $this->set(compact('adopter', 'adopter_tags'));
         $this->set('_serialize', ['adopter']);
     }
 
@@ -134,6 +138,15 @@ class AdoptersController extends AppController
         $this->request->data['is_deleted'] = 1;
         $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
         if ($this->Adopters->save($adopter)) {
+
+			$cat_histories_table = TableRegistry::get('CatHistories');
+			$associations = $cat_histories_table->query();
+			$associations->update()
+				->set(['end_date'=>date('Y-m-d')])
+				->where(['adopter_id'=>$id])
+				->andWhere(["end_date IS NULL"])
+				->execute();
+
             $this->Flash->success(__('The adopter has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {
@@ -141,5 +154,41 @@ class AdoptersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+	}
+
+	public function checkAssociations($adopter_id){
+		$this->autoRender = false;
+		$cat_histories_table = TableRegistry::get('CatHistories');
+		$associations = $cat_histories_table->findByAdopterId($adopter_id);
+		$associations->where(["end_date IS NULL"]);
+
+		ob_clean();
+		echo empty($associations->toArray()) ? '0' : '1';
+		exit(0);
+	}
+
+    public function attachTag() {
+        $this->autoRender = false;
+        $tags_adopters = TableRegistry::get('Tags_Adopters');
+        $ta = $tags_adopters->newEntity();
+        $ta = $tags_adopters->patchEntity($ta, $this->request->data);
+        $tags_adopters->save($ta);
+
+        $tag = TableRegistry::get('Tags')->find()->select(['id','label','color'])->where(['id'=>$this->request->data['tag_id']])->first();
+        ob_clean();
+        echo json_encode($tag);
+        exit(0);
+    }
+
+    public function deleteTag() {
+        $this->autoRender = false;
+        $data = $this->request->data;
+        $tags_adopters = TableRegistry::get('Tags_Adopters');
+        $toDelete = $tags_adopters->find()->where(['tag_id'=>$data['tag_id'], 'adopter_id'=>$data['adopter_id']])->first();
+        $tags_adopters->delete($toDelete);
+
+        ob_clean();
+        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
+        exit(0);
     }
 }

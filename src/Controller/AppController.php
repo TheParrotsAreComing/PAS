@@ -66,4 +66,9 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+    public function beforeFilter(Event $event)
+	{
+		parent::beforeFilter($event);
+		$this->set('referer',$this->referer);
+	}
 }
