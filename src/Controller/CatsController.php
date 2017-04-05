@@ -154,6 +154,11 @@ class CatsController extends AppController
      */
     public function add($litter_id = null)
     {
+		$dob = false;
+
+		if(!empty($litter_id)){
+			$dob = $this->request->session()->read('Litter_DOB');
+		}
         $cat = $this->Cats->newEntity();
 
         if ($this->request->is('post')) {
@@ -202,6 +207,9 @@ class CatsController extends AppController
                     return $this->redirect(['controller' => 'litters', 'action' => 'index']);   
                 }
                 else {
+					if(!empty($litter_id)){
+						$dob = $this->request->session()->delete('Litter_DOB');
+					}
                     return $this->redirect(['action' => 'index']);
                 }
             } else {
@@ -217,7 +225,7 @@ class CatsController extends AppController
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
         $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
 
-        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id', 'breeds'));
+        $this->set(compact('dob','cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id', 'breeds'));
         $this->set('_serialize', ['cat']);
     }
 
