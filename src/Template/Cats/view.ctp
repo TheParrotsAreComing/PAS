@@ -60,7 +60,7 @@
               <div class="profile-notification-cont">
                   <?php foreach ($cat['tags'] as $tag): ?>                
                     <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
-                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                      <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>" class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                     </div>
                   <?php endforeach; ?>
                 </div>
@@ -499,11 +499,17 @@
 <div id="dialog-confirm-record" title="Delete this record?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
 </div>
+
+<div id="dialog-confirm-tag" title="Delete this tag?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
+</div>
+
 <script>
 $(function () {
 
 	var current_kitty = new Cat();
   var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
+  var tagDel = "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>";
 	calculateAndPopulateAgeFields();
 	$('.add-adopter-btn').click(function(){
 	 $( "#dialog-confirm" ).dialog({
@@ -645,20 +651,34 @@ $(function () {
       });
     });
 
-    $('.profile-notification-cont').on('click', '.tag-remove', function() {
-        var parent_div = $(this).closest('.tag-cont');
-        var tag_id = parent_div.attr('data-id');
-        $.ajax({
-            url : "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>",
-            type : 'POST',
-            data : {
+    $('.tag-remove').click(function(){
+      var that = $(this); 
+      var tag_id = that.attr('data-id');
+       $( "#dialog-confirm-tag" ).dialog({
+          resizable: false,
+          height: "auto",
+          width: 400,
+          modal: true,
+          buttons: {
+          "Delete": function() {
+            $.ajax({
+              url : tagDel,
+              type : 'POST',
+              data : {
                 'cat_id' : '<?= $cat->id ?>',
                 'tag_id' : tag_id
             }
-        }).done(function(result) {
-            result = JSON.parse(result);
-            parent_div.fadeOut();
-            $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+            }).done(function(result){
+              result = JSON.parse(result);
+              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+            });
+              that.parent().remove();
+              $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+          }
+          }
         });
     });
 
