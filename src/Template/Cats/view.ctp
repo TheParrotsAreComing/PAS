@@ -137,23 +137,17 @@
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Additional Information</div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Biography:</div>
-                    <div class="block profile-field-text"><?= h($cat->bio) ?></div>
-                  </div>
+                <div class="left-justify profile-field-cont">
+                  <div class="profile-field-name">Biography:</div>
+                  <div class="block profile-field-text"><?= nl2br(h($cat->bio)) ?></div>
                 </div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Current Diet:</div>
-                    <div class="block profile-field-text"><?= h($cat->diet) ?></div>
-                  </div>
+                <div class="left-justify profile-field-cont">
+                  <div class="profile-field-name">Current Diet:</div>
+                  <div class="block profile-field-text"><?= nl2br(h($cat->diet)) ?></div>
                 </div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Specialty Notes:</div>
-                    <div class="block profile-field-text"><?= h($cat->specialty_notes) ?></div>
-                  </div>
+                <div class="left-justify profile-field-cont">
+                  <div class="profile-field-name">Specialty Notes:</div>
+                  <div class="block profile-field-text"><?= nl2br(h($cat->specialty_notes)) ?></div>
                 </div>
               </div>
             </div>
@@ -558,7 +552,7 @@ $(function () {
     });
   });
 
-  $('.delete-record-btn').click(function(e){
+  $('.delete-record-btn').click(function(){
    var parent = $(this).parent().parent().parent();
    var that = $(this); 
    $( "#dialog-confirm-record" ).dialog({
