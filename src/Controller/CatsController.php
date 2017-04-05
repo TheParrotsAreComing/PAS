@@ -351,6 +351,7 @@ class CatsController extends AppController
 			$adopter_table = TableRegistry::get('Adopters');
 			$cat_histories_table = TableRegistry::Get('CatHistories');
 
+			$cat_histories_table->updateAll(['end_date'=>date('Y-m-d')],['end_date IS NULL','cat_id'=>$cat_id]);
 			$history_entry = $cat_histories_table->newEntity();
 
 			//We need to adopter info for a dynamic card on the view

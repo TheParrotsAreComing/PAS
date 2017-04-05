@@ -320,6 +320,7 @@
                   </div>
                   </a>
                 </div>
+			    <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Replace Adopter</a>
               <?php else: ?>
                 <a class="card w-clearfix w-inline-block">
                   <div class="card-h1">This cat is not currently adopted.</div>
@@ -500,27 +501,28 @@ $(function () {
 	var current_kitty = new Cat();
   var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
 	calculateAndPopulateAgeFields();
+
 	$('.add-adopter-btn').click(function(){
-	 $( "#dialog-confirm" ).dialog({
-		  resizable: false,
-		  height: "auto",
-		  width: 400,
-		  modal: true,
-		  buttons: {
-			"Adopt!": function() {
-			    $( this ).dialog( "close" );
-				$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
-					$('.add-adopter').css('display','none');
-					$('.add-adopter-inner').css('display','none');
-					$('.add-adopter-inner').css('opacity','0');
-					current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
-				});
-			},
-			Cancel: function() {
-			  $( this ).dialog( "close" );
-			}
-		  }
-		});
+		 $( "#dialog-confirm" ).dialog({
+			  resizable: false,
+			  height: "auto",
+			  width: 400,
+			  modal: true,
+			  buttons: {
+				"Adopt!": function() {
+					$( this ).dialog( "close" );
+					$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
+						$('.add-adopter').css('display','none');
+						$('.add-adopter-inner').css('display','none');
+						$('.add-adopter-inner').css('opacity','0');
+						current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+					});
+				},
+				Cancel: function() {
+				  $( this ).dialog( "close" );
+				}
+			  }
+			});
 	});
 
   
