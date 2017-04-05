@@ -231,24 +231,30 @@ var Cat = function(){
 		var that = this;
 		$.each(card_fields_text,function(i,e){
 			//Field Wrapper
-			var cf_dom = $('<div/>');
-			cf_dom.addClass("card-field-cont");
+			var cf_dom1 = $('<div/>');
+			cf_dom1.addClass("card-field-cont");
+
+			//Field Wrapper
+			var cf_dom2 = $('<div/>');
+			cf_dom2.addClass("card-field-cont");
 
 			//Field Label
 			var cf_h3 = $('<div/>');
 			cf_h3.addClass("card-h3");
-			cf_h3.text(e+":");
+			cf_h3.text(e+":  ");
 
 			//FIeld Content
-			var cf_field_text = $('<div/>');
+			var cf_field_text = $('<div class="card-field-text"/>');
 			cf_field_text.text(that.getFosterCardField(i));
 
 			//Attach to parent
-			cf_dom.append(cf_h3);
-			cf_dom.append(cf_field_text);
+			cf_dom2.append(cf_h3);
+			cf_dom2.append(cf_field_text);
+
+			cf_dom1.append(cf_dom2);
 
 			//Attach Fields to Parent wrapper
-			card_field_wrap.append(cf_dom);
+			card_field_wrap.append(cf_dom1);
 		});
 
 		//We don't need that anymore...
