@@ -137,23 +137,17 @@
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Additional Information</div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Biography:</div>
-                    <div class="block profile-field-text"><?= h($cat->bio) ?></div>
-                  </div>
+                <div class="left-justify profile-field-cont">
+                  <div class="profile-field-name">Biography:</div>
+                  <div class="block profile-field-text"><?= nl2br(h($cat->bio)) ?></div>
                 </div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Current Diet:</div>
-                    <div class="block profile-field-text"><?= h($cat->diet) ?></div>
-                  </div>
+                <div class="left-justify profile-field-cont">
+                  <div class="profile-field-name">Current Diet:</div>
+                  <div class="block profile-field-text"><?= nl2br(h($cat->diet)) ?></div>
                 </div>
-                <div class="profile-field-cont">
-                  <div class="profile-field-cont">
-                    <div class="profile-field-name">Specialty Notes:</div>
-                    <div class="block profile-field-text"><?= h($cat->specialty_notes) ?></div>
-                  </div>
+                <div class="left-justify profile-field-cont">
+                  <div class="profile-field-name">Specialty Notes:</div>
+                  <div class="block profile-field-text"><?= nl2br(h($cat->specialty_notes)) ?></div>
                 </div>
               </div>
             </div>
@@ -225,53 +219,54 @@
                         <?php break; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
-                    <?php if(!empty($foster)) :?>
-                      <div class="profile-text-header">Foster Home</div>
-                      <div class="card-cont card-wrapper w-dyn-item">
-                        <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
-                        <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
-                        <div class="card-field-wrap">
-                            <div class="card-field-cont">
-                              <div class="card-field-cont">
-                                <div class="card-h3">Rating:</div>
-                                <div class="card-field-text"><?= h($foster->rating) ?></div>
-                            </div>
-                            </div>
-                            <div class="card-field-cont">
-                            <div class="card-field-cont">
-                                <div class="card-h3">Email:</div>
-                                <div class="card-field-text"><?= h($foster->email) ?></div>
-                            </div>
-                            </div>
-                            <div class="card-field-cont">
-                            <div class="card-field-cont">
-                                <div class="card-h3">Phone:</div>
-                                <div class="card-field-text"><?= h($foster->phone) ?></div>
-                            </div>
-                            </div>
-                            <div class="card-field-cont">
-                            <div class="card-field-cont">
-                                <div class="card-h3">Address:</div>
-                                <div class="card-field-text"><?= h($foster->address) ?></div>
-                            </div>
-                            </div>
-                            <div class="card-field-cont">
-                            <div class="card-field-cont">
-                                <div class="card-h3">Availability:</div>
-                                <div class="card-field-text"><?= h($foster->avail) ?></div>
-                            </div>
-                            </div>
-                        </div>
-                        </a>
-                      </div>
-                    <?php else: ?>
-                      <a class="card w-clearfix w-inline-block"> 
-                        <div class="card-h1">This cat is currently not in a foster home. </div>
-                      </a>
-                      <a class="card w-clearfix w-inline-block">
-                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-                      </a>
-                    <?php endif; ?>
+						<?php if(!empty($foster)) :?>
+						  <div class="profile-text-header">Foster Home</div>
+						  <div class="card-cont card-wrapper w-dyn-item">
+							<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
+							<div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
+							<div class="card-field-wrap">
+								<div class="card-field-cont">
+								  <div class="card-field-cont">
+									<div class="card-h3">Rating:</div>
+									<div class="card-field-text"><?= h($foster->rating) ?></div>
+								</div>
+								</div>
+								<div class="card-field-cont">
+								<div class="card-field-cont">
+									<div class="card-h3">Email:</div>
+									<div class="card-field-text"><?= h($foster->email) ?></div>
+								</div>
+								</div>
+								<div class="card-field-cont">
+								<div class="card-field-cont">
+									<div class="card-h3">Phone:</div>
+									<div class="card-field-text"><?= h($foster->phone) ?></div>
+								</div>
+								</div>
+								<div class="card-field-cont">
+								<div class="card-field-cont">
+									<div class="card-h3">Address:</div>
+									<div class="card-field-text"><?= h($foster->address) ?></div>
+								</div>
+								</div>
+								<div class="card-field-cont">
+								<div class="card-field-cont">
+									<div class="card-h3">Availability:</div>
+									<div class="card-field-text"><?= h($foster->avail) ?></div>
+								</div>
+								</div>
+							</div>
+							</a>
+						  </div>
+						<a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Replace Foster</a>
+						<?php else: ?>
+						  <a class="card w-clearfix w-inline-block"> 
+							<div class="card-h1">This cat is currently not in a foster home. </div>
+						  </a>
+						  <a class="card w-clearfix w-inline-block">
+							<a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+						  </a>
+						<?php endif; ?>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block">
                         <div class="card-h1">This cat is not currently in a foster home.</div>
@@ -325,6 +320,7 @@
                   </div>
                   </a>
                 </div>
+			    <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Replace Adopter</a>
               <?php else: ?>
                 <a class="card w-clearfix w-inline-block">
                   <div class="card-h1">This cat is not currently adopted.</div>
@@ -505,27 +501,28 @@ $(function () {
 	var current_kitty = new Cat();
   var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
 	calculateAndPopulateAgeFields();
+
 	$('.add-adopter-btn').click(function(){
-	 $( "#dialog-confirm" ).dialog({
-		  resizable: false,
-		  height: "auto",
-		  width: 400,
-		  modal: true,
-		  buttons: {
-			"Adopt!": function() {
-			    $( this ).dialog( "close" );
-				$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
-					$('.add-adopter').css('display','none');
-					$('.add-adopter-inner').css('display','none');
-					$('.add-adopter-inner').css('opacity','0');
-					current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
-				});
-			},
-			Cancel: function() {
-			  $( this ).dialog( "close" );
-			}
-		  }
-		});
+		 $( "#dialog-confirm" ).dialog({
+			  resizable: false,
+			  height: "auto",
+			  width: 400,
+			  modal: true,
+			  buttons: {
+				"Adopt!": function() {
+					$( this ).dialog( "close" );
+					$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
+						$('.add-adopter').css('display','none');
+						$('.add-adopter-inner').css('display','none');
+						$('.add-adopter-inner').css('opacity','0');
+						current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+					});
+				},
+				Cancel: function() {
+				  $( this ).dialog( "close" );
+				}
+			  }
+			});
 	});
 
   
@@ -552,7 +549,7 @@ $(function () {
     });
   });
 
-  $('.delete-record-btn').click(function(e){
+  $('.delete-record-btn').click(function(){
    var parent = $(this).parent().parent().parent();
    var that = $(this); 
    $( "#dialog-confirm-record" ).dialog({

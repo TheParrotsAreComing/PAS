@@ -19,9 +19,20 @@
                             'placeholder' => 'Bella')); ?>
                         <label class="add-field-h3">Date of birth<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
-                            <?php echo $this->Form->month('dob', array('class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
-                            <?php echo $this->Form->day('dob', array('class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
-                            <?php echo $this->Form->year('dob', array('class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
+							<?php if(!empty($dob)): ?>
+								<?php $dob = explode('-',$dob); ?>
+							<?php endif; ?>
+							<?php if(empty($dob)): ?>
+								<?php
+									$dob = [];
+									$dob[0] = '';
+									$dob[1] = '';
+									$dob[2] = '';
+								?>
+							<?php endif; ?>
+                            <?php echo $this->Form->month('dob', array('value'=>$dob[1],'class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
+                            <?php echo $this->Form->day('dob', array('value'=>$dob[2],'class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
+                            <?php echo $this->Form->year('dob', array('value'=>$dob[0],'class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
                         </div>
                         <?php echo $this->Form->input('breed_id', 
                             array('label' => 

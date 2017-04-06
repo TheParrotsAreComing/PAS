@@ -72,7 +72,7 @@ class CatsController extends AppController
 
 
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC'])->where(['CatHistories.end_date IS NULL']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
 
         $adoptersDB = TableRegistry::get('Adopters');
@@ -82,8 +82,6 @@ class CatsController extends AppController
        
         $medicalHistories = $medicalDB->find('all');
         $medicalHistories->where(['cat_id' => $id]); 
-
-        // available adopters
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
@@ -156,6 +154,11 @@ class CatsController extends AppController
      */
     public function add($litter_id = null)
     {
+		$dob = false;
+
+		if(!empty($litter_id)){
+			$dob = $this->request->session()->read('Litter_DOB');
+		}
         $cat = $this->Cats->newEntity();
 
         if ($this->request->is('post')) {
@@ -204,6 +207,9 @@ class CatsController extends AppController
                     return $this->redirect(['controller' => 'litters', 'action' => 'index']);   
                 }
                 else {
+					if(!empty($litter_id)){
+						$dob = $this->request->session()->delete('Litter_DOB');
+					}
                     return $this->redirect(['action' => 'index']);
                 }
             } else {
@@ -219,7 +225,7 @@ class CatsController extends AppController
         $tags = $this->Cats->Tags->find('list', ['limit' => 200]);
         $breeds = TableRegistry::get('Breeds')->find('list', ['keyField'=>'id', 'valueField'=>'breed']);
 
-        $this->set(compact('cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id', 'breeds'));
+        $this->set(compact('dob','cat', 'litters', 'adopters', 'fosters', 'files', 'adoptionEvents', 'tags', 'litter_id', 'breeds'));
         $this->set('_serialize', ['cat']);
     }
 
@@ -345,6 +351,7 @@ class CatsController extends AppController
 			$adopter_table = TableRegistry::get('Adopters');
 			$cat_histories_table = TableRegistry::Get('CatHistories');
 
+			$cat_histories_table->updateAll(['end_date'=>date('Y-m-d')],['end_date IS NULL','cat_id'=>$cat_id]);
 			$history_entry = $cat_histories_table->newEntity();
 
 			//We need to adopter info for a dynamic card on the view
@@ -380,6 +387,8 @@ class CatsController extends AppController
         try{
             $foster_table = TableRegistry::get('Fosters');
             $cat_histories_table = TableRegistry::Get('CatHistories');
+
+			$cat_histories_table->updateAll(['end_date'=>date('Y-m-d')],['end_date IS NULL','cat_id'=>$cat_id]);
 
             $history_entry = $cat_histories_table->newEntity();
 

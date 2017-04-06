@@ -17,9 +17,4 @@ resolutions = [
 os.system('py System/home.py')
 
 for res in resolutions:
-	os.system('py Cats/cat_view.py '+res[0]+' '+res[1])
-	os.system('py Cats/cat_edit.py '+res[0]+' '+res[1])
-	os.system('py Adopters/adopters_view.py '+res[0]+' '+res[1])
-	os.system('py Fosters/fosters_view.py '+res[0]+' '+res[1])
-	os.system('py Adopters/adopters_edit.py '+res[0]+' '+res[1])
-	os.system('py Fosters/fosters_edit.py '+res[0]+' '+res[1])
+	os.system('py Litters/litters_view.py '+res[0]+' '+res[1])

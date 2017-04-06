@@ -93,6 +93,7 @@ class LittersController extends AppController
             if ($this->Litters->save($litter)) {
                 $this->Flash->success(__('The litter has been saved.'));
 
+				$this->request->session()->write('Litter_DOB',$dob);
                 return $this->redirect(['controller' => 'cats', 'action' => 'add', $litter->id]);
             }
             $this->Flash->error(__('The litter could not be saved. Please, try again.'));
