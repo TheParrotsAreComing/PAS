@@ -275,6 +275,7 @@ $(function () {
 	//Show me the new select option
 	$('a[data-ix="add-adopter-click-desktop"]').click(function(){
 		$('.add-adopter').css('display','flex');
+		$('.add-adopter').css('opacity','1');
 		$('.add-adopter-inner').css('display','flex');
 		$('.add-adopter-inner').css('opacity','1');
 	});
@@ -289,6 +290,7 @@ $(function () {
 	//Show me the new select option
 	$('a[data-ix="add-foster-click-desktop"]').click(function(){
 		$('.add-foster').css('display','flex');
+		$('.add-foster').css('opacity','1');
 		$('.add-foster-inner').css('display','flex');
 		$('.add-foster-inner').css('opacity','1');
 	});
@@ -303,6 +305,7 @@ $(function () {
 	//Show me the new select option for photos
 	$('a[data-ix="add-photo-click-desktop"]').click(function(){
 		$('.add-photo').css('display','flex');
+		$('.add-photo').css('opacity','1');
 		$('.add-photo-inner').css('display','flex');
 		$('.add-photo-inner').css('opacity','1');
 	});
@@ -316,6 +319,7 @@ $(function () {
 
 	$('a[data-ix="add-tag"]').click(function() {
 		$('.add-tag').css('display','flex');
+		$('.add-tag').css('opacity','1');
 		$('.add-tag-inner').css('display','flex');
 		$('.add-tag-inner').css('opacity','1');
  	});
