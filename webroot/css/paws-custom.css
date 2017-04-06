@@ -255,3 +255,11 @@ html {
 .display-none {
   display: none; 
 }
+
+.select-tag-category {
+    text-align: center;
+}
+
+.no-tag-category-border {
+    border: 2px solid #ec4141;
+}

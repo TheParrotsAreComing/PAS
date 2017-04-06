@@ -33,11 +33,14 @@
             </div>
           </div>
 
-          <?= $this->Form->create('Tags'); ?>
+          <?= $this->Form->create('Tags', ['id'=>'TagsForm']); ?>
           <div class="add-tag-input-cont" data-name="Email Form 5" name="email-form-5" id="email-form-5">
             <div class="add-field-h2"><span class="create-label">create</span><span class="edit-label display-none">edit "<span class="edit-label-original"></span>"</span> tag:</div>
             <?= $this->Form->input('tag-id', ['type'=>'hidden', 'id'=>'tag-id']); ?>
-            <?= $this->Form->input('tag', ['class'=>'add-tag-input w-input', 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'tag', 'maxlength'=>256, 'name'=>'tag', 'placeholder'=>'Enter a tag...', 'type'=>'text', 'label'=>false]); ?>
+            <?= $this->Form->input('tag', ['class'=>'add-tag-input w-input', 'required'=>true, 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'tag', 'maxlength'=>256, 'name'=>'tag', 'placeholder'=>'Enter a tag...', 'type'=>'text', 'label'=>false]); ?>
+            <div class="add-tag-color-wrap select-tag-category display-none">
+              <p>Please select at least one of the below categories.</p>
+            </div>
             <div class="add-tag-checkbox-wrap">
               <div class="cat-checkbox-div add-tag-checkbox-cont w-checkbox checked">
                 <div class="checkbox-label-symbol">E</div>
@@ -57,14 +60,14 @@
             </div>
             <div class="add-tag-color-wrap">
               <ul class="add-tag-color-cont w-list-unstyled">
-                <li class="add-tag-color cursor-point blue" data-color="2485ff"></li>
+                <li class="add-tag-color cursor-point blue" data-color="2485ff" style="box-shadow: 0 0 12px 0 #303030;"></li>
                 <li class="add-tag-color cursor-point green" data-color="3ed84a"></li>
                 <li class="add-tag-color cursor-point orange" data-color="ffa722"></li>
                 <li class="add-tag-color cursor-point red" data-color="ec4141"></li>
               </ul>
               <div class="custom-color-wrap">
                 <div>Custom Color: #</div>
-                <?= $this->Form->input('Custom Color', ['label'=>false, 'class'=>'add-tag-color-input w-input', 'data-name'=>'Custom Color', 'id'=>'custom-color', 'maxlength'=>'6', 'name'=>'custom-color', 'placeholder'=>'123abc', 'required'=>true, 'type'=>'text']); ?>
+                <?= $this->Form->input('Custom Color', ['label'=>false, 'class'=>'add-tag-color-input w-input', 'data-name'=>'Custom Color', 'id'=>'custom-color', 'maxlength'=>'6', 'name'=>'custom-color', 'placeholder'=>'123abc', 'required'=>true, 'type'=>'text', 'value'=>'2485ff']); ?>
               </div>
             </div>
           </div>
@@ -182,6 +185,8 @@ $(document).ready(function() {
   });
 
   $('.w-checkbox-input').on('click', function() {
+    $('.add-tag-checkbox-wrap').removeClass('no-tag-category-border');
+    $('.select-tag-category').slideUp();
     if ($(this).is(':checked')) {
       $(this).closest('.w-checkbox').addClass('checked');
     } else {
@@ -223,6 +228,17 @@ $(document).ready(function() {
     }).done(function() {
       location.reload();
     });
+  });
+
+  $('#TagsForm').submit(function(e) {
+    e.preventDefault();
+    console.log('ding!');
+    if ($('.adopter-checkbox').is(':checked') || $('.foster-checkbox').is(':checked') || $('.cat-checkbox').is(':checked')) {
+      $(this).off('submit').submit();
+    } else {
+      $('.select-tag-category').slideDown();
+      $('.add-tag-checkbox-wrap').addClass('no-tag-category-border');
+    }
   });
 
 });
