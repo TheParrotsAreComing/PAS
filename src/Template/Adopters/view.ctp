@@ -293,12 +293,12 @@
           "Delete": function() {
             $.ajax({
               url : tagDel,
-            type : 'POST',
+              type : 'POST',
               data : {
                 'adopter_id' : '<?= $adopter->id ?>',
                 'tag_id' : tag_id
             }
-          }).done(function(result){
+            }).done(function(result){
               result = JSON.parse(result);
               $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
             });

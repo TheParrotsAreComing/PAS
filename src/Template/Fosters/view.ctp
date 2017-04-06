@@ -293,9 +293,7 @@
             }
             }).done(function(result){
               result = JSON.parse(result);
-              //console.log(result);
               $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
-              
             });
               that.parent().remove();
               $( this ).dialog( "close" );
