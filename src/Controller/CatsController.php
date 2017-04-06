@@ -72,7 +72,7 @@ class CatsController extends AppController
 
 
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC']); },'CatHistories.Adopters','CatHistories.Fosters']
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC'])->where(['CatHistories.end_date IS NULL']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
 
         $adoptersDB = TableRegistry::get('Adopters');
@@ -351,6 +351,7 @@ class CatsController extends AppController
 			$adopter_table = TableRegistry::get('Adopters');
 			$cat_histories_table = TableRegistry::Get('CatHistories');
 
+			$cat_histories_table->updateAll(['end_date'=>date('Y-m-d')],['end_date IS NULL','cat_id'=>$cat_id]);
 			$history_entry = $cat_histories_table->newEntity();
 
 			//We need to adopter info for a dynamic card on the view
@@ -386,6 +387,8 @@ class CatsController extends AppController
         try{
             $foster_table = TableRegistry::get('Fosters');
             $cat_histories_table = TableRegistry::Get('CatHistories');
+
+			$cat_histories_table->updateAll(['end_date'=>date('Y-m-d')],['end_date IS NULL','cat_id'=>$cat_id]);
 
             $history_entry = $cat_histories_table->newEntity();
 

@@ -19,7 +19,9 @@
                             'placeholder' => 'Bella')); ?>
                         <label class="add-field-h3">Date of birth<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
-							<?php $dob = explode('-',$dob); ?>
+							<?php if(!empty($dob)): ?>
+								<?php $dob = explode('-',$dob); ?>
+							<?php endif; ?>
 							<?php if(empty($dob)): ?>
 								<?php
 									$dob = [];

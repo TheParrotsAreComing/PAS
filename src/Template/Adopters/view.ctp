@@ -36,7 +36,7 @@
                 <div class="profile-notification-cont">
                   <?php foreach ($adopter['tags'] as $tag): ?>                
                     <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
-                      <div class="tag-text"><?= $tag['label'] ?></div><a class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                      <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>" class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                     </div>
                   <?php endforeach; ?>
                 </div>
@@ -213,9 +213,16 @@
     </div>
   </div> 
 
+<div id="dialog-confirm" title="Delete this tag?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
+</div>
+
 <script>
 	calculateAndPopulateAgeFields();
 	var adopter = new Adopter();
+
+  var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
+
 	$(function(){
 		$('.delete-button').click(function(e){
 			e.preventDefault();
@@ -274,21 +281,35 @@
 		  });
 		});
 
-        $('.profile-notification-cont').on('click', '.tag-remove', function() {
-            var parent_div = $(this).closest('.tag-cont');
-            var tag_id = parent_div.attr('data-id');
+    $('.tag-remove').click(function(){
+      var that = $(this); 
+      var tag_id = that.attr('data-id');
+       $( "#dialog-confirm" ).dialog({
+          resizable: false,
+          height: "auto",
+          width: 400,
+          modal: true,
+          buttons: {
+          "Delete": function() {
             $.ajax({
-                url : "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>",
-                type : 'POST',
-                data : {
-                    'adopter_id' : '<?= $adopter->id ?>',
-                    'tag_id' : tag_id
-                }
-            }).done(function(result) {
-                result = JSON.parse(result);
-                parent_div.fadeOut();
-                $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+              url : tagDel,
+              type : 'POST',
+              data : {
+                'adopter_id' : '<?= $adopter->id ?>',
+                'tag_id' : tag_id
+            }
+            }).done(function(result){
+              result = JSON.parse(result);
+              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
             });
-        });
+              that.parent().remove();
+              $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      });
+    });
 	});
 </script>

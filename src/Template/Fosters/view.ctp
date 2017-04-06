@@ -35,7 +35,7 @@
                     <div class="profile-notification-cont">
                       <?php foreach ($foster['tags'] as $tag): ?>                
                         <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
-                          <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>"  class="tag-remove" data-ix="delete-tag" style="color:#<?= $tag['color'] ?>;" href="#"></a>
+                          <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>"  class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
                         </div>
                       <?php endforeach; ?>   
                     </div>
@@ -286,14 +286,17 @@
           "Delete": function() {
             $.ajax({
               url : tagDel,
-            type : 'POST',
+              type : 'POST',
               data : {
                 'foster_id' : '<?= $foster->id ?>',
                 'tag_id' : tag_id
             }
-          }).done(function(result){console.log(result);});
-            that.parent().remove();
-            $( this ).dialog( "close" );
+            }).done(function(result){
+              result = JSON.parse(result);
+              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+            });
+              that.parent().remove();
+              $( this ).dialog( "close" );
           },
           Cancel: function() {
             $( this ).dialog( "close" );
@@ -301,7 +304,5 @@
           }
         });
     });
-
-
-    });
+  });
 </script>

@@ -102,6 +102,24 @@
             <?php endif; ?>
           </div>
     <?php endforeach; ?>
+
+      <div class="pagination-wrap">
+        <div class="pagination-cont">
+          <div class="pagination"></div>
+        </div>
+        <div class="pagination-cont">
+          <div class="current pagination-index">1</div>
+          <div class="pagination-index">2</div>
+          <div class="pagination-index">3</div>
+          <div class="pagination-index">4</div>
+          <div class="pagination-index">5</div>
+          <div class="pagination-index">6</div>
+        </div>
+        <div class="pagination-cont">
+          <div class="pagination"></div>
+        </div>
+      </div>
+
         </div>
       </div>
       <div class="cat-header" data-ix="page-load-slide-down">

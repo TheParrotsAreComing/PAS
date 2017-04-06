@@ -187,7 +187,7 @@ class FostersController extends AppController
         $tags_fosters->delete($toDelete);
 
         ob_clean();
-        echo json_encode($toDelete);
+        echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
         exit(0);
     }
 
