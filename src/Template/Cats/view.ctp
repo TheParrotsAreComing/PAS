@@ -11,7 +11,14 @@
                 <div class="id-text"><?= h($cat->id) ?></div>
             </div>
         </div>
-        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header">
+          <?php 
+            if(!empty($profile_pic)){
+              echo $this->Html->image('../'.$profile_pic->file_path.'.'.$profile_pic->file_ext, ['class'=>'cat-profile-pic']);
+            } else {
+              echo $this->Html->image('cat-menu.png', ['class'=>'cat-profile-pic']);
+            }
+          ?>
           <div>
             <div class="cat-profile-name"><?= h($cat->cat_name) ?></div>
             <div>

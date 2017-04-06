@@ -113,6 +113,7 @@ class CatsController extends AppController
 
         if($this->request->is('post')) {
 
+        	//uploading a file
             if(!empty($this->request->data['uploaded_photo']['name'])){
 
                 // get file ext
@@ -128,8 +129,15 @@ class CatsController extends AppController
                 $fileSize = $this->request->data['uploaded_photo']['size'];
 
                 // attempt to upload the photo with the file behavior
-                if ($this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
-                    $entityTypeId, $cat->id, $mimeType, $fileSize)){
+                $new_file_id = $this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $cat->id, $mimeType, $fileSize);
+
+                if ($new_file_id > 0){
+
+                	if(empty($cat->profile_pic_file_id)) {
+                		$cat->profile_pic_file_id = $new_file_id;
+                		$this->Cats->save($cat);
+                	}
 
                      $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
                         $photosCountTotal++;
@@ -142,7 +150,14 @@ class CatsController extends AppController
             }
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories', 'cat_tags'));
+        // profile pic file
+        if($cat->profile_pic_file_id>0){
+        	$profile_pic = $filesDB->get($cat->profile_pic_file_id);
+        } else {
+        	$profile_pic = null;
+        }
+
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories', 'cat_tags', 'profile_pic'));
 
         $this->set('_serialize', ['cat']);
     }
