@@ -51,7 +51,16 @@
 <!-- -->
         <?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block">
+
+              <?php 
+            if(!empty($cat->profile_pic)){
+              echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
+            } else {
+              echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
+            }
+          ?>
+
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div class="card-h2-cont">
                 <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "C" : "D" ?></div>

@@ -25,7 +25,7 @@ class CatsController extends AppController
             'conditions' => ['Cats.is_deleted' => 0]
         ];
 
-
+        $filesDB = TableRegistry::get('Files');
 
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
@@ -51,6 +51,14 @@ class CatsController extends AppController
         $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
 
         $cats = $this->paginate($this->Cats);
+
+        foreach($cats as $cat) {
+            if($cat->profile_pic_file_id > 0){
+                $cat->profile_pic = $filesDB->get($cat->profile_pic_file_id);
+            } else {
+                $cat->profile_pic = null;
+            }
+        }
 
         $this->set(compact('cats', 'breeds'));
         $this->set('_serialize', ['cats']);
@@ -151,7 +159,7 @@ class CatsController extends AppController
         }
 
         // profile pic file
-        if($cat->profile_pic_file_id>0){
+        if($cat->profile_pic_file_id > 0){
         	$profile_pic = $filesDB->get($cat->profile_pic_file_id);
         } else {
         	$profile_pic = null;
