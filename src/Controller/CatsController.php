@@ -22,7 +22,7 @@ class CatsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
-            'conditions' => ['Cats.is_deleted' => 0]
+            'conditions' => ['Cats.is_deleted' => 0, 'Cats.is_deceased' => 0]
         ];
 
         $filesDB = TableRegistry::get('Files');
@@ -32,8 +32,10 @@ class CatsController extends AppController
         } else if(!empty($this->request->query)){
             foreach($this->request->query as $field => $query){
                 // check the flags first
-                if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
-                    $this->paginate['conditions'][$field] = $query;
+                if(($field == 'is_deceased' || $field == 'is_deleted') && $query != ''){
+                    $this->paginate['conditions']['Cats.'.$field] = (int)$query;
+                }else if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
+                    $this->paginate['conditions'][$field] = (int)$query;
                 }else if($field == 'dob') {
                     if(!empty($query)){
                         $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
@@ -199,6 +201,9 @@ class CatsController extends AppController
             //Initial creation, not deleted 
             $this->request->data['is_deleted'] = 0;
 
+            //Initial creation, not deceased
+            $this->request->data['is_deceased'] = 0;
+
             //Converting values to boolean
             $this->request->data['is_kitten'] = (bool) $this->request->data['is_kitten'];
             $this->request->data['is_female'] = (bool) $this->request->data['is_female'];
@@ -279,7 +284,8 @@ class CatsController extends AppController
         $gwcats = ($cat->good_with_cats) ? true : false;
         $special = ($cat->special_needs) ? true : false;
         $exp = ($cat->needs_experienced_adopter) ? true : false;
-        $this->set(compact('gwkids','gwdogs','gwcats','special','exp'));
+        $deceased = ($cat->is_deceased) ? true : false;
+        $this->set(compact('gwkids','gwdogs','gwcats','special','exp','deceased'));
 
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
         $adopters = $this->Cats->Adopters->find('list', ['limit' => 200]);
