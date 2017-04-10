@@ -33,32 +33,8 @@ class CatsController extends AppController
 		} else if(!empty($this->request->query)){
 
 			if(!empty($this->request->query['tag'])){
-
-				foreach($this->request->query['tag'] as $i => $e){
-					$this->request->query['tag'][$i] = (int)$e;
-				}
-
-				$attached_tags = TableRegistry::get('Tags_Cats')->find('list', ['keyField'=>'id','valueField'=>'cat_id'])->where(['tag_id IN'=>$this->request->query['tag']])->toArray();
-
-				$count_arr = [];
-
-				foreach($attached_tags as $i => $e){
-					if(empty($count_arr[$e])){
-						$count_arr[$e] = 1;
-					}else{
-						$count_arr[$e]++;
-					}
-				}
-
-				$tag_count = count($this->request->query['tag']);
-
-				foreach($count_arr as $i => $e){
-					if($e != $tag_count){
-						unset($count_arr[$i]);
-					}
-				}
-
-				$tagged_cats = array_keys($count_arr);
+				$tagged_cats = $this->Cats->buildFilterArray($this->request->query['tag']);
+				unset($this->request->query['tag']);
 			}
 
 			foreach($this->request->query as $field => $query){

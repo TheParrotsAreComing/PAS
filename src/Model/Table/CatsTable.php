@@ -49,6 +49,7 @@ class CatsTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('File');
+        $this->addBehavior('FilterableTag');
 
         $this->belongsTo('Litters', [
             'foreignKey' => 'litter_id'
