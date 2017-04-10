@@ -28,10 +28,21 @@ class FostersController extends AppController
             'conditions' => ['Fosters.is_deleted' => 0]
         ];
 
+        $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
+
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
+
+			if(!empty($this->request->query['tag'])){
+				$tagged_fosters = $this->Fosters->buildFilterArray($this->request->query['tag']);
+				unset($this->request->query['tag']);
+			}
+
             foreach($this->request->query as $field => $query){
+                if ($field == 'page'){
+					continue;
+				}
                 if ($field == 'rating' && !empty($query)){
                     if(preg_match('/rating/',$field)){
                         $this->paginate['conditions'][$field] = $query;
@@ -40,11 +51,16 @@ class FostersController extends AppController
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
             }
+
+			if(!empty($tagged_fosters)){
+				$this->paginate['conditions']['fosters.id IN'] = $tagged_fosters;
+			}
+
             $this->request->data = $this->request->query;
         }
         $rating = [0,1,2,3,4,5,6,7,8,9,10];
         $fosters = $this->paginate($this->Fosters);
-        $this->set(compact('fosters', 'foster_cats', 'rating'));
+        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags'));
         $this->set('_serialize', ['fosters']);
     }
 

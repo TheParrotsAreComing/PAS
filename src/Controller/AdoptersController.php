@@ -28,10 +28,21 @@ class AdoptersController extends AppController
             'conditions' => ['Adopters.is_deleted' => 0]
         ];
 
+        $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
+
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
+
+			if(!empty($this->request->query['tag'])){
+				$tagged_adopters = $this->Adopters->buildFilterArray($this->request->query['tag']);
+				unset($this->request->query['tag']);
+			}
+
             foreach($this->request->query as $field => $query){
+                if ($field == 'page'){
+					continue;
+				}
                 if ($field === 'cat_count' && ($query === 0 || $query != '')){
                     $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'do_not_adopt' && $query != ''){
@@ -40,11 +51,14 @@ class AdoptersController extends AppController
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
             } 
+			if(!empty($tagged_adopters)){
+				$this->paginate['conditions']['adopters.id IN'] = $tagged_adopters;
+			}
             $this->request->data = $this->request->query;
         }
         $count = [0,1,2,3,4,5];
         $adopters = $this->paginate($this->Adopters);
-        $this->set(compact('adopters'));
+        $this->set(compact('adopters','adopter_tags'));
         $this->set('_serialize', ['adopters']);
     }
 

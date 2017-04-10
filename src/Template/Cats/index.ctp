@@ -44,7 +44,10 @@
       <div class="filter-criteria">Deleted:</div>
       <?= $this->Form->input('is_deleted', ['type'=>'checkbox', 'label' => false]); ?>
       </div>
-
+	    <div class="filter">
+		  <div class="filter-criteria">Tags:</div>
+		  <?= $this->Form->input('tag',['multiple'=>'multiple','class'=>'filter-criteria-select w-input','options'=>$cat_tags,'label'=>false,'id'=>'tagFilter']) ?>
+	    </div>
 	      <div class="filter-apply-cont">
 			<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
 	        <button id="searchCatFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
@@ -127,20 +130,21 @@
           </div>
     <?php endforeach; ?>
 
-      <div class="pagination-wrap">
-        <div class="pagination-cont">
-          <div class="pagination"></div>
-        </div>
-        <div class="pagination-cont">
-          <div class="current pagination-index">1</div>
-          <div class="pagination-index">2</div>
-          <div class="pagination-index">3</div>
-          <div class="pagination-index">4</div>
-          <div class="pagination-index">5</div>
-          <div class="pagination-index">6</div>
-        </div>
-        <div class="pagination-cont">
-          <div class="pagination"></div>
+      <div class="pagination-w">
+        <div class="pagination-wrap">
+          <div class="pagination-cont">
+            <div class="pagination"><?= $this->Paginator->prev('') ?></div>
+          </div>
+          <div class="pagination-cont">
+			<?php if(count($cats) < 21): ?>	
+				<div class="pagination-index">1</div>
+			<?php else: ?>	
+				<?= $this->Paginator->numbers() ?>
+			<?php endif; ?>	
+          </div>
+          <div class="pagination-cont">
+            <div class="pagination"><?= $this->Paginator->next('') ?></div>
+          </div>
         </div>
       </div>
 
@@ -185,6 +189,8 @@
 </script>
 <script>
 $(function(){
+	$('#tagFilter').select2();
+		
 	$('#dobFilter').datepicker({
 		  changeMonth: true,
 		  changeYear: true
