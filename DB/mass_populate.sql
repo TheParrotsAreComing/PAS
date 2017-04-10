@@ -117,20 +117,20 @@ DELIMITER ;
 		-- save the current litter id to use for adding cats
 		SET @current_litter_id = (SELECT id FROM litters ORDER BY id DESC LIMIT 1);
 
-		INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-		VALUES (@current_litter_id, "Deleted Litter Mom", 0, '2015-08-21', 1, "cat color text", "cat coat text", "cat bio text", "cat diet text", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 12);
+		INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+		VALUES (@current_litter_id, "Deleted Litter Mom", 0, '2015-08-21', 1, "cat color text", "cat coat text", "cat bio text", "cat diet text", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 12, 0);
 
-		INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-		VALUES (@current_litter_id, "Deleted Liter kitten female", 1, '2017-02-14', 1, "cat color text", "cat coat text", "cat bio text", "cat diet text", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 12);
+		INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+		VALUES (@current_litter_id, "Deleted Liter kitten female", 1, '2017-02-14', 1, "cat color text", "cat coat text", "cat bio text", "cat diet text", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 12, 0);
 
-		INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-		VALUES (@current_litter_id, "Deleted Liter kitten male", 1, '2017-02-14', 0, "cat color text", "cat coat text", "cat bio text", "cat diet text", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 12);
+		INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+		VALUES (@current_litter_id, "Deleted Liter kitten male", 1, '2017-02-14', 0, "cat color text", "cat coat text", "cat bio text", "cat diet text", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 12, 0);
 
 
 
 	-- add a deleted cat, no associations to a litter
-    INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Deleted cat", 1, '2017-01-12', 1, "Dark brown", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 14);
+    INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Deleted cat", 1, '2017-01-12', 1, "Dark brown", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, true, false, true, false, true, false, false, 14, 0);
 
 
     
@@ -155,14 +155,14 @@ VALUES(456, "A Seuss Litter", 1, 2, '2017-02-07', '2017-03-07', '2017-03-18', "L
 
 SET @current_litter_id = (SELECT id FROM litters ORDER BY id DESC LIMIT 1);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (@current_litter_id, "Mom Cat in a Hat", 0, '2015-08-21', 1, "Black/White/Grey", "Long fluffy", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 18);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (@current_litter_id, "Mom Cat in a Hat", 0, '2015-08-21', 1, "Black/White/Grey", "Long fluffy", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 18, 0);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (@current_litter_id, "Red kitten", 1, '2017-02-07', 1, "Grey/Orange", "Short but dense", "cat bio and history", "cat diet and food details", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 18);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (@current_litter_id, "Red kitten", 1, '2017-02-07', 1, "Grey/Orange", "Short but dense", "cat bio and history", "cat diet and food details", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 18, 0);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (@current_litter_id, "Blue kitten", 1, '2017-02-07', 0, "Black/White", "Short fluffy", "cat bio, history and description", "cat diet and food notes", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 18);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (@current_litter_id, "Blue kitten", 1, '2017-02-07', 0, "Black/White", "Short fluffy", "cat bio, history and description", "cat diet and food notes", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 18, 0);
 
 
 
@@ -172,14 +172,14 @@ VALUES(159, "The Grumps", 0, 3, '2017-03-01', '2017-04-01', '2017-04-17', "April
 
 SET @current_litter_id = (SELECT id FROM litters ORDER BY id DESC LIMIT 1);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (@current_litter_id, "Grumpy Miranda", 1, '2017-03-01', 1, "Black/White/Grey", "Long fluffy", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, false, false, 22);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (@current_litter_id, "Grumpy Miranda", 1, '2017-03-01', 1, "Black/White/Grey", "Long fluffy", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, false, false, 22, 0);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (@current_litter_id, "Grumpy Stella", 1, '2017-03-01', 1, "Grey/Orange", "Short but dense", "cat bio and history", "cat diet and food details", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, false, false, 22);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (@current_litter_id, "Grumpy Stella", 1, '2017-03-01', 1, "Grey/Orange", "Short but dense", "cat bio and history", "cat diet and food details", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, false, false, 22, 0);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (@current_litter_id, "Grumpy Nikko", 1, '2017-03-01', 0, "Black/White", "Short fluffy", "cat bio, history and description", "cat diet and food notes", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, false, false, 22);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (@current_litter_id, "Grumpy Nikko", 1, '2017-03-01', 0, "Black/White", "Short fluffy", "cat bio, history and description", "cat diet and food notes", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, false, false, 22, 0);
 
 
 /*
@@ -228,24 +228,24 @@ VALUES("Princess", "Zelda", "8672459001", "123 Royal Way, Hyrule Castle", "zelda
 
 	SET @current_foster_id = (SELECT id FROM fosters ORDER BY id DESC LIMIT 1);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Rachelle", 1, '2017-01-03', 1, "Dark red", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 46);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Rachelle", 1, '2017-01-03', 1, "Dark red", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 46, 0);
 		
         SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
         INSERT INTO cat_histories(cat_id, adopter_id, foster_id, start_date, end_date)
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Leeroy", 0, '2016-01-12', 0, "Dark black", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, false, false, false, 51);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Leeroy", 0, '2016-01-12', 0, "Dark black", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, false, false, false, 51, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
         INSERT INTO cat_histories(cat_id, adopter_id, foster_id, start_date, end_date)
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Alicia", 0, '2016-01-12', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, true, true, 2);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Alicia", 0, '2016-01-12', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, true, true, true, 2, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -260,24 +260,24 @@ VALUES("Malon", "Lon Lon", "8672459987", "Lon Lon Ranch, Hyrule Field", "malon@l
 
 	SET @current_foster_id = (SELECT id FROM fosters ORDER BY id DESC LIMIT 1);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Steve", 0, '2014-06-04', 0, "Dark red", "Long and fluffs", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 21);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Steve", 0, '2014-06-04', 0, "Dark red", "Long and fluffs", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 21, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
         INSERT INTO cat_histories(cat_id, adopter_id, foster_id, start_date, end_date)
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Barry", 0, '2013-11-12', 0, "Dark black", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, true, true, 42);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Barry", 0, '2013-11-12', 0, "Dark black", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, true, true, 42, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
         INSERT INTO cat_histories(cat_id, adopter_id, foster_id, start_date, end_date)
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Lizette", 1, '2016-01-12', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, false, true, false, false, 36);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Lizette", 1, '2016-01-12', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, false, true, false, false, 36, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -298,16 +298,16 @@ VALUES("Marylou", "McBride", "3454452356", 2, "123 Geek Street, Rocklin, CA", "m
 
 	SET @current_adopter_id = (SELECT id FROM adopters ORDER BY id DESC LIMIT 1);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Carmella", 0, '2015-04-18', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, false, false, 28);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Carmella", 0, '2015-04-18', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, false, false, 28, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
         INSERT INTO cat_histories(cat_id, adopter_id, foster_id, start_date, end_date)
         VALUES (@current_cat_id, @current_adopter_id, NULL, CAST(NOW() AS DATE), NULL);
     
-    INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Rachelle", 1, '2017-01-28', 1, "Dark red", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, false, true, false, false, 31);
+    INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Rachelle", 1, '2017-01-28', 1, "Dark red", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, false, true, false, false, 31, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -322,8 +322,8 @@ VALUES("Doretta", "Armwood", "3454452111", 1, "754 Harvard Lane, Rocklin, CA", "
 
 	SET @current_adopter_id = (SELECT id FROM adopters ORDER BY id DESC LIMIT 1);
 
-	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-	VALUES (NULL, "Mittens", 1, '2016-12-29', 0, "Tiger stripped", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, true, true, true, true, 19);
+	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+	VALUES (NULL, "Mittens", 1, '2016-12-29', 0, "Tiger stripped", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, true, true, true, true, 19, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -344,12 +344,12 @@ VALUES("Max", "Carter", "3454456241", 0, "734 Rosevelt St, Rocklin, CA", "mcarte
 
 
 -- add the cats
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (NULL, "Sadie", 1, '2017-01-12', 1, "Dark brown", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, true, true, 40);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (NULL, "Sadie", 1, '2017-01-12', 1, "Dark brown", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, true, true, 40, 0);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (NULL, "Whiskers", 1, '2017-01-18', 1, "Dark brown", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 49);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (NULL, "Whiskers", 1, '2017-01-18', 1, "Dark brown", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, false, false, 49, 0);
 
-INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id)
-VALUES (NULL, "Jabba", 0, '2013-01-21', 0, "Dark brown", "Short and rough", "cat bio and background...", "should really just be left to sit and eat its own fat", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, true, true, 7);
+INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
+VALUES (NULL, "Jabba", 0, '2013-01-21', 0, "Dark brown", "Short and rough", "cat bio and background...", "should really just be left to sit and eat its own fat", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, true, true, 7, 0);
 
