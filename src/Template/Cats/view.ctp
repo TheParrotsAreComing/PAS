@@ -347,26 +347,26 @@
                 </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 5">
-              <div class="profile-text-header">Uploaded Photos</div>
-               <table class="table">
-                 <tr>
-                   <th width="5%">#</th>
-                   <th width="20%">File</th>
-                   <th width="12%">Upload Date</th>
-                 </tr>
-                 <?php if($photosCountTotal > 0): $count = 0; ?>
-                   <?php foreach($photos as $photo): $count++;?>
-                   <tr>
-                     <td><?php echo $count; ?></td>
-                     <td><?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext); ?></td>
-                     <td><?php echo $photo->created; ?></td>
-                   </tr>
-                   <?php endforeach; ?>
-                 <?php else: ?>
-                   <tr><td colspan="3">No file(s) found...</td></tr>
-                 <?php endif; ?>
-               </table>
-               <div class="profile-text-header">Uploaded Files (todo...)</div>
+              <div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
+              <div class="picture-file-wrap" data-ix="medical-data-click">
+                <div class="picture-file-cont scroll1">
+                  <?php if($photosCountTotal > 0):  ?>
+                    <?php foreach($photos as $photo): ?>
+                      <div class="picture-file">
+                        <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
+                        <?php if($photo->id == $cat->profile_pic_file_id): ?>
+                          <div class="picture-primary">H</div>
+                        <?php endif; ?>
+                      </div>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </div>
+                <div class="picture-file-action-cont">
+                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
+                  <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                </div>
+              </div>
+              <div class="profile-text-header">Uploaded Files (todo...)</div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
