@@ -69,6 +69,9 @@ class CatsTable extends Table
         $this->hasMany('CatHistories', [
             'foreignKey' => 'cat_id'
         ]);
+        $this->hasMany('CatMedicalHistories', [
+            'foreignKey' => 'cat_id'
+        ]);
         $this->belongsToMany('AdoptionEvents', [
             'foreignKey' => 'cat_id',
             'targetForeignKey' => 'adoption_event_id',
@@ -209,4 +212,31 @@ class CatsTable extends Table
         $output[] = array_values($result);
         return $output;
     }
+
+
+	public function manualGroupMedicalHistories($histories){
+		$is_fvrcp = [];
+		$is_deworm = [];
+		$is_flea = [];
+		$is_rabies = [];
+		$is_other = [];
+
+		$segmented = [];
+
+		foreach($histories as $history){
+			if(!empty($history->is_fvrcp)) $is_fvrcp[] = $history;
+			if(!empty($history->is_deworm)) $is_deworm[] = $history;
+			if(!empty($history->is_flea)) $is_flea[] = $history;
+			if(!empty($history->is_rabies)) $is_rabies[] = $history;
+			if(!empty($history->is_other)) $is_other[] = $history;
+		}
+		
+		$segmented['FVCRP'] = $is_fvrcp;
+		$segmented['De-Worm'] = $is_deworm;
+		$segmented['Flea'] = $is_flea;
+		$segmented['Rabies'] = $is_rabies;
+		$segmented['Other'] = $is_other;
+		
+		return $segmented;
+	}
 }

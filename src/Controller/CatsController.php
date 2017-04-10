@@ -85,16 +85,30 @@ class CatsController extends AppController
 
 
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC'])->where(['CatHistories.end_date IS NULL']); },'CatHistories.Adopters','CatHistories.Fosters']
+            'contain' => [
+			'Litters', 
+			'Breeds',
+			'Adopters',
+			'Fosters',
+			'Files',
+			'AdoptionEvents',
+			'Tags',	
+			'CatMedicalHistories'=>function($q){return $q->order(['CatMedicalHistories.administered_date'=>'DESC']);},
+			'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC'])->where(['CatHistories.end_date IS NULL']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
+
+		$cat->cat_medical_histories = $this->Cats->manualGroupMedicalHistories($cat->cat_medical_histories);
+//debug($cat->cat_medical_histories);
 
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
         $medicalDB = TableRegistry::get('CatMedicalHistories');
        
-        $medicalHistories = $medicalDB->find('all');
-        $medicalHistories->where(['cat_id' => $id]); 
+        //$medicalHistories = $medicalDB->find('all');
+        //$medicalHistories->where(['cat_id' => $id]); 
+        $medicalHistories = [];
+
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];
