@@ -109,6 +109,23 @@
               </div>
             </div>
           <?php endforeach; ?>
+		  <div class="pagination-w">
+			<div class="pagination-wrap">
+			  <div class="pagination-cont">
+				<div class="pagination"><?= $this->Paginator->prev('') ?></div>
+			  </div>
+			  <div class="pagination-cont">
+				<?php if(count($fosters) < 21): ?>	
+					<div class="pagination-index">1</div>
+				<?php else: ?>	
+					<?= $this->Paginator->numbers() ?>
+				<?php endif; ?>	
+			  </div>
+			  <div class="pagination-cont">
+				<div class="pagination"><?= $this->Paginator->next('') ?></div>
+			  </div>
+			</div>
+		  </div>
       </div>
     </div>
   </div>

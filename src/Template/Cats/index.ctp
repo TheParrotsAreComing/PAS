@@ -108,15 +108,16 @@
     <?php endforeach; ?>
 
       <div class="pagination-w">
-
-
-
         <div class="pagination-wrap">
           <div class="pagination-cont">
             <div class="pagination"><?= $this->Paginator->prev('') ?></div>
           </div>
           <div class="pagination-cont">
-			<?= $this->Paginator->numbers() ?>
+			<?php if(count($cats) < 21): ?>	
+				<div class="pagination-index">1</div>
+			<?php else: ?>	
+				<?= $this->Paginator->numbers() ?>
+			<?php endif; ?>	
           </div>
           <div class="pagination-cont">
             <div class="pagination"><?= $this->Paginator->next('') ?></div>
