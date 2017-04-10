@@ -12,49 +12,86 @@ use Cake\Datasource\Exception;
  */
 class CatsController extends AppController
 {
-
+ 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
     public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
-            'conditions' => ['Cats.is_deleted' => 0]
-        ];
+	{
+		$this->paginate = [
+			'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+			'conditions' => ['Cats.is_deleted' => 0]
+				];
 
 
+		$cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100')->toArray();
 
-        if(!empty($this->request->query['mobile-search'])){
-            $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
-        } else if(!empty($this->request->query)){
-            foreach($this->request->query as $field => $query){
-                // check the flags first
-                if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
-                    $this->paginate['conditions'][$field] = $query;
-                }else if($field == 'dob') {
-                    if(!empty($query)){
-                        $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
-                    }
-                } else if($field == 'breed_id' && !empty($query)) {
-                    $this->paginate['conditions'][$field] = $query;
-                } else if (!empty($query)) {
-                    $this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
-                }
-            }
+		if(!empty($this->request->query['mobile-search'])){
+			$this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+		} else if(!empty($this->request->query)){
 
-            $this->request->data = $this->request->query;
-        }
+			if(!empty($this->request->query['tag'])){
 
-        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
+				foreach($this->request->query['tag'] as $i => $e){
+					$this->request->query['tag'][$i] = (int)$e;
+				}
 
-        $cats = $this->paginate($this->Cats);
+				$attached_tags = TableRegistry::get('Tags_Cats')->find('list', ['keyField'=>'id','valueField'=>'cat_id'])->where(['tag_id IN'=>$this->request->query['tag']])->toArray();
 
-        $this->set(compact('cats', 'breeds'));
-        $this->set('_serialize', ['cats']);
-    }
+				$count_arr = [];
+
+				foreach($attached_tags as $i => $e){
+					if(empty($count_arr[$e])){
+						$count_arr[$e] = 1;
+					}else{
+						$count_arr[$e]++;
+					}
+				}
+
+				$tag_count = count($this->request->query['tag']);
+
+				foreach($count_arr as $i => $e){
+					if($e != $tag_count){
+						unset($count_arr[$i]);
+					}
+				}
+
+				$tagged_cats = array_keys($count_arr);
+			}
+
+			foreach($this->request->query as $field => $query){
+				// check the flags first
+				if(is_array($query) || $field == 'page'){
+					continue;
+				}
+				if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
+					$this->paginate['conditions'][$field] = $query;
+				}else if($field == 'dob') {
+					if(!empty($query)){
+						$this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
+					}
+				} else if($field == 'breed_id' && !empty($query)) {
+					$this->paginate['conditions'][$field] = $query;
+				} else if (!empty($query)) {
+					$this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
+				}
+			}
+			if(!empty($tagged_cats)){
+				$this->paginate['conditions']['cats.id IN'] = $tagged_cats;
+			}
+
+			$this->request->data = $this->request->query;
+		}
+
+		$breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
+
+		$cats = $this->paginate($this->Cats);
+
+		$this->set(compact('cats', 'breeds','cat_tags'));
+		$this->set('_serialize', ['cats']);
+	}
 
     /**
      * View method

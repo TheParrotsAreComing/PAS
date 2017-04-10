@@ -24,16 +24,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <title>PAWS Administrative System</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
+
   <?= $this->Html->css('normalize.css'); ?>
   <?= $this->Html->css('components.css'); ?>
   <?= $this->Html->css('paws-administrative-system.css'); ?>
+  <?= $this->Html->css('paws-custom.css'); ?>
+  <?= $this->Html->css('jquery-ui.css'); ?>
+  <?= $this->Html->css('select2.min.css'); ?>
+
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
   <?= $this->Html->script('modernizr.js'); ?>
   <?= $this->Html->script('global.js'); ?>
   <?= $this->Html->script('moment.js'); ?>
-  <?= $this->Html->css('paws-custom.css'); ?>
-
-  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-  <?= $this->Html->css('jquery-ui.css'); ?>
 
   <link href="<?= $this->Url->image('paws-favicon-01.png'); ?>" rel="shortcut icon" type="image/x-icon">
   <link href="<?= $this->Url->image('paws-favicon-01.png'); ?>" rel="apple-touch-icon">
@@ -138,6 +141,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->fetch('content') ?>
   <?= $this->Html->script('paws-administrative-system.js'); ?>
   <?= $this->Html->script('webflow-custom.js'); ?>
+  <?= $this->Html->script('select2.min.js'); ?>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>

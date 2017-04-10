@@ -36,6 +36,10 @@
 		  <div class="filter-criteria">Date of Birth:</div>
 		  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'dobFilter','placeholder'=>'Enter a DOB']) ?>
 	    </div>
+	    <div class="filter">
+		  <div class="filter-criteria">Tags:</div>
+		  <?= $this->Form->input('tag',['multiple'=>'multiple','class'=>'filter-criteria-select w-input','options'=>$cat_tags,'label'=>false,'id'=>'tagFilter']) ?>
+	    </div>
 
 	      <div class="filter-apply-cont">
 			<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
@@ -103,20 +107,20 @@
           </div>
     <?php endforeach; ?>
 
-      <div class="pagination-wrap">
-        <div class="pagination-cont">
-          <div class="pagination"></div>
-        </div>
-        <div class="pagination-cont">
-          <div class="current pagination-index">1</div>
-          <div class="pagination-index">2</div>
-          <div class="pagination-index">3</div>
-          <div class="pagination-index">4</div>
-          <div class="pagination-index">5</div>
-          <div class="pagination-index">6</div>
-        </div>
-        <div class="pagination-cont">
-          <div class="pagination"></div>
+      <div class="pagination-w">
+
+
+
+        <div class="pagination-wrap">
+          <div class="pagination-cont">
+            <div class="pagination"><?= $this->Paginator->prev('') ?></div>
+          </div>
+          <div class="pagination-cont">
+			<?= $this->Paginator->numbers() ?>
+          </div>
+          <div class="pagination-cont">
+            <div class="pagination"><?= $this->Paginator->next('') ?></div>
+          </div>
         </div>
       </div>
 
@@ -161,6 +165,8 @@
 </script>
 <script>
 $(function(){
+	$('#tagFilter').select2();
+		
 	$('#dobFilter').datepicker({
 		  changeMonth: true,
 		  changeYear: true
