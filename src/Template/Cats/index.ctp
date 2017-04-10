@@ -62,12 +62,12 @@
             <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block">
 
               <?php 
-            if(!empty($cat->profile_pic)){
-              echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
-            } else {
-              echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
-            }
-          ?>
+                if(!empty($cat->profile_pic)){
+                  echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
+                } else {
+                  echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
+                }
+              ?>
 
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div class="card-h2-cont">
@@ -104,7 +104,14 @@
               <div class="dropdown-results-cont">
 				<?php foreach($cat->litter->cats as $mate) : ?>
 					<?php if($mate->id != $cat->id): ?>
-						<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+						<a class="dropdown-cat-cont w-inline-block">
+						    <?php 
+				                if(!empty($mate->profile_pic)){
+				                  echo $this->Html->image('../'.$mate->profile_pic->file_path.'_tn.'.$mate->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
+				                } else {
+				                  echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
+				                }
+				            ?>
 							<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
 						</a>
 					<?php endif; ?>

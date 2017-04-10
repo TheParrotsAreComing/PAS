@@ -57,6 +57,15 @@ class CatsController extends AppController
         foreach($cats as $cat) {
             if($cat->profile_pic_file_id > 0){
                 $cat->profile_pic = $filesDB->get($cat->profile_pic_file_id);
+
+                if ($cat->litter_id > 0) {
+                    foreach($cat->litter->cats as $sibling) {
+                        if($sibling->profile_pic_file_id > 0){
+                            $sibling->profile_pic = $filesDB->get($sibling->profile_pic_file_id);
+                        }
+                    }
+                }
+
             } else {
                 $cat->profile_pic = null;
             }
