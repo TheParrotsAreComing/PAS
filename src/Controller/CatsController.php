@@ -12,49 +12,62 @@ use Cake\Datasource\Exception;
  */
 class CatsController extends AppController
 {
-
+ 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
     public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
-            'conditions' => ['Cats.is_deleted' => 0]
-        ];
+	{
+		$this->paginate = [
+			'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+			'conditions' => ['Cats.is_deleted' => 0]
+				];
 
 
+		$cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100')->toArray();
 
-        if(!empty($this->request->query['mobile-search'])){
-            $this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
-        } else if(!empty($this->request->query)){
-            foreach($this->request->query as $field => $query){
-                // check the flags first
-                if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
-                    $this->paginate['conditions'][$field] = $query;
-                }else if($field == 'dob') {
-                    if(!empty($query)){
-                        $this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
-                    }
-                } else if($field == 'breed_id' && !empty($query)) {
-                    $this->paginate['conditions'][$field] = $query;
-                } else if (!empty($query)) {
-                    $this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
-                }
-            }
+		if(!empty($this->request->query['mobile-search'])){
+			$this->paginate['conditions']['cat_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+		} else if(!empty($this->request->query)){
 
-            $this->request->data = $this->request->query;
-        }
+			if(!empty($this->request->query['tag'])){
+				$tagged_cats = $this->Cats->buildFilterArray($this->request->query['tag']);
+				unset($this->request->query['tag']);
+			}
 
-        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
+			foreach($this->request->query as $field => $query){
+				// check the flags first
+				if(is_array($query) || $field == 'page'){
+					continue;
+				}
+				if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
+					$this->paginate['conditions'][$field] = $query;
+				}else if($field == 'dob') {
+					if(!empty($query)){
+						$this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
+					}
+				} else if($field == 'breed_id' && !empty($query)) {
+					$this->paginate['conditions'][$field] = $query;
+				} else if (!empty($query)) {
+					$this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
+				}
+			}
+			if(!empty($tagged_cats)){
+				$this->paginate['conditions']['cats.id IN'] = $tagged_cats;
+			}
 
-        $cats = $this->paginate($this->Cats);
+			$this->request->data = $this->request->query;
+		}
 
-        $this->set(compact('cats', 'breeds'));
-        $this->set('_serialize', ['cats']);
-    }
+		$breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
+
+		$cats = $this->paginate($this->Cats);
+
+		$this->set(compact('cats', 'breeds','cat_tags'));
+		$this->set('_serialize', ['cats']);
+	}
 
     /**
      * View method
@@ -72,16 +85,30 @@ class CatsController extends AppController
 
 
         $cat = $this->Cats->get($id, [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'AdoptionEvents', 'Tags', 'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC'])->where(['CatHistories.end_date IS NULL']); },'CatHistories.Adopters','CatHistories.Fosters']
+            'contain' => [
+			'Litters', 
+			'Breeds',
+			'Adopters',
+			'Fosters',
+			'Files',
+			'AdoptionEvents',
+			'Tags',	
+			'CatMedicalHistories'=>function($q){return $q->order(['CatMedicalHistories.administered_date'=>'DESC']);},
+			'CatHistories'=>function($q){ return $q->order(['CatHistories.start_date'=>'DESC'])->where(['CatHistories.end_date IS NULL']); },'CatHistories.Adopters','CatHistories.Fosters']
         ]);
+
+		$cat->cat_medical_histories = $this->Cats->manualGroupMedicalHistories($cat->cat_medical_histories);
+//debug($cat->cat_medical_histories);
 
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
         $medicalDB = TableRegistry::get('CatMedicalHistories');
        
-        $medicalHistories = $medicalDB->find('all');
-        $medicalHistories->where(['cat_id' => $id]); 
+        //$medicalHistories = $medicalDB->find('all');
+        //$medicalHistories->where(['cat_id' => $id]); 
+        $medicalHistories = [];
+
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
 		$select_adopters = [];

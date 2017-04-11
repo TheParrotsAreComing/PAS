@@ -28,6 +28,10 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
+    public $helpers = [
+         'Paginator' => ['templates' => 'custom-paginate']
+	 ];
+
     /**
      * Initialization hook method.
      *
