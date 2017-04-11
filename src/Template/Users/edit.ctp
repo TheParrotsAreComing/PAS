@@ -1,37 +1,42 @@
-<?php
-/**
-  * @var \App\View\AppView $this
-  */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users Events'), ['controller' => 'UsersEvents', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Users Event'), ['controller' => 'UsersEvents', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
-    <fieldset>
-        <legend><?= __('Edit User') ?></legend>
-        <?php
-            echo $this->Form->input('first_name');
-            echo $this->Form->input('last_name');
-            echo $this->Form->input('phone');
-            echo $this->Form->input('email');
-            echo $this->Form->input('address');
-            echo $this->Form->input('password');
-            echo $this->Form->input('role');
-            echo $this->Form->input('is_deleted');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<div class="body">
+  <div class="add-view column">
+    <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
+    <div class="add-cont scroll1" data-ix="page-load-fade-in">
+      <div class="add-header">
+        <div class="add-field-h1">Edit User</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+      </div>
+      <?= $this->Form->create($user, ['class'=>'add-input-form', 'data-name'=>'Email Form 4', 'id'=>'email-form-4', 'name'=>'email-form-4']);?>
+      <div class="add-input-form-wrap w-form">
+        <label class="add-field-h2" for="First-Name">Personal Information</label>
+        <div class="add-field-seperator"></div>
+        <label class="add-field-h3" for="First-Name">First Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+        <?= $this->Form->input('first_name', ['class'=>'add-input w-input', 'data-name'=>'First-Name', 'label'=>false, 
+        'placeholder'=>'Enter First Name']);?>
+        <label class="add-field-h3" for="Last-Name">Last Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+        <?= $this->Form->input('last_name', ['class'=>'add-input w-input', 'data-name'=>'Last-Name', 'label'=>false, 
+        'placeholder'=>'Enter Last Name']);?>
+        <label class="add-field-h3" for="E-mail">E-mail<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+        <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false, 
+        'placeholder'=>'Enter Valid Email Address']);?>
+        <div class="add-button-cont">
+          <?= $this->Html->link('Change Password', ['controller'=>'users','action'=>'change_password'],['class'=>'add-submit w-button', 'id'=>'ChangePassword']); ?>
+        </div>
+    
+        <label class="add-field-h2" for="First-Name">Contact Information</label>
+        <div class="add-field-seperator"></div>
+        <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+        <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
+        'placeholder'=>'Enter Address']);?>
+        <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+        <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
+        'placeholder'=>'Enter Phone Number']);?>
+        <div class="add-button-cont">
+          <?= $this->Html->link('Cancel', ['controller'=>'users','action'=>'view', $user->id],['class'=>'add-cancel w-button', 'id'=>'UserCancel']); ?>
+          <?= $this->Form->submit("Save User", ['class'=>'add-submit w-button','id'=>'UserEdit'])?>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<?= $this->Form->end();?>

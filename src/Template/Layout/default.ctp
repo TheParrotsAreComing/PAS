@@ -126,7 +126,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Volunteers', ['controller'=>'volunteers', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Settings', ['controller'=>'settings', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php if (!empty($this->request->session()->read('Auth.User'))): ?>
+          <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php endif; ?>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
