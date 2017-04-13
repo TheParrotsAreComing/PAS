@@ -13,7 +13,17 @@ from selenium.webdriver.support.ui import Select
 import selenium.webdriver.chrome.service as service
 from selenium.common.exceptions import NoSuchElementException
 
+
+
+service = service.Service('D:\ChromeDriver\chromedriver')
+service.start()
+capabilities = {'chrome.binary': 'C:\Program Files (x86)\Google\Chrome\Application\chrome'} # Chrome path is different for everyone
+
 driver = webdriver.Remote(service.service_url, capabilities)
+
+driver.set_window_size(sys.argv[1], sys.argv[2]);
+
+driver.get('http://localhost:8765/cats/view/'+cat_id);
 
 try:
 	# Check to see if it was added
@@ -32,16 +42,6 @@ try:
 
 	k=r.fetch_row(1,1)
 	cat_id = k[0].get('id')
-
-
-	service = service.Service('D:\ChromeDriver\chromedriver')
-	service.start()
-	capabilities = {'chrome.binary': 'C:\Program Files (x86)\Google\Chrome\Application\chrome'} # Chrome path is different for everyone
-
-
-	driver.set_window_size(sys.argv[1], sys.argv[2]);
-
-	driver.get('http://localhost:8765/cats/view/'+cat_id);
 
 
 	for med_type in range(5):
