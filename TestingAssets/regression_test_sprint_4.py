@@ -1,6 +1,5 @@
 import os
 
-
 resolutions = [
 	['640','1136'], # iPhone SE & iPhone 5 
 	['750','1334'], # iPhone 7 
@@ -12,9 +11,6 @@ resolutions = [
 	['1920','1080'], #21.5'' monitor / 23'' monitor / 1080p TV
 	['1440','900'] #19" Monitor
 ]
-
-
-os.system('py System/home.py')
 
 for res in resolutions:
 	os.system('py Litters/litters_view.py '+res[0]+' '+res[1])

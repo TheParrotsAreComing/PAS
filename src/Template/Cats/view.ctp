@@ -217,7 +217,7 @@
                           <div class="card-h1">This cat currently has no medical records.</div>
                     </a>
                   <?php endif; ?>
-                <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                <a id="medAdd" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
                 </div>
               </div>
             </div>
