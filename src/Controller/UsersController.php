@@ -60,6 +60,10 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['UsersEvents']
         ]);
+        $adopter_profile = [];
+        if (!empty($user->adopter_id)) {
+            $adopter_profile = TableRegistry::init('Adopters')->get($user->adopter_id);
+        }
 
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
@@ -133,6 +137,11 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+
+        if (empty($id)) {
+            $id = $this->request->session()->read('Auth.User.id');
+        }
+
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -142,6 +151,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->new_user = 0;
             if ($this->Users->save($user)) {
+                $this->request->session()->write('Auth.User.new_user', 0);
                 $this->Flash->success(__('The user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -166,9 +176,11 @@ class UsersController extends AppController
             if ($this->Auth->identify()) {
                 if ($this->request->data['new_password'] === $this->request->data['confirm_new_password']) {
                     $user->password = $this->request->data['new_password'];
+                    $user->need_new_password = 0;
                     $this->Users->save($user);
+                    $this->request->session()->write('Auth.User.need_new_password', 0);
                     $this->Flash->success('Your password has been changed!');
-                    $this->redirect(['controller'=>'cats','action'=>'index']);
+                    $this->redirect(['controller'=>'users','action'=>'edit']);
                 } else {
                     $this->Flash->error('Passwords do not match. Please try again.');
                 }
@@ -187,12 +199,14 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        //$this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+        $this->request->data['is_deleted'] = 1;
+        $user = $this->Users->patchEntity($user, $this->request->data);
+        if ($this->Users->save($user)) {
+            $this->Flash->success(__('The volunteer has been deleted.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The volunteer could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

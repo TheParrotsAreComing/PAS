@@ -98,6 +98,22 @@ class AppController extends Controller
         $this->Auth->allow([]);
         //$this->Auth->allow(['index','view','display']);
 
+        $controller = $this->request->params['controller'];
+        $action = $this->request->params['action'];
+        /*debug($controller);
+        debug($action);die;*/
+
+        $user = $this->request->session()->read('Auth.User');
+        if (empty($user)) return;
+
+        if ($user['need_new_password'] && ($action != "changePassword")) {
+            $this->Flash->error('Please set a new password');
+            return $this->redirect(['controller'=>'users','action'=>'changePassword']);
+        } else if ($user['new_user'] && ($controller != "Users" || ($action != 'edit' && $action != 'changePassword'))) {
+            $this->Flash->error('Please fill out your profile information');
+            return $this->redirect(['controller'=>'Users','action'=>'edit']);
+        }
+
 		parent::beforeFilter($event);
 		$this->set('referer',$this->referer);
 	}

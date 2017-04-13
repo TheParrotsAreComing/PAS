@@ -38,8 +38,8 @@
       <div class="list w-dyn-items">
       <?php foreach($users as $user) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
-          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'view', $user->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
-            <div class="card-h1"><?= $user->first_name?> <?= $user->last_name?></div>
+          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'view', $user->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('user-menu.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
+            <div class="card-h1"><?= ($user->first_name == 'First' && $user->last_name == 'Last') ? '(Unconfirmed User)' : $user->first_name.' '.$user->last_name ?></div>
             <div><!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
               <div class="card-h2"></div>
