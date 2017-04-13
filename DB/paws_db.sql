@@ -171,9 +171,9 @@ CREATE TABLE cat_histories (
 	foster_id INT,	
 	start_date DATE NOT NULL,
 	end_date DATE,
-	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id),
-	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
-	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id)	
+	FOREIGN KEY cat_his_ref (cat_id) REFERENCES cats(id),
+	FOREIGN KEY adopter_his_ref (adopter_id) REFERENCES adopters(id),
+	FOREIGN KEY foster_his_ref (foster_id) REFERENCES fosters(id)	
 ); 
 
 
@@ -189,7 +189,7 @@ CREATE TABLE cats_adoption_events (
 	id INT AUTO_INCREMENT PRIMARY KEY, 
 	cat_id INT NOT NULL,
 	adoption_event_id INT NOT NULL,
-	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id),
+	FOREIGN KEY cat_eve_ref (cat_id) REFERENCES cats(id),
 	FOREIGN KEY event_ref (adoption_event_id) REFERENCES adoption_events(id)
 ); 
 
@@ -226,8 +226,8 @@ CREATE TABLE tags_cats (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	tag_id INT NOT NULL,
 	cat_id INT NOT NULL,
-	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
-	FOREIGN KEY cat_ref(cat_id) REFERENCES cats(id)
+	FOREIGN KEY tag_cat_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY cat_tag_ref(cat_id) REFERENCES cats(id)
 ); 
 
 
@@ -235,8 +235,8 @@ CREATE TABLE tags_adopters (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     tag_id INT NOT NULL,
 	adopter_id INT NOT NULL,
-	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
-	FOREIGN KEY adopter_ref(adopter_id) REFERENCES adopters(id)
+	FOREIGN KEY tag_adp_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY adopter_tag_ref(adopter_id) REFERENCES adopters(id)
 ); 
 
 
@@ -245,7 +245,7 @@ CREATE TABLE tags_fosters (
     tag_id INT NOT NULL,
 	foster_id INT NOT NULL,
 	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
-	FOREIGN KEY foster_ref(foster_id) REFERENCES fosters(id)
+	FOREIGN KEY foster_tag_ref(foster_id) REFERENCES fosters(id)
 ); 
 
 CREATE TABLE contacts (
