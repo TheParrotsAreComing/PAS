@@ -576,10 +576,14 @@ $(function () {
       width: 400,
       modal: true,
       buttons: {
-      "Delete!": function() {
-        $.get(deleteRecord+'/'+that.data('mh'));
-        $(this).dialog( "close" );
-        parent.remove();
+      "Delete!": {
+		text:"Delete!",
+		id:"delMed",
+		click : function() {
+				$.get(deleteRecord+'/'+that.data('mh'));
+				$(this).dialog( "close" );
+				parent.remove();
+			  }
       },
       Cancel: function() {
         $(this).dialog( "close" );

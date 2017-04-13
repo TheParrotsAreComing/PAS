@@ -40,16 +40,6 @@ try:
 	k=r.fetch_row(1,1)
 	cat_id = k[0].get('id')
 
-
-	#| cat_id            | int(11)    | NO   | MUL | NULL    |                |
-	#| is_fvrcp          | tinyint(1) | YES  |     | NULL    |                |
-	#| is_deworm         | tinyint(1) | YES  |     | NULL    |                |
-	#| is_flea           | tinyint(1) | YES  |     | NULL    |                |
-	#| is_rabies         | tinyint(1) | YES  |     | NULL    |                |
-	#| is_other          | tinyint(1) | YES  |     | NULL    |                |
-	#| administered_date | date       | NO   |     | NULL    |                |
-	#| notes             | text       | YES  |     | NULL    |                |
-
 	db.query('INSERT INTO cat_medical_histories (cat_id,is_fvrcp,administered_date,notes) VALUES('+cat_id+',1,"2016-04-13","Has a FVRCP");')
 
 	r=db.store_result()
@@ -63,37 +53,43 @@ try:
 
 	driver.get('http://localhost:8765/cats/view/'+cat_id);
 
-
-	# data-ix="medical-notification"
+	#open med histories
 	med_btn = driver.find_element_by_css_selector('a[data-ix="medical-notification"]')
 	med_btn.click()
 
 
+	#Find the element we want to delete
 	med_btn = driver.find_element_by_css_selector('div.medical-data-cont[data-mh="'+med_id+'"]')
 	med_btn.click()
 
-	edit_btn = driver.find_element_by_css_selector('a.left.medical-data-action[data-mh="'+med_id+'"]')
-	edit_btn.location_once_scrolled_into_view
-	edit_btn.click()
+	#choose the delete button
+	del_btn = driver.find_element_by_css_selector('a.medical-data-action.delete-record-btn[data-mh="'+med_id+'"]')
+	del_btn.location_once_scrolled_into_view
+	del_btn.click()
 
-	notes = driver.find_element_by_id('notes')
-	notes.clear()
 
-	rand_1=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-	rand_2=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(7))
-	rand_3=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+	#confirm the delete
+	confirm_btn = driver.find_element_by_id('delMed')
+	confirm_btn.location_once_scrolled_into_view
+	confirm_btn.click()
 
-	notes.send_keys(rand_1+" "+rand_2+" "+rand_3)
-	
-	submit = driver.find_element_by_css_selector('input[type="submit"]')
-	submit.click()
-	
+	#refresh page to ensure the item was deleted
+	driver.refresh();
+
+	#open med histories
 	med_btn = driver.find_element_by_css_selector('a[data-ix="medical-notification"]')
 	med_btn.click()
-	med_notes = driver.find_element_by_css_selector('div.medical-data-notes')
-	if(med_notes.text == rand_1+" "+rand_2+" "+rand_3):
-		print('pass')
 
+	# Does the item still exist?
+	med_btn = driver.find_element_by_css_selector('div.medical-data-cont[data-mh="'+med_id+'"]')
+
+	#IF we get here, the element still exists, therefore was not deleted.
+	print('fail')
+	driver.quit()
+
+except NoSuchElementException:
+	#IF we get here, the element was deleted, and we pass
+	print("pass")
 	driver.quit()
 
 except Exception as e:
