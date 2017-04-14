@@ -49,6 +49,20 @@ CREATE TABLE litters (
 );
 
 
+CREATE TABLE files ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	entity_type INT NOT NULL,
+    entity_id INT NOT NULL,
+	is_photo BOOLEAN NOT NULL,
+    mime_type VARCHAR(128) NOT NULL,
+    file_size INT NOT NULL,
+	file_path VARCHAR(256) NOT NULL,
+    file_ext VARCHAR(10) NOT NULL,
+    created DATETIME NOT NULL,
+    is_deleted BOOLEAN NOT NULL
+); 
+
+
 CREATE TABLE adopters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -59,9 +73,11 @@ CREATE TABLE adopters (
 	email VARCHAR(255) NOT NULL,
 	notes TEXT,
 	created DATETIME,
+    profile_pic_file_id INT,
     is_deleted BOOLEAN NOT NULL,
     do_not_adopt BOOLEAN,
-    dna_reason TEXT
+    dna_reason TEXT,
+    FOREIGN KEY adopter_profile_pic_ref(profile_pic_file_id) REFERENCES files(id)
 ); 
 
 
@@ -79,20 +95,6 @@ CREATE TABLE fosters (
 	rating INT,
 	notes TEXT,
 	created DATETIME,
-    is_deleted BOOLEAN NOT NULL
-); 
-
-
-CREATE TABLE files ( 
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	entity_type INT NOT NULL,
-    entity_id INT NOT NULL,
-	is_photo BOOLEAN NOT NULL,
-    mime_type VARCHAR(128) NOT NULL,
-    file_size INT NOT NULL,
-	file_path VARCHAR(256) NOT NULL,
-    file_ext VARCHAR(10) NOT NULL,
-    created DATETIME NOT NULL,
     is_deleted BOOLEAN NOT NULL
 ); 
 

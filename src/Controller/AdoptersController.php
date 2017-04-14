@@ -65,7 +65,67 @@ class AdoptersController extends AppController
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
 
-        $this->set(compact('adopter', 'adopter_tags'));
+        $filesDB = TableRegistry::get('Files');
+
+        // get photos and count
+        $photos = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => true,
+                'Files.entity_type' => $this->Adopters->getEntityTypeId(),
+                'entity_id' => $adopter->id
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $photosCountTotal = $photos->count();
+
+        // for page form
+        $uploaded_photo = null;
+
+        // check for updates and changes
+        if($this->request->is('post')) {
+
+            // uploaded a photo?
+            if(!empty($this->request->data['uploaded_photo']['name'])){
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_photo']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
+                $uploadPath = 'files/adopters/'.$adopter->id;
+                $entityTypeId = $this->Adopters->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_photo']['type'];
+                $fileSize = $this->request->data['uploaded_photo']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Adopters->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $adopter->id, $mimeType, $fileSize);
+
+                if ($new_file_id > 0){
+                    // set as profile pic if it doesn't already exist
+                    if(empty($adopter->profile_pic_file_id)) {
+                        $adopter->profile_pic_file_id = $new_file_id;
+                        $this->Adopters->save($adopter);
+                    }
+                    $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
+                    $photosCountTotal++;
+
+                } else {
+                    $this->Flash->error(__('Unable to upload photo, please try again.'));
+                }
+
+            } else {
+                $this->Flash->error(__('Please choose a photo.'));
+            }
+        }
+        // profile pic file
+        if($adopter->profile_pic_file_id > 0) {
+            $profile_pic = $filesDB->get($adopter->profile_pic_file_id);
+        } else {
+            $profile_pic = null;
+        }
+        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic'));
         $this->set('_serialize', ['adopter']);
     }
 
