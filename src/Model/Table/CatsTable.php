@@ -135,6 +135,10 @@ class CatsTable extends Table
             ->allowEmpty('adoption_fee_amount');
 
         $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
+
+        $validator
             ->boolean('is_deleted')
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
