@@ -54,6 +54,9 @@ class AdoptersTable extends Table
             'targetForeignKey' => 'tag_id',
             'joinTable' => 'tags_adopters'
         ]);
+        $this->belongsTo('Files', [
+            'foreignKey' => 'profile_pic_file_id'
+        ]);
     }
 
     /**
@@ -96,6 +99,10 @@ class AdoptersTable extends Table
 
         $validator
             ->allowEmpty('notes');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')
