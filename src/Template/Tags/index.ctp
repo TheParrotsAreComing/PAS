@@ -13,7 +13,7 @@
             <div class="index-tag-cont no-horizontal-scroll scroll1">
 
               <?php foreach ($tags as $tag): ?>
-                <div class="index-tag" data-ix="medical-data-click" data-id="<?= $tag->id ?>">
+                <div class="index-tag cursor-point" data-ix="medical-data-click" data-id="<?= $tag->id ?>">
                   <div class="tag-cont" data-ix="medical-data-click" style="color:#<?= $tag->color ?>; border-color:#<?= $tag->color ?>;">
                     <div class="tag-text"><?= $tag->label ?></div>
                   </div>

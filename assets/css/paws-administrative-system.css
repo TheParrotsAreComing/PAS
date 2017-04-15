@@ -101,7 +101,6 @@
 }
 
 .navbar {
-  width: 100%;
   max-width: 100%;
   box-shadow: 0 0 6px 0 rgba(80, 80, 80, .98);
 }
@@ -118,12 +117,17 @@
 .navbar-search-cont {
   width: 30%;
   margin-top: 12px;
-  margin-right: 13%;
+  margin-right: 9%;
   margin-bottom: 0px;
   float: right;
 }
 
 .navbar-menu {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
   float: left;
   font-weight: 600;
 }
@@ -280,7 +284,6 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 0px;
   padding-top: 110px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -331,6 +334,7 @@
 
 .list-wrapper {
   overflow: auto;
+  width: 100%;
   height: 100vh;
   margin-right: 0px;
   margin-left: 0px;
@@ -345,6 +349,10 @@
   -webkit-align-items: flex-start;
   -ms-flex-align: start;
   align-items: flex-start;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 
 .card-pic {
@@ -608,6 +616,10 @@
 }
 
 .sidebar-link {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
   -webkit-transition: all 300ms ease;
   transition: all 300ms ease;
   font-weight: 500;
@@ -745,6 +757,8 @@
 
 .cat-profile-pic {
   display: block;
+  width: 140px;
+  height: 140px;
   margin-top: 0px;
   margin-right: 10px;
   margin-left: -150px;
@@ -1210,6 +1224,7 @@
 
 .dropdown-cat-pic {
   width: 36px;
+  height: 36px;
 }
 
 .dropdown-cat-cont {
@@ -1686,7 +1701,7 @@
   font-weight: 700;
 }
 
-.size-select {
+.check-select {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1719,24 +1734,24 @@
   text-transform: lowercase;
 }
 
-.size-select:hover {
+.check-select:hover {
   background-color: #e6e6e6;
 }
 
-.size-select.w--current {
+.check-select.w--current {
   border-right-style: none;
   background-color: #0172ff;
   color: #fff;
   font-weight: 700;
 }
 
-.size-select.left {
+.check-select.left {
   border-right-style: solid;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.size-select.left.w--current {
+.check-select.left.w--current {
   border-style: solid;
   border-color: #0172ff;
   border-top-left-radius: 3px;
@@ -1744,21 +1759,21 @@
   font-weight: 500;
 }
 
-.size-select.right {
+.check-select.right {
   border-right-style: solid;
   border-left-style: none;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-.size-select.right.w--current {
+.check-select.right.w--current {
   border-color: #0172ff;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   font-weight: 500;
 }
 
-.size-cont {
+.check-cont {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2082,10 +2097,10 @@
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-box-align: stretch;
   -webkit-align-items: stretch;
   -ms-flex-align: stretch;
@@ -3177,14 +3192,17 @@
   display: flex;
   max-height: 180px;
   padding-top: 10px;
-  padding-left: 5px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: start;
   align-content: flex-start;
@@ -3235,8 +3253,8 @@
 
 .picture-primary {
   position: absolute;
-  left: 4px;
-  top: 52px;
+  left: 8px;
+  top: 55px;
   font-family: 'Cat Icons', sans-serif;
   color: #0172ff;
   font-size: 20px;
@@ -3246,8 +3264,6 @@
 
 .picture {
   height: 75px;
-  margin-right: 10px;
-  margin-bottom: 10px;
   border-radius: 3px;
   -webkit-transition: all 300ms ease;
   transition: all 300ms ease;
@@ -3259,6 +3275,7 @@
 }
 
 .picture.selected {
+  height: 79px;
   box-shadow: 0 0 6px 0 #0172ff;
 }
 
@@ -3389,6 +3406,7 @@
 
 .picture-file {
   position: relative;
+  padding: 4px;
 }
 
 .text-block {
@@ -3454,6 +3472,9 @@
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
   border-radius: 3px;
   background-color: #fff;
   box-shadow: 0 0 6px 0 rgba(35, 31, 32, .83);
@@ -3486,6 +3507,60 @@
   color: #0172ff;
   font-size: 18px;
   font-weight: 600;
+}
+
+.div-block-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+.pagination-w {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.list-header {
+  -webkit-box-ordinal-group: 0;
+  -webkit-order: -1;
+  -ms-flex-order: -1;
+  order: -1;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.text-block-2 {
+  display: block;
+}
+
+.text-block-3 {
+  margin-bottom: -85px;
 }
 
 html.w-mod-js *[data-ix="page-load-fade-in"] {
@@ -4578,6 +4653,12 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .picture-file-cont {
     height: 150px;
+  }
+  .picture-file-action {
+    cursor: default;
+  }
+  .picture-file-action.active {
+    cursor: pointer;
   }
   .pagination-wrap {
     display: -webkit-box;

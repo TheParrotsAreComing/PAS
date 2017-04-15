@@ -34,6 +34,10 @@
           <div class="filter-criteria">Do NOT Adopt:</div>
           <?= $this->Form->input('do_not_adopt',['class'=>'filter-criteria-select w-select','label'=>false,'empty'=>'Both','options'=>['False','True']])?>
       </div>
+	  <div class="filter">
+	    <div class="filter-criteria">Tags:</div>
+	    <?= $this->Form->input('tag',['multiple'=>'multiple','class'=>'filter-criteria-select w-input','options'=>$adopter_tags,'label'=>false,'id'=>'tagFilter']) ?>
+	  </div>
       <div class="filter-apply-cont">
         <a class="cancel filter-button w-button" href="<?= $this->Url->build(['action'=>'index'])?>">Cancel</a>
         <button id="filterAdopters" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">APPLY FILTER</button>
@@ -87,6 +91,24 @@
           </div>
         </div>
       <?php endforeach; ?>
+
+	  <div class="pagination-w">
+		<div class="pagination-wrap">
+		  <div class="pagination-cont">
+			<div class="pagination"><?= $this->Paginator->prev('') ?></div>
+		  </div>
+		  <div class="pagination-cont">
+			<?php if(count($adopters) < 21): ?>	
+				<div class="pagination-index">1</div>
+			<?php else: ?>	
+				<?= $this->Paginator->numbers() ?>
+			<?php endif; ?>	
+		  </div>
+		  <div class="pagination-cont">
+			<div class="pagination"><?= $this->Paginator->next('') ?></div>
+		  </div>
+		</div>
+	  </div>
       </div>
     </div>
    <div class="cat-header" data-ix="page-load-slide-down">
@@ -121,4 +143,7 @@
     <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+
+<script>
+	$('#tagFilter').select2();
+</script>

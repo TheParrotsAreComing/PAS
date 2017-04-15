@@ -28,10 +28,21 @@ class AdoptersController extends AppController
             'conditions' => ['Adopters.is_deleted' => 0]
         ];
 
+        $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
+
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
+
+            if(!empty($this->request->query['tag'])){
+                $tagged_adopters = $this->Adopters->buildFilterArray($this->request->query['tag']);
+                unset($this->request->query['tag']);
+            }
+
             foreach($this->request->query as $field => $query){
+                if ($field == 'page'){
+                    continue;
+                }
                 if ($field === 'cat_count' && ($query === 0 || $query != '')){
                     $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'do_not_adopt' && $query != ''){
@@ -40,11 +51,14 @@ class AdoptersController extends AppController
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
             } 
+            if(!empty($tagged_adopters)){
+                $this->paginate['conditions']['adopters.id IN'] = $tagged_adopters;
+            }
             $this->request->data = $this->request->query;
         }
         $count = [0,1,2,3,4,5];
         $adopters = $this->paginate($this->Adopters);
-        $this->set(compact('adopters'));
+        $this->set(compact('adopters','adopter_tags'));
         $this->set('_serialize', ['adopters']);
     }
 
@@ -65,67 +79,7 @@ class AdoptersController extends AppController
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
 
-        $filesDB = TableRegistry::get('Files');
-
-        // get photos and count
-        $photos = $filesDB->find('all', [
-            'conditions' => [
-                'Files.is_photo' => true,
-                'Files.entity_type' => $this->Adopters->getEntityTypeId(),
-                'entity_id' => $adopter->id
-                ],
-            'order' => ['Files.created'=>'DESC']]);
-        $photosCountTotal = $photos->count();
-
-        // for page form
-        $uploaded_photo = null;
-
-        // check for updates and changes
-        if($this->request->is('post')) {
-
-            // uploaded a photo?
-            if(!empty($this->request->data['uploaded_photo']['name'])){
-
-                // get file ext
-                $uploadedFileName = $this->request->data['uploaded_photo']['name'];
-                $nameArray = explode('.', $uploadedFileName);
-                $fileExtension = array_pop($nameArray);
-
-                // get other vars to upload photo
-                $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
-                $uploadPath = 'files/adopters/'.$adopter->id;
-                $entityTypeId = $this->Adopters->getEntityTypeId();
-                $mimeType = $this->request->data['uploaded_photo']['type'];
-                $fileSize = $this->request->data['uploaded_photo']['size'];
-
-                // attempt to upload the photo with the file behavior
-                $new_file_id = $this->Adopters->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
-                    $entityTypeId, $adopter->id, $mimeType, $fileSize);
-
-                if ($new_file_id > 0){
-                    // set as profile pic if it doesn't already exist
-                    if(empty($adopter->profile_pic_file_id)) {
-                        $adopter->profile_pic_file_id = $new_file_id;
-                        $this->Adopters->save($adopter);
-                    }
-                    $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
-                    $photosCountTotal++;
-
-                } else {
-                    $this->Flash->error(__('Unable to upload photo, please try again.'));
-                }
-
-            } else {
-                $this->Flash->error(__('Please choose a photo.'));
-            }
-        }
-        // profile pic file
-        if($adopter->profile_pic_file_id > 0) {
-            $profile_pic = $filesDB->get($adopter->profile_pic_file_id);
-        } else {
-            $profile_pic = null;
-        }
-        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic'));
+        $this->set(compact('adopter', 'adopter_tags'));
         $this->set('_serialize', ['adopter']);
     }
 
@@ -199,13 +153,13 @@ class AdoptersController extends AppController
         $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
         if ($this->Adopters->save($adopter)) {
 
-			$cat_histories_table = TableRegistry::get('CatHistories');
-			$associations = $cat_histories_table->query();
-			$associations->update()
-				->set(['end_date'=>date('Y-m-d')])
-				->where(['adopter_id'=>$id])
-				->andWhere(["end_date IS NULL"])
-				->execute();
+            $cat_histories_table = TableRegistry::get('CatHistories');
+            $associations = $cat_histories_table->query();
+            $associations->update()
+                ->set(['end_date'=>date('Y-m-d')])
+                ->where(['adopter_id'=>$id])
+                ->andWhere(["end_date IS NULL"])
+                ->execute();
 
             $this->Flash->success(__('The adopter has been deleted.'));
             return $this->redirect(['action' => 'index']);
@@ -214,18 +168,18 @@ class AdoptersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-	}
+    }
 
-	public function checkAssociations($adopter_id){
-		$this->autoRender = false;
-		$cat_histories_table = TableRegistry::get('CatHistories');
-		$associations = $cat_histories_table->findByAdopterId($adopter_id);
-		$associations->where(["end_date IS NULL"]);
+    public function checkAssociations($adopter_id){
+        $this->autoRender = false;
+        $cat_histories_table = TableRegistry::get('CatHistories');
+        $associations = $cat_histories_table->findByAdopterId($adopter_id);
+        $associations->where(["end_date IS NULL"]);
 
-		ob_clean();
-		echo empty($associations->toArray()) ? '0' : '1';
-		exit(0);
-	}
+        ob_clean();
+        echo empty($associations->toArray()) ? '0' : '1';
+        exit(0);
+    }
 
     public function attachTag() {
         $this->autoRender = false;
