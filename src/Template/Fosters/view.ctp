@@ -9,7 +9,14 @@
             </a>
             <div class="profile-id-cont"></div>
         </div>
-        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header">
+          <?php 
+            if(!empty($profile_pic)){
+              echo $this->Html->image('../'.$profile_pic->file_path.'.'.$profile_pic->file_ext, ['class'=>'cat-profile-pic']);
+            } else {
+              echo '<img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">';
+            }
+          ?>
           <div>
             <div class="cat-profile-name"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
             <div>
@@ -123,7 +130,26 @@
                 </div>
                 <div class="w-tab-pane" data-w-tab="Tab 3">
                   <div class="profile-content-cont">
-                    <div class="profile-text-header">Attachments</div>
+                    <div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
+                    <div class="picture-file-wrap" data-ix="medical-data-click">
+                      <div class="picture-file-cont scroll1">
+                        <?php if($photosCountTotal > 0):  ?>
+                          <?php foreach($photos as $photo): ?>
+                            <div class="picture-file">
+                              <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
+                              <?php if($photo->id == $foster->profile_pic_file_id): ?>
+                                <div class="picture-primary">H</div>
+                              <?php endif; ?>
+                            </div>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </div>
+                      <div class="picture-file-action-cont">
+                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
+                        <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                      </div>
+                    </div>
+                    <div class="profile-text-header">Uploaded Files (todo...)</div>
                   </div>
                 </div>
                 <div class="w-tab-pane" data-w-tab="Tab 4">
@@ -139,7 +165,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" href="javascript:void(0);" data-ix="add-photo-click-desktop">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -204,6 +230,24 @@
       </div>
     </div>
   </div>
+
+  <div class="add-adopter-floating-overlay add-photo">
+  <div class="confirm-cont add-photo-inner">
+    <div class="confirm-text">Choose a Photo...</div>
+      <?php 
+        echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <?php
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
 
 
   <div id="dialog-confirm" title="Delete this tag?" style="display:none;">

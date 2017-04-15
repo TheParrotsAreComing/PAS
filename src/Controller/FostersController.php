@@ -82,8 +82,69 @@ class FostersController extends AppController
         $foster = $this->Fosters->get($id, [
             'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
         ]);
+
+        $filesDB = TableRegistry::get('Files');
+
+        // get photos and count
+        $photos = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => true,
+                'Files.entity_type' => $this->Fosters->getEntityTypeId(),
+                'entity_id' => $foster->id
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $photosCountTotal = $photos->count();
+
+        // for page form
+        $uploaded_photo = null;
+
+        // check for updates and changes
+        if($this->request->is('post')) {
+
+            // uploaded a photo?
+            if(!empty($this->request->data['uploaded_photo']['name'])){
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_photo']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
+                $uploadPath = 'files/fosters/'.$foster->id;
+                $entityTypeId = $this->Fosters->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_photo']['type'];
+                $fileSize = $this->request->data['uploaded_photo']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Fosters->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $foster->id, $mimeType, $fileSize);
+
+                if ($new_file_id > 0){
+                    // set as profile pic if it doesn't already exist
+                    if(empty($foster->profile_pic_file_id)) {
+                        $foster->profile_pic_file_id = $new_file_id;
+                        $this->Fosters->save($foster);
+                    }
+                    $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
+                    $photosCountTotal++;
+
+                } else {
+                    $this->Flash->error(__('Unable to upload photo, please try again.'));
+                }
+
+            } else {
+                $this->Flash->error(__('Please choose a photo.'));
+            }
+        }
+        // profile pic file
+        if($foster->profile_pic_file_id > 0) {
+            $profile_pic = $filesDB->get($foster->profile_pic_file_id);
+        } else {
+            $profile_pic = null;
+        }
         
-        $this->set(compact('foster', 'foster_tags'));
+        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic'));
         $this->set('_serialize', ['foster']);
     }
 

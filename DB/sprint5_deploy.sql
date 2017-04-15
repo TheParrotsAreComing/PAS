@@ -24,6 +24,13 @@ ALTER TABLE adopters ADD profile_pic_file_id INT,
 	ADD CONSTRAINT adopter_profile_pic_ref FOREIGN KEY(profile_pic_file_id) REFERENCES files(id);
 END IF;
 
+-- add profile pic reference for fosters
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='fosters' AND column_name='profile_pic_file_id')
+THEN
+ALTER TABLE fosters ADD profile_pic_file_id INT,
+	ADD CONSTRAINT foster_profile_pic_ref FOREIGN KEY(profile_pic_file_id) REFERENCES files(id);
+END IF;
+
 END $$
 
 -- run the stored procedure

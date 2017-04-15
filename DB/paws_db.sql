@@ -94,8 +94,10 @@ CREATE TABLE fosters (
 	avail VARCHAR(255),
 	rating INT,
 	notes TEXT,
+    profile_pic_file_id INT,
 	created DATETIME,
-    is_deleted BOOLEAN NOT NULL
+    is_deleted BOOLEAN NOT NULL,
+    FOREIGN KEY foster_profile_pic_ref(profile_pic_file_id) REFERENCES files(id)
 ); 
 
 
