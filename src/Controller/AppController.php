@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -114,4 +115,23 @@ class AppController extends Controller
 		parent::beforeFilter($event);
 		$this->set('referer',$this->referer);
 	}
+
+    public function deletePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $filesDB = TableRegistry::get('Files');
+        
+        $file = $filesDB->get($data['file_id']);
+        $file->is_deleted = true;
+
+        ob_clean();
+        if($filesDB->save($file)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
 }

@@ -46,7 +46,7 @@
                         </div>
                       <?php endforeach; ?>   
                     </div>
-                    <div class="example-tag-wrapper">
+                    <div class="profile-content-cont">
                        <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
                     </div>
                     <div class="profile-content-cont">
@@ -61,8 +61,7 @@
                           <div class="block profile-field-text"><?= h($foster->address) ?></div>
                         </div>
 
-                        <?php if (!empty($foster->phone_numbers)): ?>
-                        <div class="profile-text-header">Phone Numbers </div>
+                        <div class="profile-text-header">Phone Number(s) </div>
                         <div class="medical-wrap">
                             <?php foreach ($foster->phone_numbers as $number): ?>
                               <?php if($number->entity_type === 1): ?>
@@ -70,6 +69,7 @@
                                   if ($number->phone_type === 1) {$type = "Mobile ";} 
                                   else if ($number->phone_type === 2) {$type = "Home ";} 
                                   else if ($number->phone_type === 3) {$type = "Other ";} 
+
                                   ?>
                                   <div class="scroll1 no-horizontal-scroll">
                                     <div class="medical-data-cont" data-ix="medical-data-click">
@@ -94,7 +94,7 @@
                               <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
-                        <?php endif; ?>
+
                         <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $foster->id, 1])?>">+ Add New Phone Number
                         </a>
                     </div>  

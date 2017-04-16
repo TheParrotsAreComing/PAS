@@ -62,6 +62,7 @@ class AdoptersController extends AppController
         $count = [0,1,2,3,4,5];
         $adopters = $this->paginate($this->Adopters);
 
+
         foreach($adopters as $adopter) {
             if($adopter->profile_pic_file_id > 0){
                 $adopter->profile_pic = $filesDB->get($adopter->profile_pic_file_id);
@@ -83,6 +84,7 @@ class AdoptersController extends AppController
         }
 
         $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type'));
+
         $this->set('_serialize', ['adopters']);
     }
 
