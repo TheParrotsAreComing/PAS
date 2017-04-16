@@ -58,7 +58,7 @@ class AdoptersTable extends Table
 
         $this->hasMany('PhoneNumbers', [
         'foreignKey' => 'entity_id' 
-
+        ]);
         $this->belongsTo('Files', [
             'foreignKey' => 'profile_pic_file_id'
 
