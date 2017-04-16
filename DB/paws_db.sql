@@ -8,6 +8,7 @@ from scratch
 
 	
 	USE paws_db;
+	DROP TABLE IF EXISTS phone_numbers;
     DROP TABLE IF EXISTS contacts;
 	DROP TABLE IF EXISTS tags_fosters; 
 	DROP TABLE IF EXISTS tags_adopters; 
@@ -67,7 +68,6 @@ CREATE TABLE adopters (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-	phone VARCHAR(10) NOT NULL,
 	cat_count INT NOT NULL,
 	address VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL,
@@ -85,7 +85,6 @@ CREATE TABLE fosters (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-	phone VARCHAR(10) NOT NULL,
 	address VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	exp VARCHAR(255),
@@ -269,3 +268,12 @@ CREATE TABLE colors(
     id INT AUTO_INCREMENT PRIMARY KEY, 
     color VARCHAR(32)
 );
+
+CREATE TABLE phone_numbers ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	entity_type INT(11) NOT NULL,
+	phone_type INT(11) NOT NULL, 
+    entity_id INT NOT NULL,
+    phone_num VARCHAR(10) NOT NULL,
+    created DATETIME NOT NULL
+); 
