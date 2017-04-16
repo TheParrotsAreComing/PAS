@@ -36,6 +36,9 @@ class CatMedicalHistoriesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->addBehavior('Timestamp');
+        $this->addBehavior('File');
+
         $this->belongsTo('Cats', [
             'foreignKey' => 'cat_id',
             'joinType' => 'INNER'

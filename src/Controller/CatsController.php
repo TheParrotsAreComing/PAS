@@ -140,6 +140,15 @@ class CatsController extends AppController
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
 
+        $documents = $filesDB->find('all',[
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Cats->getEntityTypeId(),
+                'entity_id' => $cat->id
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $documentsCountTotal = $documents->count();   
+
 
         // get photos and count
         $photos = $filesDB->find('all', [
@@ -201,7 +210,7 @@ class CatsController extends AppController
         	$profile_pic = null;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal'));
 
         $this->set('_serialize', ['cat']);
     }
