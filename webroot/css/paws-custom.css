@@ -279,3 +279,7 @@ div.pagination-index > a, div.pagination > a{
     font-style: italic;
     color: grey;
 }
+
+.user-attach-new-adopter, .user-attach-existing-adopter {
+    margin-top:2em;
+}

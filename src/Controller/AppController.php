@@ -48,6 +48,29 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Cats',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'unauthorizedRedirect' => $this->referer()
+        ]);
 
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -73,6 +96,22 @@ class AppController extends Controller
     }
     public function beforeFilter(Event $event)
 	{
+        $this->Auth->allow([]);
+
+        $controller = $this->request->params['controller'];
+        $action = $this->request->params['action'];
+
+        $user = $this->request->session()->read('Auth.User');
+        if (empty($user)) return;
+
+        if ($user['need_new_password'] && ($action != "changePassword")) {
+            $this->Flash->error('Please set a new password');
+            return $this->redirect(['controller'=>'users','action'=>'changePassword']);
+        } else if ($user['new_user'] && ($controller != "Users" || ($action != 'edit' && $action != 'changePassword'))) {
+            $this->Flash->error('Please fill out your profile information');
+            return $this->redirect(['controller'=>'Users','action'=>'edit']);
+        }
+
 		parent::beforeFilter($event);
 		$this->set('referer',$this->referer);
 	}
