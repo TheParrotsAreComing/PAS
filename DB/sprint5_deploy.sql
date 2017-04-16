@@ -40,15 +40,6 @@ ALTER TABLE cats ADD is_deceased BOOLEAN;
 UPDATE cats SET is_deceased = 0 WHERE id > 0;
 END IF;
 
-IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='files' AND column_name='original_filename'))
-THEN 
-ALTER TABLE files ADD original_filename VARCHAR(128) NOT NULL;
-END IF;
-
-IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='files' AND column_name='note'))
-THEN
-ALTER TABLE files ADD note TEXT;
-END IF;
 
 -- add profile pic reference for adopters
 IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='adopters' AND column_name='profile_pic_file_id')
@@ -64,11 +55,23 @@ ALTER TABLE fosters ADD profile_pic_file_id INT,
 	ADD CONSTRAINT foster_profile_pic_ref FOREIGN KEY(profile_pic_file_id) REFERENCES files(id);
 END IF;
 
+-- add original file name for files
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='files' AND column_name='original_filename'))
+THEN 
+ALTER TABLE files ADD original_filename VARCHAR(128) NOT NULL;
+END IF;
+
+-- add note to files
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='files' AND column_name='note'))
+THEN
+ALTER TABLE files ADD note TEXT;
+END IF;
+
+-- add file id to cat medical histories
 IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='cat_medical_histories' AND column_name='file_id'))
 THEN
 ALTER TABLE cat_medical_histories ADD file_id INT;
 END IF;
-
 
 END $$
 
@@ -79,4 +82,3 @@ CALL sprint5_deploy() $$
 DROP PROCEDURE IF EXISTS sprint5_deploy $$
 
 DELIMITER ;
-
