@@ -134,7 +134,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
   </div>
   <?= $this->Html->script('jquery.min.js'); ?>
-  <?= $this->Html->script('jquery-ui.js'); ?>
+  <?= $this->Html->script('jquery-ui.min.js'); ?>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <div class="flash-div"><?= $this->Flash->render() ?></div>
