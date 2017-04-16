@@ -143,7 +143,6 @@ class AdoptersController extends AppController
             $profile_pic = null;
         }
         $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers'));
-        
         $this->set('_serialize', ['adopter']);
     }
 

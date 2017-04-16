@@ -42,6 +42,7 @@ class FostersTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('FilterableTag');
+        $this->addBehavior('File');
 
         $this->hasMany('CatHistories', [
             'foreignKey' => 'foster_id'
@@ -54,8 +55,13 @@ class FostersTable extends Table
             'targetForeignKey' => 'tag_id',
             'joinTable' => 'tags_fosters'
         ]);
+
         $this->hasMany('PhoneNumbers', [
         'foreignKey' => 'entity_id' 
+
+        $this->belongsTo('Files', [
+            'foreignKey' => 'profile_pic_file_id'
+
         ]);
     }
 
@@ -106,6 +112,10 @@ class FostersTable extends Table
 
         $validator
             ->notEmpty('notes');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')
