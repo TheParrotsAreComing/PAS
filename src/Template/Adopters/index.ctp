@@ -67,7 +67,7 @@
                   --> 
             </div>
             <div class="card-field-wrap">
-
+            <?php if(!empty($adopter->phone_numbers)): ?>
               <?php foreach ($adopter->phone_numbers as $number): ?>
                 <?php if ($number->entity_type === 2): ?>
                   <?php $type = "";
@@ -77,6 +77,7 @@
                   ?>
                 <?php endif; ?>
               <?php endforeach; ?> 
+            <?php endif; ?>
               <div class="card-field-cont left-justify">
                 <?php if ($number->entity_type === 2 && $number->entity_id === $adopter->id): ?>
                     <div class="card-h3"><?= $type; ?></div>
