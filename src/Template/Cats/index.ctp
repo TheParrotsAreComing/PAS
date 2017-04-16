@@ -74,7 +74,7 @@
 
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div class="card-h2-cont">
-                <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "C" : "D" ?></div>
+                <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
                 <div class="card-h2 <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
               </div>
               <div class="card-field-wrap">
