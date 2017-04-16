@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -43,7 +44,8 @@ class UsersController extends AppController
             $this->request->data = $this->request->query;
         }
 
-        $users = $this->paginate($this->Users);
+        $query = $this->Users->find()->where(['is_deleted'=>0]);
+        $users = $this->paginate($query);
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
@@ -58,6 +60,10 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+        if (empty($id)) {
+            $id = $this->request->session()->read('Auth.User.id');
+        }
+
         $user = $this->Users->get($id, [
             'contain' => ['UsersEvents']
         ]);
@@ -77,6 +83,11 @@ class UsersController extends AppController
      */
     public function add()
     {
+        if ($this->request->session()->read('Auth.User.role') != 1) {
+            $this->Flash->error("You aren't allowed to do that");
+            return $this->redirect(['controller'=>'users','action'=>'index']);
+        }
+
         $user_types = [
             1 => 'Admin (FULL PRIVILIGES)',
             2 => 'Core Volunteer',
@@ -116,7 +127,7 @@ class UsersController extends AppController
     public function login() {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            if ($user) {
+            if ($user && !$user['is_deleted']) {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
@@ -205,6 +216,15 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        // if this function wasn't navigated to properly, or if someone other than an admin is trying to delete a 
+        // user other than himself, don't allow the deletion to carry through 
+        
+        if ($this->referer() != Router::url(['controller'=>'users','action'=>'view',$id],true) || 
+                ($this->request->session()->read('Auth.User.role') != 1 && $this->request->session()->read('Auth.User.id') != $id)) {
+            $this->Flash->error("You aren't allowed to do that");
+            return $this->redirect(['controller'=>'users','action'=>'view',$id]);
+        }
+
         //$this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         $this->request->data['is_deleted'] = 1;

@@ -146,12 +146,12 @@
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
-  <div class="floating-overlay delete-user">
+  <div class="add-adopter-floating-overlay delete-user">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this user?</div>
       <div class="confirm-button-wrap w-form">
         <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+            <a class="cancel cancel-delete confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
             <?= $this->Html->link('Delete', ['controller'=>'users', 'action'=>'delete', $user->id], ['class'=>'confirm-button delete w-button']); ?>
         </form>
       </div>
@@ -176,6 +176,16 @@
 			e.preventDefault();
 		});
 	});
+
+  $('.delete-button').on('click', function() {
+    $('.delete-user').css('display','flex');
+    $('.delete-user').css('opacity',1);
+  });
+
+  $('.cancel-delete').on('click', function() {
+    $('.delete-user').css('display','none');
+    $('.delete-user').css('opacity',0);
+  });
 
   $('.user-attach-new-adopter').on('click', function() {
     $('.add-new-adopter-profile').css('display','flex');
