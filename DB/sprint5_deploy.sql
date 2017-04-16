@@ -55,6 +55,48 @@ ALTER TABLE fosters ADD profile_pic_file_id INT,
 	ADD CONSTRAINT foster_profile_pic_ref FOREIGN KEY(profile_pic_file_id) REFERENCES files(id);
 END IF;
 
+-- add password for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='password')
+THEN
+ALTER TABLE users ADD column password varchar(255) not null;
+END IF;
+
+-- add role for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='role')
+THEN
+ALTER TABLE users ADD column role int(1) not null;
+END IF;
+
+-- add new_user for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='new_user')
+THEN
+ALTER TABLE users ADD column new_user tinyint(1);
+END IF;
+
+-- add need_new_password for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='need_new_password')
+THEN
+ALTER TABLE users ADD column need_new_password tinyint(1);
+END IF;
+
+-- add adopter_id reference for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='adopter_id')
+THEN
+ALTER TABLE users ADD column adopter_id INT,
+	ADD CONSTRAINT adopter_ref FOREIGN KEY(adopter_id) REFERENCES adopters(id);
+END IF;
+
+-- add created for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='created')
+THEN
+ALTER TABLE users ADD column created DATETIME;
+END IF;
+
+-- add modified for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='modified')
+THEN
+ALTER TABLE users ADD column modified DATETIME;
+END IF;
 
 END $$
 

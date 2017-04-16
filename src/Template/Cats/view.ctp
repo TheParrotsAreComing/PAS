@@ -238,54 +238,54 @@
                         <?php break; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
-						<?php if(!empty($foster)) :?>
-						  <div class="profile-text-header">Foster Home</div>
-						  <div class="card-cont card-wrapper w-dyn-item">
-							<a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
-							<div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
-							<div class="card-field-wrap">
-								<div class="card-field-cont">
-								  <div class="card-field-cont">
-									<div class="card-h3">Rating:</div>
-									<div class="card-field-text"><?= h($foster->rating) ?></div>
-								</div>
-								</div>
-								<div class="card-field-cont">
-								<div class="card-field-cont">
-									<div class="card-h3">Email:</div>
-									<div class="card-field-text"><?= h($foster->email) ?></div>
-								</div>
-								</div>
-								<div class="card-field-cont">
-								<div class="card-field-cont">
-									<div class="card-h3">Phone:</div>
-									<div class="card-field-text"><?= h($foster->phone) ?></div>
-								</div>
-								</div>
-								<div class="card-field-cont">
-								<div class="card-field-cont">
-									<div class="card-h3">Address:</div>
-									<div class="card-field-text"><?= h($foster->address) ?></div>
-								</div>
-								</div>
-								<div class="card-field-cont">
-								<div class="card-field-cont">
-									<div class="card-h3">Availability:</div>
-									<div class="card-field-text"><?= h($foster->avail) ?></div>
-								</div>
-								</div>
-							</div>
-							</a>
-						  </div>
-						<a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Replace Foster</a>
-						<?php else: ?>
-						  <a class="card w-clearfix w-inline-block"> 
-							<div class="card-h1">This cat is currently not in a foster home. </div>
-						  </a>
-						  <a class="card w-clearfix w-inline-block">
-							<a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-						  </a>
-						<?php endif; ?>
+                    <?php if(!empty($foster)) :?>
+                      <div class="profile-text-header">Foster Home</div>
+                      <div class="card-cont card-wrapper w-dyn-item">
+                      <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-01.png'); ?>">
+                      <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
+                      <div class="card-field-wrap">
+                        <div class="card-field-cont">
+                          <div class="card-field-cont">
+                          <div class="card-h3">Rating:</div>
+                          <div class="card-field-text"><?= h($foster->rating) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Email:</div>
+                          <div class="card-field-text"><?= h($foster->email) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Phone:</div>
+                          <div class="card-field-text"><?= h($foster->phone) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Address:</div>
+                          <div class="card-field-text"><?= h($foster->address) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Availability:</div>
+                          <div class="card-field-text"><?= h($foster->avail) ?></div>
+                        </div>
+                        </div>
+                      </div>
+                      </a>
+                      </div>
+                    <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Replace Foster</a>
+                    <?php else: ?>
+                      <a class="card w-clearfix w-inline-block"> 
+                      <div class="card-h1">This cat is currently not in a foster home. </div>
+                      </a>
+                      <a class="card w-clearfix w-inline-block">
+                      <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+                      </a>
+                    <?php endif; ?>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block">
                         <div class="card-h1">This cat is not currently in a foster home.</div>

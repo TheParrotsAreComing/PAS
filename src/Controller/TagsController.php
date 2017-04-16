@@ -11,6 +11,22 @@ use App\Controller\AppController;
 class TagsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        parent::beforeFilter($event);
+
+        $user = $this->request->session()->read('Auth.User');
+        $action = $this->request->params['action'];
+
+        if ($action == 'ajaxDelete') return;
+
+        if (!in_array($user['role'], [1,2])) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']); 
+        }
+    }
+
     /**
      * Index method
      *
