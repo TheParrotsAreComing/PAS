@@ -299,7 +299,7 @@
             <div class="w-tab-pane" data-w-tab="Tab 4" id="adopterCard">
         <?php //IF we change this, we must change the JS. Let Rob know if you change this! ?>
                 <div class="profile-content-cont">
-                    <?php if (!empty($cat->cat_histories)): ?>
+			<?php if (!empty($cat->cat_histories)): ?>
               <?php foreach($cat->cat_histories as $ch): //Find most recent adopter. Spaghetti Code Break out once we find it?>
                 <?php if(!empty($ch->adopter_id)): ?>
                   <?php $adopter = $ch->adopter ?>
@@ -380,7 +380,24 @@
               </div>
               <div class="profile-text-header">Uploaded Files (todo...)</div>
             </div>
-            <div class="w-tab-pane" data-w-tab="Tab 6"></div>
+
+            <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 6">
+              <div class="profile-content-cont">
+                <div class="profile-text-header">Additional Actions</div>
+                <ul class="profile-more-wrap w-list-unstyled">
+                  <li class="profile-more-cont">
+					<a class="profile-more-link" href="#">Add to Litter</a>
+					<a class="profile-more-link" data-controller="CatHistories" data-action="index" href="javascript:void(0);">Cat History</a>
+					<a class="profile-more-link" href="#">Option</a>
+					<a class="profile-more-link" href="#">Option</a>
+					<a class="profile-more-link" href="#">Option</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="profile-content-cont" id="extraContent">
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
@@ -649,7 +666,7 @@ $(function () {
         tag_cont.addClass('tag-cont');
         tag_cont.css('border-color','#'+result['color']);
         tag_cont.css('color','#'+result['color']);
-            tag_cont.attr('data-id', result['id']);
+		tag_cont.attr('data-id', result['id']);
 
         var tag_text = $('<div/>');
         tag_text.addClass('tag-text');
@@ -660,6 +677,7 @@ $(function () {
         tag_rmv.attr('href', '#');
         tag_rmv.css('color', '#'+result['color']);
         tag_rmv.text('');
+		tag_rmv.attr('data-id', result['id']);
 
         tag_cont.append(tag_text);
         tag_cont.append(tag_rmv);
@@ -671,7 +689,7 @@ $(function () {
       });
     });
 
-    $('.tag-remove').click(function(){
+    $('.profile-cont').on('click','.tag-remove',function(){
       var that = $(this); 
       var tag_id = that.attr('data-id');
        $( "#dialog-confirm-tag" ).dialog({
@@ -701,6 +719,16 @@ $(function () {
           }
         });
     });
+
+	$('.profile-more-link').click(function(e){
+		var url = APP_PATH+"/"+$(this).data('controller')+"/"+$(this).data('action')+"/"+"<?= $cat->id ?>";
+		$.ajax({
+			url:url
+		}).done(function(result){
+			$('#extraContent').html(result);
+			$('#extraContent')[0].scrollIntoView();
+		});
+	});
 
 });
 </script>
