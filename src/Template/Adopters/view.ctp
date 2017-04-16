@@ -49,9 +49,9 @@
                     </div>
                   <?php endforeach; ?>
                 </div>
-
+                <div class="profile-content-cont">
                    <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
-
+                </div>
     			     <?php if($adopter->do_not_adopt == 1): ?>
                   <div class="profile-content-cont">
             				<div class="profile-text-header">Reason to NOT Adopt</div>

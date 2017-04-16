@@ -46,7 +46,7 @@
                         </div>
                       <?php endforeach; ?>   
                     </div>
-                    <div class="example-tag-wrapper">
+                    <div class="profile-content-cont">
                        <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
                     </div>
                     <div class="profile-content-cont">
