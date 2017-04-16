@@ -11,7 +11,14 @@
                 <div class="id-text"><?= h($cat->id) ?></div>
             </div>
         </div>
-        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header">
+          <?php 
+            if(!empty($profile_pic)){
+              echo $this->Html->image('../'.$profile_pic->file_path.'.'.$profile_pic->file_ext, ['class'=>'cat-profile-pic']);
+            } else {
+              echo $this->Html->image('cat-menu.png', ['class'=>'cat-profile-pic']);
+            }
+          ?>
           <div>
             <div class="cat-profile-name"><?= h($cat->cat_name) ?></div>
             <div>
@@ -174,42 +181,43 @@
 							<?php continue; ?>
 						<?php endif; ?>
 						<?php foreach($mhh as $mh): ?>
-						<?php if(empty($mh)): ?>
-							<div> None to date</div>
-							<?php continue; ?>
-						<?php endif; ?>
+							<?php if(empty($mh)): ?>
+								<div> None to date</div>
+								<?php continue; ?>
+							<?php endif; ?>
 
-						<?php $type = "";
-						  if ($mh->is_fvrcp) {$type = "FVRCP";} 
-						  else if ($mh->is_deworm) {$type = "Deworm";} 
-						  else if ($mh->is_flea) {$type = "Flea";} 
-						  else if ($mh->is_rabies) {$type = "Rabies";} 
-						  else if ($mh->is_other) {$type = "Other";} 
-						  else {$type = "No Type";} 
-						?>
-						<div class="scroll1 no-horizontal-scroll">
-						  <div class="medical-data-cont" data-ix="medical-data-click">
-							<div class="medical-type-cont">
-							  <div class="medical-data-type"><?= $type ?></div>
+							<?php $type = "";
+							  if ($mh->is_fvrcp) {$type = "FVRCP";} 
+							  else if ($mh->is_deworm) {$type = "Deworm";} 
+							  else if ($mh->is_flea) {$type = "Flea";} 
+							  else if ($mh->is_rabies) {$type = "Rabies";} 
+							  else if ($mh->is_other) {$type = "Other";} 
+							  else {$type = "No Type";} 
+							?>
+
+							<div class="scroll1 no-horizontal-scroll">
+							  <div class="medical-data-cont" data-ix="medical-data-click" data-mh="<?= $mh->id ?>">
+								<div class="medical-type-cont">
+								  <div class="medical-data-type"><?= $type ?></div>
+								</div>
+								<div class="medical-date-cont">
+								  <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
+								</div>
+								<div class="medical-notes-cont">
+								  <div class="medical-data-notes"><?= h($mh->notes) ?></div>
+								</div>
+								<div class="medical-data-action-cont">
+								  <a data-mh="<?= $mh->id ?>" class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
+									<div class="profile-action-button sofware">-</div>
+									<div>edit</div>
+								  </a>
+								  <a data-mh="<?= $mh->id ?>" class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
+									<div class="basic profile-action-button"></div>
+									<div>delete</div>
+								  </a>
+								</div>
+							  </div>
 							</div>
-							<div class="medical-date-cont">
-							  <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
-							</div>
-							<div class="medical-notes-cont">
-							  <div class="medical-data-notes"><?= h($mh->notes) ?></div>
-							</div>
-							<div class="medical-data-action-cont">
-							  <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
-								<div class="profile-action-button sofware">-</div>
-								<div>edit</div>
-							  </a>
-							  <a class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
-								<div class="basic profile-action-button"></div>
-								<div>delete</div>
-							  </a>
-							</div>
-						  </div>
-						</div>
 					  <?php endforeach; ?>
                   <?php endforeach; ?>
                   <?php else: ?>
@@ -351,26 +359,26 @@
                 </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 5">
-              <div class="profile-text-header">Uploaded Photos</div>
-               <table class="table">
-                 <tr>
-                   <th width="5%">#</th>
-                   <th width="20%">File</th>
-                   <th width="12%">Upload Date</th>
-                 </tr>
-                 <?php if($photosCountTotal > 0): $count = 0; ?>
-                   <?php foreach($photos as $photo): $count++;?>
-                   <tr>
-                     <td><?php echo $count; ?></td>
-                     <td><?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext); ?></td>
-                     <td><?php echo $photo->created; ?></td>
-                   </tr>
-                   <?php endforeach; ?>
-                 <?php else: ?>
-                   <tr><td colspan="3">No file(s) found...</td></tr>
-                 <?php endif; ?>
-               </table>
-               <div class="profile-text-header">Uploaded Files (todo...)</div>
+              <div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
+              <div class="picture-file-wrap" data-ix="medical-data-click">
+                <div class="picture-file-cont scroll1">
+                  <?php if($photosCountTotal > 0):  ?>
+                    <?php foreach($photos as $photo): ?>
+                      <div class="picture-file">
+                        <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
+                        <?php if($photo->id == $cat->profile_pic_file_id): ?>
+                          <div class="picture-primary">H</div>
+                        <?php endif; ?>
+                      </div>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </div>
+                <div class="picture-file-action-cont">
+                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
+                  <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                </div>
+              </div>
+              <div class="profile-text-header">Uploaded Files (todo...)</div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
@@ -575,10 +583,14 @@ $(function () {
       width: 400,
       modal: true,
       buttons: {
-      "Delete!": function() {
-        $.get(deleteRecord+'/'+that.data('mh'));
-        $(this).dialog( "close" );
-        parent.remove();
+      "Delete!": {
+		text:"Delete!",
+		id:"delMed",
+		click : function() {
+				$.get(deleteRecord+'/'+that.data('mh'));
+				$(this).dialog( "close" );
+				parent.remove();
+			  }
       },
       Cancel: function() {
         $(this).dialog( "close" );

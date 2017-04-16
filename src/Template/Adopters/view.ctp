@@ -10,7 +10,16 @@
             <div class="profile-id-cont">
             </div>
         </div>
-        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header">
+          <?php 
+            if(!empty($profile_pic)){
+              echo $this->Html->image('../'.$profile_pic->file_path.'.'.$profile_pic->file_ext, ['class'=>'cat-profile-pic']);
+            } else {
+              echo '<img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">';
+            }
+          ?>
+          
+
           <div>
             <div class="cat-profile-name"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
       			<div>
@@ -40,9 +49,9 @@
                     </div>
                   <?php endforeach; ?>
                 </div>
-                <div class="example-tag-wrapper">
-                  <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
-                </div>
+
+                   <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
+
     			     <?php if($adopter->do_not_adopt == 1): ?>
                   <div class="profile-content-cont">
             				<div class="profile-text-header">Reason to NOT Adopt</div>
@@ -55,12 +64,6 @@
     			     <?php endif; ?>
     			     <div class="profile-content-cont">
                   <div class="profile-text-header">Personal Information</div>
-
-                    <div class="left-justify profile-field-cont">
-                      <div class="profile-field-name">Phone: </div>
-                      <div class="block profile-field-text"><?= h($adopter->phone) ?></div>
-                    </div>
-
                     <div class="left-justify profile-field-cont">
                       <div class="profile-field-name">Email: </div>
                       <div class="block profile-field-text"><?= h($adopter->email) ?></div>
@@ -70,6 +73,44 @@
                       <div class="profile-field-name">Address: </div>
                       <div class="block profile-field-text"><?= h($adopter->address) ?></div>
                     </div>
+
+                    <?php if (!empty($adopter->phone_numbers)): ?>
+                      <div class="profile-text-header">Phone Numbers </div>
+                      <div class="medical-wrap">
+                          <?php foreach ($adopter->phone_numbers as $number): ?>
+                            <?php if($number->entity_type === 2): ?>
+                                <?php $type = "";
+                                  if ($number->phone_type === 1) {$type = "Mobile ";} 
+                                  else if ($number->phone_type === 2) {$type = "Home ";} 
+                                  else if ($number->phone_type === 3) {$type = "Other ";} 
+                                ?>
+                                <div class="scroll1 no-horizontal-scroll">
+                                  <div class="medical-data-cont" data-ix="medical-data-click">
+                                    <div class="medical-type-cont">
+                                      <div class="medical-data-type"><?= $type ?></div>
+                                    </div>
+                                    <div class="medical-date-cont">
+                                      <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
+                                    </div>
+                                    <div class="medical-data-action-cont">
+                                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
+                                        <div class="profile-action-button sofware">-</div>
+                                        <div>edit</div>
+                                      </a>
+                                      <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
+                                        <div class="basic profile-action-button"></div>
+                                        <div>delete</div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                            <?php endif; ?>
+                          <?php endforeach; ?>
+                      </div>
+                    <?php endif; ?>
+                    <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 2])?>">+ Add New Phone Number
+                    </a> 
+
                 </div>
                 <div class="profile-content-cont">
                     <div class="profile-text-header">Additional Information</div>
@@ -127,8 +168,27 @@
                 </div>
                 <div class="w-tab-pane" data-w-tab="Tab 3">
           				<div class="profile-content-cont">
-          					<div class="profile-text-header">Attachments</div>
-          				</div>
+          					<div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
+          				  <div class="picture-file-wrap" data-ix="medical-data-click">
+                      <div class="picture-file-cont scroll1">
+                        <?php if($photosCountTotal > 0):  ?>
+                          <?php foreach($photos as $photo): ?>
+                            <div class="picture-file">
+                              <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
+                              <?php if($photo->id == $adopter->profile_pic_file_id): ?>
+                                <div class="picture-primary">H</div>
+                              <?php endif; ?>
+                            </div>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </div>
+                      <div class="picture-file-action-cont">
+                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
+                        <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                      </div>
+                    </div>
+                    <div class="profile-text-header">Uploaded Files (todo...)</div>
+                  </div>
           			</div>
                 <div class="w-tab-pane" data-w-tab="Tab 4">
           				<div class="profile-content-cont">
@@ -143,7 +203,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <a class="profile-action-button-cont w-inline-block" href="javascript:void(0);" data-ix="add-photo-click-desktop">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
@@ -211,10 +271,32 @@
         <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
       </div>
     </div>
-  </div> 
+  </div>
+
+  <div class="add-adopter-floating-overlay add-photo">
+  <div class="confirm-cont add-photo-inner">
+    <div class="confirm-text">Choose a Photo...</div>
+      <?php 
+        echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <?php
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
 
 <div id="dialog-confirm" title="Delete this tag?" style="display:none;">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
+</div>
+
+<div id="dialog-confirm-number" title="Delete this phone number?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
 </div>
 
 <script>
@@ -222,6 +304,8 @@
 	var adopter = new Adopter();
 
   var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
+
+  var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
 
 	$(function(){
 		$('.delete-button').click(function(e){
@@ -308,6 +392,27 @@
           Cancel: function() {
             $( this ).dialog( "close" );
           }
+        }
+      });
+    });
+    $('.delete-number-btn').click(function(){
+     var parent = $(this).parent().parent().parent();
+     var that = $(this); 
+     $( "#dialog-confirm-number" ).dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+        "Delete!": function() {
+          $.get(deletePhone+'/'+that.data('number'));
+          $(this).dialog( "close" );
+          parent.remove();
+        },
+        Cancel: function() {
+          $(this).dialog( "close" );
+          $('.no-horizontal-scroll').scrollLeft(0);
+        }
         }
       });
     });

@@ -43,9 +43,6 @@
           <label class="add-field-h3" for="Address">Address<span class="pre"></span></span>:</label>
     <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
   'placeholder'=>'Address']);?>
-          <label class="add-field-h3" for="Phone">Phone<span class="pre"></span></span>:</label>
-          <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
-  'placeholder'=>'Enter Phone Number']);?>
           <label class="add-field-h2" for="First-Name">Adoption Information</label>
           <div class="add-field-seperator"></div>
           <?= $this->Form->input('notes', array('type' => 'textarea', 'label' =>['text' => 'Notes<span class="pre"></span></span>:', 

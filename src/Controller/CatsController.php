@@ -19,12 +19,13 @@ class CatsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index()
-	{
-		$this->paginate = [
-			'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
-			'conditions' => ['Cats.is_deleted' => 0]
-				];
+    {
+        $this->paginate = [
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+            'conditions' => ['Cats.is_deleted' => 0, 'Cats.is_deceased' => 0]
+        ];
 
+        $filesDB = TableRegistry::get('Files');
 
 		$cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100')->toArray();
 
@@ -42,7 +43,9 @@ class CatsController extends AppController
 				if(is_array($query) || $field == 'page'){
 					continue;
 				}
-				if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
+				if(($field == 'is_deceased' || $field == 'is_deleted') && $query != ''){
+                    $this->paginate['conditions']['Cats.'.$field] = (int)$query;
+                } else if(($field == 'is_kitten' || $field == 'is_female') && $query != ''){
 					$this->paginate['conditions'][$field] = $query;
 				}else if($field == 'dob') {
 					if(!empty($query)){
@@ -65,9 +68,27 @@ class CatsController extends AppController
 
 		$cats = $this->paginate($this->Cats);
 
+        foreach($cats as $cat) {
+            if($cat->profile_pic_file_id > 0){
+                $cat->profile_pic = $filesDB->get($cat->profile_pic_file_id);
+
+                if ($cat->litter_id > 0) {
+                    foreach($cat->litter->cats as $sibling) {
+                        if($sibling->profile_pic_file_id > 0){
+                            $sibling->profile_pic = $filesDB->get($sibling->profile_pic_file_id);
+                        }
+                    }
+                }
+
+            } else {
+                $cat->profile_pic = null;
+            }
+        }
+
 		$this->set(compact('cats', 'breeds','cat_tags'));
 		$this->set('_serialize', ['cats']);
 	}
+
 
     /**
      * View method
@@ -98,16 +119,11 @@ class CatsController extends AppController
         ]);
 
 		$cat->cat_medical_histories = $this->Cats->manualGroupMedicalHistories($cat->cat_medical_histories);
-//debug($cat->cat_medical_histories);
 
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
         $medicalDB = TableRegistry::get('CatMedicalHistories');
-       
-        //$medicalHistories = $medicalDB->find('all');
-        //$medicalHistories->where(['cat_id' => $id]); 
-        $medicalHistories = [];
 
         $adopters = $adoptersDB->find('all');
         $adopters->where(['is_deleted' => 0]);
@@ -140,6 +156,7 @@ class CatsController extends AppController
 
         if($this->request->is('post')) {
 
+        	//uploading a file
             if(!empty($this->request->data['uploaded_photo']['name'])){
 
                 // get file ext
@@ -155,8 +172,15 @@ class CatsController extends AppController
                 $fileSize = $this->request->data['uploaded_photo']['size'];
 
                 // attempt to upload the photo with the file behavior
-                if ($this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
-                    $entityTypeId, $cat->id, $mimeType, $fileSize)){
+                $new_file_id = $this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $cat->id, $mimeType, $fileSize);
+
+                if ($new_file_id > 0){
+
+                	if(empty($cat->profile_pic_file_id)) {
+                		$cat->profile_pic_file_id = $new_file_id;
+                		$this->Cats->save($cat);
+                	}
 
                      $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
                         $photosCountTotal++;
@@ -169,7 +193,14 @@ class CatsController extends AppController
             }
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'medicalHistories', 'cat_tags'));
+        // profile pic file
+        if($cat->profile_pic_file_id > 0){
+        	$profile_pic = $filesDB->get($cat->profile_pic_file_id);
+        } else {
+        	$profile_pic = null;
+        }
+
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic'));
 
         $this->set('_serialize', ['cat']);
     }
@@ -202,6 +233,9 @@ class CatsController extends AppController
 
             //Initial creation, not deleted 
             $this->request->data['is_deleted'] = 0;
+
+            //Initial creation, not deceased
+            $this->request->data['is_deceased'] = 0;
 
             //Converting values to boolean
             $this->request->data['is_kitten'] = (bool) $this->request->data['is_kitten'];
@@ -283,7 +317,8 @@ class CatsController extends AppController
         $gwcats = ($cat->good_with_cats) ? true : false;
         $special = ($cat->special_needs) ? true : false;
         $exp = ($cat->needs_experienced_adopter) ? true : false;
-        $this->set(compact('gwkids','gwdogs','gwcats','special','exp'));
+        $deceased = ($cat->is_deceased) ? true : false;
+        $this->set(compact('gwkids','gwdogs','gwcats','special','exp','deceased'));
 
         $litters = $this->Cats->Litters->find('list', ['limit' => 200]);
         $adopters = $this->Cats->Adopters->find('list', ['limit' => 200]);

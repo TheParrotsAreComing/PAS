@@ -41,6 +41,7 @@ class AdoptersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('File');
         $this->addBehavior('FilterableTag');
 
         $this->hasMany('CatHistories', [
@@ -53,6 +54,14 @@ class AdoptersTable extends Table
             'foreignKey' => 'adopter_id',
             'targetForeignKey' => 'tag_id',
             'joinTable' => 'tags_adopters'
+        ]);
+
+        $this->hasMany('PhoneNumbers', [
+        'foreignKey' => 'entity_id' 
+        ]);
+        $this->belongsTo('Files', [
+            'foreignKey' => 'profile_pic_file_id'
+
         ]);
     }
 
@@ -77,10 +86,6 @@ class AdoptersTable extends Table
             ->allowEmpty('last_name');
 
         $validator
-            ->requirePresence('phone', 'create')
-            ->allowEmpty('phone');
-
-        $validator
             ->integer('cat_count')
             ->requirePresence('cat_count', 'create')
             ->allowEmpty('cat_count');
@@ -96,6 +101,10 @@ class AdoptersTable extends Table
 
         $validator
             ->allowEmpty('notes');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')

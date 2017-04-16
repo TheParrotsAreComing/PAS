@@ -70,13 +70,13 @@ class FileBehavior extends Behavior {
 	        $new_photo->is_deleted = false;
 
 	        if ($filesDB->save($new_photo)) {
-                return true;
+                return $new_photo->id;
             } else {
-            	return false;
+            	return 0;
             }
         }
 
-        return false;
+        return 0;
 
 	}
 }
