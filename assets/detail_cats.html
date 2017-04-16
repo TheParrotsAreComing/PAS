@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--  Last Published: Mon Apr 10 2017 04:10:50 GMT+0000 (UTC)  -->
+<!--  Last Published: Sun Apr 16 2017 19:42:36 GMT+0000 (UTC)  -->
 <html data-wf-page="582934cabb1a1e38054b7acc" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -161,7 +161,7 @@
         </div>
         <div class="profile-tabs-cont w-tabs">
           <div class="cat-profile-tabs-menu w-tab-menu">
-            <a class="cat-profile-tabs-menu-cont tab-leftmost w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="images/cat-01.png">
+            <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="images/cat-01.png">
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="medical-notification" data-w-tab="Tab 7"><img class="cat-profile-tabs-icon" src="images/medical-01.png">
             </a>
@@ -169,13 +169,13 @@
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 4"><img class="cat-profile-tabs-icon" src="images/cat-profile-adopter-01.png">
             </a>
-            <a class="cat-profile-tabs-menu-cont w--current w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 5"><img class="cat-profile-tabs-icon" src="images/attachments-01.png">
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 5"><img class="cat-profile-tabs-icon" src="images/attachments-01.png">
             </a>
             <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 6"><img class="cat-profile-tabs-icon" src="images/more-01.png">
             </a>
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
-            <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 1">
+            <div class="profile-tab-cont w--tab-active w-tab-pane" data-w-tab="Tab 1">
               <div class="profile-notification-cont">
                 <div class="color tag-cont">
                   <div class="tag-text">due for immunization</div><a class="color tag-remove" href="#"></a>
@@ -462,7 +462,7 @@
             </div>
             <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 3"></div>
             <div class="w-tab-pane" data-w-tab="Tab 4"></div>
-            <div class="profile-tab-cont w--tab-active w-tab-pane" data-w-tab="Tab 5">
+            <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 5">
               <div class="expand overflow profile-content-cont">
                 <div class="profile-text-header">Pictures (30)</div>
                 <div class="picture-file-wrap" data-ix="medical-data-click">
@@ -712,20 +712,35 @@
       </div>
     </div>
   </div>
-  <div class="button-cont w-hidden-main">
-    <a class="button-01 w-inline-block" href="#">
-      <div class="button-icon-text">Edit</div><img data-ix="add-click" src="images/edit-01.png" width="55">
+  <div class="button-cont">
+    <a class="button-01 w-inline-block" href="cat-add.html">
+      <div class="button-icon-text">Edit</div>
+      <div class="floating-button">
+        <div>L</div>
+      </div>
     </a>
-    <div class="button-02" data-ix="upload-click">
-      <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="images/upload-01.png" width="55">
-    </div>
-    <div class="button-03" data-ix="add-click">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="images/export-01.png" width="55">
-    </div>
-    <div class="button-04" data-ix="delete-click">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="images/delete-01.png" width="55">
-    </div>
-  </div><img class="button-paw w-hidden-main" data-ix="paw-click" src="images/add-paw.png" width="60">
+    <a class="button-02 w-inline-block" data-ix="upload-click" href="#">
+      <div class="button-icon-text">Upload Attachments</div>
+      <div class="floating-button">
+        <div>Q</div>
+      </div>
+    </a>
+    <a class="button-03 w-inline-block" href="#">
+      <div class="button-icon-text">Export</div>
+      <div class="floating-button">
+        <div>N</div>
+      </div>
+    </a>
+    <a class="button-04 w-inline-block" data-ix="delete-click" href="#">
+      <div class="button-icon-text">Delete</div>
+      <div class="floating-button">
+        <div>M</div>
+      </div>
+    </a>
+  </div>
+  <div class="button-paw" data-ix="paw-click">
+    <div>O</div>
+  </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="js/paws-administrative-system.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
