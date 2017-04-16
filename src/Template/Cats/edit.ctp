@@ -219,6 +219,7 @@
                         <?= $this->Form->input('  Good with Cats', ['type'=>'checkbox', 'name'=>'good_with_cats', 'checked'=>$gwcats]); ?>
                         <?= $this->Form->input('  Special Needs', ['type'=>'checkbox', 'name'=>'special_needs', 'checked'=>$special]); ?>
                         <?= $this->Form->input('  Needs Experienced Adopter', ['type'=>'checkbox', 'name'=>'needs_experienced_adopter', 'checked'=>$exp]); ?>
+                        <?= $this->Form->input('  Deceased?', ['type'=>'checkbox', 'name'=>'is_deceased', 'checked'=>$deceased]); ?>
 
                         <?php echo $this->Form->input('bio', 
                             array('type' => 'textarea', 'label' => 
