@@ -505,4 +505,33 @@ class CatsController extends AppController
         exit(0);
     }
 
+    public function changeProfilePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $cat = $this->Cats->get($data['cat_id']);
+        $cat->profile_pic_file_id = $data['file_id'];
+
+        ob_clean();
+        if($this->Cats->save($cat)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
+
+    public function ajaxSuccessMessage() {
+        $this->autoRender = false;
+        $this->Flash->success(__('Success!'));
+        return $this->redirect($this->referer());
+    }
+
+    public function ajaxFailMessage() {
+        $this->autoRender = false;
+        $this->Flash->error(__('Unable to complete action.'));
+        return $this->redirect($this->referer());
+    }
+
 }

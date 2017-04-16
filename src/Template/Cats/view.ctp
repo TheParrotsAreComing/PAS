@@ -364,7 +364,7 @@
                 <div class="picture-file-cont scroll1">
                   <?php if($photosCountTotal > 0):  ?>
                     <?php foreach($photos as $photo): ?>
-                      <div class="picture-file">
+                      <div class="picture-file" data-file-id="<?= h($photo->id) ?>">
                         <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
                         <?php if($photo->id == $cat->profile_pic_file_id): ?>
                           <div class="picture-primary">H</div>
@@ -374,8 +374,8 @@
                   <?php endif; ?>
                 </div>
                 <div class="picture-file-action-cont">
-                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
-                  <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                  <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
                 </div>
               </div>
               <div class="profile-text-header">Uploaded Files (todo...)</div>
@@ -539,10 +539,12 @@
 <script>
 $(function () {
 
+  var cat_id = "<?= $cat->id ?>";
 	var current_kitty = new Cat();
   var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
   var tagDel = "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>";
 	calculateAndPopulateAgeFields();
+  setupPhotoSelectionBehavior(cat_id);
 
 	$('.add-adopter-btn').click(function(){
 		 $( "#dialog-confirm" ).dialog({
@@ -615,35 +617,6 @@ $(function () {
       }
       }
     });
-  });
-  $('.add-photo-btn').click(function(){
-
-    //alert('you clicked the button!');
-   
-   /*
-   $( "#dialog-confirm-upload" ).dialog({
-      resizable: false,
-      height: "auto",
-      width: 400,
-      modal: true,
-      buttons: {
-      "Foster!": function() {
-          $( this ).dialog( "close" );
-        $.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
-          $('.add-foster').css('display','none');
-          $('.add-foster-inner').css('display','none');
-          $('.add-foster-inner').css('opacity','0');
-          current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
-        });
-      },
-      Cancel: function() {
-        $( this ).dialog( "close" );
-      }
-      }
-    });
-    */
-
-
   });
 
   $('.add-tag-btn').click(function(e) {
