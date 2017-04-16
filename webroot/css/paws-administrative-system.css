@@ -817,6 +817,7 @@
 .pas-home-button-cont {
   display: block;
   width: 145px;
+  height: 100px;
   margin-right: 15px;
   margin-left: 15px;
   -webkit-align-self: center;
@@ -2109,7 +2110,7 @@
   background-image: url('../images/Arctic-Mountains-1920x1080.png');
   background-position: 50% 100%;
   background-size: cover;
-  font-family: 'Sf ui display', sans-serif;
+  font-family: Cabin, sans-serif;
 }
 
 .profile-action-cont {
@@ -4761,6 +4762,54 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   font-family: 'Cat Icons';
   src: url('../fonts/cat-icons.ttf') format('truetype');
   font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-SemiBold.ttf') format('truetype');
+  font-weight: 600;
   font-style: normal;
 }
 @font-face {
