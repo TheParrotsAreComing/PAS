@@ -141,6 +141,11 @@ class UsersController extends AppController
 
         if (empty($id)) {
             $id = $this->request->session()->read('Auth.User.id');
+        } else if ($id != $this->request->session()->read('Auth.User.id')) {
+            if ($this->request->session()->read('Auth.User.role') != 1) {
+                $this->Flash->error("You aren't allowed to do that.");
+                return $this->redirect(['controller'=>'users','action'=>'view',$id]);
+            }
         }
 
         $user = $this->Users->get($id, [
