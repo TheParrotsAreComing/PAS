@@ -36,11 +36,18 @@
 		  <div class="filter-criteria">Date of Birth:</div>
 		  <?= $this->Form->input('dob',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'dobFilter','placeholder'=>'Enter a DOB']) ?>
 	    </div>
+      <div class="filter">
+      <div class="filter-criteria">Deceased:</div>
+      <?= $this->Form->input('is_deceased', ['type'=>'checkbox', 'label' => false]); ?>
+      </div>
+      <div class="filter">
+      <div class="filter-criteria">Deleted:</div>
+      <?= $this->Form->input('is_deleted', ['type'=>'checkbox', 'label' => false]); ?>
+      </div>
 	    <div class="filter">
 		  <div class="filter-criteria">Tags:</div>
 		  <?= $this->Form->input('tag',['multiple'=>'multiple','class'=>'filter-criteria-select w-input','options'=>$cat_tags,'label'=>false,'id'=>'tagFilter']) ?>
 	    </div>
-
 	      <div class="filter-apply-cont">
 			<a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
 	        <button id="searchCatFilter" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">Apply Filter</button>
@@ -55,7 +62,16 @@
 <!-- -->
         <?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
-            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block">
+
+              <?php 
+                if(!empty($cat->profile_pic)){
+                  echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
+                } else {
+                  echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
+                }
+              ?>
+
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div class="card-h2-cont">
                 <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "C" : "D" ?></div>
@@ -91,7 +107,14 @@
               <div class="dropdown-results-cont">
 				<?php foreach($cat->litter->cats as $mate) : ?>
 					<?php if($mate->id != $cat->id): ?>
-						<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+						<a class="dropdown-cat-cont w-inline-block">
+						    <?php 
+				                if(!empty($mate->profile_pic)){
+				                  echo $this->Html->image('../'.$mate->profile_pic->file_path.'_tn.'.$mate->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
+				                } else {
+				                  echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
+				                }
+				            ?>
 							<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
 						</a>
 					<?php endif; ?>

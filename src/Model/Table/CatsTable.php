@@ -132,8 +132,11 @@ class CatsTable extends Table
             ->allowEmpty('is_microchip_registered');
 
         $validator
-            ->boolean('adoption_fee_amount')
             ->allowEmpty('adoption_fee_amount');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')

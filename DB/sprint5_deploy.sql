@@ -9,6 +9,7 @@ DROP PROCEDURE IF EXISTS sprint5_deploy $$
 CREATE PROCEDURE sprint5_deploy()
 
 BEGIN
+
 -- add phone_numbers table
 IF NOT EXISTS ((SELECT * FROM information_schema.tables where table_name = 'phone_numbers'))
 THEN
@@ -31,12 +32,14 @@ IF EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE
 THEN
 ALTER TABLE fosters DROP COLUMN phone;
 END IF;
+
 -- add is_deceased to cats, initialize to 0
 IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='cats' AND column_name='is_deceased'))
 THEN
 ALTER TABLE cats ADD is_deceased BOOLEAN;
 UPDATE cats SET is_deceased = 0 WHERE id > 0;
 END IF;
+
 
 -- add profile pic reference for adopters
 IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='adopters' AND column_name='profile_pic_file_id')
@@ -51,6 +54,7 @@ THEN
 ALTER TABLE fosters ADD profile_pic_file_id INT,
 	ADD CONSTRAINT foster_profile_pic_ref FOREIGN KEY(profile_pic_file_id) REFERENCES files(id);
 END IF;
+
 
 END $$
 
