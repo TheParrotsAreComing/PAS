@@ -25,9 +25,24 @@
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
           'placeholder'=>'Enter Address']);?>
-          <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
+
+
+          <?php if (!empty($foster->phone_numbers)): ?>
+
+            <?php foreach ($foster->phone_numbers as $number): ?>
+                <?php $type = "";
+                  if ($number->entity_type === 1) {$type = "Mobile: ";} 
+                  else if ($number->entity_type === 2) {$type = "Home: ";} 
+                  else if ($number->entity_type === 3) {$type = "Other: ";} 
+            ?>
+
+          <label class="add-field-h3" for="Phone"><?= $type ?><span class="required-field-indicator"><span class="pre"></span></span>:</label>
+          <?= $this->Form->input('phone_numbers.0.phone_num', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
           'placeholder'=>'Enter Phone Number']);?>
+
+            <?php endforeach; ?>                               
+          <?php endif; ?>
+
           <label class="add-field-h3" for="Experience">Experience<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('exp', ['class'=>'add-input w-input', 'data-name'=>'Experience', 'label'=>false, 
           'placeholder'=>'Describe Foster Experience', 'type'=>'textarea']);?>

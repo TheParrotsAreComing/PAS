@@ -4,3 +4,10 @@
 /logs/*
 /.project
 /webroot/files/cats/*
+/vendor/*
+/config/app.php
+/tmp/*
+/logs/*
+/.project
+/webroot/files/adopters/*
+/webroot/files/fosters/*

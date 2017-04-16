@@ -8,6 +8,7 @@ from scratch
 
 	
 	USE paws_db;
+	DROP TABLE IF EXISTS phone_numbers;
     DROP TABLE IF EXISTS contacts;
 	DROP TABLE IF EXISTS tags_fosters; 
 	DROP TABLE IF EXISTS tags_adopters; 
@@ -49,40 +50,6 @@ CREATE TABLE litters (
 );
 
 
-CREATE TABLE adopters ( 
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-	phone VARCHAR(10) NOT NULL,
-	cat_count INT NOT NULL,
-	address VARCHAR(255) NOT NULL,
-	email VARCHAR(255) NOT NULL,
-	notes TEXT,
-	created DATETIME,
-    is_deleted BOOLEAN NOT NULL,
-    do_not_adopt BOOLEAN,
-    dna_reason TEXT
-); 
-
-
-CREATE TABLE fosters ( 
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-	phone VARCHAR(10) NOT NULL,
-	address VARCHAR(255) NOT NULL,
-	email VARCHAR(255) NOT NULL,
-	exp VARCHAR(255),
-	pets VARCHAR(255),
-	kids VARCHAR(255),
-	avail VARCHAR(255),
-	rating INT,
-	notes TEXT,
-	created DATETIME,
-    is_deleted BOOLEAN NOT NULL
-); 
-
-
 CREATE TABLE files ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	entity_type INT NOT NULL,
@@ -94,6 +61,42 @@ CREATE TABLE files (
     file_ext VARCHAR(10) NOT NULL,
     created DATETIME NOT NULL,
     is_deleted BOOLEAN NOT NULL
+); 
+
+
+CREATE TABLE adopters ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+	cat_count INT NOT NULL,
+	address VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	notes TEXT,
+	created DATETIME,
+    profile_pic_file_id INT,
+    is_deleted BOOLEAN NOT NULL,
+    do_not_adopt BOOLEAN,
+    dna_reason TEXT,
+    FOREIGN KEY adopter_profile_pic_ref(profile_pic_file_id) REFERENCES files(id)
+); 
+
+
+CREATE TABLE fosters ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+	address VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	exp VARCHAR(255),
+	pets VARCHAR(255),
+	kids VARCHAR(255),
+	avail VARCHAR(255),
+	rating INT,
+	notes TEXT,
+    profile_pic_file_id INT,
+	created DATETIME,
+    is_deleted BOOLEAN NOT NULL,
+    FOREIGN KEY foster_profile_pic_ref(profile_pic_file_id) REFERENCES files(id)
 ); 
 
 
@@ -159,9 +162,9 @@ CREATE TABLE cat_histories (
 	foster_id INT,	
 	start_date DATE NOT NULL,
 	end_date DATE,
-	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id),
-	FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
-	FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id)	
+	FOREIGN KEY cat_his_ref (cat_id) REFERENCES cats(id),
+	FOREIGN KEY adopter_his_ref (adopter_id) REFERENCES adopters(id),
+	FOREIGN KEY foster_his_ref (foster_id) REFERENCES fosters(id)	
 ); 
 
 
@@ -177,7 +180,7 @@ CREATE TABLE cats_adoption_events (
 	id INT AUTO_INCREMENT PRIMARY KEY, 
 	cat_id INT NOT NULL,
 	adoption_event_id INT NOT NULL,
-	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id),
+	FOREIGN KEY cat_eve_ref (cat_id) REFERENCES cats(id),
 	FOREIGN KEY event_ref (adoption_event_id) REFERENCES adoption_events(id)
 ); 
 
@@ -214,8 +217,8 @@ CREATE TABLE tags_cats (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	tag_id INT NOT NULL,
 	cat_id INT NOT NULL,
-	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
-	FOREIGN KEY cat_ref(cat_id) REFERENCES cats(id)
+	FOREIGN KEY tag_cat_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY cat_tag_ref(cat_id) REFERENCES cats(id)
 ); 
 
 
@@ -223,8 +226,8 @@ CREATE TABLE tags_adopters (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     tag_id INT NOT NULL,
 	adopter_id INT NOT NULL,
-	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
-	FOREIGN KEY adopter_ref(adopter_id) REFERENCES adopters(id)
+	FOREIGN KEY tag_adp_ref(tag_id) REFERENCES tags(id),
+	FOREIGN KEY adopter_tag_ref(adopter_id) REFERENCES adopters(id)
 ); 
 
 
@@ -233,7 +236,7 @@ CREATE TABLE tags_fosters (
     tag_id INT NOT NULL,
 	foster_id INT NOT NULL,
 	FOREIGN KEY tag_ref(tag_id) REFERENCES tags(id),
-	FOREIGN KEY foster_ref(foster_id) REFERENCES fosters(id)
+	FOREIGN KEY foster_tag_ref(foster_id) REFERENCES fosters(id)
 ); 
 
 CREATE TABLE contacts (
@@ -253,3 +256,12 @@ CREATE TABLE colors(
     id INT AUTO_INCREMENT PRIMARY KEY, 
     color VARCHAR(32)
 );
+
+CREATE TABLE phone_numbers ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	entity_type INT(11) NOT NULL,
+	phone_type INT(11) NOT NULL, 
+    entity_id INT NOT NULL,
+    phone_num VARCHAR(10) NOT NULL,
+    created DATETIME NOT NULL
+); 

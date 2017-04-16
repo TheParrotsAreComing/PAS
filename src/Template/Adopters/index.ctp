@@ -50,7 +50,16 @@
       <div class="list w-dyn-items">
       <?php foreach($adopters as $adopter) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
-          <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card-big" : ""; ?> w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
+          <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card-big" : ""; ?> w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>">
+
+            <?php 
+                if(!empty($adopter->profile_pic)){
+                  echo $this->Html->image('../'.$adopter->profile_pic->file_path.'_tn.'.$adopter->profile_pic->file_ext, ['class'=>'card-pic']);
+                } else {
+                  echo $this->Html->image('adopter-menu.png', ['class'=>'card-pic']);
+                }
+            ?>
+            
             <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
             <div><!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
@@ -58,13 +67,36 @@
                   --> 
             </div>
             <div class="card-field-wrap">
+
+              <?php if (!empty($adopter->phone_numbers)): ?>
+                  <?php foreach ($adopter->phone_numbers as $number): ?>
+                      <?php $type = "";
+                          if ($number->phone_type = 1) {$type = "Mobile: ";break; } 
+                          else if ($number->phone_type = 2) {$type = "Home: ";break; } 
+                          else if ($number->phone_type = 3) {$type = "Other: ";break; }
+                      ?>
+                  <?php endforeach; ?> 
+                  <?php if ($number->entity_type === 2): ?>
+                    <div class="card-field-cont left-justify">
+                      <div class="card-h3"><?= $type; ?></div>
+                      <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                    </div>
+                  <?php else: ?>
+                    <div class="card-field-cont left-justify">
+                      <div class="card-h3">Phone: </div>
+                      <div class="catlist-field-content"> --- </div>
+                    </div>
+                <?php endif; ?> 
+              <?php else: ?>
+                  <div class="card-field-cont left-justify">
+                    <div class="card-h3">Phone: </div>
+                    <div class="catlist-field-content"> --- </div>
+                  </div>
+              <?php endif; ?> 
+
               <div class="card-field-cont left-justify">
                 <div class="card-h3">Address:</div>
                 <div class="catlist-field-content"><?= $adopter->address ?></div>
-              </div>
-              <div class="card-field-cont left-justify">
-                <div class="card-h3">Phone:</div>
-                <div class="catlist-field-content"><?= $adopter->phone ?></div>
               </div>
               <div class="card-field-cont left-justify">
                 <div class="card-h3">E-mail:</div>
@@ -84,7 +116,17 @@
           <div class="dropdown-results-cont">
             <?php foreach ($adopter['cat_histories'] as $cat): ?>
             <?php $cat = $cat['cat']; ?>
-              <a class="cursor-point dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']); ?>
+              <a class="cursor-point dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>">
+
+
+                <?php 
+                  if(!empty($cat->profile_pic)) {
+                    echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
+                  } else {
+                    echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
+                  }
+                ?>
+
                 <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
               </a>
             <?php endforeach; ?>
