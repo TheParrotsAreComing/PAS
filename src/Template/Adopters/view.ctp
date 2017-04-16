@@ -74,8 +74,7 @@
                       <div class="block profile-field-text"><?= h($adopter->address) ?></div>
                     </div>
 
-                    <?php if (!empty($adopter->phone_numbers)): ?>
-                      <div class="profile-text-header">Phone Numbers </div>
+                      <div class="profile-text-header">Phone Number(s) </div>
                       <div class="medical-wrap">
                           <?php foreach ($adopter->phone_numbers as $number): ?>
                             <?php if($number->entity_type === 2): ?>
@@ -107,7 +106,7 @@
                             <?php endif; ?>
                           <?php endforeach; ?>
                       </div>
-                    <?php endif; ?>
+
                     <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 2])?>">+ Add New Phone Number
                     </a> 
 

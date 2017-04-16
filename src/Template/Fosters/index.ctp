@@ -68,17 +68,7 @@
             <div class="card-wrapper w-dyn-item">
               <div class="card-full-cont">
                 <div class="card-cont">
-                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">
-
-                  
-
-                  <?php 
-                    if(!empty($foster->profile_pic)){
-                      echo $this->Html->image('../'.$foster->profile_pic->file_path.'_tn.'.$foster->profile_pic->file_ext, ['class'=>'card-pic']);
-                    } else {
-                      echo $this->Html->image('foster-01.png', ['class'=>'card-pic']);
-                    }
-                  ?>
+                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><?= $this->Html->image('foster-01.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
                   <div class="card-h1"><?= $foster['first_name'].' '.$foster['last_name']; ?></div>
                     <div>
                       <div class="card-h2">Rating:</div>
@@ -89,31 +79,27 @@
                     </div>
                     <div class="card-field-wrap">
 
-                        <?php if (!empty($foster->phone_numbers)): ?>
-                            <?php foreach ($foster->phone_numbers as $number): ?>
-                                <?php $type = "";
-                                    if ($number->phone_type = 1) {$type = "Mobile: ";break; } 
-                                    else if ($number->phone_type = 2) {$type = "Home: ";break; } 
-                                    else if ($number->phone_type = 3) {$type = "Other: ";break; }
-                                ?>
-                            <?php endforeach; ?> 
-                            <?php if ($number->entity_type === 1): ?>
-                              <div class="card-field-cont left-justify">
-                                <div class="card-h3"><?= $type; ?></div>
-                                <div class="catlist-field-content"><?= $number->phone_num; ?></div>
-                              </div>
-                            <?php else: ?>
-                              <div class="card-field-cont left-justify">
-                                <div class="card-h3">Phone: </div>
-                                <div class="catlist-field-content"> --- </div>
-                              </div>
-                          <?php endif; ?> 
+                      <?php foreach ($foster->phone_numbers as $number): ?>
+                        <?php if ($number->entity_type === 1): ?>
+                          <?php $type = "";
+                              if ($number->phone_type === 1) {$type = "Mobile: ";break; } 
+                              else if ($number->phone_type === 2) {$type = "Home: ";break; } 
+                              else if ($number->phone_type === 3) {$type = "Other: ";break; }
+                          ?>
+                        <?php endif; ?>
+                      <?php endforeach; ?> 
+                      
+                      <div class="card-field-cont left-justify">
+                        <?php if ($number->entity_type === 1 && $number->entity_id === $foster->id): ?>
+                            <div class="card-h3"><?= $type; ?></div>
+                            <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                          </div>
                         <?php else: ?>
-                            <div class="card-field-cont left-justify">
-                              <div class="card-h3">Phone: </div>
-                              <div class="catlist-field-content"> --- </div>
-                            </div>
-                        <?php endif; ?> 
+                            <div class="card-h3">Phone: </div>
+                            <div class="catlist-field-content"> --- </div>
+                          </div>
+                      <?php endif; ?> 
+     
 
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">E-mail:</div>
@@ -137,16 +123,7 @@
                   <div class="dropdown-results-cont">
                     <?php foreach ($foster["cat_histories"] as $cat): ?>
                       <?php $cat = $cat["cat"]; ?>
-                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>">
-
-                        <?php 
-                          if(!empty($cat->profile_pic)) {
-                            echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
-                          } else {
-                            echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
-                          }
-                        ?>
-                        
+                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']); ?>
                         <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
                       </a>
                     <?php endforeach; ?>
