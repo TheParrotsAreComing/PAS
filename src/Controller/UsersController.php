@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -62,10 +63,10 @@ class UsersController extends AppController
         ]);
         $adopter_profile = [];
         if (!empty($user->adopter_id)) {
-            $adopter_profile = TableRegistry::init('Adopters')->get($user->adopter_id);
+            $adopter_profile = TableRegistry::get('Adopters')->get($user->adopter_id);
         }
 
-        $this->set('user', $user);
+        $this->set(compact('user', 'adopter_profile'));
         $this->set('_serialize', ['user']);
     }
 

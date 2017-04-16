@@ -96,12 +96,9 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
 	{
         $this->Auth->allow([]);
-        //$this->Auth->allow(['index','view','display']);
 
         $controller = $this->request->params['controller'];
         $action = $this->request->params['action'];
-        /*debug($controller);
-        debug($action);die;*/
 
         $user = $this->request->session()->read('Auth.User');
         if (empty($user)) return;

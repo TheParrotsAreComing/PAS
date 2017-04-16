@@ -17,7 +17,7 @@
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('user-menu.png');?>">
             </a>
-			       <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('cat-01.png');?>">
+			       <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('adopter-menu.png');?>">
             </a>
             <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 3"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('attachments-01.png');?>">
             </a>
@@ -51,8 +51,43 @@
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 2">
                 <div class="profile-content-cont">
-                  <a class="cat-add w-button attach-foster">Create Adopter Profile</a>
-                  <a class="cat-add w-button attach-foster">Attach Existing Adopter Profile</a>
+                  <?php if (empty($adopter_profile)): ?>
+                    <a class="cat-add w-button user-attach-new-adopter">Create Adopter Profile</a>
+                  <?php else: ?>
+                    <div class="profile-text-header">Adopter</div>
+                      <div class="card-cont card-wrapper w-dyn-item">
+                      <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter_profile->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+                      <div class="card-h1"><?= h($adopter_profile->first_name)." ".h($adopter_profile->last_name) ?></div>
+                      <div class="card-field-wrap">
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Notes:</div>
+                          <div class="card-field-text"><?= h($adopter_profile->notes) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                          <div class="card-field-cont">
+                          <div class="card-h3">Email:</div>
+                          <div class="card-field-text"><?= h($adopter_profile->email) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Phone:</div>
+                          <div class="card-field-text"><?= h($adopter_profile->phone) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Address:</div>
+                          <div class="card-field-text"><?= h($adopter_profile->address) ?></div>
+                        </div>
+                        </div>
+                      </div>
+                      </a>
+                    </div>
+
+                  <?php endif;?>
                 </div>
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 3">
@@ -111,7 +146,7 @@
       </div>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
-  <div class="floating-overlay">
+  <div class="floating-overlay delete-user">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this user?</div>
       <div class="confirm-button-wrap w-form">
@@ -123,22 +158,35 @@
     </div>
   </div>
 
-  <div id="dialog-confirm" title="Delete this tag?" style="display:none;">
-      <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
+  <div class="add-adopter-floating-overlay add-new-adopter-profile">
+    <div class="confirm-cont add-new-adopter-inner">
+      <div class="confirm-text">Are you sure you want to create a new adopter profile for this user?</div>
+      <div class="confirm-button-wrap w-form">
+        <div class="confirm-button-cont">
+          <a class="cancel-adopter cancel confirm-button w-button" href="#">Cancel</a>
+          <?= $this->Html->link('Create Adopter', ['controller'=>'adopters', 'action'=>'adopterFromUser', $user->id], ['class'=>'delete add-foster-btn confirm-button w-button']); ?>
+        </div>
+      </div>
+    </div>
   </div>
 
 <script>
-	calculateAndPopulateAgeFields();
 	$(function(){
 		$('.delete-button').click(function(e){
 			e.preventDefault();
-      var confirm_text = $('<div class="confirm-text"/>');
-      confirm_text.text('This adopter currently has a cat/kitten.');
-      $('.confirm-text').after(confirm_text);
-
-      var confirm_text_2 = $('<div class="confirm-text"/>');
-      confirm_text_2.text('Deleting this adopter will also mark the cat/kitten as unadopted.');
-      confirm_text.after(confirm_text_2);
 		});
 	});
+
+  $('.user-attach-new-adopter').on('click', function() {
+    $('.add-new-adopter-profile').css('display','flex');
+    $('.add-new-adopter-profile').css('opacity',1);
+    $('.add-new-adopter-inner').css('display','flex');
+    $('.add-new-adopter-inner').css('opacity',1);
+  });
+
+  $('.cancel-adopter').on('click', function() {
+    $('.add-new-adopter-profile').css('display','none');
+    $('.add-new-adopter-profile').css('opacity',0);
+    $('.add-new-adopter-inner').css('display','none');
+    $('.add-new-adopter-inner').css('opacity',0);  });
 </script>

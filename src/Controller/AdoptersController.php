@@ -205,4 +205,29 @@ class AdoptersController extends AppController
         echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
         exit(0);
     }
+
+    public function adopterFromUser($user_id=null) {
+        $this->autoRender = false;
+        $user = TableRegistry::get('Users')->get($user_id);
+        $patch['first_name'] = $user->first_name;
+        $patch['last_name'] = $user->last_name;
+        $patch['phone'] = $user->phone;
+        $patch['email'] = $user->email;
+        $patch['address'] = $user->address;
+        $patch['cat_count'] = 0;
+        $patch['is_deleted'] = 0;
+        $patch['do_not_adopt'] = 0;
+
+        $adopter = $this->Adopters->newEntity();
+        $adopter = $this->Adopters->patchEntity($adopter, $patch);
+        $adopter_id = $this->Adopters->save($adopter);
+        if ($adopter_id) {
+            $user->adopter_id = $adopter_id->id;
+            TableRegistry::get('Users')->save($user);
+            return $this->redirect(['controller'=>'adopters','action'=>'view',$adopter_id->id]);
+        } else {
+            $this->Flash->error('Something went wrong. Please check your user information and try again.');
+            return $this->redirect(['controller'=>'users','action'=>'view',$user_id]);
+        }
+    }
 }
