@@ -74,14 +74,18 @@
                       <div class="block profile-field-text"><?= h($adopter->address) ?></div>
                     </div>
 
+
                       <div class="profile-text-header">Phone Number(s) </div>
+
                       <div class="medical-wrap">
                           <?php foreach ($adopter->phone_numbers as $number): ?>
                             <?php if($number->entity_type === 2): ?>
                                 <?php $type = "";
+
                                   if ($number->phone_type === 1) {$type = "Mobile ";} 
                                   else if ($number->phone_type === 2) {$type = "Home ";} 
                                   else if ($number->phone_type === 3) {$type = "Other ";} 
+
                                 ?>
                                 <div class="scroll1 no-horizontal-scroll">
                                   <div class="medical-data-cont" data-ix="medical-data-click">
@@ -109,6 +113,7 @@
 
                     <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 2])?>">+ Add New Phone Number
                     </a> 
+
 
                 </div>
                 <div class="profile-content-cont">

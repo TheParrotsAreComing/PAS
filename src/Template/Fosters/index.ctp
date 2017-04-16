@@ -99,7 +99,6 @@
                             <div class="catlist-field-content"> --- </div>
                           </div>
                       <?php endif; ?> 
-     
 
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">E-mail:</div>

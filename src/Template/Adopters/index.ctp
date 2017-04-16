@@ -68,7 +68,6 @@
             </div>
             <div class="card-field-wrap">
 
-
               <?php foreach ($adopter->phone_numbers as $number): ?>
                 <?php if ($number->entity_type === 2): ?>
                   <?php $type = "";

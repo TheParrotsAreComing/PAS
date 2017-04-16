@@ -64,6 +64,7 @@ class FostersController extends AppController
         $rating = [0,1,2,3,4,5,6,7,8,9,10];
         $fosters = $this->paginate($this->Fosters);
 
+
         foreach($fosters as $foster) {
             if($foster->profile_pic_file_id > 0){
                 $foster->profile_pic = $filesDB->get($foster->profile_pic_file_id);
@@ -85,6 +86,7 @@ class FostersController extends AppController
         }
 
         $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type'));
+
         $this->set('_serialize', ['fosters']);
     }
 

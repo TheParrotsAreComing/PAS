@@ -39,3 +39,4 @@ Webflow.require('ix').init([
     { "slug": "tag-action-show-hide", "name": "tag-action (Show-Hide)", "value": { "style": {}, "triggers": [{ "type": "click", "selector": ".tag-actions-cont", "descend": true, "stepsA": [{ "max-width": "150px" }], "stepsB": [{ "max-width": "0px" }] }] } },
     { "slug": "medical-data-click", "name": "medical-data-click", "value": { "style": {}, "triggers": [{ "type": "click", "selector": ".medical-data-action-cont", "descend": true, "preserve3d": true, "stepsA": [{ "display": "flex" }, { "transition": "transform 300ms ease 0", "x": "0px", "y": "0px", "z": "0px" }], "stepsB": [{ "transition": "transform 300ms ease 0", "x": "250px", "y": "0px", "z": "0px" }, { "display": "none" }] }] } }
 ]);
+
