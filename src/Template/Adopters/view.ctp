@@ -49,9 +49,9 @@
                     </div>
                   <?php endforeach; ?>
                 </div>
-                <div class="example-tag-wrapper">
-                  <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
-                </div>
+
+                   <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
+
     			     <?php if($adopter->do_not_adopt == 1): ?>
                   <div class="profile-content-cont">
             				<div class="profile-text-header">Reason to NOT Adopt</div>
@@ -64,12 +64,6 @@
     			     <?php endif; ?>
     			     <div class="profile-content-cont">
                   <div class="profile-text-header">Personal Information</div>
-
-                    <div class="left-justify profile-field-cont">
-                      <div class="profile-field-name">Phone: </div>
-                      <div class="block profile-field-text"><?= h($adopter->phone) ?></div>
-                    </div>
-
                     <div class="left-justify profile-field-cont">
                       <div class="profile-field-name">Email: </div>
                       <div class="block profile-field-text"><?= h($adopter->email) ?></div>
@@ -79,6 +73,44 @@
                       <div class="profile-field-name">Address: </div>
                       <div class="block profile-field-text"><?= h($adopter->address) ?></div>
                     </div>
+
+                    <?php if (!empty($adopter->phone_numbers)): ?>
+                      <div class="profile-text-header">Phone Numbers </div>
+                      <div class="medical-wrap">
+                          <?php foreach ($adopter->phone_numbers as $number): ?>
+                            <?php if($number->entity_type === 2): ?>
+                                <?php $type = "";
+                                  if ($number->phone_type === 1) {$type = "Mobile ";} 
+                                  else if ($number->phone_type === 2) {$type = "Home ";} 
+                                  else if ($number->phone_type === 3) {$type = "Other ";} 
+                                ?>
+                                <div class="scroll1 no-horizontal-scroll">
+                                  <div class="medical-data-cont" data-ix="medical-data-click">
+                                    <div class="medical-type-cont">
+                                      <div class="medical-data-type"><?= $type ?></div>
+                                    </div>
+                                    <div class="medical-date-cont">
+                                      <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
+                                    </div>
+                                    <div class="medical-data-action-cont">
+                                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
+                                        <div class="profile-action-button sofware">-</div>
+                                        <div>edit</div>
+                                      </a>
+                                      <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
+                                        <div class="basic profile-action-button"></div>
+                                        <div>delete</div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                            <?php endif; ?>
+                          <?php endforeach; ?>
+                      </div>
+                    <?php endif; ?>
+                    <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 2])?>">+ Add New Phone Number
+                    </a> 
+
                 </div>
                 <div class="profile-content-cont">
                     <div class="profile-text-header">Additional Information</div>
@@ -263,11 +295,17 @@
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
 </div>
 
+<div id="dialog-confirm-number" title="Delete this phone number?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
+</div>
+
 <script>
 	calculateAndPopulateAgeFields();
 	var adopter = new Adopter();
 
   var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
+
+  var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
 
 	$(function(){
 		$('.delete-button').click(function(e){
@@ -354,6 +392,27 @@
           Cancel: function() {
             $( this ).dialog( "close" );
           }
+        }
+      });
+    });
+    $('.delete-number-btn').click(function(){
+     var parent = $(this).parent().parent().parent();
+     var that = $(this); 
+     $( "#dialog-confirm-number" ).dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+        "Delete!": function() {
+          $.get(deletePhone+'/'+that.data('number'));
+          $(this).dialog( "close" );
+          parent.remove();
+        },
+        Cancel: function() {
+          $(this).dialog( "close" );
+          $('.no-horizontal-scroll').scrollLeft(0);
+        }
         }
       });
     });

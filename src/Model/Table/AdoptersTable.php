@@ -41,6 +41,7 @@ class AdoptersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('File');
         $this->addBehavior('FilterableTag');
 
         $this->hasMany('CatHistories', [
@@ -53,6 +54,9 @@ class AdoptersTable extends Table
             'foreignKey' => 'adopter_id',
             'targetForeignKey' => 'tag_id',
             'joinTable' => 'tags_adopters'
+        ]);
+        $this->hasMany('PhoneNumbers', [
+        'foreignKey' => 'entity_id' 
         ]);
     }
 
@@ -75,10 +79,6 @@ class AdoptersTable extends Table
         $validator
             ->requirePresence('last_name', 'create')
             ->allowEmpty('last_name');
-
-        $validator
-            ->requirePresence('phone', 'create')
-            ->allowEmpty('phone');
 
         $validator
             ->integer('cat_count')

@@ -78,10 +78,33 @@
                       <div class="card-h2"><?= $this->Text->truncate($foster['avail'],25, ['ellipsis'=>'...', 'exact'=>true]); ?></div>
                     </div>
                     <div class="card-field-wrap">
-                      <div class="card-field-cont left-justify">
-                        <div class="card-h3">Phone:</div>
-                        <div class="catlist-field-content"><?= $foster['phone']; ?></div>
-                      </div>
+
+                        <?php if (!empty($foster->phone_numbers)): ?>
+                            <?php foreach ($foster->phone_numbers as $number): ?>
+                                <?php $type = "";
+                                    if ($number->phone_type = 1) {$type = "Mobile: ";break; } 
+                                    else if ($number->phone_type = 2) {$type = "Home: ";break; } 
+                                    else if ($number->phone_type = 3) {$type = "Other: ";break; }
+                                ?>
+                            <?php endforeach; ?> 
+                            <?php if ($number->entity_type === 1): ?>
+                              <div class="card-field-cont left-justify">
+                                <div class="card-h3"><?= $type; ?></div>
+                                <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                              </div>
+                            <?php else: ?>
+                              <div class="card-field-cont left-justify">
+                                <div class="card-h3">Phone: </div>
+                                <div class="catlist-field-content"> --- </div>
+                              </div>
+                          <?php endif; ?> 
+                        <?php else: ?>
+                            <div class="card-field-cont left-justify">
+                              <div class="card-h3">Phone: </div>
+                              <div class="catlist-field-content"> --- </div>
+                            </div>
+                        <?php endif; ?> 
+
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">E-mail:</div>
                         <div class="catlist-field-content"><?= $foster['email']; ?></div>
@@ -91,7 +114,7 @@
                         <div class="catlist-field-content"><?= $foster['address']; ?></div>
                       </div>
                     </div>
-                  </a>
+
                   <?php if (empty($foster["cat_histories"])): ?>
                     <a class="dropdown-cont w-inline-block">
                       This foster doesn't currently have any cats!

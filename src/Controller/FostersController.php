@@ -20,7 +20,8 @@ class FostersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => [
+            'contain' => [ 
+            'PhoneNumbers',
             'CatHistories'=>function($q){
                 return $q->where(['end_date IS NULL']);
             }, 
@@ -60,7 +61,9 @@ class FostersController extends AppController
         }
         $rating = [0,1,2,3,4,5,6,7,8,9,10];
         $fosters = $this->paginate($this->Fosters);
-        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags'));
+
+        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type'));
+
         $this->set('_serialize', ['fosters']);
     }
 
@@ -80,10 +83,10 @@ class FostersController extends AppController
         $foster_tags = array_diff_key($foster_tags, $attached_tags);
 
         $foster = $this->Fosters->get($id, [
-            'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats']
+            'contain' => ['Tags', 'CatHistories', 'CatHistories.Cats', 'PhoneNumbers']
         ]);
         
-        $this->set(compact('foster', 'foster_tags'));
+        $this->set(compact('foster', 'foster_tags', 'phone_numbers'));
         $this->set('_serialize', ['foster']);
     }
 
@@ -101,7 +104,8 @@ class FostersController extends AppController
             if ($this->Fosters->save($foster)) {
                 $this->Flash->success(__('The foster has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $foster->id]);
+
             } else {
                 $this->Flash->error(__('The foster could not be saved. Please, try again.'));
             }

@@ -89,7 +89,8 @@ class PhoneNumbersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['id'], 'Fosters', 'Adopters'));
+        $rules->add($rules->existsIn(['id'], 'Fosters'));
+        $rules->add($rules->existsIn(['id'], 'Adopters'));
     
 
         return $rules;

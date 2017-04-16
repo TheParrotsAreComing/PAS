@@ -58,9 +58,9 @@ class PhoneNumbersController extends AppController
             if ($this->PhoneNumbers->save($phoneNumber)) {
                 $this->Flash->success(__('The phone number has been saved.'));
 
-                if ($entity_type == 1){
+                if ($entity_type === 1){
                     return $this->redirect(['controller' => 'fosters', 'action' => 'view', $entity_id]);
-                } elseif ($entity_type == 2){
+                } else {
                     return $this->redirect(['controller' => 'adopters', 'action' => 'view', $entity_id]);
                 }
 
@@ -91,9 +91,9 @@ class PhoneNumbersController extends AppController
             if ($this->PhoneNumbers->save($phoneNumber)) {
                 $this->Flash->success(__('The phone number has been saved.'));
                 
-                if ($entity_type == 1){
+                if ($entity_type === 1){
                     return $this->redirect(['controller' => 'fosters', 'action' => 'view', $entity_id]);
-                } elseif ($entity_type == 2){
+                } else{
                     return $this->redirect(['controller' => 'adopters', 'action' => 'view', $entity_id]);
                 }
 
