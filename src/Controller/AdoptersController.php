@@ -29,6 +29,8 @@ class AdoptersController extends AppController
             'conditions' => ['Adopters.is_deleted' => 0]
         ];
 
+        $filesDB = TableRegistry::get('Files');
+
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
 
         if(!empty($this->request->query['mobile-search'])){
@@ -60,8 +62,27 @@ class AdoptersController extends AppController
         $count = [0,1,2,3,4,5];
         $adopters = $this->paginate($this->Adopters);
 
-        $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type'));
+        foreach($adopters as $adopter) {
+            if($adopter->profile_pic_file_id > 0){
+                $adopter->profile_pic = $filesDB->get($adopter->profile_pic_file_id);
 
+            } else {
+                $adopter->profile_pic = null;
+            }
+
+            // get cat profile pics
+            if(!empty($adopter->cat_histories)) {
+                foreach($adopter->cat_histories as $cat_hist){
+                    if($cat_hist->cat->profile_pic_file_id > 0){
+                        $cat_hist->cat->profile_pic = $filesDB->get($cat_hist->cat->profile_pic_file_id);
+                    } else {
+                        $cat_hist->cat->profile_pic = null;
+                    }
+                }
+            }
+        }
+
+        $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type'));
         $this->set('_serialize', ['adopters']);
     }
 

@@ -29,6 +29,8 @@ class FostersController extends AppController
             'conditions' => ['Fosters.is_deleted' => 0]
         ];
 
+        $filesDB = TableRegistry::get('Files');
+
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
 
         if(!empty($this->request->query['mobile-search'])){
@@ -62,8 +64,27 @@ class FostersController extends AppController
         $rating = [0,1,2,3,4,5,6,7,8,9,10];
         $fosters = $this->paginate($this->Fosters);
 
-        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type'));
+        foreach($fosters as $foster) {
+            if($foster->profile_pic_file_id > 0){
+                $foster->profile_pic = $filesDB->get($foster->profile_pic_file_id);
 
+            } else {
+                $foster->profile_pic = null;
+            }
+
+            // get cat profile pics
+            if(!empty($foster->cat_histories)) {
+                foreach($foster->cat_histories as $cat_hist){
+                    if($cat_hist->cat->profile_pic_file_id > 0){
+                        $cat_hist->cat->profile_pic = $filesDB->get($cat_hist->cat->profile_pic_file_id);
+                    } else {
+                        $cat_hist->cat->profile_pic = null;
+                    }
+                }
+            }
+        }
+
+        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type'));
         $this->set('_serialize', ['fosters']);
     }
 
