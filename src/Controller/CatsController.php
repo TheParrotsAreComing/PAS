@@ -146,7 +146,8 @@ class CatsController extends AppController
             'conditions' => [
                 'Files.is_photo' => true,
                 'Files.entity_type' => $this->Cats->getEntityTypeId(),
-                'entity_id' => $cat->id
+                'Files.entity_id' => $cat->id,
+                'Files.is_deleted' => false
                 ],
             'order' => ['Files.created'=>'DESC']]);
         $photosCountTotal = $photos->count();
