@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Text;
 
 /**
  * CatMedicalHistories Controller
@@ -53,8 +54,10 @@ class CatMedicalHistoriesController extends AppController
     public function add($cat_id = null)
     {
         $catsDB = TableRegistry::get('Cats');
+        $filesDB = TableRegistry::get('Files');
         $catMedicalHistory = $this->CatMedicalHistories->newEntity();
         $medOption = null;
+        $upload_document = null;
 
         if ($this->request->is('post')) {
             $date = $this->request->data['administered_date']['year'];
@@ -88,6 +91,23 @@ class CatMedicalHistoriesController extends AppController
                     $this->flash->error(__('Please pick a medical option and try again'));
                     return;
             }
+            if (!empty($this->request->data['upload_document']['name'])) {
+                $uploadedFileName = $this->request->data['upload_document']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+                $tempLocation = $this->request->data['upload_document']['tmp_name'];
+                $uploadPath = 'files/cats/'.$cat_id;
+                $entityTypeId = $this->CatMedicalHistories->getEntityTypeId();
+                $mimeType = $this->request->data['upload_document']['type'];
+                $fileSize = $this->request->data['upload_document']['size'];
+                $new_file_id = $this->CatMedicalHistories->uploadDocument($uploadedFileName, $tempLocation, $fileExtension, $uploadPath, $entityTypeId, $cat_id, $mimeType, $fileSize);
+                if ($new_file_id > 0){
+                    $catMedicalHistory->file_id = $new_file_id; 
+                    $this->Flash->success(__('Document has been uploaded and saved successfully.'));
+                } else {
+                    $this->Flash->error(__('Unable to upload document, please try again.'));
+                }
+            }
             $catMedicalHistory = $this->CatMedicalHistories->patchEntity($catMedicalHistory, $this->request->data);
             $catMedicalHistory->cat_id = $cat_id; 
             if ($this->CatMedicalHistories->save($catMedicalHistory)) {
@@ -97,7 +117,7 @@ class CatMedicalHistoriesController extends AppController
             $this->Flash->error(__('The cat medical history could not be saved. Please, try again.'));
         }
         $cats = $this->CatMedicalHistories->Cats->find('list', ['limit' => 200]);
-        $this->set(compact('catMedicalHistory', 'cats', 'cat_id', 'cat', 'cat_name', 'medOption'));
+        $this->set(compact('catMedicalHistory', 'cats', 'cat_id', 'cat', 'cat_name', 'medOption', 'upload_document'));
         $this->set('_serialize', ['catMedicalHistory']);
     }
 

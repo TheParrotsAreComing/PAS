@@ -5,7 +5,7 @@
             <div class="add-header">
                 <div class="add-field-h1">Medical History Record</div>
             </div>
-            <?= $this->Form->create($catMedicalHistory) ?>
+            <?= $this->Form->create($catMedicalHistory, ['type' => 'file']) ?>
                 <div class="add-input-form-wrap w-form">
                     <form class="add-input-form">
                         <label class="add-field-h2" for="First-Name">Add Record</label>
@@ -25,6 +25,9 @@
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type notes for this record...')); ?>
+                        <?php 
+                            echo $this->Form->input('upload_document', ['type' => 'file']); 
+                        ?>
                         <div class="add-button-cont">    
                         <?= $this->Html->link("Cancel", ['controller'=>'cats', 'action'=>'view', $cat_id], ['id'=>'MHCancel', 'class'=>'add-cancel w-button']); ?>
                         <?= $this->Form->submit("Submit",['id'=>'MHAdd', 'class'=>'add-submit w-button']); ?>

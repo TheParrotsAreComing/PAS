@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Files Controller
@@ -104,5 +105,25 @@ class FilesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function download($id = null)
+    {
+        $medicalDB = TableRegistry::get('CatMedicalHistories');
+        $medicalRecord = $medicalDB->get($id);
+        $fileId = $medicalRecord->file_id;
+        $file = $this->Files->get($fileId);
+        $filePath = WWW_ROOT.$file->file_path.'.'.$file->file_ext;
+        //debug($filePath);die;
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename='.basename($file->original_filename));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . $file->file_size); 
+
+        readfile($filePath);
     }
 }

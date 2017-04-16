@@ -49,21 +49,6 @@ CREATE TABLE litters (
     is_deleted BOOLEAN NOT NULL
 );
 
-
-CREATE TABLE files ( 
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	entity_type INT NOT NULL,
-    entity_id INT NOT NULL,
-	is_photo BOOLEAN NOT NULL,
-    mime_type VARCHAR(128) NOT NULL,
-    file_size INT NOT NULL,
-	file_path VARCHAR(256) NOT NULL,
-    file_ext VARCHAR(10) NOT NULL,
-    created DATETIME NOT NULL,
-    is_deleted BOOLEAN NOT NULL
-); 
-
-
 CREATE TABLE adopters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -97,6 +82,22 @@ CREATE TABLE fosters (
 	created DATETIME,
     is_deleted BOOLEAN NOT NULL,
     FOREIGN KEY foster_profile_pic_ref(profile_pic_file_id) REFERENCES files(id)
+); 
+
+
+CREATE TABLE files ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    original_filename VARCHAR(128) NOT NULL,
+    note TEXT,
+	entity_type INT NOT NULL,
+    entity_id INT NOT NULL,
+	is_photo BOOLEAN NOT NULL,
+    mime_type VARCHAR(128) NOT NULL,
+    file_size INT NOT NULL,
+	file_path VARCHAR(256) NOT NULL,
+    file_ext VARCHAR(10) NOT NULL,
+    created DATETIME NOT NULL,
+    is_deleted BOOLEAN NOT NULL
 ); 
 
 
@@ -151,6 +152,7 @@ CREATE TABLE cat_medical_histories (
     is_other BOOLEAN,
 	administered_date DATE NOT NULL,
 	notes TEXT,
+    file_id INT,
 	FOREIGN KEY cat_ref (cat_id) REFERENCES cats(id)
 );
 

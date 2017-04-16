@@ -98,6 +98,24 @@ THEN
 ALTER TABLE users ADD column modified DATETIME;
 END IF;
 
+-- add original file name for files
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='files' AND column_name='original_filename'))
+THEN 
+ALTER TABLE files ADD original_filename VARCHAR(128) NOT NULL;
+END IF;
+
+-- add note to files
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='files' AND column_name='note'))
+THEN
+ALTER TABLE files ADD note TEXT;
+END IF;
+
+-- add file id to cat medical histories
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='cat_medical_histories' AND column_name='file_id'))
+THEN
+ALTER TABLE cat_medical_histories ADD file_id INT;
+END IF; 
+
 END $$
 
 -- run the stored procedure
@@ -107,4 +125,3 @@ CALL sprint5_deploy() $$
 DROP PROCEDURE IF EXISTS sprint5_deploy $$
 
 DELIMITER ;
-
