@@ -181,42 +181,43 @@
 							<?php continue; ?>
 						<?php endif; ?>
 						<?php foreach($mhh as $mh): ?>
-						<?php if(empty($mh)): ?>
-							<div> None to date</div>
-							<?php continue; ?>
-						<?php endif; ?>
+							<?php if(empty($mh)): ?>
+								<div> None to date</div>
+								<?php continue; ?>
+							<?php endif; ?>
 
-						<?php $type = "";
-						  if ($mh->is_fvrcp) {$type = "FVRCP";} 
-						  else if ($mh->is_deworm) {$type = "Deworm";} 
-						  else if ($mh->is_flea) {$type = "Flea";} 
-						  else if ($mh->is_rabies) {$type = "Rabies";} 
-						  else if ($mh->is_other) {$type = "Other";} 
-						  else {$type = "No Type";} 
-						?>
-						<div class="scroll1 no-horizontal-scroll">
-						  <div class="medical-data-cont" data-ix="medical-data-click">
-							<div class="medical-type-cont">
-							  <div class="medical-data-type"><?= $type ?></div>
+							<?php $type = "";
+							  if ($mh->is_fvrcp) {$type = "FVRCP";} 
+							  else if ($mh->is_deworm) {$type = "Deworm";} 
+							  else if ($mh->is_flea) {$type = "Flea";} 
+							  else if ($mh->is_rabies) {$type = "Rabies";} 
+							  else if ($mh->is_other) {$type = "Other";} 
+							  else {$type = "No Type";} 
+							?>
+
+							<div class="scroll1 no-horizontal-scroll">
+							  <div class="medical-data-cont" data-ix="medical-data-click" data-mh="<?= $mh->id ?>">
+								<div class="medical-type-cont">
+								  <div class="medical-data-type"><?= $type ?></div>
+								</div>
+								<div class="medical-date-cont">
+								  <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
+								</div>
+								<div class="medical-notes-cont">
+								  <div class="medical-data-notes"><?= h($mh->notes) ?></div>
+								</div>
+								<div class="medical-data-action-cont">
+								  <a data-mh="<?= $mh->id ?>" class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
+									<div class="profile-action-button sofware">-</div>
+									<div>edit</div>
+								  </a>
+								  <a data-mh="<?= $mh->id ?>" class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
+									<div class="basic profile-action-button"></div>
+									<div>delete</div>
+								  </a>
+								</div>
+							  </div>
 							</div>
-							<div class="medical-date-cont">
-							  <div class="medical-date-cont"><?= h($mh->administered_date) ?></div>
-							</div>
-							<div class="medical-notes-cont">
-							  <div class="medical-data-notes"><?= h($mh->notes) ?></div>
-							</div>
-							<div class="medical-data-action-cont">
-							  <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'edit', $mh->id, $cat->id]) ?>">
-								<div class="profile-action-button sofware">-</div>
-								<div>edit</div>
-							  </a>
-							  <a class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
-								<div class="basic profile-action-button"></div>
-								<div>delete</div>
-							  </a>
-							</div>
-						  </div>
-						</div>
 					  <?php endforeach; ?>
                   <?php endforeach; ?>
                   <?php else: ?>
@@ -224,7 +225,7 @@
                           <div class="card-h1">This cat currently has no medical records.</div>
                     </a>
                   <?php endif; ?>
-                <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                <a id="medAdd" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
                 </div>
               </div>
             </div>
@@ -582,10 +583,14 @@ $(function () {
       width: 400,
       modal: true,
       buttons: {
-      "Delete!": function() {
-        $.get(deleteRecord+'/'+that.data('mh'));
-        $(this).dialog( "close" );
-        parent.remove();
+      "Delete!": {
+		text:"Delete!",
+		id:"delMed",
+		click : function() {
+				$.get(deleteRecord+'/'+that.data('mh'));
+				$(this).dialog( "close" );
+				parent.remove();
+			  }
       },
       Cancel: function() {
         $(this).dialog( "close" );

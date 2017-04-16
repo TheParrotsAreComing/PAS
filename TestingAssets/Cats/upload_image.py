@@ -5,6 +5,7 @@ import random
 import string
 import re
 import os
+import traceback
 
 
 from selenium import webdriver
@@ -40,24 +41,30 @@ try:
 	driver.get('http://localhost:8765/cats/view/'+cat_id);
 
 
-	cat_name = driver.find_element_by_class_name("cat-profile-name").text
 	upload_elem = driver.find_element_by_class_name("add-photo-btn")
 
 	upload_elem.click()
 	
 	browse = driver.find_element_by_id("uploaded-photo")
-	browse.send_keys(os.getcwd+"/img/cat1.jpg")
+	browse.send_keys(os.getcwd()+"/img/cat1.jpg")
 
+	driver.find_element_by_css_selector('input[type="submit"]').click()
+
+	cat_name = driver.find_element_by_class_name("cat-profile-name").text
+	file_tab = driver.find_element_by_id("fileTab")
+	
+	file_tab.click()
 
 	if rand_name == cat_name:
 		print("pass")
+		print(cat_id)
 	else:
 		print("fail")
 
-
+	driver.quit()
 	
 except Exception as e:
+	traceback.print_exc()
 	print(e)
 	print("fail")
 
-#driver.quit()
