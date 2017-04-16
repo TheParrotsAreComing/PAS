@@ -63,6 +63,7 @@ class AdoptersTable extends Table
             'foreignKey' => 'profile_pic_file_id'
 
         ]);
+
     }
 
     /**

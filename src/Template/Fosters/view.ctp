@@ -69,6 +69,7 @@
                                   if ($number->phone_type === 1) {$type = "Mobile ";} 
                                   else if ($number->phone_type === 2) {$type = "Home ";} 
                                   else if ($number->phone_type === 3) {$type = "Other ";} 
+
                                   ?>
                                   <div class="scroll1 no-horizontal-scroll">
                                     <div class="medical-data-cont" data-ix="medical-data-click">

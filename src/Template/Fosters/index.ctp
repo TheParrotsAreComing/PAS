@@ -78,7 +78,7 @@
                       <div class="card-h2"><?= $this->Text->truncate($foster['avail'],25, ['ellipsis'=>'...', 'exact'=>true]); ?></div>
                     </div>
                     <div class="card-field-wrap">
-
+                    <?php if(!empty($foster->phone_numbers)) :?>
                       <?php foreach ($foster->phone_numbers as $number): ?>
                         <?php if ($number->entity_type === 1): ?>
                           <?php $type = "";
@@ -88,6 +88,7 @@
                           ?>
                         <?php endif; ?>
                       <?php endforeach; ?> 
+                    <?php endif; ?>
                       
                       <div class="card-field-cont left-justify">
                         <?php if ($number->entity_type === 1 && $number->entity_id === $foster->id): ?>
@@ -99,7 +100,6 @@
                             <div class="catlist-field-content"> --- </div>
                           </div>
                       <?php endif; ?> 
-     
 
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">E-mail:</div>
