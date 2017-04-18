@@ -13,7 +13,7 @@
                         <?= $this->Form->hidden('entity_id', ['value' => $entity_id]);?>
                         <?= $this->Form->hidden('entity_type', ['value' => $entity_type]);?>
                         <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-                        <?= $this->Form->input('phone_type', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['','Mobile', 'Home', 'Other']]); ?>
+                        <?= $this->Form->input('phone_type', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home', 'Other']]); ?>
                         <label class="add-field-h3">Phone Number<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <?= $this->Form->input('phone_num', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
           'placeholder'=>'Enter Number']);?>

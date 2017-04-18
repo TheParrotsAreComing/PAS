@@ -67,19 +67,20 @@
                   --> 
             </div>
             <div class="card-field-wrap">
-            <?php if(!empty($adopter->phone_numbers)): ?>
-              <?php foreach ($adopter->phone_numbers as $number): ?>
-                <?php if ($number->entity_type === 2): ?>
-                  <?php $type = "";
-                      if ($number->phone_type === 1) {$type = "Mobile: ";break; } 
-                      else if ($number->phone_type === 2) {$type = "Home: ";break; } 
-                      else if ($number->phone_type === 3) {$type = "Other: ";break; }
-                  ?>
-                <?php endif; ?>
-              <?php endforeach; ?> 
-            <?php endif; ?>
-              <div class="card-field-cont left-justify">
-                <?php if ($number->entity_type === 2 && $number->entity_id === $adopter->id): ?>
+            
+              <?php if(!empty($adopter->phone_numbers)) :?>
+                <?php foreach ($adopter->phone_numbers as $number): ?>
+                  <?php if ($number->entity_type === 1): ?>
+                    <?php $type = "";
+                        if ($number->phone_type === 0) {$type = "Mobile: ";break; } 
+                        else if ($number->phone_type === 1) {$type = "Home: ";break; } 
+                        else if ($number->phone_type === 2) {$type = "Other: ";break; }
+                    ?>
+                  <?php endif; ?>
+                <?php endforeach; ?> 
+                
+                <div class="card-field-cont left-justify">
+                <?php if ($number->entity_type === 1 && $number->entity_id === $adopter->id): ?>
                     <div class="card-h3"><?= $type; ?></div>
                     <div class="catlist-field-content"><?= $number->phone_num; ?></div>
                   </div>
@@ -87,7 +88,13 @@
                     <div class="card-h3">Phone: </div>
                     <div class="catlist-field-content"> --- </div>
                   </div>
-                <?php endif; ?> 
+                <?php endif ;?>
+              <?php else: ?> 
+                <div class="card-field-cont left-justify">
+                    <div class="card-h3">Phone: </div>
+                    <div class="catlist-field-content"> --- </div>
+                  </div>
+              <?php endif; ?>
 
               <div class="card-field-cont left-justify">
                 <div class="card-h3">Address:</div>
