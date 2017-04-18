@@ -31,7 +31,6 @@ from scratch
     
 */
 
-
 CREATE TABLE litters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	kc_ref_id INT NOT NULL,
@@ -192,8 +191,16 @@ CREATE TABLE users (
     phone INT NOT NULL,
     email VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    is_deleted BOOLEAN NOT NULL
-); 
+    is_deleted BOOLEAN NOT NULL,
+    password varchar(255) NOT NULL,
+    role int(1) NOT NULL,
+    new_user tinyint(1),
+    need_new_password tinyint(1),
+	adopter_id INT,
+    FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
+    created DATETIME,
+    modified DATETIME
+);
 
 CREATE TABLE users_events ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
