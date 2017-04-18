@@ -211,12 +211,12 @@
                   <div class="profile-action-button sofware">-</div>
                   <div>edit</div>
                   </a>
-                  <a data-mh="<?= $mh->id ?>" class="medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
+                  <a data-mh="<?= $mh->id ?>" class="mid medical-data-action w-inline-block delete-record-btn" href="#" data-mh="<?= $mh->id ?>">
                   <div class="basic profile-action-button"></div>
                   <div>delete</div>
                   </a>
-                  <a data-mh="<?= $mh->id ?>" class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'Files', 'action'=>'download', $mh->id]) ?>">
-                  <div class="profile-action-button sofware">-</div>
+                  <a data-mh="<?= $mh->id ?>" class="right medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'Files', 'action'=>'download', $mh->id]) ?>">
+                  <div class="profile-action-button sofware">p</div>
                   <div>download</div>
                   </a>
                 </div>
