@@ -614,9 +614,12 @@ $(function () {
     text:"Delete!",
     id:"delMed",
     click : function() {
-        $.get(deleteRecord+'/'+that.data('mh'));
-        $(this).dialog( "close" );
-        parent.remove();
+			$.get(deleteRecord+'/'+that.data('mh'));
+			$(this).dialog( "close" );
+			if(parent.prev().is('label') && parent.next().is('label')){
+				parent.before('<div class="none-text"> None to date</div>');
+			}
+			parent.remove();
         }
       },
       Cancel: function() {
