@@ -103,7 +103,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   </style>
 </head>
 <body class="page">
-    <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1
+    <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
     <div class="navbar w-container">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
 		<?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
