@@ -47,7 +47,7 @@
                       <?php endforeach; ?>   
                     </div>
                     <div class="profile-content-cont">
-                       <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
+                       <a class="new-tag-btn profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
                     </div>
                     <div class="profile-content-cont">
                         <div class="profile-text-header">Personal Information</div>
