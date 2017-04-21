@@ -140,13 +140,23 @@ class CatsController extends AppController
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
 
+        $documents = $filesDB->find('all',[
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Cats->getEntityTypeId(),
+                'entity_id' => $cat->id
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $documentsCountTotal = $documents->count();   
+
 
         // get photos and count
         $photos = $filesDB->find('all', [
             'conditions' => [
                 'Files.is_photo' => true,
                 'Files.entity_type' => $this->Cats->getEntityTypeId(),
-                'entity_id' => $cat->id
+                'Files.entity_id' => $cat->id,
+                'Files.is_deleted' => false
                 ],
             'order' => ['Files.created'=>'DESC']]);
         $photosCountTotal = $photos->count();
@@ -200,7 +210,7 @@ class CatsController extends AppController
         	$profile_pic = null;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal'));
 
         $this->set('_serialize', ['cat']);
     }
@@ -503,6 +513,35 @@ class CatsController extends AppController
         ob_clean();
         echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
         exit(0);
+    }
+
+    public function changeProfilePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $cat = $this->Cats->get($data['cat_id']);
+        $cat->profile_pic_file_id = $data['file_id'];
+
+        ob_clean();
+        if($this->Cats->save($cat)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
+
+    public function ajaxSuccessMessage() {
+        $this->autoRender = false;
+        $this->Flash->success(__('Success!'));
+        return $this->redirect($this->referer());
+    }
+
+    public function ajaxFailMessage() {
+        $this->autoRender = false;
+        $this->Flash->error(__('Unable to complete action.'));
+        return $this->redirect($this->referer());
     }
 
 }
