@@ -21,16 +21,15 @@ from scratch
     DROP TABLE IF EXISTS cat_medical_histories;
     DROP TABLE IF EXISTS cat_histories;
     DROP TABLE IF EXISTS cats;
-    DROP TABLE IF EXISTS files;
     DROP TABLE IF EXISTS fosters; 
     DROP TABLE IF EXISTS adopters; 
     DROP TABLE IF EXISTS litters;
+    DROP TABLE IF EXISTS files;
     DROP TABLE IF EXISTS breeds;
     DROP TABLE IF EXISTS colors;
     
     
 */
-
 
 CREATE TABLE litters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,6 +47,21 @@ CREATE TABLE litters (
     created DATETIME,
     is_deleted BOOLEAN NOT NULL
 );
+
+CREATE TABLE files ( 
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    original_filename VARCHAR(128) NOT NULL,
+    note TEXT,
+	entity_type INT NOT NULL,
+    entity_id INT NOT NULL,
+	is_photo BOOLEAN NOT NULL,
+    mime_type VARCHAR(128) NOT NULL,
+    file_size INT NOT NULL,
+	file_path VARCHAR(256) NOT NULL,
+    file_ext VARCHAR(10) NOT NULL,
+    created DATETIME NOT NULL,
+    is_deleted BOOLEAN NOT NULL
+); 
 
 CREATE TABLE adopters ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -83,23 +97,6 @@ CREATE TABLE fosters (
     is_deleted BOOLEAN NOT NULL,
     FOREIGN KEY foster_profile_pic_ref(profile_pic_file_id) REFERENCES files(id)
 ); 
-
-
-CREATE TABLE files ( 
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    original_filename VARCHAR(128) NOT NULL,
-    note TEXT,
-	entity_type INT NOT NULL,
-    entity_id INT NOT NULL,
-	is_photo BOOLEAN NOT NULL,
-    mime_type VARCHAR(128) NOT NULL,
-    file_size INT NOT NULL,
-	file_path VARCHAR(256) NOT NULL,
-    file_ext VARCHAR(10) NOT NULL,
-    created DATETIME NOT NULL,
-    is_deleted BOOLEAN NOT NULL
-); 
-
 
 CREATE TABLE breeds(
     id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -194,8 +191,16 @@ CREATE TABLE users (
     phone INT NOT NULL,
     email VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    is_deleted BOOLEAN NOT NULL
-); 
+    is_deleted BOOLEAN NOT NULL,
+    password varchar(255) NOT NULL,
+    role int(1) NOT NULL,
+    new_user tinyint(1),
+    need_new_password tinyint(1),
+	adopter_id INT,
+    FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
+    created DATETIME,
+    modified DATETIME
+);
 
 CREATE TABLE users_events ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,

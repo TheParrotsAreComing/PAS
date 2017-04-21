@@ -103,9 +103,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   </style>
 </head>
 <body class="page">
-    <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <?php $srcset = $this->Url->image("settings-p-500x500.png").' 500w, '.$this->Url->image("settings.png").', 512w'; ?>
-    <div class="navbar w-container"><?= $this->Html->image("settings.png", ["class"=>"navbar-settings", "width"=>"32", "sizes"=>"(max-width: 991px) 100vw, 30px", "srcset"=>$srcset]); ?>
+    <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1
+    <div class="navbar w-container">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
 		<?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="mobile-search" placeholder="Search" type="text">

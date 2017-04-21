@@ -237,7 +237,7 @@ VALUES("Princess", "Zelda", "123 Royal Way, Hyrule Castle", "zelda@hyrulez.net",
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
         	INSERT INTO phone_numbers(entity_type, phone_type, entity_id, phone_num, created)
-        	VALUES (1, 1, @current_foster_id, "8672459001", CAST(NOW() AS DATE));
+        	VALUES (1, 0, @current_foster_id, "8672459001", CAST(NOW() AS DATE));
 
 	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
 	VALUES (NULL, "Leeroy", 0, '2016-01-12', 0, "Dark black", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, false, false, false, 51, 0);
@@ -272,7 +272,7 @@ VALUES("Malon", "Lon Lon", "Lon Lon Ranch, Hyrule Field", "malon@lonlon.net", "V
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
         	INSERT INTO phone_numbers(entity_type, phone_type, entity_id, phone_num, created)
-        	VALUES (1, 2, @current_foster_id, "8672459987", CAST(NOW() AS DATE));
+        	VALUES (1, 1, @current_foster_id, "8672459987", CAST(NOW() AS DATE));
 
 	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
 	VALUES (NULL, "Barry", 0, '2013-11-12', 0, "Dark black", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, true, true, true, true, 42, 0);
@@ -283,7 +283,7 @@ VALUES("Malon", "Lon Lon", "Lon Lon Ranch, Hyrule Field", "malon@lonlon.net", "V
         VALUES (@current_cat_id, NULL, @current_foster_id, CAST(NOW() AS DATE), NULL);
 
 	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
-	VALUES (NULL, "Lizette", 1, '2016-01-12', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, false, true, false, false, 36, 0);
+	VALUES (NULL, "Lizette", 1, '2016-01-12', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), '59.99', false, false, false, true, false, true, false, false, 36, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -299,7 +299,7 @@ VALUES("Bryant", "McCoco", "1823 Harbor Way, Venice Beach CA", "bryant@cocoz.net
 	SET @current_foster_id = (SELECT id FROM fosters ORDER BY id DESC LIMIT 1);
 
 	INSERT INTO phone_numbers(entity_type, phone_type, entity_id, phone_num, created)
-    VALUES (1, 2, @current_foster_id, "2757433581", CAST(NOW() AS DATE));
+    VALUES (1, 1, @current_foster_id, "2757433581", CAST(NOW() AS DATE));
 
 -- add Marylou and her 2 cats
 INSERT INTO adopters(first_name, last_name, cat_count, address, email, notes, created, is_deleted, do_not_adopt, dna_reason)
@@ -308,7 +308,7 @@ VALUES("Marylou", "McBride", 2, "123 Geek Street, Rocklin, CA", "marylou@hotmail
 	SET @current_adopter_id = (SELECT id FROM adopters ORDER BY id DESC LIMIT 1);
 
 	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
-	VALUES (NULL, "Carmella", 0, '2015-04-18', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, false, false, 28, 0);
+	VALUES (NULL, "Carmella", 0, '2015-04-18', 1, "Light grey", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), '79.99', false, false, false, false, false, false, false, false, 28, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -316,10 +316,10 @@ VALUES("Marylou", "McBride", 2, "123 Geek Street, Rocklin, CA", "marylou@hotmail
         VALUES (@current_cat_id, @current_adopter_id, NULL, CAST(NOW() AS DATE), NULL);
 
         	INSERT INTO phone_numbers(entity_type, phone_type, entity_id, phone_num, created)
-    		VALUES (2, 1, @current_adopter_id, "3454452356", CAST(NOW() AS DATE));
+    		VALUES (2, 0, @current_adopter_id, "3454452356", CAST(NOW() AS DATE));
     
     INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
-	VALUES (NULL, "Rachelle", 1, '2017-01-28', 1, "Dark red", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, true, false, true, false, false, 31, 0);
+	VALUES (NULL, "Rachelle", 1, '2017-01-28', 1, "Dark red", "Short and rough", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), '60.00', false, false, false, true, false, true, false, false, 31, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -335,7 +335,7 @@ VALUES("Doretta", "Armwood", 1, "754 Harvard Lane, Rocklin, CA", "adoretta@armwo
 	SET @current_adopter_id = (SELECT id FROM adopters ORDER BY id DESC LIMIT 1);
 
 	INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
-	VALUES (NULL, "Mittens", 1, '2016-12-29', 0, "Tiger stripped", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, true, true, true, true, 19, 0);
+	VALUES (NULL, "Mittens", 1, '2016-12-29', 0, "Tiger stripped", "Long", "cat bio and background...", "cat diet, and what it eats now", "specialty notes here...", NULL, NULL, NULL, NOW(), '59.99', false, false, false, false, true, true, true, true, 19, 0);
     
 		SET @current_cat_id = (SELECT id FROM cats ORDER BY id DESC LIMIT 1);
         
@@ -343,7 +343,7 @@ VALUES("Doretta", "Armwood", 1, "754 Harvard Lane, Rocklin, CA", "adoretta@armwo
         VALUES (@current_cat_id, @current_adopter_id, NULL, CAST(NOW() AS DATE), NULL);
 
         	INSERT INTO phone_numbers(entity_type, phone_type, entity_id, phone_num, created)
-    		VALUES (2, 2, @current_adopter_id, "3454452111", CAST(NOW() AS DATE));
+    		VALUES (2, 1, @current_adopter_id, "3454452111", CAST(NOW() AS DATE));
 
 
 
@@ -359,7 +359,7 @@ VALUES("Max", "Carter", 0, "734 Rosevelt St, Rocklin, CA", "mcarter@carterfam.ne
 	SET @current_adopter_id = (SELECT id FROM fosters ORDER BY id DESC LIMIT 1);
 
 	INSERT INTO phone_numbers(entity_type, phone_type, entity_id, phone_num, created)
-    VALUES (2, 3, @current_adopter_id, "3454456241", CAST(NOW() AS DATE));
+    VALUES (2, 2, @current_adopter_id, "3454456241", CAST(NOW() AS DATE));
 
 -- add the cats
 INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
