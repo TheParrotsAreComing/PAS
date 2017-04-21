@@ -25,6 +25,8 @@ class FileBehavior extends Behavior {
 				return 5;
 			case 'Contacts':
 				return 6;
+			case 'CatMedicalHistories':
+				return 7;
 			default:
 				break;
 		}
@@ -78,5 +80,35 @@ class FileBehavior extends Behavior {
 
         return 0;
 
+	}
+
+	public function uploadDocument(string $fileName, string $tempLocation, string $extension, string $filePath, int $entityTypeId, int $entityId, string $mimeType, int $fileSize) {
+		$filesDB = TableRegistry::get('Files');
+		$uniqueName = Text::uuid();
+
+		if (!file_exists(WWW_ROOT.$filePath)) {
+			mkdir(WWW_ROOT.$filePath, 0777, true);
+		}
+
+		if(move_uploaded_file($tempLocation, WWW_ROOT.$filePath.'/'.$uniqueName.'.'.$extension)){
+			$new_document = $filesDB->newEntity();
+			$new_document->original_filename = $fileName;
+			$new_document->entity_type = $entityTypeId;
+			$new_document->entity_id = $entityId;
+			$new_document->is_photo = false;
+			$new_document->mime_type = $mimeType;
+			$new_document->file_size = $fileSize;
+			$new_document->file_path = $filePath.'/'.$uniqueName;
+			$new_document->file_ext = $extension;
+			$new_document->created = date("Y-m-d H:i:s");
+			$new_document->is_deleted = false;
+
+			if ($filesDB->save($new_document)) {
+				return $new_document->id;
+			} else {
+				return 0;
+			}
+		}
+		return 0;
 	}
 }

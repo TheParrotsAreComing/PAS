@@ -46,8 +46,8 @@
                         </div>
                       <?php endforeach; ?>   
                     </div>
-                    <div class="example-tag-wrapper">
-                       <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
+                    <div class="profile-content-cont">
+                       <a class="new-tag-btn profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
                     </div>
                     <div class="profile-content-cont">
                         <div class="profile-text-header">Personal Information</div>
@@ -61,15 +61,15 @@
                           <div class="block profile-field-text"><?= h($foster->address) ?></div>
                         </div>
 
-                        <?php if (!empty($foster->phone_numbers)): ?>
-                        <div class="profile-text-header">Phone Numbers </div>
+                        <div class="profile-text-header">Phone Number(s) </div>
                         <div class="medical-wrap">
                             <?php foreach ($foster->phone_numbers as $number): ?>
-                              <?php if($number->entity_type === 1): ?>
+                              <?php if($number->entity_type === 0): ?>
                                   <?php $type = "";
-                                  if ($number->phone_type === 1) {$type = "Mobile ";} 
-                                  else if ($number->phone_type === 2) {$type = "Home ";} 
-                                  else if ($number->phone_type === 3) {$type = "Other ";} 
+                                  if ($number->phone_type === 0) {$type = "Mobile ";} 
+                                  else if ($number->phone_type === 1) {$type = "Home ";} 
+                                  else if ($number->phone_type === 2) {$type = "Other ";} 
+
                                   ?>
                                   <div class="scroll1 no-horizontal-scroll">
                                     <div class="medical-data-cont" data-ix="medical-data-click">
@@ -94,8 +94,8 @@
                               <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
-                        <?php endif; ?>
-                        <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $foster->id, 1])?>">+ Add New Phone Number
+
+                        <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $foster->id, 0])?>">+ Add New Phone Number
                         </a>
                     </div>  
                     
@@ -132,8 +132,9 @@
                         <div class="card-cont card-wrapper w-dyn-item">
                           <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
                             <div class="card-h1"><?= $cat['cat_name'];?></div>
-                            <div>
-                              <div class="card-h2"><?= ($cat['is_kitten']) ? "Kitten" : "Cat"; ?></div>
+                            <div class="card-h2-cont">
+                              <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                              <div class="card-h2 <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
                             </div>
                             <div class="card-field-wrap">
                               <div class="card-field-cont">

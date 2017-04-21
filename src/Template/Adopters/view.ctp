@@ -49,9 +49,9 @@
                     </div>
                   <?php endforeach; ?>
                 </div>
-
-                   <a class="profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
-
+                <div class="profile-content-cont">
+                   <a class="new-tag-btn profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
+                </div>
     			     <?php if($adopter->do_not_adopt == 1): ?>
                   <div class="profile-content-cont">
             				<div class="profile-text-header">Reason to NOT Adopt</div>
@@ -74,15 +74,18 @@
                       <div class="block profile-field-text"><?= h($adopter->address) ?></div>
                     </div>
 
-                    <?php if (!empty($adopter->phone_numbers)): ?>
-                      <div class="profile-text-header">Phone Numbers </div>
+
+                      <div class="profile-text-header">Phone Number(s) </div>
+
                       <div class="medical-wrap">
                           <?php foreach ($adopter->phone_numbers as $number): ?>
-                            <?php if($number->entity_type === 2): ?>
+                            <?php if($number->entity_type === 1): ?>
                                 <?php $type = "";
-                                  if ($number->phone_type === 1) {$type = "Mobile ";} 
-                                  else if ($number->phone_type === 2) {$type = "Home ";} 
-                                  else if ($number->phone_type === 3) {$type = "Other ";} 
+
+                                  if ($number->phone_type === 0) {$type = "Mobile ";} 
+                                  else if ($number->phone_type === 1) {$type = "Home ";} 
+                                  else if ($number->phone_type === 2) {$type = "Other ";} 
+
                                 ?>
                                 <div class="scroll1 no-horizontal-scroll">
                                   <div class="medical-data-cont" data-ix="medical-data-click">
@@ -107,9 +110,10 @@
                             <?php endif; ?>
                           <?php endforeach; ?>
                       </div>
-                    <?php endif; ?>
-                    <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 2])?>">+ Add New Phone Number
+
+                    <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 1])?>">+ Add New Phone Number
                     </a> 
+
 
                 </div>
                 <div class="profile-content-cont">
@@ -135,8 +139,9 @@
                         <div class="card-cont card-wrapper w-dyn-item">
                           <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
                             <div class="card-h1"><?= $cat['cat_name'];?></div>
-                            <div>
-                              <div class="card-h2"><?= ($cat['is_kitten']) ? "Kitten" : "Cat"; ?></div>
+                            <div class="card-h2-cont">
+                              <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                              <div class="card-h2 <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
                             </div>
                             <div class="card-field-wrap">
                               <div class="card-field-cont">

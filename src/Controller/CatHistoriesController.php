@@ -16,10 +16,12 @@ class CatHistoriesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($cat_id)
     {
         $this->paginate = [
-            'contain' => ['Cats', 'Adopters', 'Fosters']
+            'contain' => ['Cats', 'Adopters', 'Fosters'],
+			'conditions'=>['cat_id'=>$cat_id],
+			'order'=>['start_date'=>'DESC']
         ];
         $catHistories = $this->paginate($this->CatHistories);
 

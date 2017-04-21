@@ -104,8 +104,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body class="page">
     <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <?php $srcset = $this->Url->image("settings-p-500x500.png").' 500w, '.$this->Url->image("settings.png").', 512w'; ?>
-    <div class="navbar w-container"><?= $this->Html->image("settings.png", ["class"=>"navbar-settings", "width"=>"32", "sizes"=>"(max-width: 991px) 100vw, 30px", "srcset"=>$srcset]); ?>
+    <div class="navbar w-container">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
 		<?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="mobile-search" placeholder="Search" type="text">
@@ -126,15 +125,21 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Litters', ['controller'=>'litters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?= $this->Html->link('Volunteers', ['controller'=>'volunteers', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Volunteers', ['controller'=>'users', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php if ($this->request->session()->read('Auth.User.role') == 1): ?>
+          <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php endif; ?>
         <?= $this->Html->link('Settings', ['controller'=>'settings', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php if (!empty($this->request->session()->read('Auth.User'))): ?>
+          <?= $this->Html->link('My Profile', ['controller'=>'users','action'=>'view',$this->request->session()->read('Auth.User.id')],['class'=>'sidebar-link w-nav-link']); ?>
+          <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php endif; ?>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
     </div>
   </div>
   <?= $this->Html->script('jquery.min.js'); ?>
-  <?= $this->Html->script('jquery-ui.js'); ?>
+  <?= $this->Html->script('jquery-ui.min.js'); ?>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <div class="flash-div"><?= $this->Flash->render() ?></div>

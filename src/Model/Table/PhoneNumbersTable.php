@@ -66,7 +66,7 @@ class PhoneNumbersTable extends Table
             ->allowEmpty('entity_id');
 
         $validator
-            ->integer('phone_type')
+            ->requirePresence('phone_type')
             ->notEmpty('phone_type');
 
         $validator
@@ -75,7 +75,14 @@ class PhoneNumbersTable extends Table
 
         $validator
             ->requirePresence('phone_num', 'create')
-            ->notEmpty('phone_num');
+            ->integer('phone_num')
+            ->add('phone_num',[
+                'length' => [
+                'rule' => [ 
+                'minLength', 10],
+                'message' => 'Phone number must be 10 digits long']
+            ])
+            ->notEmpty('phone_type');
 
         return $validator;
     }

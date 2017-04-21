@@ -279,3 +279,20 @@ div.pagination-index > a, div.pagination > a{
     font-style: italic;
     color: grey;
 }
+
+.user-attach-new-adopter, .user-attach-existing-adopter {
+    margin-top:2em;
+}
+
+.mid.medical-data-action{
+	border-radius: 0 !important;
+	border-right:1px grey solid;
+	border-left:1px grey solid;
+}
+.right.medical-data-action{
+	padding-left: 10px;
+}
+
+.right.medical-data-action > .profile-action-button.sofware{
+    font-family: 'Linea basic elaboration 10', sans-serif;
+}

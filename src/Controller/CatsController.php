@@ -126,7 +126,8 @@ class CatsController extends AppController
         $medicalDB = TableRegistry::get('CatMedicalHistories');
 
         $adopters = $adoptersDB->find('all');
-        $adopters->where(['is_deleted' => 0]);
+        $adopters->where(['is_deleted' => 0,'do_not_adopt IS NOT'=>1]);
+
 		$select_adopters = [];
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
