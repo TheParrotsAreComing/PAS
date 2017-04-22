@@ -29,6 +29,8 @@ class FostersController extends AppController
             'conditions' => ['Fosters.is_deleted' => 0]
         ];
 
+        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['entity_type' => 0])->where(['phone_type' =>0]);
+
         $filesDB = TableRegistry::get('Files');
 
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
@@ -37,15 +39,15 @@ class FostersController extends AppController
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
 
-			if(!empty($this->request->query['tag'])){
-				$tagged_fosters = $this->Fosters->buildFilterArray($this->request->query['tag']);
-				unset($this->request->query['tag']);
-			}
+            if(!empty($this->request->query['tag'])){
+                $tagged_fosters = $this->Fosters->buildFilterArray($this->request->query['tag']);
+                unset($this->request->query['tag']);
+            }
 
             foreach($this->request->query as $field => $query){
                 if ($field == 'page'){
-					continue;
-				}
+                    continue;
+                }
                 if ($field == 'rating' && !empty($query)){
                     if(preg_match('/rating/',$field)){
                         $this->paginate['conditions'][$field] = $query;
@@ -55,15 +57,14 @@ class FostersController extends AppController
                 }
             }
 
-			if(!empty($tagged_fosters)){
-				$this->paginate['conditions']['fosters.id IN'] = $tagged_fosters;
-			}
+            if(!empty($tagged_fosters)){
+                $this->paginate['conditions']['fosters.id IN'] = $tagged_fosters;
+            }
 
             $this->request->data = $this->request->query;
         }
         $rating = [0,1,2,3,4,5,6,7,8,9,10];
         $fosters = $this->paginate($this->Fosters);
-
 
         foreach($fosters as $foster) {
             if($foster->profile_pic_file_id > 0){
@@ -85,8 +86,8 @@ class FostersController extends AppController
             }
         }
 
-        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type'));
 
+        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phones'));
         $this->set('_serialize', ['fosters']);
     }
 
@@ -99,6 +100,12 @@ class FostersController extends AppController
      */
     public function view($id = null)
     {
+        $cat_breeds = TableRegistry::get('Breeds')->find('all');
+
+        //debug($cat_breeds); die;
+
+        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 0]);
+
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
 
         $attached_tags = TableRegistry::get('Tags_Fosters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['foster_id'=>$id])->toArray();
@@ -170,7 +177,7 @@ class FostersController extends AppController
             $profile_pic = null;
         }
         
-        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers'));
+        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds'));
         $this->set('_serialize', ['foster']);
     }
 
@@ -184,7 +191,7 @@ class FostersController extends AppController
         $foster = $this->Fosters->newEntity();
         if ($this->request->is('post')) {
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
-			$foster['is_deleted'] = 0;
+            $foster['is_deleted'] = 0;
             if ($this->Fosters->save($foster)) {
                 $this->Flash->success(__('The foster has been saved.'));
 
@@ -241,13 +248,13 @@ class FostersController extends AppController
         $foster = $this->Fosters->patchEntity($foster, $this->request->data);
         if ($this->Fosters->save($foster)) {
 
-			$cat_histories_table = TableRegistry::get('CatHistories');
-			$associations = $cat_histories_table->query();
-			$associations->update()
-				->set(['end_date'=>date('Y-m-d')])
-				->where(['foster_id'=>$id])
-				->andWhere(["end_date IS NULL"])
-				->execute();
+            $cat_histories_table = TableRegistry::get('CatHistories');
+            $associations = $cat_histories_table->query();
+            $associations->update()
+                ->set(['end_date'=>date('Y-m-d')])
+                ->where(['foster_id'=>$id])
+                ->andWhere(["end_date IS NULL"])
+                ->execute();
 
             $this->Flash->success(__('The foster has been deleted.'));
             return $this->redirect(['action' => 'index']);
@@ -258,16 +265,16 @@ class FostersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-	public function checkAssociations($foster_id){
-		$this->autoRender = false;
-		$cat_histories_table = TableRegistry::get('CatHistories');
-		$associations = $cat_histories_table->findByFosterId($foster_id);
-		$associations->where(["end_date IS NULL"]);
+    public function checkAssociations($foster_id){
+        $this->autoRender = false;
+        $cat_histories_table = TableRegistry::get('CatHistories');
+        $associations = $cat_histories_table->findByFosterId($foster_id);
+        $associations->where(["end_date IS NULL"]);
 
-		ob_clean();
-		echo empty($associations->toArray()) ? '0' : '1';
-		exit(0);
-	}
+        ob_clean();
+        echo empty($associations->toArray()) ? '0' : '1';
+        exit(0);
+    }
 
     public function attachTag() {
         $this->autoRender = false;

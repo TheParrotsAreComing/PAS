@@ -63,38 +63,35 @@
 
                         <div class="profile-text-header">Phone Number(s) </div>
                         <div class="medical-wrap">
-                            <?php foreach ($foster->phone_numbers as $number): ?>
-                              <?php if($number->entity_type === 0): ?>
-                                  <?php $type = "";
-                                  if ($number->phone_type === 0) {$type = "Mobile ";} 
-                                  else if ($number->phone_type === 1) {$type = "Home ";} 
-                                  else if ($number->phone_type === 2) {$type = "Other ";} 
+                          <?php foreach ($phones as $number): ?>
+                            <?php $type = "";
+                            if ($number->phone_type === 0) {$type = "Mobile ";} 
+                            else if ($number->phone_type === 1) {$type = "Home ";} 
+                            else if ($number->phone_type === 2) {$type = "Other ";} 
 
-                                  ?>
-                                  <div class="scroll1 no-horizontal-scroll">
-                                    <div class="medical-data-cont" data-ix="medical-data-click">
-                                      <div class="medical-type-cont">
-                                        <div class="medical-data-type"><?= $type ?></div>
-                                      </div>
-                                      <div class="medical-date-cont">
-                                        <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
-                                      </div>
-                                      <div class="medical-data-action-cont">
-                                        <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
-                                          <div class="profile-action-button sofware">-</div>
-                                          <div>edit</div>
-                                        </a>
-                                        <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
-                                          <div class="basic profile-action-button"></div>
-                                          <div>delete</div>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                              <?php endif; ?>
-                            <?php endforeach; ?>
+                            ?>
+                            <div class="scroll1 no-horizontal-scroll">
+                              <div class="medical-data-cont" data-ix="medical-data-click">
+                                <div class="medical-type-cont">
+                                  <div class="medical-data-type"><?= $type ?></div>
+                                </div>
+                                <div class="medical-date-cont">
+                                  <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
+                                </div>
+                                <div class="medical-data-action-cont">
+                                  <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
+                                    <div class="profile-action-button sofware">-</div>
+                                    <div>edit</div>
+                                  </a>
+                                  <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
+                                    <div class="basic profile-action-button"></div>
+                                    <div>delete</div>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          <?php endforeach; ?>
                         </div>
-
                         <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $foster->id, 0])?>">+ Add New Phone Number
                         </a>
                     </div>  
@@ -147,13 +144,17 @@
                                   <div class="card-field-text cat-age"></div>
                                 </div>
                               </div>
-                              <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Breed:</div>
-                                  <div class="card-field-text"><?= $cat['breed']; ?></div>
-                                </div>
-                                </div>
-                              </div>
+                              <?php foreach($cat_breeds as $breed): ?>
+                                <?php if($cat->breed_id == $breed->id): ?>
+                                  <div class="card-field-cont">
+                                    <div class="card-field-cont">
+                                      <div class="card-h3">Breed:</div>
+                                      <div class="card-field-text"><?= $breed['breed']; ?></div>
+                                    </div>
+                                  </div>
+                                <?php endif;?>
+                              <?php endforeach; ?>
+                              </div>                            
                               </a>
                           </div>
                         <?php endforeach; ?>

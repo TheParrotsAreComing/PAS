@@ -29,6 +29,8 @@ class AdoptersController extends AppController
             'conditions' => ['Adopters.is_deleted' => 0]
         ];
 
+        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['entity_type' => 1])->where(['phone_type' =>0]);
+
         $filesDB = TableRegistry::get('Files');
 
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
@@ -83,7 +85,7 @@ class AdoptersController extends AppController
             }
         }
 
-        $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type'));
+        $this->set(compact('adopters','adopter_tags', 'phones'));
 
         $this->set('_serialize', ['adopters']);
     }
@@ -97,6 +99,10 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
+        $cat_breeds = TableRegistry::get('Breeds')->find('all');
+
+        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 1]);
+
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
         $attached_tags = TableRegistry::get('Tags_Adopters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['adopter_id'=>$id])->toArray();
 
@@ -165,7 +171,7 @@ class AdoptersController extends AppController
         } else {
             $profile_pic = null;
         }
-        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers'));
+        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds'));
         $this->set('_serialize', ['adopter']);
     }
 

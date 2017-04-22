@@ -60,40 +60,24 @@
                 }
             ?>
             
-            <div class="card-h1"><?= $adopter->first_name?> <?= $adopter->last_name?></div>
+            <div class="card-h1"><?= $adopter['first_name'].' '.$adopter['last_name']; ?></div>
             <div><!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
               <div class="card-h2"></div>
                   --> 
             </div>
             <div class="card-field-wrap">
-            
-              <?php if(!empty($adopter->phone_numbers)) :?>
-                <?php foreach ($adopter->phone_numbers as $number): ?>
-                  <?php if ($number->entity_type === 1): ?>
-                    <?php $type = "";
-                        if ($number->phone_type === 0) {$type = "Mobile: ";break; } 
-                        else if ($number->phone_type === 1) {$type = "Home: ";break; } 
-                        else if ($number->phone_type === 2) {$type = "Other: ";break; }
-                    ?>
-                  <?php endif; ?>
-                <?php endforeach; ?> 
-                
-                <div class="card-field-cont left-justify">
-                <?php if ($number->entity_type === 1 && $number->entity_id === $adopter->id): ?>
-                    <div class="card-h3"><?= $type; ?></div>
-                    <div class="catlist-field-content"><?= $number->phone_num; ?></div>
-                  </div>
-                <?php else: ?>
-                    <div class="card-h3">Phone: </div>
-                    <div class="catlist-field-content"> --- </div>
-                  </div>
-                <?php endif ;?>
-              <?php else: ?> 
-                <div class="card-field-cont left-justify">
-                    <div class="card-h3">Phone: </div>
-                    <div class="catlist-field-content"> --- </div>
-                  </div>
+
+              <?php if(!empty($phones)) :?>
+                <?php foreach ($phones as $number): ?>
+                  <?php if ($number->entity_id === $adopter->id): ?>
+                    <div class="card-field-cont left-justify">
+                      <div class="card-h3">Primary Mobile: </div>
+                      <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                    </div>
+                    <?php break;?>
+                  <?php endif ;?>
+                <?php endforeach; ?>
               <?php endif; ?>
 
               <div class="card-field-cont left-justify">
