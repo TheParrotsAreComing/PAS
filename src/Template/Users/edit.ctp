@@ -1,4 +1,3 @@
-
 <div class="body">
   <div class="add-view column">
     <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
@@ -6,7 +5,7 @@
       <div class="add-header">
         <div class="add-field-h1">Edit User</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
       </div>
-      <?= $this->Form->create($user, ['class'=>'add-input-form', 'data-name'=>'Email Form 4', 'id'=>'email-form-4', 'name'=>'email-form-4']);?>
+      <?= $this->Form->create($user);?>
       <div class="add-input-form-wrap w-form">
         <label class="add-field-h2" for="First-Name">Personal Information</label>
         <div class="add-field-seperator"></div>
@@ -34,9 +33,10 @@
         <div class="add-button-cont">
           <?= $this->Html->link('Cancel', ['controller'=>'users','action'=>'view', $user->id],['class'=>'add-cancel w-button', 'id'=>'UserCancel']); ?>
           <?= $this->Form->submit("Save User", ['class'=>'add-submit w-button','id'=>'UserEdit'])?>
+
         </div>
       </div>
+      <?= $this->Form->end();?>
     </div>
   </div>
 </div>
-<?= $this->Form->end();?>

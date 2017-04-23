@@ -3,7 +3,7 @@
     <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
     <div class="add-cont scroll1" data-ix="page-load-fade-in">
       <div class="add-header">
-        <div class="add-field-h1">Invite New User</div>
+        <div class="add-field-h1">Change Password</div>
       </div>
       <?= $this->Form->create('ChangePassword', ['id'=>'ChangePwForm']);?>
       
