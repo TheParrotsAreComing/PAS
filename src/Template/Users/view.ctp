@@ -103,8 +103,7 @@
            </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit
-          ', $user->id], ['escape'=>false]);?>">
+          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>

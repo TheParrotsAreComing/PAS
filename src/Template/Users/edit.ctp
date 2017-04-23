@@ -10,26 +10,30 @@
         <label class="add-field-h2" for="First-Name">Personal Information</label>
         <div class="add-field-seperator"></div>
         <label class="add-field-h3" for="First-Name">First Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-        <?= $this->Form->input('first_name', ['class'=>'add-input w-input', 'data-name'=>'First-Name', 'label'=>false, 
-        'placeholder'=>'Enter First Name']);?>
+        <?= $this->Form->input('first_name', ['class'=>'add-input w-input', 'data-name'=>'First-Name', 'label'=>false, 'placeholder'=>'Enter First Name']);?>
         <label class="add-field-h3" for="Last-Name">Last Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-        <?= $this->Form->input('last_name', ['class'=>'add-input w-input', 'data-name'=>'Last-Name', 'label'=>false, 
-        'placeholder'=>'Enter Last Name']);?>
+        <?= $this->Form->input('last_name', ['class'=>'add-input w-input', 'data-name'=>'Last-Name', 'label'=>false, 'placeholder'=>'Enter Last Name']);?>
         <label class="add-field-h3" for="E-mail">E-mail<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-        <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false, 
-        'placeholder'=>'Enter Valid Email Address']);?>
+        <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false, 'placeholder'=>'Enter Valid Email Address']);?>
         <div class="add-button-cont">
           <?= $this->Html->link('Change Password', ['controller'=>'users','action'=>'change_password'],['class'=>'add-submit w-button', 'id'=>'ChangePassword']); ?>
         </div>
     
-        <label class="add-field-h2" for="First-Name">Contact Information</label>
+        <label class="add-field-h2">Contact Information</label>
         <div class="add-field-seperator"></div>
         <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-        <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
-        'placeholder'=>'Enter Address']);?>
+        <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 'placeholder'=>'Enter Address']);?>
         <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-        <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
-        'placeholder'=>'Enter Phone Number']);?>
+        <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Phone Number']);?>
+
+        <?php if ($admin): ?>
+          <label class="add-field-h2">Admin-Only Information - <span class="red-text">Change with caution!</span></label>
+          <div class="add-field-seperator"></div>
+          <label class="add-field-h3" for="Role">User Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+          <?= $this->Form->input('role', ['class'=>'add-input w-input', 'data-name'=>'Role', 'label'=>false, 'empty'=>'Select a User Type', 'options'=>$user_types]); ?>       
+        <?php endif; ?>
+
+        <div class="add-field-seperator"></div>
         <div class="add-button-cont">
           <?= $this->Html->link('Cancel', ['controller'=>'users','action'=>'view', $user->id],['class'=>'add-cancel w-button', 'id'=>'UserCancel']); ?>
           <?= $this->Form->submit("Save User", ['class'=>'add-submit w-button','id'=>'UserEdit'])?>

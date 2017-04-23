@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
 use Cake\ORM\TableRegistry;
@@ -163,6 +164,7 @@ class UsersController extends AppController
             'contain' => []
         ]);
 
+        $admin = ($this->request->session()->read('Auth.User.role') == 1) ? true : false;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -182,7 +184,11 @@ class UsersController extends AppController
                 $user->address = "";
             }
         }
-        $this->set(compact('user'));
+
+        $user_types = array_flip(Configure::read('Roles'));
+        $user_types[1] = "Admin **FULL PRIVILEGES**";
+
+        $this->set(compact('user', 'user_types', 'admin'));
         $this->set('_serialize', ['user']);
     }
 

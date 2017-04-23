@@ -296,3 +296,7 @@ div.pagination-index > a, div.pagination > a{
 .right.medical-data-action > .profile-action-button.sofware{
     font-family: 'Linea basic elaboration 10', sans-serif;
 }
+
+.red-text {
+  color: red;
+}
