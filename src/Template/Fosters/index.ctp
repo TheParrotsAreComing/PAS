@@ -83,7 +83,7 @@
                         <?php foreach ($phones as $number): ?>
                           <?php if ($number->entity_id === $foster->id): ?>
                             <div class="card-field-cont left-justify">
-                              <div class="card-h3">Primary Mobile: </div>
+                              <div class="card-h3">Primary Phone: </div>
                               <div class="catlist-field-content"><?= $number->phone_num; ?></div>
                             </div>
                             <?php break;?>

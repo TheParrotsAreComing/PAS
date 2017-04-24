@@ -29,7 +29,7 @@ class FostersController extends AppController
             'conditions' => ['Fosters.is_deleted' => 0]
         ];
 
-        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['entity_type' => 0])->where(['phone_type' =>0]);
+        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 0]);
 
         $filesDB = TableRegistry::get('Files');
 
