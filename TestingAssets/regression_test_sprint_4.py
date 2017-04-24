@@ -18,3 +18,6 @@ for res in resolutions:
 	os.system('py CatMedHistry/edit.py '+res[0]+' '+res[1])
 	os.system('py CatMedHistry/delete.py '+res[0]+' '+res[1])
 	os.system('py Cats/upload_image.py '+res[0]+' '+res[1])
+	os.system('py Tags/add.py '+res[0]+' '+res[1])
+	os.system('py Tags/attach_cat.py '+res[0]+' '+res[1])
+

@@ -9,6 +9,15 @@ import re
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import selenium.webdriver.chrome.service as service
+from selenium.common.exceptions import NoSuchElementException
+
+
+service = service.Service('D:\ChromeDriver\chromedriver')
+service.start()
+capabilities = {'chrome.binary': 'C:\Program Files (x86)\Google\Chrome\Application\chrome'} # Chrome path is different for everyone
+
+driver = webdriver.Remote(service.service_url, capabilities)
+driver.set_window_size(sys.argv[1], sys.argv[2]);
 
 try:
 	# Check to see if it was added
@@ -37,14 +46,8 @@ try:
 	k=r.fetch_row(1,1)
 	tag_id = k[0].get('id')
 
+	db.query('INSERT into tags_cats (cat_id,tag_id) VALUES('+cat_id+','+tag_id+')')
 
-	service = service.Service('D:\ChromeDriver\chromedriver')
-	service.start()
-	capabilities = {'chrome.binary': 'C:\Program Files (x86)\Google\Chrome\Application\chrome'} # Chrome path is different for everyone
-
-	driver = webdriver.Remote(service.service_url, capabilities)
-
-	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
 	driver.get('http://localhost:8765');
 	driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
@@ -53,21 +56,24 @@ try:
 
 	driver.get('http://localhost:8765/cats/view/'+cat_id);
 
-	driver.find_element_by_class_name('new-tag-btn').click()
-
-	adopter_selected = Select(driver.find_element_by_id('tag'));
-	adopter_selected.select_by_value(tag_id);
-
-	driver.find_element_by_class_name('add-tag-btn').click()
+	ele = driver.find_element_by_css_selector('a.tag-remove[data-id="'+tag_id+'"]')
+	ele.click()
+	driver.find_element_by_id('delTag').click()
 
 	driver.get('http://localhost:8765/cats/view/'+cat_id);
 
-	for ele in driver.find_elements_by_css_selector('div.tag-text'):
-		if(ele.text == rand_coat):
-			print('pass')
-	
+	ele = driver.find_element_by_css_selector('a.tag-remove[data-id="'+tag_id+'"]')
+	ele.click()
+
+	print('fail')
 	driver.quit()
+
+except NoSuchElementException:
+    print("pass")
+
 except Exception as e:
 	print(e)
 	print("fail")
 
+finally:
+	driver.quit()

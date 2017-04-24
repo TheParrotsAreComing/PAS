@@ -673,36 +673,40 @@ $(function () {
       });
     });
 
-    $('.profile-cont').on('click','.tag-remove',function(){
-      var that = $(this); 
-      var tag_id = that.attr('data-id');
-       $( "#dialog-confirm-tag" ).dialog({
-          resizable: false,
-          height: "auto",
-          width: 400,
-          modal: true,
-          buttons: {
-          "Delete": function() {
-            $.ajax({
-              url : tagDel,
-              type : 'POST',
-              data : {
-                'cat_id' : '<?= $cat->id ?>',
-                'tag_id' : tag_id
-            }
-            }).done(function(result){
-              result = JSON.parse(result);
-              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
-            });
-              that.parent().remove();
-              $( this ).dialog( "close" );
-          },
-          Cancel: function() {
-            $( this ).dialog( "close" );
-          }
-          }
-        });
-    });
+	$('.profile-cont').on('click','.tag-remove',function(){
+		var that = $(this); 
+		var tag_id = that.attr('data-id');
+		$( "#dialog-confirm-tag" ).dialog({
+			resizable: false,
+			height: "auto",
+			width: 400,
+			modal: true,
+			buttons: {
+				"Delete": {
+					text:"Delete!",
+					id:"delTag",
+					click : function() {
+						$.ajax({
+							url : tagDel,
+							type : 'POST',
+							data : {
+							'cat_id' : '<?= $cat->id ?>',
+							'tag_id' : tag_id
+						}
+						}).done(function(result){
+							result = JSON.parse(result);
+							$('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+						});
+						that.parent().remove();
+						$( this ).dialog( "close" );
+					}
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	});
 
   $('.profile-more-link').click(function(e){
     var url = APP_PATH+"/"+$(this).data('controller')+"/"+$(this).data('action')+"/"+"<?= $cat->id ?>";
