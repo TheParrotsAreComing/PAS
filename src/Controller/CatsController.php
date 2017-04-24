@@ -120,6 +120,8 @@ class CatsController extends AppController
 
 		$cat->cat_medical_histories = $this->Cats->manualGroupMedicalHistories($cat->cat_medical_histories);
 
+        $fosterPhones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 0]);
+        $adopterPhones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 1]);
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
@@ -211,7 +213,7 @@ class CatsController extends AppController
         	$profile_pic = null;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal', 'fosterPhones', 'adopterPhones'));
 
         $this->set('_serialize', ['cat']);
     }

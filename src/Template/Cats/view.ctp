@@ -254,16 +254,23 @@
                           <div class="card-field-text"><?= h($foster->rating) ?></div>
                         </div>
                         </div>
+                        <?php if(!empty($fosterPhones)) :?>
+                          <?php foreach ($fosterPhones as $number): ?>
+                            <?php if ($number->entity_id === $foster->id): ?>
+                              <div class="card-field-cont">
+                                <div class="card-field-cont">
+                                  <div class="card-h3">Primary Phone:</div>
+                                  <div class="card-field-text"><?= h($number->phone_num) ?></div>
+                                </div>
+                              </div>
+                              <?php break;?>
+                            <?php endif ;?>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
                         <div class="card-field-cont">
                         <div class="card-field-cont">
                           <div class="card-h3">Email:</div>
                           <div class="card-field-text"><?= h($foster->email) ?></div>
-                        </div>
-                        </div>
-                        <div class="card-field-cont">
-                        <div class="card-field-cont">
-                          <div class="card-h3">Phone:</div>
-                          <div class="card-field-text"><?= h($foster->phone) ?></div>
                         </div>
                         </div>
                         <div class="card-field-cont">
@@ -322,16 +329,23 @@
                       <div class="card-field-text"><?= h($adopter->notes) ?></div>
                     </div>
                     </div>
+                    <?php if(!empty($adopterPhones)) :?>
+                      <?php foreach ($adopterPhones as $number): ?>
+                        <?php if ($number->entity_id === $adopter->id): ?>
+                          <div class="card-field-cont">
+                            <div class="card-field-cont">
+                              <div class="card-h3">Primary Phone:</div>
+                              <div class="card-field-text"><?= h($number->phone_num) ?></div>
+                            </div>
+                          </div>
+                          <?php break;?>
+                        <?php endif ;?>
+                      <?php endforeach; ?>
+                    <?php endif; ?>
                     <div class="card-field-cont">
                       <div class="card-field-cont">
                       <div class="card-h3">Email:</div>
                       <div class="card-field-text"><?= h($adopter->email) ?></div>
-                    </div>
-                    </div>
-                    <div class="card-field-cont">
-                    <div class="card-field-cont">
-                      <div class="card-h3">Phone:</div>
-                      <div class="card-field-text"><?= h($adopter->phone) ?></div>
                     </div>
                     </div>
                     <div class="card-field-cont">
