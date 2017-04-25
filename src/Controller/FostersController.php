@@ -123,7 +123,8 @@ class FostersController extends AppController
             'conditions' => [
                 'Files.is_photo' => true,
                 'Files.entity_type' => $this->Fosters->getEntityTypeId(),
-                'entity_id' => $foster->id
+                'entity_id' => $foster->id,
+                'Files.is_deleted' => false
                 ],
             'order' => ['Files.created'=>'DESC']]);
         $photosCountTotal = $photos->count();
@@ -301,6 +302,23 @@ class FostersController extends AppController
 
         ob_clean();
         echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
+        exit(0);
+    }
+
+    public function changeProfilePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $foster = $this->Fosters->get($data['entity_id']);
+        $foster->profile_pic_file_id = $data['file_id'];
+
+        ob_clean();
+        if($this->Fosters->save($foster)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
         exit(0);
     }
 

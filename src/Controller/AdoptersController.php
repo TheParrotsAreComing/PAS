@@ -118,7 +118,8 @@ class AdoptersController extends AppController
             'conditions' => [
                 'Files.is_photo' => true,
                 'Files.entity_type' => $this->Adopters->getEntityTypeId(),
-                'entity_id' => $adopter->id
+                'entity_id' => $adopter->id,
+                'Files.is_deleted' => false
                 ],
             'order' => ['Files.created'=>'DESC']]);
         $photosCountTotal = $photos->count();

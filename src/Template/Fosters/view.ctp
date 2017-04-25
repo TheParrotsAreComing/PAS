@@ -168,7 +168,7 @@
                       <div class="picture-file-cont scroll1">
                         <?php if($photosCountTotal > 0):  ?>
                           <?php foreach($photos as $photo): ?>
-                            <div class="picture-file">
+                            <div class="picture-file" data-file-id="<?= h($photo->id) ?>">
                               <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
                               <?php if($photo->id == $foster->profile_pic_file_id): ?>
                                 <div class="picture-primary">H</div>
@@ -178,8 +178,8 @@
                         <?php endif; ?>
                       </div>
                       <div class="picture-file-action-cont">
-                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
-                        <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                        <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
                       </div>
                     </div>
                     <div class="profile-text-header">Uploaded Files (todo...)</div>
@@ -291,9 +291,17 @@
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
   </div>
 
+<div id="dialog-confirm-photo-delete" title="Delete this photo?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
+</div>
+
 <script>
+
+  var foster_id = "<?= $foster->id ?>";
+  var foster_controller_string = "Fosters/";
   calculateAndPopulateAgeFields();
 	var foster = new Foster();
+  setupPhotoSelectionBehavior(foster_id, foster_controller_string);
 
   var tagDel = "<?= $this->Url->build(['controller'=>'fosters','action'=>'deleteTag']); ?>";
 
