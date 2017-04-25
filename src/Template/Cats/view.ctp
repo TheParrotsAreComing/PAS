@@ -611,9 +611,9 @@ $(function () {
       modal: true,
       buttons: {
       "Delete!": {
-    text:"Delete!",
-    id:"delMed",
-    click : function() {
+			text:"Delete!",
+			id:"delMed",
+			click : function() {
 			$.get(deleteRecord+'/'+that.data('mh'));
 			$(this).dialog( "close" );
 			if(parent.prev().is('label') && parent.next().is('label')){

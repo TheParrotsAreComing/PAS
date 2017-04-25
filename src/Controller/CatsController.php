@@ -171,6 +171,8 @@ class CatsController extends AppController
             if(!empty($this->request->data['uploaded_photo']['name'])){
 
                 // get file ext
+                // note, assuming no filenames with periods other than for extension
+                // when saving original filename
                 $uploadedFileName = $this->request->data['uploaded_photo']['name'];
                 $nameArray = explode('.', $uploadedFileName);
                 $fileExtension = array_pop($nameArray);
@@ -183,7 +185,7 @@ class CatsController extends AppController
                 $fileSize = $this->request->data['uploaded_photo']['size'];
 
                 // attempt to upload the photo with the file behavior
-                $new_file_id = $this->Cats->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                $new_file_id = $this->Cats->uploadPhoto($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
                     $entityTypeId, $cat->id, $mimeType, $fileSize);
 
                 if ($new_file_id > 0){

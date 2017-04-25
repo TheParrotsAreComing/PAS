@@ -20,4 +20,8 @@ for res in resolutions:
 	os.system('py Cats/upload_image.py '+res[0]+' '+res[1])
 	os.system('py Tags/add.py '+res[0]+' '+res[1])
 	os.system('py Tags/attach_cat.py '+res[0]+' '+res[1])
+	os.system('py Tags/attach_adopter.py '+res[0]+' '+res[1])
+	os.system('py Tags/attach_foster.py '+res[0]+' '+res[1])
+	os.system('py Tags/remove_tag_cat.py '+res[0]+' '+res[1])
+	os.system('py Tags/remove_tag_adopter.py '+res[0]+' '+res[1])
 
