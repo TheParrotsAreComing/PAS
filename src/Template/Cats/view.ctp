@@ -548,11 +548,12 @@
 $(function () {
 
   var cat_id = "<?= $cat->id ?>";
+  var cat_controller_string = "Cats/";
   var current_kitty = new Cat();
   var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
   var tagDel = "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>";
   calculateAndPopulateAgeFields();
-  setupPhotoSelectionBehavior(cat_id);
+  setupPhotoSelectionBehavior(cat_id, cat_controller_string);
 
   $('.add-adopter-btn').click(function(){
      $( "#dialog-confirm" ).dialog({

@@ -1,6 +1,6 @@
 var APP_PATH = window.location.origin+"/";
 
-function setupPhotoSelectionBehavior(cat_id) {
+function setupPhotoSelectionBehavior(entity_id, entity_controller_string) {
 
     $('.picture-file').click(function(){
         $('.picture-file').find('img').removeClass('selected');
@@ -16,20 +16,21 @@ function setupPhotoSelectionBehavior(cat_id) {
         if( $(this).hasClass('active') ) {
 
             var file_id = $('.selected').parent().data('file-id');
-            var url = APP_PATH+'Cats/changeProfilePic';
+            
+            var url = APP_PATH+entity_controller_string+'changeProfilePic';
 
             $.ajax({
                 url : url,
                 type : 'POST',
                 data : {
-                    cat_id : cat_id,
+                    entity_id : entity_id,
                     file_id: file_id
                 }
             }).done(function(result) {
                 if(result == 'success') {
-                    window.location = APP_PATH+'Cats/ajaxSuccessMessage';
+                    window.location = APP_PATH+entity_controller_string+'ajaxSuccessMessage';
                 } else {
-                    window.location = APP_PATH+'Cats/ajaxFailMessage';
+                    window.location = APP_PATH+entity_controller_string+'ajaxFailMessage';
                 }
                 
               });
@@ -61,7 +62,7 @@ function setupPhotoSelectionBehavior(cat_id) {
                         $(this).dialog( "close" );
 
                         var file_id = $('.selected').parent().data('file-id');
-                        var url = APP_PATH+'Cats/deletePic';
+                        var url = APP_PATH+entity_controller_string+'deletePic';
 
                         $.ajax({
                             url : url,
@@ -71,9 +72,9 @@ function setupPhotoSelectionBehavior(cat_id) {
                             }
                         }).done(function(result) {
                             if(result == 'success') {
-                                window.location = APP_PATH+'Cats/ajaxSuccessMessage';
+                                window.location = APP_PATH+entity_controller_string+'ajaxSuccessMessage';
                             } else {
-                                window.location = APP_PATH+'Cats/ajaxFailMessage';
+                                window.location = APP_PATH+entity_controller_string+'ajaxFailMessage';
                             }
                           });
                       }

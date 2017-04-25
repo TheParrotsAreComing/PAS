@@ -325,4 +325,21 @@ class AdoptersController extends AppController
             return $this->redirect(['controller'=>'users','action'=>'view',$user_id]);
         }
     }
+
+    public function changeProfilePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $adopter = $this->Adopters->get($data['entity_id']);
+        $adopter->profile_pic_file_id = $data['file_id'];
+
+        ob_clean();
+        if($this->Adopters->save($adopter)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
 }
