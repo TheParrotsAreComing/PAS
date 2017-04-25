@@ -167,6 +167,20 @@ class CatsController extends AppController
         // for form on page
         $uploaded_photo = null;
 
+        // get files and count
+        $files = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Cats->getEntityTypeId(),
+                'Files.entity_id' => $cat->id,
+                'Files.is_deleted' => false
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $filesCountTotal = $files->count();
+
+        // for form on page
+        $uploaded_file = null;
+
         if($this->request->is('post')) {
 
         	//uploading a file
@@ -213,7 +227,7 @@ class CatsController extends AppController
         	$profile_pic = null;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal', 'fosterPhones', 'adopterPhones'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal', 'fosterPhones', 'adopterPhones', 'files', 'filesCountTotal', 'uploaded_file'));
 
         $this->set('_serialize', ['cat']);
     }

@@ -396,8 +396,52 @@
                   <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
                 </div>
               </div>
-              <div class="profile-text-header">Uploaded Files (todo...)</div>
-            </div>
+              <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
+
+              <div class="medical-wrap">
+                  <div class="medical-header-cont">
+                    <div class="medical-type-cont">
+                      <div class="medical-header">Uploaded</div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-header">Original Name</div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-header">Note</div>
+                    </div>
+                  </div>
+                  <?php if ($filesCountTotal > 0): ?>
+                    <?php foreach($files as $file): ?>
+
+                  <div class="scroll1 no-horizontal-scroll">
+                    <div class="medical-data-cont" data-ix="medical-data-click">
+                    <div class="medical-type-cont">
+                      <div class="medical-data-type"><?= h($file->created) ?></div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-date-cont"><?= h($file->original_filename) ?></div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-data-notes"><?= h($file->note) ?></div>
+                    </div>
+                    <div class="medical-data-action-cont">
+                      <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                      <div class="basic profile-action-button"></div>
+                      <div>delete</div>
+                      </a>
+                      <a class="right medical-data-action w-inline-block" href="#">
+                      <div class="profile-action-button sofware">p</div>
+                      <div>download</div>
+                      </a>
+                    </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+                <?php else : ?>
+                  <!-- No uploaded documents to load-->
+                <?php endif; ?>
+                    </div>
+                </div>
 
             <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 6">
               <div class="profile-content-cont">
