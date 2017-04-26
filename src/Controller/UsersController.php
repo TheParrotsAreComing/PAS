@@ -65,6 +65,9 @@ class UsersController extends AppController
             $id = $this->request->session()->read('Auth.User.id');
         }
 
+        $can_delete = ($this->request->session()->read('Auth.User.role') == 1);
+        $can_modify = (($can_delete || $this->request->session()->read('Auth.User.role') == 2) || $this->request->session()->read('Auth.User.id') == $id);
+
         $user = $this->Users->get($id, [
             'contain' => ['UsersEvents']
         ]);
@@ -73,7 +76,7 @@ class UsersController extends AppController
             $adopter_profile = TableRegistry::get('Adopters')->get($user->adopter_id);
         }
 
-        $this->set(compact('user', 'adopter_profile'));
+        $this->set(compact('user', 'adopter_profile', 'can_delete', 'can_modify'));
         $this->set('_serialize', ['user']);
     }
 

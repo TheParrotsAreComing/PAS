@@ -103,22 +103,26 @@
            </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
-            <div class="profile-action-button sofware">-</div>
-            <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
-            <div class="extend profile-action-button">w</div>
-            <div>upload</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <?php if ($can_modify): ?>
+            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
+              <div class="profile-action-button sofware">-</div>
+              <div>edit</div>
+            </a>
+            <a class="profile-action-button-cont w-inline-block" href="#">
+              <div class="extend profile-action-button">w</div>
+              <div>upload</div>
+            </a>
+          <?php endif; ?>
+          <!--<a class="profile-action-button-cont w-inline-block" href="#">
             <div class="basic profile-action-button"></div>
             <div>export</div>
-          </a>
-          <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
-            <div class="basic profile-action-button" ></div>
-            <div>delete</div>
-          </a>
+          </a>-->
+          <?php if ($can_delete): ?>
+            <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+              <div class="basic profile-action-button" ></div>
+              <div>delete</div>
+            </a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -131,18 +135,22 @@
   </div>
 
   <div class="button-cont">
-      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
-        <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png');?>" width="55">
-      </a>
-      <a class="button-02" href="#">
-        <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
-      </a>
-      <a class="button-03" data-ix="add-click">
+      <?php if ($can_modify): ?>
+        <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
+          <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png');?>" width="55">
+        </a>
+        <a class="button-02" href="#">
+          <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
+        </a>
+      <?php endif; ?>
+      <!-- <a class="button-03" data-ix="add-click">
         <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
-      </a>
-      <div class="delete-button button-04" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
-      </div>
+      </a> -->
+      <?php if ($can_delete): ?>
+        <div class="delete-button button-04" data-ix="delete-click">
+          <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
+        </div>
+      <?php endif; ?>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
 
   <div class="add-adopter-floating-overlay delete-user">
