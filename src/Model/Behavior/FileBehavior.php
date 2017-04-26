@@ -32,7 +32,7 @@ class FileBehavior extends Behavior {
 		}
 	}
 
-	public function uploadPhoto(string $tempLocation, string $extension, string $filePath, 
+	public function uploadPhoto(string $fileName, string $tempLocation, string $extension, string $filePath, 
 		int $entityTypeId, int $entityId, string $mimeType, int $fileSize){
 		
 		$filesDB = TableRegistry::get('Files');
@@ -63,6 +63,7 @@ class FileBehavior extends Behavior {
 			$new_photo = $filesDB->newEntity();
 			$new_photo->entity_type = $entityTypeId;
 	        $new_photo->entity_id = $entityId;
+	        $new_photo->original_filename = $fileName;
 	        $new_photo->is_photo = true;
 	        $new_photo->mime_type = $mimeType;
 	        $new_photo->file_size = $fileSize;
