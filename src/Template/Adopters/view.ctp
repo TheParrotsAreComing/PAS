@@ -206,7 +206,7 @@
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
           </a>
-          <a class="profile-action-button-cont w-inline-block" href="javascript:void(0);" data-ix="add-photo-click-desktop">
+          <a class="profile-action-button-cont w-inline-block" id="uploadProfileImage" href="javascript:void(0);" data-ix="add-photo-click-desktop">
             <div class="extend profile-action-button">w</div>
             <div>upload</div>
           </a>
