@@ -123,15 +123,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Home', ['controller'=>'pages', 'action'=>'display','home'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Cats', ['controller'=>'cats', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Litters', ['controller'=>'litters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php if (!($session_user['role'] == 4)): ?>
+          <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?php endif; ?>
         <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Volunteers', ['controller'=>'users', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?php if ($this->request->session()->read('Auth.User.role') == 1): ?>
+        <?php if ($session_user['role'] == 1): ?>
           <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>
         <?= $this->Html->link('Settings', ['controller'=>'settings', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?php if (!empty($this->request->session()->read('Auth.User'))): ?>
-          <?= $this->Html->link('My Profile', ['controller'=>'users','action'=>'view',$this->request->session()->read('Auth.User.id')],['class'=>'sidebar-link w-nav-link']); ?>
+        <?php if (!empty($session_user)): ?>
+          <?= $this->Html->link('My Profile', ['controller'=>'users','action'=>'view',$session_user['id']],['class'=>'sidebar-link w-nav-link']); ?>
           <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>
       </nav>

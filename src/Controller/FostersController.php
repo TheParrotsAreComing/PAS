@@ -297,4 +297,27 @@ class FostersController extends AppController
         exit(0);
     }
 
+    public function fosterFromUser($user_id=null) {
+        $this->autoRender = false;
+        $user = TableRegistry::get('Users')->get($user_id);
+        $patch['first_name'] = $user->first_name;
+        $patch['last_name'] = $user->last_name;
+        $patch['phone'] = $user->phone;
+        $patch['email'] = $user->email;
+        $patch['address'] = $user->address;
+        $patch['is_deleted'] = false;
+
+        $foster = $this->Fosters->newEntity();
+        $foster = $this->Fosters->patchEntity($foster, $patch);
+        $foster_saved = $this->Fosters->save($foster);
+        if ($foster_saved) {
+            $user->foster_id = $foster_saved->id;
+            TableRegistry::get('Users')->save($user);
+            return $this->redirect(['controller'=>'fosters','action'=>'view',$foster_saved->id]);
+        } else {
+            $this->Flash->error('Something went wrong. Please check your user information and try again.');
+            return $this->redirect(['controller'=>'users','action'=>'view',$user_id]);
+        }
+    }
+
 }

@@ -65,15 +65,23 @@ class UsersController extends AppController
             $id = $this->request->session()->read('Auth.User.id');
         }
 
-        $can_delete = ($this->request->session()->read('Auth.User.role') == 1);
-        $can_modify = (($can_delete || $this->request->session()->read('Auth.User.role') == 2) || $this->request->session()->read('Auth.User.id') == $id);
+        $session_user = $this->request->session()->read('Auth.User');
+
+        $can_delete = $this->Users->isAdmin($session_user);
+        $can_modify = (($can_delete || $this->Users->isCore($session_user)) || $session_user['id'] == $id);
 
         $user = $this->Users->get($id, [
             'contain' => ['UsersEvents']
         ]);
+        
         $adopter_profile = [];
         if (!empty($user->adopter_id)) {
             $adopter_profile = TableRegistry::get('Adopters')->get($user->adopter_id);
+        }
+
+        $foster_profile = [];
+        if (!empty($user->foster_id)) {
+            $foster_profile = TableRegistry::get('Fosters')->get($user->foster_id);
         }
 
         $this->set(compact('user', 'adopter_profile', 'can_delete', 'can_modify'));

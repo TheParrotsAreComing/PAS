@@ -5,8 +5,6 @@
             <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
-            <div class="profile-id-cont">
-            </div>
         </div>
         <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
           <div>
@@ -17,11 +15,13 @@
           <div class="cat-profile-tabs-menu w-tab-menu">
             <a class="cat-profile-tabs-menu-cont tab-leftmost w--current w-inline-block w-tab-link" data-ix="adopter-notification" data-w-tab="Tab 1"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('user-menu.png');?>">
             </a>
-			       <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('adopter-menu.png');?>">
+           <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 2"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('adopter-menu.png');?>">
             </a>
-            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 3"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('attachments-01.png');?>">
+           <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="overview-notification" data-w-tab="Tab 3"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('foster-menu.png');?>">
             </a>
-            <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 4"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('more-01.png');?>">
+            <a class="cat-profile-tabs-menu-cont w-inline-block w-tab-link" data-ix="attachment-notification" data-w-tab="Tab 4"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('attachments-01.png');?>">
+            </a>
+            <a class="cat-profile-tabs-menu-cont tabs-rightmost w-inline-block w-tab-link" data-ix="more-notification" data-w-tab="Tab 5"><img class="cat-profile-tabs-icon" src="<?= $this->Url->image('more-01.png');?>">
             </a>
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
@@ -92,10 +92,54 @@
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 3">
                 <div class="profile-content-cont">
-                  <div class="profile-text-header">Attachments</div>
+
+
+                  <?php if (empty($foster_profile)): ?>
+                    <a class="cat-add w-button user-attach-new-foster">Create Foster Profile</a>
+                  <?php else: ?>
+                    <div class="profile-text-header">Foster</div>
+                      <div class="card-cont card-wrapper w-dyn-item">
+                      <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster_profile->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-menu.png'); ?>">
+                      <div class="card-h1"><?= h($foster_profile->first_name)." ".h($foster_profile->last_name) ?></div>
+                      <div class="card-field-wrap">
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Notes:</div>
+                          <div class="card-field-text"><?= h($foster_profile->notes) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                          <div class="card-field-cont">
+                          <div class="card-h3">Email:</div>
+                          <div class="card-field-text"><?= h($foster_profile->email) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Phone:</div>
+                          <div class="card-field-text"><?= h($foster_profile->phone) ?></div>
+                        </div>
+                        </div>
+                        <div class="card-field-cont">
+                        <div class="card-field-cont">
+                          <div class="card-h3">Address:</div>
+                          <div class="card-field-text"><?= h($foster_profile->address) ?></div>
+                        </div>
+                        </div>
+                      </div>
+                      </a>
+                    </div>
+
+                  <?php endif;?>
+
                 </div>
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 4">
+                <div class="profile-content-cont">
+                  <div class="profile-text-header">Attachments</div>
+                </div>
+              </div>
+              <div class="w-tab-pane" data-w-tab="Tab 5">
                 <div class="profile-content-cont">
                   <div class="profile-text-header">More..</div>
                 </div>
@@ -177,6 +221,18 @@
     </div>
   </div>
 
+  <div class="add-adopter-floating-overlay add-new-foster-profile">
+    <div class="confirm-cont add-new-foster-inner">
+      <div class="confirm-text">Are you sure you want to create a new foster profile for this user?</div>
+      <div class="confirm-button-wrap w-form">
+        <div class="confirm-button-cont">
+          <a class="cancel-foster cancel confirm-button w-button" href="#">Cancel</a>
+          <?= $this->Html->link('Create Foster', ['controller'=>'fosters', 'action'=>'fosterFromUser', $user->id], ['class'=>'delete add-foster-btn confirm-button w-button']); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
 	$(function(){
 		$('.delete-button').click(function(e){
@@ -205,5 +261,22 @@
     $('.add-new-adopter-profile').css('display','none');
     $('.add-new-adopter-profile').css('opacity',0);
     $('.add-new-adopter-inner').css('display','none');
-    $('.add-new-adopter-inner').css('opacity',0);  });
+    $('.add-new-adopter-inner').css('opacity',0);  
+  });
+
+ $('.user-attach-new-foster').on('click', function() {
+    $('.add-new-foster-profile').css('display','flex');
+    $('.add-new-foster-profile').css('opacity',1);
+    $('.add-new-foster-inner').css('display','flex');
+    $('.add-new-foster-inner').css('opacity',1);
+  });
+
+  $('.cancel-foster').on('click', function() {
+    $('.add-new-foster-profile').css('display','none');
+    $('.add-new-foster-profile').css('opacity',0);
+    $('.add-new-foster-inner').css('display','none');
+    $('.add-new-foster-inner').css('opacity',0);  
+  });
+
+
 </script>

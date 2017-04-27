@@ -114,6 +114,7 @@ class AppController extends Controller
 
 		parent::beforeFilter($event);
 		$this->set('referer',$this->referer);
+        $this->set('session_user', $user);
 	}
 
     public function deletePic() {

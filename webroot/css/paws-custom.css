@@ -280,7 +280,8 @@ div.pagination-index > a, div.pagination > a{
     color: grey;
 }
 
-.user-attach-new-adopter, .user-attach-existing-adopter {
+.user-attach-new-adopter, .user-attach-existing-adopter,
+  .user-attach-new-foster, .user-attach-existing-foster {
     margin-top:2em;
 }
 

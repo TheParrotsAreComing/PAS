@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Core\Configure;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -120,6 +121,22 @@ class UsersTable extends Table
             $pass .= $alphabet[$n];
         }
         return $pass; 
+    }
+
+    public function isAdmin($user) {
+        return ($user['role'] == Configure::read('Roles.Admin'));
+    }
+
+    public function isCore($user) {
+        return ($user['role'] == Configure::read('Roles.Core'));
+    }
+
+    public function isVolunteer($user) {
+        return ($user['role'] == Configure::read('Roles.Volunteer'));
+    }
+
+    public function isFoster($user) {
+        return ($user['role'] == Configure::read('Roles.Foster'));
     }
 
 }
