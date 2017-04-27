@@ -126,6 +126,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Adopters', ['controller'=>'adopters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?= $this->Html->link('Volunteers', ['controller'=>'users', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Contacts', ['controller'=>'contacts', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php if ($this->request->session()->read('Auth.User.role') == 1): ?>
           <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>
