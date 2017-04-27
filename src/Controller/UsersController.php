@@ -116,7 +116,7 @@ class UsersController extends AppController
                 $this->Flash->success(__('The user has been saved.'));
 
                 $email = new Email('auto');
-                $email->to('ericsbollinger@gmail.com')
+                $email->to($user->email)
                     ->subject("You have been invited to the PAWS Administrative System!")
                     ->send('Welcome to the PAWS family! Head over to https://localhost/PAWS_Admin to set up your profile.<br/><br/>Your email: '.$data['email'].'<br/>Your password: '.$data['password']);
 
