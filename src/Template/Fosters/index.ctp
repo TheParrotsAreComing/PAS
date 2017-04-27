@@ -24,7 +24,8 @@
       </div>
       <div class="filter">
           <div class="filter-criteria">Phone #:</div>
-          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Phone','placeholder'=>'Enter phone number']) ?>
+          
+          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'placeholder'=>'Enter phone number']) ?>
       </div>
       <div class="filter">
           <div class="filter-criteria">Email:</div>
@@ -170,5 +171,6 @@
 <script>
 $(function(){
 	$('#tagFilter').select2();
+  $('#phoneFilter').select2();
 });
 </script>

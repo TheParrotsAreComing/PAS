@@ -44,6 +44,11 @@ class AdoptersController extends AppController
                 unset($this->request->query['tag']);
             }
 
+            if(!empty($this->request->query['phone'])){
+                $search_phones = $this->Adopters->filterPhones($this->request->query['phone']);
+                unset($this->request->query['phone']);
+            }
+
             foreach($this->request->query as $field => $query){
                 if ($field == 'page'){
                     continue;
@@ -59,6 +64,11 @@ class AdoptersController extends AppController
             if(!empty($tagged_adopters)){
                 $this->paginate['conditions']['adopters.id IN'] = $tagged_adopters;
             }
+
+            if(!empty($search_phones)){
+                $this->paginate['conditions']['adopters.id IN'] = $search_phones;
+            }
+
             $this->request->data = $this->request->query;
         }
         $count = [0,1,2,3,4,5];

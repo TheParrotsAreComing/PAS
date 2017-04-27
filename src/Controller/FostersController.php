@@ -35,6 +35,7 @@ class FostersController extends AppController
 
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
 
+        //debug($foster_phones); die;
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
@@ -43,7 +44,12 @@ class FostersController extends AppController
                 $tagged_fosters = $this->Fosters->buildFilterArray($this->request->query['tag']);
                 unset($this->request->query['tag']);
             }
-
+            if(!empty($this->request->query['phone'])){
+                $search_phones = $this->Fosters->filterPhones($this->request->query['phone']);
+                unset($this->request->query['phone']);
+            }
+            
+            //debug($foster_phones); die;
             foreach($this->request->query as $field => $query){
                 if ($field == 'page'){
                     continue;
@@ -59,6 +65,9 @@ class FostersController extends AppController
 
             if(!empty($tagged_fosters)){
                 $this->paginate['conditions']['fosters.id IN'] = $tagged_fosters;
+            }
+            if(!empty($search_phones)){
+                $this->paginate['conditions']['fosters.id IN'] = $search_phones;
             }
 
             $this->request->data = $this->request->query;

@@ -43,6 +43,7 @@ class FostersTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('FilterableTag');
         $this->addBehavior('File');
+        $this->addBehavior('FilterablePhone');
 
         $this->hasMany('CatHistories', [
             'foreignKey' => 'foster_id'
