@@ -15,9 +15,6 @@
           <label class="add-field-h3" for="Contact-Name">Contact Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('contact_name', ['class'=>'add-input w-input', 'data-name'=>'First-Name', 'label'=>false, 
           'placeholder'=>'Enter Contact Name']);?>
-          <label class="add-field-h3" for="Phone">Phone<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('phone', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
-          'placeholder'=>'Enter Valid Email Address']);?>
           <label class="add-field-h3" for="E-mail">E-mail<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'E-mail', 'label'=>false, 
           'placeholder'=>'Enter Valid Email Address']);?>
@@ -29,16 +26,41 @@
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
           'placeholder'=>'Enter Address']);?>
-          <label class="add-field-h3" for="City">City<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('city', ['class'=>'add-input w-input', 'data-name'=>'City', 'label'=>false, 
-          'placeholder'=>'Enter City']);?>
-          <label class="add-field-h3" for="State">State<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('state', ['class'=>'add-input w-input', 'data-name'=>'State', 'label'=>false, 
-          'placeholder'=>'Enter State']);?>
-          <label class="add-field-h3" for="Zipcode">Zipcode<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('zip', ['class'=>'add-input w-input', 'data-name'=>'Zipcode', 'label'=>false, 
-          'placeholder'=>'Enter Zipcode']);?>
-
+          <label class="add-field-h2" for="First-Name">Phone Numbers</label>
+            <div class="medical-wrap">
+              <?php foreach ($contact->phone_numbers as $number): ?>
+                  <?php if($number->entity_type === 2): ?>
+                      <?php $type = "";
+                          if ($number->phone_type === 0) {$type = "Mobile: "; } 
+                          else if ($number->phone_type === 1) {$type = "Home: ";}
+                          else if ($number->phone_type === 2) {$type = "Organization: ";} 
+                          else if ($number->phone_type === 3) {$type = "Other: ";} 
+                      ?>
+                     <div class="scroll1 no-horizontal-scroll">
+                        <div class="medical-data-cont" data-ix="medical-data-click">
+                          <div class="medical-type-cont">
+                            <div class="medical-data-type"><?= $type ?></div>
+                          </div>
+                          <div class="medical-date-cont">
+                            <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
+                          </div>
+                          <div class="medical-data-action-cont">
+                            <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
+                              <div class="profile-action-button sofware">-</div>
+                              <div>edit</div>
+                            </a>
+                            <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
+                              <div class="basic profile-action-button"></div>
+                              <div>delete</div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $contact->id, 2])?>">+ Add New Phone Number
+            </a>
           <div class="add-button-cont">
             <?= $this->Html->link('Cancel', ['controller'=>'contacts','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'ContactCancel']); ?>
             <?= $this->Html->link('Delete', ['controller'=>'contacts','action'=>'delete', $contact->id],['class'=>'add-cancel w-button', 'id'=>'ContactDelete']); ?>

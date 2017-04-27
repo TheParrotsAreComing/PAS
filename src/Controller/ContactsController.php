@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+Use Cake\ORM\TableRegistry;
 /**
  * Contacts Controller
  *
@@ -19,11 +19,20 @@ class ContactsController extends AppController
     public function index()
     {
         $this->paginate = [
+            'contain' => ['PhoneNumbers'],
             'conditions' => ['Contacts.is_deleted' => 0]
         ];
+
+        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['entity_type' => 2]);
+
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if(!empty($this->request->query)){
+
+            if(!empty($this->request->query['phone'])){
+                $search_phones = $this->Contacts->filterPhones($this->request->query['phone']);
+                unset($this->request->query['phone']);
+            }
 
             foreach($this->request->query as $field => $query){
                 if ($field == 'page'){
@@ -38,12 +47,16 @@ class ContactsController extends AppController
                 }
             }
 
+            if(!empty($search_phones)){
+                $this->paginate['conditions']['contacts.id IN'] = $search_phones;
+            }
+
             $this->request->data = $this->request->query;
         }
 
         $contacts = $this->paginate($this->Contacts);
 
-        $this->set(compact('contacts'));
+        $this->set(compact('contacts', 'entity_type','phones'));
         $this->set('_serialize', ['contacts']);
     }
 
@@ -71,6 +84,7 @@ class ContactsController extends AppController
      */
     public function add()
     {
+
         $contact = $this->Contacts->newEntity();
         if ($this->request->is('post')) {
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
@@ -78,7 +92,7 @@ class ContactsController extends AppController
             if ($this->Contacts->save($contact)) {
                 $this->Flash->success(__('The contact has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'phonenumbers','action' => 'index']);
             }
             $this->Flash->error(__('The contact could not be saved. Please, try again.'));
         }
@@ -96,8 +110,11 @@ class ContactsController extends AppController
     public function edit($id = null)
     {
         $contact = $this->Contacts->get($id, [
-            'contain' => []
+            'contain' => ['PhoneNumbers']
         ]);
+
+        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 2]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             if ($this->Contacts->save($contact)) {
@@ -107,7 +124,8 @@ class ContactsController extends AppController
             }
             $this->Flash->error(__('The contact could not be saved. Please, try again.'));
         }
-        $this->set(compact('contact'));
+        $phones = $this->Contacts->PhoneNumbers->find('list', ['limit' => 200]);
+        $this->set(compact('contact','phone_numbers','phones'));
         $this->set('_serialize', ['contact']);
     }
 

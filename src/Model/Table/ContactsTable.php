@@ -33,6 +33,12 @@ class ContactsTable extends Table
         $this->table('contacts');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->addBehavior('FilterablePhone');
+
+        $this->hasMany('PhoneNumbers', [
+        'foreignKey' => 'entity_id' 
+        ]);
     }
 
     /**

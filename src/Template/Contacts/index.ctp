@@ -26,14 +26,6 @@
           <div class="filter-criteria">Address:</div>
           <?= $this->Form->input('address',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Address','placeholder'=>'Enter address']) ?>
       </div>
-      <div class="filter">
-          <div class="filter-criteria">City:</div>
-          <?= $this->Form->input('city',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'City','placeholder'=>'Enter city']) ?>
-      </div>
-      <div class="filter">
-          <div class="filter-criteria">Zipcode:</div>
-          <?= $this->Form->input('zipcode',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Zipcode','placeholder'=>'Enter zipcode']) ?>
-      </div>
 
       <div class="filter-apply-cont">
         <a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
@@ -71,17 +63,35 @@
                       <div class="card-h2"><?= $contact['organization']; ?></div>
                     </div>
                     <div class="card-field-wrap">
-                        <div class="card-field-cont left-justify">
-                            <div class="card-h3">Phone: </div>
-                            <div class="catlist-field-content"><?= $contact['phone'];?> </div>
-                        </div>
+
+                    <?php if(!empty($phones)) :?>
+                        <?php foreach ($phones as $number): ?>
+                            <?php if ($number->entity_type === 2): ?>
+                                <?php $type = "";
+                                    if ($number->phone_type === 0) {$type = "Mobile: "; } 
+                                    else if ($number->phone_type === 1) {$type = "Home: ";}
+                                    else if ($number->phone_type === 2) {$type = "Organization: ";} 
+                                    else if ($number->phone_type === 3) {$type = "Other: ";} 
+                                ?>
+                            <?php endif; ?>
+                            <?php if ($number->entity_id === $contact->id): ?>
+                        
+                                <div class="card-field-cont left-justify">
+                                  <div class="card-h3"><?= $type; ?></div>
+                                  <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                                </div>
+
+                            <?php endif; ?>
+                        <?php endforeach; ?> 
+                    <?php endif; ?>
+
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">E-mail:</div>
                         <div class="catlist-field-content"><?= $contact['email']; ?></div>
                       </div>
                       <div class="card-field-cont left-justify">
                         <div class="card-h3">Address:</div>
-                        <div class="catlist-field-content"><?= $contact['address'].', '.$contact['city'].', '.$contact['state'].', '.$contact['zip']; ?></div>
+                        <div class="catlist-field-content"><?= $contact['address']; ?></div>
                       </div>
                     </div>
                   </a>
