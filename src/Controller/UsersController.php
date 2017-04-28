@@ -84,7 +84,7 @@ class UsersController extends AppController
             $foster_profile = TableRegistry::get('Fosters')->get($user->foster_id);
         }
 
-        $this->set(compact('user', 'adopter_profile', 'can_delete', 'can_modify'));
+        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_modify'));
         $this->set('_serialize', ['user']);
     }
 

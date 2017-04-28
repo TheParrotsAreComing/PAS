@@ -132,7 +132,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>
         <?= $this->Html->link('Settings', ['controller'=>'settings', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
-        <?php if (!empty($session_user)): ?>
+        <?php if (!empty($session_user['id'])): ?>
           <?= $this->Html->link('My Profile', ['controller'=>'users','action'=>'view',$session_user['id']],['class'=>'sidebar-link w-nav-link']); ?>
           <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>

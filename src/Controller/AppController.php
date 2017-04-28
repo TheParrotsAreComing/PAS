@@ -72,6 +72,9 @@ class AppController extends Controller
             'unauthorizedRedirect' => $this->referer()
         ]);
 
+        $session_user = ($this->request->session()->check('Auth.User')) ? $this->request->session()->read('Auth.User') : ['role'=>''];
+        $this->set('session_user', $session_user);
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -96,6 +99,8 @@ class AppController extends Controller
     }
     public function beforeFilter(Event $event)
 	{
+		parent::beforeFilter($event);
+
         $this->Auth->allow([]);
 
         $controller = $this->request->params['controller'];
@@ -112,9 +117,7 @@ class AppController extends Controller
             return $this->redirect(['controller'=>'Users','action'=>'edit']);
         }
 
-		parent::beforeFilter($event);
 		$this->set('referer',$this->referer);
-        $this->set('session_user', $user);
 	}
 
     public function deletePic() {
