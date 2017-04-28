@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 use App\Controller\AppController;
 
 /**
@@ -35,6 +36,13 @@ class TagsController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_db = TableRegistry::get('Users');
+        if ($user_db->isFoster($session_user) || $user_db->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $query = $this->Tags->find()->where(['is_deleted'=>0]);
         $tags = $this->paginate($query);
 

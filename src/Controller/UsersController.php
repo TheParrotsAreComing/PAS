@@ -95,7 +95,8 @@ class UsersController extends AppController
      */
     public function add()
     {
-        if ($this->request->session()->read('Auth.User.role') != 1) {
+        $session_user = $this->request->session()->read('Auth.User');
+        if ($this->Users->isVolunteer($session_user) || $this->Users->isFoster($session_user)) {
             $this->Flash->error("You aren't allowed to do that");
             return $this->redirect(['controller'=>'users','action'=>'index']);
         }
