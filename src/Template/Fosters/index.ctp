@@ -75,7 +75,7 @@
                       if(!empty($foster->profile_pic)){
                         echo $this->Html->image('../'.$foster->profile_pic->file_path.'_tn.'.$foster->profile_pic->file_ext, ['class'=>'card-pic']);
                       } else {
-                        echo $this->Html->image('foster-01.png', ['class'=>'card-pic']);
+                        echo $this->Html->image('foster-menu.png', ['class'=>'card-pic']);
                       }
                   ?>
 
