@@ -197,7 +197,7 @@ class AdoptersController extends AppController
 
                 // get other vars to upload photo
                 $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
-                $uploadPath = 'files/cats/'.$adopter->id;
+                $uploadPath = 'files/adopters/'.$adopter->id;
                 $entityTypeId = $this->Adopters->getEntityTypeId();
                 $mimeType = $this->request->data['uploaded_file']['type'];
                 $fileSize = $this->request->data['uploaded_file']['size'];
