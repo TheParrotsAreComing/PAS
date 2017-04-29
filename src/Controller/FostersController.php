@@ -19,6 +19,18 @@ class FostersController extends AppController
      */
     public function index()
     {
+
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        $can_add = false;
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        } else if (!$users_model->isVolunteer($session_user)) {
+            $can_add = true;
+        }
+
+
         $this->paginate = [
             'contain' => [ 
             'PhoneNumbers',
@@ -85,7 +97,7 @@ class FostersController extends AppController
             }
         }
 
-        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type'));
+        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phone_numbers', 'entity_type', 'can_add'));
 
         $this->set('_serialize', ['fosters']);
     }
@@ -99,6 +111,17 @@ class FostersController extends AppController
      */
     public function view($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_model = TableRegistry::get('Users');
+
+        if ($user_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
+        $can_delete = ($user_model->isAdmin($session_user));
+        $can_edit = ($can_delete || $user_model->isCore($session_user));
+
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
 
         $attached_tags = TableRegistry::get('Tags_Fosters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['foster_id'=>$id])->toArray();
@@ -172,7 +195,7 @@ class FostersController extends AppController
             $profile_pic = null;
         }
         
-        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers'));
+        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers', 'can_delete', 'can_edit'));
         $this->set('_serialize', ['foster']);
     }
 
@@ -183,6 +206,13 @@ class FostersController extends AppController
      */
     public function add()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $foster = $this->Fosters->newEntity();
         if ($this->request->is('post')) {
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
@@ -210,6 +240,13 @@ class FostersController extends AppController
      */
     public function edit($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $foster = $this->Fosters->get($id, [
             'contain' => ['Tags']
         ]);
@@ -237,6 +274,12 @@ class FostersController extends AppController
      */
     public function delete($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        if (!TableRegistry::get('Users')->isAdmin($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         //$this->request->allowMethod(['post', 'delete']);
         $foster = $this->Fosters->get($id);
         $this->request->data['is_deleted'] = 1;

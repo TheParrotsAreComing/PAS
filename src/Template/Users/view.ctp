@@ -52,7 +52,11 @@
               <div class="w-tab-pane" data-w-tab="Tab 2">
                 <div class="profile-content-cont">
                   <?php if (empty($adopter_profile)): ?>
-                    <a class="cat-add w-button user-attach-new-adopter">Create Adopter Profile</a>
+                    <?php if (!$can_edit): ?>
+                      <p> No adopter profile set up for this user! </p>
+                    <?php else: ?>
+                      <a class="cat-add w-button user-attach-new-adopter">Create Adopter Profile</a>
+                    <?php endif; ?>
                   <?php else: ?>
                     <div class="profile-text-header">Adopter</div>
                       <div class="card-cont card-wrapper w-dyn-item">
@@ -92,9 +96,12 @@
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 3">
                 <div class="profile-content-cont">
-
                   <?php if (empty($foster_profile)): ?>
-                    <a class="cat-add w-button user-attach-new-foster">Create Foster Profile</a>
+                    <?php if (!$can_edit): ?>
+                      <p> No foster profile set up for this user! </p>
+                    <?php else: ?>
+                      <a class="cat-add w-button user-attach-new-foster">Create Foster Profile</a>
+                    <?php endif; ?>
                   <?php else: ?>
                     <div class="profile-text-header">Foster</div>
                       <div class="card-cont card-wrapper w-dyn-item">
@@ -149,10 +156,12 @@
                     <?php endforeach; ?>
                   <?php endif; ?>
                 </div>
-                <div class="picture-file-action-cont">
-                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
-                  <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
-                </div>
+                <?php if ($can_edit): ?>
+                  <div class="picture-file-action-cont">
+                    <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                    <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
+                  </div>
+                <?php endif; ?>
               </div>
               <div class="profile-text-header">Uploaded Files (todo...)</div>
                 </div>
@@ -165,7 +174,7 @@
            </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <?php if ($can_modify): ?>
+          <?php if ($can_edit): ?>
             <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
               <div class="profile-action-button sofware">-</div>
               <div>edit</div>
@@ -197,7 +206,7 @@
   </div>
 
   <div class="button-cont">
-      <?php if ($can_modify): ?>
+      <?php if ($can_edit): ?>
         <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
           <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png');?>" width="55">
         </a>

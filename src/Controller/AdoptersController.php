@@ -19,6 +19,16 @@ class AdoptersController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        $can_add = false;
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        } else if (!$users_model->isVolunteer($session_user)) {
+            $can_add = true;
+        }
+
         $this->paginate = [
             'contain' => [
             'PhoneNumbers',
@@ -83,7 +93,7 @@ class AdoptersController extends AppController
             }
         }
 
-        $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type'));
+        $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type', 'can_add'));
 
         $this->set('_serialize', ['adopters']);
     }
@@ -97,6 +107,16 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
+        $can_delete = ($users_model->isAdmin($session_user));
+        $can_edit = ($can_delete || $users_model->isCore($session_user));
+
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
         $attached_tags = TableRegistry::get('Tags_Adopters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['adopter_id'=>$id])->toArray();
 
@@ -167,7 +187,7 @@ class AdoptersController extends AppController
         } else {
             $profile_pic = null;
         }
-        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers'));
+        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers', 'can_edit', 'can_delete'));
         $this->set('_serialize', ['adopter']);
     }
 
@@ -178,6 +198,13 @@ class AdoptersController extends AppController
      */
     public function add()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $adopter = $this->Adopters->newEntity();
         if ($this->request->is('post')) {
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);

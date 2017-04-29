@@ -72,7 +72,7 @@ class UsersController extends AppController
         $session_user = $this->request->session()->read('Auth.User');
 
         $can_delete = $this->Users->isAdmin($session_user);
-        $can_modify = (($can_delete || $this->Users->isCore($session_user)) || $session_user['id'] == $id);
+        $can_edit = (($can_delete || $this->Users->isCore($session_user)) || $session_user['id'] == $id);
 
         $user = $this->Users->get($id, [
             'contain' => ['UsersEvents']
@@ -145,7 +145,7 @@ class UsersController extends AppController
             }
         }
 
-        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_modify', 'photos', 'photosCountTotal', 'uploaded_photo'));
+        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_edit', 'photos', 'photosCountTotal', 'uploaded_photo'));
         $this->set('_serialize', ['user']);
     }
 
@@ -232,10 +232,11 @@ class UsersController extends AppController
     public function edit($id = null)
     {
 
+        $session_user = $this->request->session()->read('Auth.User');
         if (empty($id)) {
-            $id = $this->request->session()->read('Auth.User.id');
-        } else if ($id != $this->request->session()->read('Auth.User.id')) {
-            if ($this->request->session()->read('Auth.User.role') != 1) {
+            $id = $session_user['id'];
+        } else if ($id != $session_user['id']) {
+            if (!TableRegistry::get('Users')->isAdmin($session_user)) {
                 $this->Flash->error("You aren't allowed to do that.");
                 return $this->redirect(['controller'=>'users','action'=>'view',$id]);
             }
@@ -306,8 +307,9 @@ class UsersController extends AppController
         // if this function wasn't navigated to properly, or if someone other than an admin is trying to delete a 
         // user other than himself, don't allow the deletion to carry through 
         
+        $session_user = $this->request->session()->read('Auth.User');
         if ($this->referer() != Router::url(['controller'=>'users','action'=>'view',$id],true) || 
-                ($this->request->session()->read('Auth.User.role') != 1 && $this->request->session()->read('Auth.User.id') != $id)) {
+                (!TableRegistry::get('Users')->isAdmin($session_user) || $session_user['id'] == $id)) {
             $this->Flash->error("You aren't allowed to do that");
             return $this->redirect(['controller'=>'users','action'=>'view',$id]);
         }

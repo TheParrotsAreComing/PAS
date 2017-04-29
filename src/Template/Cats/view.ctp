@@ -229,7 +229,7 @@
                           <div class="card-h1">This cat currently has no medical records.</div>
                     </a>
                   <?php endif; ?>
-                <?php if (!$is_foster): ?>
+                <?php if (!$is_foster && $can_edit): ?>
                   <a id="medAdd" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
                 <?php endif; ?>
                 </div>
@@ -296,9 +296,11 @@
                       <a class="card w-clearfix w-inline-block">
                         <div class="card-h1">This cat is not currently in a foster home.</div>
                       </a>
-                      <a class="card w-clearfix w-inline-block">
-                        <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-                      </a>
+                      <?php if ($is_foster && $can_edit): ?>
+                        <a class="card w-clearfix w-inline-block">
+                          <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
+                        </a>
+                      <?php endif; ?>
                     <?php endif; ?>
               </div>
             </div>
@@ -350,17 +352,21 @@
                 <a class="card w-clearfix w-inline-block">
                   <div class="card-h1">This cat is not currently adopted.</div>
                 </a>
-                <a class="card w-clearfix w-inline-block">
-                  <a class="cat-add w-button attach-adopter" data-ix="dd-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
-                </a>
+                <?php if (!$is_foster && $can_edit): ?>
+                  <a class="card w-clearfix w-inline-block">
+                    <a class="cat-add w-button attach-adopter" data-ix="dd-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
+                  </a>
+                <?php endif; ?>
                         <?php endif; ?>
                         <?php else: ?>
                             <a class="card w-clearfix w-inline-block">
                 <div class="card-h1">This cat is not currently adopted.</div>
                             </a>
-              <a class="card w-clearfix w-inline-block">
-                <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
-              </a>
+              <?php if (!$is_foster && $can_edit): ?>
+                <a class="card w-clearfix w-inline-block">
+                  <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
+                </a>
+              <?php endif; ?>
                     <?php endif; ?>           
                 </div>
             </div>
@@ -379,10 +385,12 @@
                     <?php endforeach; ?>
                   <?php endif; ?>
                 </div>
-                <div class="picture-file-action-cont">
-                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
-                  <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
-                </div>
+                <?php if ($can_edit): ?>
+                  <div class="picture-file-action-cont">
+                    <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                    <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
+                  </div>
+                <?php endif; ?>
               </div>
               <div class="profile-text-header">Uploaded Files (todo...)</div>
             </div>

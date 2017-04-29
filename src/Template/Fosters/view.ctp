@@ -176,10 +176,12 @@
                           <?php endforeach; ?>
                         <?php endif; ?>
                       </div>
-                      <div class="picture-file-action-cont">
-                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
-                        <a class="picture-file-action w-button" href="#">Delete Selected</a>
-                      </div>
+                      <?php if ($can_edit): ?>
+                        <div class="picture-file-action-cont">
+                          <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
+                          <a class="picture-file-action w-button" href="#">Delete Selected</a>
+                        </div>
+                      <?php endif; ?>
                     </div>
                     <div class="profile-text-header">Uploaded Files (todo...)</div>
                   </div>
@@ -192,23 +194,27 @@
             </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit
-          ', $foster->id], ['escape'=>false]);?>">
-            <div class="profile-action-button sofware">-</div>
-            <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="javascript:void(0);" data-ix="add-photo-click-desktop">
-            <div class="extend profile-action-button">w</div>
-            <div>upload</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <?php if ($can_edit): ?>
+            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit
+            ', $foster->id], ['escape'=>false]);?>">
+              <div class="profile-action-button sofware">-</div>
+              <div>edit</div>
+            </a>
+            <a class="profile-action-button-cont w-inline-block" href="javascript:void(0);" data-ix="add-photo-click-desktop">
+              <div class="extend profile-action-button">w</div>
+              <div>upload</div>
+            </a>
+          <?php endif; ?>
+          <!--<a class="profile-action-button-cont w-inline-block" href="#">
             <div class="basic profile-action-button"></div>
             <div>export</div>
-          </a>
-          <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
-            <div class="basic profile-action-button"></div>
-            <div>delete</div>
-          </a>
+          </a>-->
+          <?php if ($can_delete): ?>
+            <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" >
+              <div class="basic profile-action-button"></div>
+              <div>delete</div>
+            </a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
