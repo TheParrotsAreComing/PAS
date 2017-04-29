@@ -193,7 +193,52 @@
                   <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
                 </div>
                     </div>
-                    <div class="profile-text-header">Uploaded Files (todo...)</div>
+                    <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
+
+              <div class="medical-wrap">
+                  <div class="medical-header-cont">
+                    <div class="medical-type-cont">
+                      <div class="medical-header">Uploaded</div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-header">Original Name</div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-header">Note</div>
+                    </div>
+                  </div>
+                  <?php if ($filesCountTotal > 0): ?>
+                    <?php foreach($files as $file): ?>
+
+                  <div class="scroll1 no-horizontal-scroll">
+                    <div class="medical-data-cont" data-ix="medical-data-click">
+                    <div class="medical-type-cont">
+                      <div class="medical-data-type"><?= h($file->created) ?></div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-date-cont"><?= h($file->original_filename) ?></div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-data-notes"><?= h($file->note) ?></div>
+                    </div>
+                    <div class="medical-data-action-cont">
+                      <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                      <div class="basic profile-action-button"></div>
+                      <div>delete</div>
+                      </a>
+                      <a class="right medical-data-action w-inline-block" href="#">
+                      <div class="profile-action-button sofware">p</div>
+                      <div>download</div>
+                      </a>
+                    </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+                <?php else : ?>
+                  <!-- No uploaded documents to load-->
+                <?php endif; ?>
+                <a class="profile-add-cont w-inline-block add-file-btn" href="javascript:void(0);" data-ix="add-file-click-desktop">+ Add New File</a> 
+                    </div>
                   </div>
           			</div>
                 <div class="w-tab-pane" data-w-tab="Tab 4">
@@ -287,6 +332,25 @@
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
+
+<div class="add-adopter-floating-overlay add-file">
+  <div class="confirm-cont add-file-inner">
+    <div class="confirm-text">Choose a File...</div>
+      <?php 
+        echo $this->Form->create($uploaded_file, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_file', ['type' => 'file', 'accept' => '*']);
+        echo $this->Form->input('file-note', ['class'=>'add-tag-input w-input', 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'file-note', 'maxlength'=>256, 'name'=>'file-note', 'placeholder'=>'Enter a note about this file...', 'type'=>'text']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form add-button-cont">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <?php
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-file-btn confirm-button w-button']);
         echo $this->Form->end();
        ?>
     </div>
