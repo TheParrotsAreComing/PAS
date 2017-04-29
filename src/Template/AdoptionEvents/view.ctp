@@ -10,8 +10,6 @@
         <li><?= $this->Form->postLink(__('Delete Adoption Event'), ['action' => 'delete', $adoptionEvent->id], ['confirm' => __('Are you sure you want to delete # {0}?', $adoptionEvent->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Adoption Events'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Adoption Event'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users Events'), ['controller' => 'UsersEvents', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Users Event'), ['controller' => 'UsersEvents', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Cats'), ['controller' => 'Cats', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Cat'), ['controller' => 'Cats', 'action' => 'add']) ?> </li>
     </ul>
@@ -35,31 +33,6 @@
     <div class="row">
         <h4><?= __('Description') ?></h4>
         <?= $this->Text->autoParagraph(h($adoptionEvent->description)); ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Users Events') ?></h4>
-        <?php if (!empty($adoptionEvent->users_events)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Adoption Event Id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($adoptionEvent->users_events as $usersEvents): ?>
-            <tr>
-                <td><?= h($usersEvents->id) ?></td>
-                <td><?= h($usersEvents->user_id) ?></td>
-                <td><?= h($usersEvents->adoption_event_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'UsersEvents', 'action' => 'view', $usersEvents->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'UsersEvents', 'action' => 'edit', $usersEvents->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'UsersEvents', 'action' => 'delete', $usersEvents->id], ['confirm' => __('Are you sure you want to delete # {0}?', $usersEvents->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
     </div>
     <div class="related">
         <h4><?= __('Related Cats') ?></h4>
@@ -135,5 +108,8 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
+        <?php foreach ($adoptionEvent->users as $user): ?>
+            <?= h($user->id) ?>
+        <?php endforeach; ?>
     </div>
 </div>

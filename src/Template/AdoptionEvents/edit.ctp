@@ -13,8 +13,6 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Adoption Events'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users Events'), ['controller' => 'UsersEvents', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Users Event'), ['controller' => 'UsersEvents', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Cats'), ['controller' => 'Cats', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Cat'), ['controller' => 'Cats', 'action' => 'add']) ?></li>
     </ul>

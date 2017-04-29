@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * AdoptionEvents Model
  *
- * @property \Cake\ORM\Association\HasMany $UsersEvents
  * @property \Cake\ORM\Association\BelongsToMany $Cats
+ * @property \Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\AdoptionEvent get($primaryKey, $options = [])
  * @method \App\Model\Entity\AdoptionEvent newEntity($data = null, array $options = [])
@@ -37,13 +37,15 @@ class AdoptionEventsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('UsersEvents', [
-            'foreignKey' => 'adoption_event_id'
-        ]);
         $this->belongsToMany('Cats', [
             'foreignKey' => 'adoption_event_id',
             'targetForeignKey' => 'cat_id',
             'joinTable' => 'cats_adoption_events'
+        ]);
+        $this->belongsToMany('Users', [
+            'foreignKey' => 'adoption_event_id',
+            'targetForeignKey' => 'user_id',
+            'joinTable' => 'users_adoption_events'
         ]);
     }
 

@@ -590,7 +590,7 @@
   </div> 
 
 <div id="dialog-confirm-record" title="Delete this record?" style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
 </div>
 
 <div id="dialog-confirm-tag" title="Delete this tag?" style="display:none;">

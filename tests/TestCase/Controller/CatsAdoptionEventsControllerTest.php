@@ -31,7 +31,9 @@ class CatsAdoptionEventsControllerTest extends IntegrationTestCase
         'app.files',
         'app.cat_medical_histories',
         'app.adoption_events',
-        'app.users_events'
+        'app.users',
+        'app.users_events',
+        'app.users_adoption_events'
     ];
 
     /**
