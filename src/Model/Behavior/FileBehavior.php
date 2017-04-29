@@ -63,7 +63,7 @@ class FileBehavior extends Behavior {
 			$new_photo = $filesDB->newEntity();
 			$new_photo->entity_type = $entityTypeId;
 	        $new_photo->entity_id = $entityId;
-			$new_photo->original_filename = $fileName;
+	        $new_photo->original_filename = $fileName;
 	        $new_photo->is_photo = true;
 	        $new_photo->mime_type = $mimeType;
 	        $new_photo->file_size = $fileSize;

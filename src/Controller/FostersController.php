@@ -136,6 +136,8 @@ class FostersController extends AppController
                 $fileExtension = array_pop($nameArray);
 
                 // get other vars to upload photo
+                // note, assuming no filenames with periods other than for extension
+                // when saving original filename
                 $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
                 $uploadPath = 'files/fosters/'.$foster->id;
                 $entityTypeId = $this->Fosters->getEntityTypeId();
@@ -143,7 +145,7 @@ class FostersController extends AppController
                 $fileSize = $this->request->data['uploaded_photo']['size'];
 
                 // attempt to upload the photo with the file behavior
-                $new_file_id = $this->Fosters->uploadPhoto($tempLocation, $fileExtension, $uploadPath, 
+                $new_file_id = $this->Fosters->uploadPhoto($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
                     $entityTypeId, $foster->id, $mimeType, $fileSize);
 
                 if ($new_file_id > 0){

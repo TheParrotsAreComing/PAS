@@ -187,6 +187,8 @@ class CatsController extends AppController
             if( !empty($this->request->data['uploaded_photo']['name']) && empty($this->request->data['uploaded_file']['name']) ){
 
                 // get file ext
+                // note, assuming no filenames with periods other than for extension
+                // when saving original filename
                 $uploadedFileName = $this->request->data['uploaded_photo']['name'];
                 $nameArray = explode('.', $uploadedFileName);
                 $fileExtension = array_pop($nameArray);
