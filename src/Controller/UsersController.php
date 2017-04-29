@@ -88,7 +88,64 @@ class UsersController extends AppController
             $foster_profile = TableRegistry::get('Fosters')->get($user->foster_id);
         }
 
-        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_modify'));
+         $filesDB = TableRegistry::get('Files');
+
+         // get photos and count
+        $photos = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => true,
+                'Files.entity_type' => $this->Users->getEntityTypeId(),
+                'Files.entity_id' => $user->id,
+                'Files.is_deleted' => false
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $photosCountTotal = $photos->count();
+
+        // for form on page
+        $uploaded_photo = null;
+
+        if($this->request->is('post')) {
+
+            //uploading a file
+            if(!empty($this->request->data['uploaded_photo']['name'])){
+
+                // get file ext
+                // note, assuming no filenames with periods other than for extension
+                // when saving original filename
+                $uploadedFileName = $this->request->data['uploaded_photo']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_photo']['tmp_name'];
+                $uploadPath = 'files/users/'.$user->id;
+                $entityTypeId = $this->Users->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_photo']['type'];
+                $fileSize = $this->request->data['uploaded_photo']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Users->uploadPhoto($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $user->id, $mimeType, $fileSize);
+
+                if ($new_file_id > 0){
+
+                    if(empty($user->profile_pic_file_id)) {
+                        $user->profile_pic_file_id = $new_file_id;
+                        $this->Users->save($user);
+                    }
+
+                     $this->Flash->success(__('Photo has been uploaded and saved successfully.'));
+                        $photosCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload photo, please try again.'));
+                }
+
+            } else {
+                $this->Flash->error(__('Please choose a photo.'));
+            }
+        }
+
+        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_modify', 'photos', 'photosCountTotal', 'uploaded_photo'));
         $this->set('_serialize', ['user']);
     }
 

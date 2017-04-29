@@ -27,6 +27,8 @@ class FileBehavior extends Behavior {
 				return 6;
 			case 'CatMedicalHistories':
 				return 7;
+			case 'Users':
+				return 8;
 			default:
 				break;
 		}

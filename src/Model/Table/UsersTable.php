@@ -41,6 +41,11 @@ class UsersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('File');
+
+        $this->belongsTo('Files', [
+            'foreignKey' => 'profile_pic_file_id'
+        ]);
 
         $this->hasMany('UsersEvents', [
             'foreignKey' => 'user_id'
@@ -89,6 +94,10 @@ class UsersTable extends Table
             ->integer('role')
             ->requirePresence('role', 'create')
             ->notEmpty('role');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')

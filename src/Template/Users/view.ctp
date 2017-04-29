@@ -93,7 +93,6 @@
               <div class="w-tab-pane" data-w-tab="Tab 3">
                 <div class="profile-content-cont">
 
-
                   <?php if (empty($foster_profile)): ?>
                     <a class="cat-add w-button user-attach-new-foster">Create Foster Profile</a>
                   <?php else: ?>
@@ -129,14 +128,33 @@
                       </div>
                       </a>
                     </div>
-
                   <?php endif;?>
 
-                </div>
               </div>
+              </div>
+
               <div class="w-tab-pane" data-w-tab="Tab 4">
                 <div class="profile-content-cont">
-                  <div class="profile-text-header">Attachments</div>
+                  <div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
+              <div class="picture-file-wrap" data-ix="medical-data-click">
+                <div class="picture-file-cont scroll1">
+                  <?php if($photosCountTotal > 0):  ?>
+                    <?php foreach($photos as $photo): ?>
+                      <div class="picture-file" data-file-id="<?= h($photo->id) ?>">
+                        <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
+                        <?php if($photo->id == $user->profile_pic_file_id): ?>
+                          <div class="picture-primary">H</div>
+                        <?php endif; ?>
+                      </div>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </div>
+                <div class="picture-file-action-cont">
+                  <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                  <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
+                </div>
+              </div>
+              <div class="profile-text-header">Uploaded Files (todo...)</div>
                 </div>
               </div>
               <div class="w-tab-pane" data-w-tab="Tab 5">
@@ -152,7 +170,7 @@
               <div class="profile-action-button sofware">-</div>
               <div>edit</div>
             </a>
-            <a class="profile-action-button-cont w-inline-block" href="#">
+            <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
               <div class="extend profile-action-button">w</div>
               <div>upload</div>
             </a>
@@ -162,7 +180,7 @@
             <div>export</div>
           </a>-->
           <?php if ($can_delete): ?>
-            <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+            <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="javascript:void(0);">
               <div class="basic profile-action-button" ></div>
               <div>delete</div>
             </a>
@@ -221,6 +239,7 @@
     </div>
   </div>
 
+
   <div class="add-adopter-floating-overlay add-new-foster-profile">
     <div class="confirm-cont add-new-foster-inner">
       <div class="confirm-text">Are you sure you want to create a new foster profile for this user?</div>
@@ -233,8 +252,37 @@
     </div>
   </div>
 
+<div class="add-adopter-floating-overlay add-photo">
+  <div class="confirm-cont add-photo-inner">
+    <div class="confirm-text">Choose a Photo...</div>
+      <?php 
+        echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
+        //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+      <!-- <a class="delete add-photo-btn confirm-button w-button" href="#">Upload!</a> -->
+      <?php
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
+
+<div id="dialog-confirm-photo-delete" title="Delete this photo?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
+</div>
+
 <script>
 	$(function(){
+
+    var user_id = "<?= $user->id ?>";
+    setupPhotoSelectionBehavior(user_id);
+
+
 		$('.delete-button').click(function(e){
 			e.preventDefault();
 		});
