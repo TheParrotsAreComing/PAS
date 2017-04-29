@@ -36,15 +36,31 @@ try:
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
-	driver.get('http://localhost:8765/cats/view/'+cat_id);
+	driver.get('http://localhost:8765/cats/edit/'+cat_id);
 
 
-	cat_name = driver.find_element_by_class_name("cat-profile-name").text
+	name = driver.find_element_by_name("cat_name")
+	cat_name = name.get_attribute("value")
+
+	new_rand_name=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+
+	name.clear()
+	name.send_keys(new_rand_name);
+
+	driver.find_element_by_id("CatAdd").click()
+
 	if rand_name == cat_name:
-		print("pass")
+		db.query("SELECT cat_name FROM cats where id="+cat_id)
+		r=db.store_result()
+		k=r.fetch_row(1,1)
+		new_cat_name = k[0].get('cat_name')
+		if new_rand_name == str(new_cat_name,"utf-8"):
+			print("pass")
 	else:
 		print("fail")
-except:
+
+except Exception as e:
+	print(e)
 	print("fail")
 
 driver.quit()
