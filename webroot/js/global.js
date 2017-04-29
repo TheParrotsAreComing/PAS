@@ -1,6 +1,6 @@
 var APP_PATH = window.location.origin+"/";
 
-jQuery(function () {
+jQuery(function() {
     //Show me the new select option for photos
     $('a[data-ix="add-photo-click-desktop"]').click(function(){
         $('.add-photo').css('display','flex');
@@ -15,10 +15,25 @@ jQuery(function () {
         $('.add-photo-inner').css('display','none');
         $('.add-photo-inner').css('opacity','0');
     });
+
+    //Show me the new select option for files
+    $('a[data-ix="add-file-click-desktop"]').click(function(){
+        $('.add-file').css('display','flex');
+        $('.add-file').css('opacity','1');
+        $('.add-file-inner').css('display','flex');
+        $('.add-file-inner').css('opacity','1');
+    });
+
+    //I don't want to see the select for files
+    $('.cancel').click(function(){
+        $('.add-file').css('display','none');
+        $('.add-file-inner').css('display','none');
+        $('.add-file-inner').css('opacity','0');
+    });
 });
 
 
-function setupPhotoSelectionBehavior(cat_id) {
+function setupPhotoSelectionBehavior(entity_id, entity_controller_string) {
 
     $('.picture-file').click(function(){
         $('.picture-file').find('img').removeClass('selected');
@@ -34,20 +49,21 @@ function setupPhotoSelectionBehavior(cat_id) {
         if( $(this).hasClass('active') ) {
 
             var file_id = $('.selected').parent().data('file-id');
-            var url = APP_PATH+'Cats/changeProfilePic';
+            
+            var url = APP_PATH+entity_controller_string+'changeProfilePic';
 
             $.ajax({
                 url : url,
                 type : 'POST',
                 data : {
-                    cat_id : cat_id,
+                    entity_id : entity_id,
                     file_id: file_id
                 }
             }).done(function(result) {
                 if(result == 'success') {
-                    window.location = APP_PATH+'Cats/ajaxSuccessMessage';
+                    window.location = APP_PATH+entity_controller_string+'ajaxSuccessMessage';
                 } else {
-                    window.location = APP_PATH+'Cats/ajaxFailMessage';
+                    window.location = APP_PATH+entity_controller_string+'ajaxFailMessage';
                 }
                 
               });
@@ -79,7 +95,7 @@ function setupPhotoSelectionBehavior(cat_id) {
                         $(this).dialog( "close" );
 
                         var file_id = $('.selected').parent().data('file-id');
-                        var url = APP_PATH+'Cats/deletePic';
+                        var url = APP_PATH+entity_controller_string+'deletePic';
 
                         $.ajax({
                             url : url,
@@ -89,9 +105,9 @@ function setupPhotoSelectionBehavior(cat_id) {
                             }
                         }).done(function(result) {
                             if(result == 'success') {
-                                window.location = APP_PATH+'Cats/ajaxSuccessMessage';
+                                window.location = APP_PATH+entity_controller_string+'ajaxSuccessMessage';
                             } else {
-                                window.location = APP_PATH+'Cats/ajaxFailMessage';
+                                window.location = APP_PATH+entity_controller_string+'ajaxFailMessage';
                             }
                           });
                       }

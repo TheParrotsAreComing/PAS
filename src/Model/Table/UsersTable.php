@@ -47,7 +47,7 @@ class UsersTable extends Table
             'foreignKey' => 'profile_pic_file_id'
         ]);
 
-        $this->hasMany('UsersEvents', [
+        $this->hasMany('UsersAdoptionEvents', [
             'foreignKey' => 'user_id'
         ]);
     }

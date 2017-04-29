@@ -3,7 +3,7 @@
   <div class="paws-home-cont" data-ix="page-load-fade-in">
 		<!-- Cat -->
 		  <a href="<?=$this->Url->build(['controller'=>'Cats','action'=>'index']) ?>" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('cat-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
-        <div class="pas-home-button-name">CATS</div>
+			<div class="pas-home-button-name">CATS</div>
 		  </a>
 		<!-- Adopter -->
       <?php if (!$is_foster): ?>
@@ -21,11 +21,11 @@
       <?php endif; ?>
 		<!-- Volunteers -->
 		  <a href="<?=$this->Url->build(['controller'=>'Users','action'=>'index'])?>" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('user-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
-        <div class="pas-home-button-name">VOLUNTEERS</div>
+			<div class="pas-home-button-name">VOLUNTEERS</div>
 		  </a>
-		<!-- Messages -->
-		  <a href="#" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('message-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
-        <div class="pas-home-button-name">MESSAGES</div>
+		<!-- Contacts -->
+		  <a href="#" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('contacts-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
+			<div class="pas-home-button-name">CONTACTS</div>
 		  </a>
 		<!-- Tags -->
       <?php if ($this->request->session()->read('Auth.User.role') == 1): ?>
@@ -33,9 +33,16 @@
           <div class="pas-home-button-name">TAGS</div>
         </a>
       <?php endif; ?>
+      	<!-- Contacts -->
+		  <a href="<?=$this->Url->build(['controller'=>'Contacts','action'=>'index'])?>" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('foster-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
+			<div class="pas-home-button-name">CONTACTS</div>
+		<!-- Adoption Events -->
+		  <a href="#" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('calendar-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
+			<div class="pas-home-button-name">ADOPTION EVENTS</div>
+		  </a>
 		<!-- Settings -->
 		  <a href="#" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('settings-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
-        <div class="pas-home-button-name">SETTINGS</div>
+			<div class="pas-home-button-name">SETTINGS</div>
 		  </a>
   </div>
 </div>

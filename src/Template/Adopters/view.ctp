@@ -78,43 +78,38 @@
                       <div class="profile-text-header">Phone Number(s) </div>
 
                       <div class="medical-wrap">
-                          <?php foreach ($adopter->phone_numbers as $number): ?>
-                            <?php if($number->entity_type === 1): ?>
-                                <?php $type = "";
+                        <?php foreach ($phones as $number): ?>
+                          <?php $type = "";
+                          if ($number->phone_type === 0) {$type = "Mobile ";} 
+                          else if ($number->phone_type === 1) {$type = "Home ";} 
+                          else if ($number->phone_type === 2) {$type = "Other ";} 
 
-                                  if ($number->phone_type === 0) {$type = "Mobile ";} 
-                                  else if ($number->phone_type === 1) {$type = "Home ";} 
-                                  else if ($number->phone_type === 2) {$type = "Other ";} 
-
-                                ?>
-                                <div class="scroll1 no-horizontal-scroll">
-                                  <div class="medical-data-cont" data-ix="medical-data-click">
-                                    <div class="medical-type-cont">
-                                      <div class="medical-data-type"><?= $type ?></div>
-                                    </div>
-                                    <div class="medical-date-cont">
-                                      <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
-                                    </div>
-                                    <div class="medical-data-action-cont">
-                                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
-                                        <div class="profile-action-button sofware">-</div>
-                                        <div>edit</div>
-                                      </a>
-                                      <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
-                                        <div class="basic profile-action-button"></div>
-                                        <div>delete</div>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                            <?php endif; ?>
-                          <?php endforeach; ?>
+                          ?>
+                          <div class="scroll1 no-horizontal-scroll">
+                            <div class="medical-data-cont" data-ix="medical-data-click">
+                              <div class="medical-type-cont">
+                                <div class="medical-data-type"><?= $type ?></div>
+                              </div>
+                              <div class="medical-date-cont">
+                                <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
+                              </div>
+                              <div class="medical-data-action-cont">
+                                <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
+                                  <div class="profile-action-button sofware">-</div>
+                                  <div>edit</div>
+                                </a>
+                                <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
+                                  <div class="basic profile-action-button"></div>
+                                  <div>delete</div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        <?php endforeach; ?>
                       </div>
 
                     <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 1])?>">+ Add New Phone Number
                     </a> 
-
-
                 </div>
                 <div class="profile-content-cont">
                     <div class="profile-text-header">Additional Information</div>
@@ -154,11 +149,15 @@
                                   <div class="card-field-text cat-age"></div>
                                 </div>
                               </div>
-                              <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Breed:</div>
-                                  <div class="card-field-text"><?= $cat['breed']; ?></div>
-                                </div>
+                              <?php foreach($cat_breeds as $breed): ?>
+                                <?php if($cat->breed_id == $breed->id): ?>
+                                  <div class="card-field-cont">
+                                    <div class="card-field-cont">
+                                      <div class="card-h3">Breed:</div>
+                                      <div class="card-field-text"><?= $breed['breed']; ?></div>
+                                    </div>
+                                <?php endif;?>
+                              <?php endforeach; ?>
                                 <div class="card-field-cont">
                                   <div class="card-h3">Fee paid:</div>
                                   <div class="card-field-text">$<?= $cat['adoption_fee_amount'] ?></div>
@@ -178,7 +177,7 @@
                       <div class="picture-file-cont scroll1">
                         <?php if($photosCountTotal > 0):  ?>
                           <?php foreach($photos as $photo): ?>
-                            <div class="picture-file">
+                            <div class="picture-file" data-file-id="<?= h($photo->id) ?>">
                               <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
                               <?php if($photo->id == $adopter->profile_pic_file_id): ?>
                                 <div class="picture-primary">H</div>
@@ -187,12 +186,13 @@
                           <?php endforeach; ?>
                         <?php endif; ?>
                       </div>
-                      <?php if ($can_edit): ?>
-                        <div class="picture-file-action-cont">
-                          <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
-                          <a class="picture-file-action w-button" href="#">Delete Selected</a>
-                        </div>
-                      <?php endif; ?>
+                      <div class="picture-file-action-cont">
+                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                        <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
+                      </div>
+                      <div class="picture-file-action-cont">
+                  <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
+                </div>
                     </div>
                     <div class="profile-text-header">Uploaded Files (todo...)</div>
                   </div>
@@ -205,19 +205,15 @@
            </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <?php if ($can_edit): ?>
-            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit
-            ', $adopter->id], ['escape'=>false]);?>">
-              <div class="profile-action-button sofware">-</div>
-              <div>edit</div>
-            </a>
-            <a class="profile-action-button-cont w-inline-block" id="uploadProfileImage" href="javascript:void(0);" data-ix="add-photo-click-desktop">
-              <div class="extend profile-action-button">w</div>
-              <div>upload</div>
-            </a>
-          <?php endif; ?>
-          <!--<a class="profile-action-button-cont w-inline-block" href="#">
-            <div class="basic profile-action-button"></div>
+        <?php if ($can_edit): ?>       
+		<a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit
+          ', $adopter->id], ['escape'=>false]);?>">
+            <div class="profile-action-button sofware">-</div>
+            <div>edit</div>
+          </a>
+          <a class="profile-action-button-cont w-inline-block" href="#">
+		<?php endif; ?>           
+		 <div class="basic profile-action-button"></div>
             <div>export</div>
           </a>-->
           <?php if ($can_delete): ?>
@@ -310,8 +306,14 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
 </div>
 
+<div id="dialog-confirm-photo-delete" title="Delete this photo?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
+</div>
+
 <script>
-	calculateAndPopulateAgeFields();
+  
+  var adopter_id = "<?= $adopter->id ?>";
+  var adopter_controller_string = "Adopters/"
 	var adopter = new Adopter();
 
   var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
@@ -319,6 +321,10 @@
   var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
 
 	$(function(){
+
+    calculateAndPopulateAgeFields();
+    setupPhotoSelectionBehavior(adopter_id, adopter_controller_string);
+
 		$('.delete-button').click(function(e){
 			e.preventDefault();
 			$.when(adopter.deleteCheck(<?= $adopter->id ?>)).done(function(){

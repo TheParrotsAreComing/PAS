@@ -75,7 +75,7 @@ class UsersController extends AppController
         $can_edit = (($can_delete || $this->Users->isCore($session_user)) || $session_user['id'] == $id);
 
         $user = $this->Users->get($id, [
-            'contain' => ['UsersEvents']
+            'contain' => ['UsersAdoptionEvents']
         ]);
         
         $adopter_profile = [];

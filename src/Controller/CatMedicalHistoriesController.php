@@ -100,7 +100,7 @@ class CatMedicalHistoriesController extends AppController
                 $entityTypeId = $this->CatMedicalHistories->getEntityTypeId();
                 $mimeType = $this->request->data['upload_document']['type'];
                 $fileSize = $this->request->data['upload_document']['size'];
-                $new_file_id = $this->CatMedicalHistories->uploadDocument($uploadedFileName, $tempLocation, $fileExtension, $uploadPath, $entityTypeId, $cat_id, $mimeType, $fileSize);
+                $new_file_id = $this->CatMedicalHistories->uploadDocument($uploadedFileName, $tempLocation, $fileExtension, $uploadPath, $entityTypeId, $cat_id, $mimeType, $fileSize, '');
                 if ($new_file_id > 0){
                     $catMedicalHistory->file_id = $new_file_id; 
                     $this->Flash->success(__('Document has been uploaded and saved successfully.'));

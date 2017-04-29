@@ -105,9 +105,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
     <div class="navbar w-container">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
-        <?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
+		<?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
           <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="mobile-search" placeholder="Search" type="text">
-        <?= $this->Form->end() ?>
+		<?= $this->Form->end() ?>
       </div>
       <div class="navbar-hamburger w-nav-button">
         <div class="navbar-hamburger-text"></div>
@@ -127,6 +127,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <?= $this->Html->link('Foster Homes', ['controller'=>'fosters', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>
         <?= $this->Html->link('Volunteers', ['controller'=>'users', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <?= $this->Html->link('Contacts', ['controller'=>'contacts', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php if ($session_user['role'] == 1): ?>
           <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>

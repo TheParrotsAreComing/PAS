@@ -138,4 +138,16 @@ class AppController extends Controller
         }
         exit(0);
     }
+    
+    public function ajaxSuccessMessage() {
+        $this->autoRender = false;
+        $this->Flash->success(__('Success!'));
+        return $this->redirect($this->referer());
+    }
+
+    public function ajaxFailMessage() {
+        $this->autoRender = false;
+        $this->Flash->error(__('Unable to complete action.'));
+        return $this->redirect($this->referer());
+    }
 }

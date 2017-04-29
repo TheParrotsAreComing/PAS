@@ -256,16 +256,23 @@
                           <div class="card-field-text"><?= h($foster->rating) ?></div>
                         </div>
                         </div>
+                        <?php if(!empty($fosterPhones)) :?>
+                          <?php foreach ($fosterPhones as $number): ?>
+                            <?php if ($number->entity_id === $foster->id): ?>
+                              <div class="card-field-cont">
+                                <div class="card-field-cont">
+                                  <div class="card-h3">Primary Phone:</div>
+                                  <div class="card-field-text"><?= h($number->phone_num) ?></div>
+                                </div>
+                              </div>
+                              <?php break;?>
+                            <?php endif ;?>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
                         <div class="card-field-cont">
                         <div class="card-field-cont">
                           <div class="card-h3">Email:</div>
                           <div class="card-field-text"><?= h($foster->email) ?></div>
-                        </div>
-                        </div>
-                        <div class="card-field-cont">
-                        <div class="card-field-cont">
-                          <div class="card-h3">Phone:</div>
-                          <div class="card-field-text"><?= h($foster->phone) ?></div>
                         </div>
                         </div>
                         <div class="card-field-cont">
@@ -296,7 +303,7 @@
                       <a class="card w-clearfix w-inline-block">
                         <div class="card-h1">This cat is not currently in a foster home.</div>
                       </a>
-                      <?php if ($is_foster && $can_edit): ?>
+                      <?php if (!$is_foster && $can_edit): ?>
                         <a class="card w-clearfix w-inline-block">
                           <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
                         </a>
@@ -326,16 +333,23 @@
                       <div class="card-field-text"><?= h($adopter->notes) ?></div>
                     </div>
                     </div>
+                    <?php if(!empty($adopterPhones)) :?>
+                      <?php foreach ($adopterPhones as $number): ?>
+                        <?php if ($number->entity_id === $adopter->id): ?>
+                          <div class="card-field-cont">
+                            <div class="card-field-cont">
+                              <div class="card-h3">Primary Phone:</div>
+                              <div class="card-field-text"><?= h($number->phone_num) ?></div>
+                            </div>
+                          </div>
+                          <?php break;?>
+                        <?php endif ;?>
+                      <?php endforeach; ?>
+                    <?php endif; ?>
                     <div class="card-field-cont">
                       <div class="card-field-cont">
                       <div class="card-h3">Email:</div>
                       <div class="card-field-text"><?= h($adopter->email) ?></div>
-                    </div>
-                    </div>
-                    <div class="card-field-cont">
-                    <div class="card-field-cont">
-                      <div class="card-h3">Phone:</div>
-                      <div class="card-field-text"><?= h($adopter->phone) ?></div>
                     </div>
                     </div>
                     <div class="card-field-cont">
@@ -385,15 +399,63 @@
                     <?php endforeach; ?>
                   <?php endif; ?>
                 </div>
-                <?php if ($can_edit): ?>
-                  <div class="picture-file-action-cont">
-                    <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
-                    <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
-                  </div>
-                <?php endif; ?>
+				<?php if ($can_edit): ?>
+		            <div class="picture-file-action-cont">
+		              <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+		              <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
+		            </div>
+		            <div class="picture-file-action-cont">
+		              <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
+		            </div>
+				<?php endif; ?>
               </div>
-              <div class="profile-text-header">Uploaded Files (todo...)</div>
-            </div>
+              <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
+
+              <div class="medical-wrap">
+                  <div class="medical-header-cont">
+                    <div class="medical-type-cont">
+                      <div class="medical-header">Uploaded</div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-header">Original Name</div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-header">Note</div>
+                    </div>
+                  </div>
+                  <?php if ($filesCountTotal > 0): ?>
+                    <?php foreach($files as $file): ?>
+
+                  <div class="scroll1 no-horizontal-scroll">
+                    <div class="medical-data-cont" data-ix="medical-data-click">
+                    <div class="medical-type-cont">
+                      <div class="medical-data-type"><?= h($file->created) ?></div>
+                    </div>
+                    <div class="medical-date-cont">
+                      <div class="medical-date-cont"><?= h($file->original_filename) ?></div>
+                    </div>
+                    <div class="medical-notes-cont">
+                      <div class="medical-data-notes"><?= h($file->note) ?></div>
+                    </div>
+                    <div class="medical-data-action-cont">
+                      <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                      <div class="basic profile-action-button"></div>
+                      <div>delete</div>
+                      </a>
+                      <a class="right medical-data-action w-inline-block" href="#">
+                      <div class="profile-action-button sofware">p</div>
+                      <div>download</div>
+                      </a>
+                    </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+                <?php else : ?>
+                  <!-- No uploaded documents to load-->
+                <?php endif; ?>
+                <a class="profile-add-cont w-inline-block add-file-btn" href="javascript:void(0);" data-ix="add-file-click-desktop">+ Add New File</a> 
+                    </div>
+                </div>
 
             <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 6">
               <div class="profile-content-cont">
@@ -416,25 +478,21 @@
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
           <?php if ($can_edit): ?>
-            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-              <div class="profile-action-button sofware">-</div>
-              <div>edit</div>
-            </a>
-            <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
-              <div class="extend profile-action-button">w</div>
-              <div>upload</div>
-            </a>
-          <?php endif; ?>
-          <?php if ($can_delete): ?>
-            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-              <div class="basic profile-action-button"></div>
-              <div>export</div>
-            </a>
-            <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
-              <div class="basic profile-action-button"></div>
-              <div>delete</div>
-            </a>
-          <?php endif; ?>
+			  <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+		        <div class="profile-action-button sofware">-</div>
+		        <div>edit</div>
+		      </a>
+		      <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+		        <div class="basic profile-action-button"></div>
+		        <div>export</div>
+		      </a>
+		  <?php endif; ?>
+		  <?php if ($can_delete): ?>
+		      <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+		        <div class="basic profile-action-button"></div>
+		        <div>delete</div>
+		      </a>
+		  <?php endif; ?>
         </div>
       </div>
     </div>
@@ -466,12 +524,29 @@
       <?php 
         echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
         echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
-        //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
       ?>
     <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form add-button-cont">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-      <!-- <a class="delete add-photo-btn confirm-button w-button" href="#">Upload!</a> -->
+      <?php
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
+
+<div class="add-adopter-floating-overlay add-file">
+  <div class="confirm-cont add-file-inner">
+    <div class="confirm-text">Choose a File...</div>
+      <?php 
+        echo $this->Form->create($uploaded_file, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_file', ['type' => 'file', 'accept' => '*']);
+        echo $this->Form->input('file-note', ['class'=>'add-tag-input w-input', 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'file-note', 'maxlength'=>256, 'name'=>'file-note', 'placeholder'=>'Enter a note about this file...', 'type'=>'text']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form add-button-cont">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
         echo $this->Form->end();
@@ -551,7 +626,7 @@
   </div> 
 
 <div id="dialog-confirm-record" title="Delete this record?" style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
 </div>
 
 <div id="dialog-confirm-tag" title="Delete this tag?" style="display:none;">
@@ -566,11 +641,12 @@
 $(function () {
 
   var cat_id = "<?= $cat->id ?>";
+  var cat_controller_string = "Cats/";
   var current_kitty = new Cat();
   var deleteRecord = "<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'delete']) ?>";
   var tagDel = "<?= $this->Url->build(['controller'=>'cats','action'=>'deleteTag']); ?>";
   calculateAndPopulateAgeFields();
-  setupPhotoSelectionBehavior(cat_id);
+  setupPhotoSelectionBehavior(cat_id, cat_controller_string);
 
   $('.add-adopter-btn').click(function(){
      $( "#dialog-confirm" ).dialog({

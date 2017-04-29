@@ -71,7 +71,7 @@
           <div class="cancel-edit-div display-none example-tag-wrapper">
             <?= $this->Form->button('Cancel Edit', ['class'=>'add-cancel', 'type'=>'button', 'id'=>'cancel-edit']); ?>
           </div>
-          <div class="add-button-cont"><a class="add-cancel" href="cat-list.html">Cancel</a>
+          <div class="add-button-cont"><a class="add-cancel" href="<?= $this->Url->build(['controller'=>'pages', 'action'=>'display','home'])?>">Cancel</a>
             <?= $this->Form->submit('Submit', ['class'=>'add-submit w-button', 'data-wait'=>'Please wait...']); ?>
           </div>
           <div class="w-form-done">
