@@ -395,6 +395,9 @@
                   <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
                   <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
                 </div>
+                <div class="picture-file-action-cont">
+                  <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
+                </div>
               </div>
               <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
 
@@ -466,10 +469,6 @@
           <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
-            <div class="extend profile-action-button">w</div>
-            <div>upload</div>
           </a>
           <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
             <div class="basic profile-action-button"></div>
