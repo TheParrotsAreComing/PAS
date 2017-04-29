@@ -26,6 +26,17 @@
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
           'placeholder'=>'Enter Address']);?>
+
+          <label class="add-field-h2" for="First-Name">Add Number</label>
+          <div class="add-field-seperator"></div>
+
+          <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+          <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
+          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Number']);?>
+          <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
+          <label class="add-field-h3">Phone Number<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Number']);?>
+
           <div class="add-button-cont">
             <?= $this->Html->link('Cancel', ['controller'=>'contacts','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'ContactCancel']); ?>
             <?= $this->Form->submit("Submit", ['class'=>'add-submit w-button','id'=>'ContactAdd'])?>
