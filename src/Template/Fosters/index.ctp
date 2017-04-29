@@ -24,7 +24,8 @@
       </div>
       <div class="filter">
           <div class="filter-criteria">Phone #:</div>
-          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Phone','placeholder'=>'Enter phone number']) ?>
+          
+          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'placeholder'=>'Enter phone number']) ?>
       </div>
       <div class="filter">
           <div class="filter-criteria">Email:</div>
@@ -68,7 +69,16 @@
             <div class="card-wrapper w-dyn-item">
               <div class="card-full-cont">
                 <div class="card-cont">
-                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><?= $this->Html->image('foster-01.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
+                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">
+
+                  <?php 
+                      if(!empty($foster->profile_pic)){
+                        echo $this->Html->image('../'.$foster->profile_pic->file_path.'_tn.'.$foster->profile_pic->file_ext, ['class'=>'card-pic']);
+                      } else {
+                        echo $this->Html->image('foster-01.png', ['class'=>'card-pic']);
+                      }
+                  ?>
+
                   <div class="card-h1"><?= $foster['first_name'].' '.$foster['last_name']; ?></div>
                     <div>
                       <div class="card-h2">Rating:</div>
@@ -78,32 +88,17 @@
                       <div class="card-h2"><?= $this->Text->truncate($foster['avail'],25, ['ellipsis'=>'...', 'exact'=>true]); ?></div>
                     </div>
                     <div class="card-field-wrap">
-                      <?php if(!empty($foster->phone_numbers)) :?>
-                        <?php foreach ($foster->phone_numbers as $number): ?>
-                          <?php if ($number->entity_type === 0): ?>
-                            <?php $type = "";
-                                if ($number->phone_type === 0) {$type = "Mobile: ";break; } 
-                                else if ($number->phone_type === 1) {$type = "Home: ";break; } 
-                                else if ($number->phone_type === 2) {$type = "Other: ";break; }
-                            ?>
-                          <?php endif; ?>
-                        <?php endforeach; ?> 
-                        
-                        <div class="card-field-cont left-justify">
-                          <?php if ($number->entity_type === 0 && $number->entity_id === $foster->id): ?>
-                              <div class="card-h3"><?= $type; ?></div>
+
+                      <?php if(!empty($phones)) :?>
+                        <?php foreach ($phones as $number): ?>
+                          <?php if ($number->entity_id === $foster->id): ?>
+                            <div class="card-field-cont left-justify">
+                              <div class="card-h3">Primary Phone: </div>
                               <div class="catlist-field-content"><?= $number->phone_num; ?></div>
                             </div>
-                          <?php else: ?>
-                              <div class="card-h3">Phone: </div>
-                              <div class="catlist-field-content"> --- </div>
-                            </div>
+                            <?php break;?>
                           <?php endif ;?>
-                      <?php else: ?> 
-                        <div class="card-field-cont left-justify">
-                            <div class="card-h3">Phone: </div>
-                            <div class="catlist-field-content"> --- </div>
-                          </div>
+                        <?php endforeach; ?>
                       <?php endif; ?>
 
                       <div class="card-field-cont left-justify">
@@ -176,5 +171,6 @@
 <script>
 $(function(){
 	$('#tagFilter').select2();
+  $('#phoneFilter').select2();
 });
 </script>

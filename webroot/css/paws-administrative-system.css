@@ -282,6 +282,10 @@
   opacity: 0.75;
 }
 
+.card.litter {
+  padding-left: 20px;
+}
+
 .list {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1765,8 +1769,8 @@
 
 .check-select.w--current {
   border-right-style: none;
-  background-color: #0172ff;
-  color: #fff;
+  background-color: #fff;
+  color: #0172ff;
   font-weight: 700;
 }
 
@@ -1856,7 +1860,7 @@
 }
 
 .list-id-cont.litter {
-  left: 337px;
+  left: 328px;
   bottom: 118px;
   width: 80px;
 }
@@ -2807,6 +2811,8 @@
   height: 100%;
   margin-top: -40px;
   margin-bottom: 0px;
+  padding-right: 10px;
+  padding-left: 10px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -4203,7 +4209,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .card-pic {
     right: 0px;
-    width: 50px;
+    width: auto;
     height: 50px;
     margin-top: 0px;
     margin-right: 10px;

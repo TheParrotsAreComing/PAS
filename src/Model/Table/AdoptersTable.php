@@ -43,6 +43,7 @@ class AdoptersTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('File');
         $this->addBehavior('FilterableTag');
+        $this->addBehavior('FilterablePhone');
 
         $this->hasMany('CatHistories', [
             'foreignKey' => 'adopter_id'

@@ -54,5 +54,4 @@ class FilterablePhoneBehavior extends Behavior {
 
 		return array_keys($count_arr);
 	}
-
 }

@@ -29,6 +29,8 @@ class AdoptersController extends AppController
             'conditions' => ['Adopters.is_deleted' => 0]
         ];
 
+        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 1]);
+
         $filesDB = TableRegistry::get('Files');
 
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
@@ -40,6 +42,11 @@ class AdoptersController extends AppController
             if(!empty($this->request->query['tag'])){
                 $tagged_adopters = $this->Adopters->buildFilterArray($this->request->query['tag']);
                 unset($this->request->query['tag']);
+            }
+
+            if(!empty($this->request->query['phone'])){
+                $search_phones = $this->Adopters->filterPhones($this->request->query['phone']);
+                unset($this->request->query['phone']);
             }
 
             foreach($this->request->query as $field => $query){
@@ -57,6 +64,11 @@ class AdoptersController extends AppController
             if(!empty($tagged_adopters)){
                 $this->paginate['conditions']['adopters.id IN'] = $tagged_adopters;
             }
+
+            if(!empty($search_phones)){
+                $this->paginate['conditions']['adopters.id IN'] = $search_phones;
+            }
+
             $this->request->data = $this->request->query;
         }
         $count = [0,1,2,3,4,5];
@@ -83,7 +95,7 @@ class AdoptersController extends AppController
             }
         }
 
-        $this->set(compact('adopters','adopter_tags', 'phone_numbers', 'entity_type'));
+        $this->set(compact('adopters','adopter_tags', 'phones'));
 
         $this->set('_serialize', ['adopters']);
     }
@@ -97,6 +109,10 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
+        $cat_breeds = TableRegistry::get('Breeds')->find('all');
+
+        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 1]);
+
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
         $attached_tags = TableRegistry::get('Tags_Adopters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['adopter_id'=>$id])->toArray();
 
@@ -112,7 +128,8 @@ class AdoptersController extends AppController
             'conditions' => [
                 'Files.is_photo' => true,
                 'Files.entity_type' => $this->Adopters->getEntityTypeId(),
-                'entity_id' => $adopter->id
+                'entity_id' => $adopter->id,
+                'Files.is_deleted' => false
                 ],
             'order' => ['Files.created'=>'DESC']]);
         $photosCountTotal = $photos->count();
@@ -167,7 +184,7 @@ class AdoptersController extends AppController
         } else {
             $profile_pic = null;
         }
-        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phone_numbers'));
+        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds'));
         $this->set('_serialize', ['adopter']);
     }
 
@@ -318,5 +335,22 @@ class AdoptersController extends AppController
             $this->Flash->error('Something went wrong. Please check your user information and try again.');
             return $this->redirect(['controller'=>'users','action'=>'view',$user_id]);
         }
+    }
+
+    public function changeProfilePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $adopter = $this->Adopters->get($data['entity_id']);
+        $adopter->profile_pic_file_id = $data['file_id'];
+
+        ob_clean();
+        if($this->Adopters->save($adopter)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
     }
 }
