@@ -65,10 +65,10 @@
                         <div class="medical-wrap">
                           <?php foreach ($phones as $number): ?>
                             <?php $type = "";
-                            if ($number->phone_type === 0) {$type = "Mobile ";} 
-                            else if ($number->phone_type === 1) {$type = "Home ";} 
-                            else if ($number->phone_type === 2) {$type = "Other ";} 
-
+                              if ($number->phone_type === 0) {$type = "Mobile: ";} 
+                              else if ($number->phone_type === 1) {$type = "Home: ";} 
+                              else if ($number->phone_type === 2) {$type = "Organization: ";}
+                              else if ($number->phone_type === 3) {$type = "Other: ";} 
                             ?>
                             <div class="scroll1 no-horizontal-scroll">
                               <div class="medical-data-cont" data-ix="medical-data-click">
