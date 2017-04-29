@@ -14,7 +14,7 @@ from scratch
 	DROP TABLE IF EXISTS tags_adopters; 
     DROP TABLE IF EXISTS tags_cats; 
     DROP TABLE IF EXISTS tags; 
-    DROP TABLE IF EXISTS users_events; 
+    DROP TABLE IF EXISTS users_adoption_events; 
     DROP TABLE IF EXISTS users; 
     DROP TABLE IF EXISTS cats_adoption_events; 
     DROP TABLE IF EXISTS adoption_events; 
@@ -202,10 +202,12 @@ CREATE TABLE users (
     modified DATETIME
 );
 
-CREATE TABLE users_events ( 
+CREATE TABLE users_adoption_events ( 
 	id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    adoption_event_id INT NOT NULL
+    adoption_event_id INT NOT NULL,
+    FOREIGN KEY user_ref (user_id) REFERENCES users(id),
+    FOREIGN KEY adoption_events_ref (adoption_event_id) REFERENCES adoption_events(id)
 ); 
 
 

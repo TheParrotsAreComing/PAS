@@ -13,15 +13,20 @@ class FilterablePhoneBehavior extends Behavior {
 
 	public function filterPhones($query){
 		switch ($this->_table->registryAlias()) {
+			case 'Fosters':
+				$table = 'Phone_Numbers';
+				$valueField = 'entity_id';
+				$entityType = 0;
+				break;
 			case 'Adopters':
 				$table = 'Phone_Numbers';
 				$valueField = 'entity_id';
 				$entityType = 1;
 				break;
-			case 'Fosters':
+			case 'Contacts':
 				$table = 'Phone_Numbers';
 				$valueField = 'entity_id';
-				$entityType = 0;
+				$entityType = 2;
 				break;
 			default:
 				return [];
@@ -49,5 +54,4 @@ class FilterablePhoneBehavior extends Behavior {
 
 		return array_keys($count_arr);
 	}
-
 }
