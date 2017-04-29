@@ -17,3 +17,4 @@ for res in resolutions:
 	os.system('py Users/delete.py '+res[0]+' '+res[1])
 	os.system('py Adopters/upload_image.py '+res[0]+' '+res[1])
 	os.system('py Fosters/upload_image.py '+res[0]+' '+res[1])
+	os.system('py Cats/delta_default_pic.py '+res[0]+' '+res[1])

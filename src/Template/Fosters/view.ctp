@@ -177,7 +177,7 @@
                         <?php endif; ?>
                       </div>
                       <div class="picture-file-action-cont">
-                        <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
+                        <a id="mark-profile-pic-btn" class="left picture-file-action w-button" data-ix="filter-cancel" href="#">Mark as Profile Photo</a>
                         <a class="picture-file-action w-button" href="#">Delete Selected</a>
                       </div>
                     </div>
