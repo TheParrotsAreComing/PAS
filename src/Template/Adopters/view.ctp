@@ -189,6 +189,9 @@
                         <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
                         <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
                       </div>
+                      <div class="picture-file-action-cont">
+                  <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
+                </div>
                     </div>
                     <div class="profile-text-header">Uploaded Files (todo...)</div>
                   </div>
@@ -205,10 +208,6 @@
           ', $adopter->id], ['escape'=>false]);?>">
             <div class="profile-action-button sofware">-</div>
             <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" id="uploadProfileImage" href="javascript:void(0);" data-ix="add-photo-click-desktop">
-            <div class="extend profile-action-button">w</div>
-            <div>upload</div>
           </a>
           <a class="profile-action-button-cont w-inline-block" href="#">
             <div class="basic profile-action-button"></div>
@@ -310,8 +309,6 @@
   
   var adopter_id = "<?= $adopter->id ?>";
   var adopter_controller_string = "Adopters/"
-	calculateAndPopulateAgeFields();
-  setupPhotoSelectionBehavior(adopter_id, adopter_controller_string);
 	var adopter = new Adopter();
 
   var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
@@ -319,6 +316,10 @@
   var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
 
 	$(function(){
+
+    calculateAndPopulateAgeFields();
+    setupPhotoSelectionBehavior(adopter_id, adopter_controller_string);
+
 		$('.delete-button').click(function(e){
 			e.preventDefault();
 			$.when(adopter.deleteCheck(<?= $adopter->id ?>)).done(function(){
