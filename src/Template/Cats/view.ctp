@@ -512,7 +512,7 @@
         echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
       ?>
     <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form add-button-cont">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
@@ -531,7 +531,7 @@
         echo $this->Form->input('file-note', ['class'=>'add-tag-input w-input', 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'file-note', 'maxlength'=>256, 'name'=>'file-note', 'placeholder'=>'Enter a note about this file...', 'type'=>'text']);
       ?>
     <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form add-button-cont">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
