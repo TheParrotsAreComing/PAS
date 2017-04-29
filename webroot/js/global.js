@@ -1,5 +1,37 @@
 var APP_PATH = window.location.origin+"/";
 
+jQuery(function() {
+    //Show me the new select option for photos
+    $('a[data-ix="add-photo-click-desktop"]').click(function(){
+        $('.add-photo').css('display','flex');
+        $('.add-photo').css('opacity','1');
+        $('.add-photo-inner').css('display','flex');
+        $('.add-photo-inner').css('opacity','1');
+    });
+
+    //I don't want to see the select for photos
+    $('.cancel').click(function(){
+        $('.add-photo').css('display','none');
+        $('.add-photo-inner').css('display','none');
+        $('.add-photo-inner').css('opacity','0');
+    });
+
+    //Show me the new select option for files
+    $('a[data-ix="add-file-click-desktop"]').click(function(){
+        $('.add-file').css('display','flex');
+        $('.add-file').css('opacity','1');
+        $('.add-file-inner').css('display','flex');
+        $('.add-file-inner').css('opacity','1');
+    });
+
+    //I don't want to see the select for files
+    $('.cancel').click(function(){
+        $('.add-file').css('display','none');
+        $('.add-file-inner').css('display','none');
+        $('.add-file-inner').css('opacity','0');
+    });
+});
+
 function setupPhotoSelectionBehavior(cat_id) {
 
     $('.picture-file').click(function(){

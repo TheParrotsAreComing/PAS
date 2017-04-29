@@ -120,6 +120,8 @@ class CatsController extends AppController
 
 		$cat->cat_medical_histories = $this->Cats->manualGroupMedicalHistories($cat->cat_medical_histories);
 
+        $fosterPhones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 0]);
+        $adopterPhones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 1]);
         $adoptersDB = TableRegistry::get('Adopters');
         $fostersDB = TableRegistry::get('Fosters');
         $filesDB = TableRegistry::get('Files');
@@ -165,10 +167,24 @@ class CatsController extends AppController
         // for form on page
         $uploaded_photo = null;
 
+        // get files and count
+        $files = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Cats->getEntityTypeId(),
+                'Files.entity_id' => $cat->id,
+                'Files.is_deleted' => false
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $filesCountTotal = $files->count();
+
+        // for form on page
+        $uploaded_file = null;
+
         if($this->request->is('post')) {
 
         	//uploading a file
-            if(!empty($this->request->data['uploaded_photo']['name'])){
+            if( !empty($this->request->data['uploaded_photo']['name']) && empty($this->request->data['uploaded_file']['name']) ){
 
                 // get file ext
                 // note, assuming no filenames with periods other than for extension
@@ -201,9 +217,37 @@ class CatsController extends AppController
                     $this->Flash->error(__('Unable to upload photo, please try again.'));
                 }
 
-            } else {
-                $this->Flash->error(__('Please choose a photo.'));
+            } elseif ( empty($this->request->data['uploaded_photo']['name']) && !empty($this->request->data['uploaded_file']['name']) ) {
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_file']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
+                $uploadPath = 'files/cats/'.$cat->id;
+                $entityTypeId = $this->Cats->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_file']['type'];
+                $fileSize = $this->request->data['uploaded_file']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Cats->uploadDocument($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $cat->id, $mimeType, $fileSize, $this->request->data['file-note']);
+
+                if ($new_file_id > 0){
+
+                    $this->Flash->success(__('File has been uploaded and saved successfully.'));
+                    $filesCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
+
             }
+            else {
+                $this->Flash->error(__('Please choose a file or photo to upload.'));
+            }
+            return $this->redirect(['action' => 'view', $id]);
         }
 
         // profile pic file
@@ -213,7 +257,7 @@ class CatsController extends AppController
         	$profile_pic = null;
         }
 
-		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal'));
+		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal', 'fosterPhones', 'adopterPhones', 'files', 'filesCountTotal', 'uploaded_file'));
 
         $this->set('_serialize', ['cat']);
     }
