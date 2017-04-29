@@ -443,6 +443,7 @@
                 <?php else : ?>
                   <!-- No uploaded documents to load-->
                 <?php endif; ?>
+                <a class="profile-add-cont w-inline-block add-file-btn" href="javascript:void(0);" data-ix="add-file-click-desktop">+ Add New File</a> 
                     </div>
                 </div>
 
@@ -509,12 +510,29 @@
       <?php 
         echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
         echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
-        //echo $this->Form->button('Update Details', ['class' => 'btn btn-lg btn-success1 btn-block padding-t-b-15']);
       ?>
     <br/>
     <div class="confirm-button-wrap w-form">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-      <!-- <a class="delete add-photo-btn confirm-button w-button" href="#">Upload!</a> -->
+      <?php
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->end();
+       ?>
+    </div>
+  </div>
+</div> 
+
+<div class="add-adopter-floating-overlay add-file">
+  <div class="confirm-cont add-file-inner">
+    <div class="confirm-text">Choose a File...</div>
+      <?php 
+        echo $this->Form->create($uploaded_file, ['enctype' => 'multipart/form-data']);
+        echo $this->Form->input('uploaded_file', ['type' => 'file', 'accept' => '*']);
+        echo $this->Form->input('file-note', ['class'=>'add-tag-input w-input', 'templates'=>['inputContainer'=>'{{content}}'], 'data-name'=>'file-note', 'maxlength'=>256, 'name'=>'file-note', 'placeholder'=>'Enter a note about this file...', 'type'=>'text']);
+      ?>
+    <br/>
+    <div class="confirm-button-wrap w-form">
+      <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
         echo $this->Form->end();

@@ -184,7 +184,7 @@ class CatsController extends AppController
         if($this->request->is('post')) {
 
         	//uploading a file
-            if(!empty($this->request->data['uploaded_photo']['name'])){
+            if( !empty($this->request->data['uploaded_photo']['name']) && empty($this->request->data['uploaded_file']['name']) ){
 
                 // get file ext
                 $uploadedFileName = $this->request->data['uploaded_photo']['name'];
@@ -215,9 +215,37 @@ class CatsController extends AppController
                     $this->Flash->error(__('Unable to upload photo, please try again.'));
                 }
 
-            } else {
-                $this->Flash->error(__('Please choose a photo.'));
+            } elseif ( empty($this->request->data['uploaded_photo']['name']) && !empty($this->request->data['uploaded_file']['name']) ) {
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_file']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
+                $uploadPath = 'files/cats/'.$cat->id;
+                $entityTypeId = $this->Cats->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_file']['type'];
+                $fileSize = $this->request->data['uploaded_file']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Cats->uploadDocument($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $cat->id, $mimeType, $fileSize, $this->request->data['file-note']);
+
+                if ($new_file_id > 0){
+
+                    $this->Flash->success(__('File has been uploaded and saved successfully.'));
+                    $filesCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
+
             }
+            else {
+                $this->Flash->error(__('Please choose a file or photo to upload.'));
+            }
+            return $this->redirect(['action' => 'view', $id]);
         }
 
         // profile pic file

@@ -83,7 +83,7 @@ class FileBehavior extends Behavior {
 
 	}
 
-	public function uploadDocument(string $fileName, string $tempLocation, string $extension, string $filePath, int $entityTypeId, int $entityId, string $mimeType, int $fileSize) {
+	public function uploadDocument(string $fileName, string $tempLocation, string $extension, string $filePath, int $entityTypeId, int $entityId, string $mimeType, int $fileSize, string $fileNote) {
 		$filesDB = TableRegistry::get('Files');
 		$uniqueName = Text::uuid();
 
@@ -101,6 +101,7 @@ class FileBehavior extends Behavior {
 			$new_document->file_size = $fileSize;
 			$new_document->file_path = $filePath.'/'.$uniqueName;
 			$new_document->file_ext = $extension;
+			$new_document->note = $fileNote;
 			$new_document->created = date("Y-m-d H:i:s");
 			$new_document->is_deleted = false;
 
