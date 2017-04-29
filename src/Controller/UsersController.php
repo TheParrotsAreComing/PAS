@@ -29,6 +29,10 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        $can_add = ($users_model->isAdmin($session_user) || $users_model->isCore($session_user));
+        $this->set('can_add', $can_add);
 
         if (!empty($this->request->query['mobile-search'])) {
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
@@ -101,12 +105,20 @@ class UsersController extends AppController
             return $this->redirect(['controller'=>'users','action'=>'index']);
         }
 
-        $user_types = [
-            1 => 'Admin (FULL PRIVILIGES)',
-            2 => 'Core Volunteer',
-            3 => 'Volunteer',
-            4 => 'Foster Home'
-        ];
+        $user_types = [];
+        if ($this->Users->isAdmin($session_user)) {
+            $user_types = [
+                1 => 'Admin (FULL PRIVILIGES)',
+                2 => 'Core Volunteer',
+                3 => 'Volunteer',
+                4 => 'Foster Home'
+            ];
+        } else {
+            $user_types = [
+                3 => 'Volunteer',
+                4 => 'Foster Home'
+            ];
+        }
 
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {

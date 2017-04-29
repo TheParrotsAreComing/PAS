@@ -78,7 +78,7 @@
         </div>
         <nav class="w-dropdown-list"></nav>
       </div>
-      <?php if ($this->request->session()->read('Auth.User.role') == 1): ?>
+      <?php if ($can_add): ?>
         <a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'users','action'=>'add']); ?>>+ Invite New User</a>
       <?php endif; ?>
     </div> 

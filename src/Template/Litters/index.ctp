@@ -49,7 +49,10 @@
             <div class="cat-sort-text">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'litters','action'=>'add']); ?>>+ New Litter</a>
+        </div>
+        <?php if ($can_add): ?>
+          <a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'litters','action'=>'add']); ?>>+ New Litter</a>
+        <?php endif; ?>
       </div>
 
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">

@@ -229,7 +229,9 @@
                           <div class="card-h1">This cat currently has no medical records.</div>
                     </a>
                   <?php endif; ?>
-                <a id="medAdd" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                <?php if (!$is_foster): ?>
+                  <a id="medAdd" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                <?php endif; ?>
                 </div>
               </div>
             </div>
@@ -349,7 +351,7 @@
                   <div class="card-h1">This cat is not currently adopted.</div>
                 </a>
                 <a class="card w-clearfix w-inline-block">
-                  <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
+                  <a class="cat-add w-button attach-adopter" data-ix="dd-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
                 </a>
                         <?php endif; ?>
                         <?php else: ?>
@@ -405,22 +407,26 @@
           </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-            <div class="profile-action-button sofware">-</div>
-            <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
-            <div class="extend profile-action-button">w</div>
-            <div>upload</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-            <div class="basic profile-action-button"></div>
-            <div>export</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
-            <div class="basic profile-action-button"></div>
-            <div>delete</div>
-          </a>
+          <?php if ($can_edit): ?>
+            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+              <div class="profile-action-button sofware">-</div>
+              <div>edit</div>
+            </a>
+            <a class="profile-action-button-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">
+              <div class="extend profile-action-button">w</div>
+              <div>upload</div>
+            </a>
+          <?php endif; ?>
+          <?php if ($can_delete): ?>
+            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+              <div class="basic profile-action-button"></div>
+              <div>export</div>
+            </a>
+            <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+              <div class="basic profile-action-button"></div>
+              <div>delete</div>
+            </a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -495,18 +501,22 @@
 </div>
 
   <div class="button-cont w-hidden-main">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-      <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png') ?>" width="55">
-    </a>
-    <div class="button-02">
+    <?php if ($can_edit): ?>
+      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+        <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png') ?>" width="55">
+      </a>
+    <?php endif; ?>
+    <!--<div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
-    </div>
-    <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png') ?>" width="55">
-    </a>
-    <div class="button-04" data-ix="delete-click">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="<?= $this->Url->image('delete-01.png') ?>" width="55">
-    </div>
+    </div>-->
+    <?php if ($can_delete): ?>
+      <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+        <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png') ?>" width="55">
+      </a>
+      <div class="button-04" data-ix="delete-click">
+        <div class="button-icon-text">Delete</div><img data-ix="add-click" src="<?= $this->Url->image('delete-01.png') ?>" width="55">
+      </div>
+    <?php endif; ?>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png') ?>" width="60">
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
@@ -516,7 +526,7 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
 </div>
 
-<div class="floating-overlay add-tag">
+<div class="add-adopter-floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
