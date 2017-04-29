@@ -846,8 +846,14 @@
 </div>
 <script>
 $(function(){
-   $('.upcoming').click(function() {
+   $('.upcoming').mouseover(function(e) {
+        $(this).unbind('click');
         var that = $(this);
+        that.removeClass('upcoming');
    }); 
+   $('.upcoming').mouseout(function(e) {
+        var that = $(this);
+        that.addClass('upcoming');
+   });
 })
 </script>
