@@ -34,8 +34,8 @@ class FileBehavior extends Behavior {
 		}
 	}
 
-	public function uploadPhoto(string $fileName, string $tempLocation, string $extension, string $filePath, 
-		int $entityTypeId, int $entityId, string $mimeType, int $fileSize){
+	public function uploadPhoto($fileName, $tempLocation, $extension, $filePath, 
+		$entityTypeId, $entityId, $mimeType, $fileSize){
 		
 		$filesDB = TableRegistry::get('Files');
 
@@ -85,7 +85,7 @@ class FileBehavior extends Behavior {
 
 	}
 
-	public function uploadDocument(string $fileName, string $tempLocation, string $extension, string $filePath, int $entityTypeId, int $entityId, string $mimeType, int $fileSize, string $fileNote) {
+	public function uploadDocument($fileName, $tempLocation, $extension, $filePath, $entityTypeId, $entityId, $mimeType, $fileSize, $fileNote) {
 		$filesDB = TableRegistry::get('Files');
 		$uniqueName = Text::uuid();
 
