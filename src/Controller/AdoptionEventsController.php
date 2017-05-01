@@ -55,16 +55,13 @@ class AdoptionEventsController extends AppController
         $adoptionEvent = $this->AdoptionEvents->newEntity();
         if ($this->request->is('post')) {
 
-            debug($this->request->data);die;
-            
             //Extract and put together event date into db format
-            /*$eventDate = $this->request->data['event_date']['year'];
+            $eventDate = $this->request->data['event_date']['year'];
             $month = $this->request->data['event_date']['month'];
             $day = $this->request->data['event_date']['day'];
             $eventDate .= '-'.$month.'-'.$day;
             $this->request->data['event_date'] = $eventDate;
-            */
-            
+
             //Initial creation, not deleted
             $this->request->data['is_deleted'] = 0;
 

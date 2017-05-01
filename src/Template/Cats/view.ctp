@@ -548,7 +548,7 @@
     <div class="confirm-button-wrap w-form add-button-cont">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
-        echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
+        echo $this->Form->submit("Upload!", ['class' => 'delete add-file-btn confirm-button w-button']);
         echo $this->Form->end();
        ?>
     </div>

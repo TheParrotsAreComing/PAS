@@ -87,7 +87,6 @@ class FostersController extends AppController
         $rating = [0,1,2,3,4,5,6,7,8,9,10];
         $fosters = $this->paginate($this->Fosters);
 
-
         foreach($fosters as $foster) {
             if($foster->profile_pic_file_id > 0){
                 $foster->profile_pic = $filesDB->get($foster->profile_pic_file_id);
@@ -136,7 +135,6 @@ class FostersController extends AppController
 
         $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 0]);
 
-
         $foster_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 1')->toArray();
 
         $attached_tags = TableRegistry::get('Tags_Fosters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['foster_id'=>$id])->toArray();
@@ -163,11 +161,25 @@ class FostersController extends AppController
         // for page form
         $uploaded_photo = null;
 
+        // get files and count
+        $files = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Fosters->getEntityTypeId(),
+                'Files.entity_id' => $foster->id,
+                'Files.is_deleted' => false
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $filesCountTotal = $files->count();
+
+        // for form on page
+        $uploaded_file = null;
+
         // check for updates and changes
         if($this->request->is('post')) {
 
             // uploaded a photo?
-            if(!empty($this->request->data['uploaded_photo']['name'])){
+            if( !empty($this->request->data['uploaded_photo']['name']) && empty($this->request->data['uploaded_file']['name']) ){
 
                 // get file ext
                 $uploadedFileName = $this->request->data['uploaded_photo']['name'];
@@ -200,9 +212,35 @@ class FostersController extends AppController
                     $this->Flash->error(__('Unable to upload photo, please try again.'));
                 }
 
+            } elseif ( empty($this->request->data['uploaded_photo']['name']) && !empty($this->request->data['uploaded_file']['name']) ) {
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_file']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
+                $uploadPath = 'files/fosters/'.$foster->id;
+                $entityTypeId = $this->Fosters->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_file']['type'];
+                $fileSize = $this->request->data['uploaded_file']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Fosters->uploadDocument($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $foster->id, $mimeType, $fileSize, $this->request->data['file-note']);
+
+                if ($new_file_id > 0){
+
+                    $this->Flash->success(__('File has been uploaded and saved successfully.'));
+                    $filesCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
             } else {
-                $this->Flash->error(__('Please choose a photo.'));
+                $this->Flash->error(__('Please choose a file or photo to upload.'));
             }
+            return $this->redirect(['action' => 'view', $id]);
         }
         // profile pic file
         if($foster->profile_pic_file_id > 0) {
@@ -211,7 +249,7 @@ class FostersController extends AppController
             $profile_pic = null;
         }
         
-        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds', 'can_delete', 'can_edit'));
+        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds', 'files', 'filesCountTotal', 'uploaded_file', 'can_delete', 'can_edit'));
         $this->set('_serialize', ['foster']);
     }
 

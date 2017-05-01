@@ -84,15 +84,33 @@ class ContactsController extends AppController
      */
     public function add()
     {
+        $phoneTable = TableRegistry::get('PhoneNumbers');
 
         $contact = $this->Contacts->newEntity();
+
         if ($this->request->is('post')) {
+            //debug($this->request->data); die;
+            $phones= $this->request->data['phones'];
+
+            unset($this->request->data['phones']);
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             $contact['is_deleted'] = 0;
             if ($this->Contacts->save($contact)) {
-                $this->Flash->success(__('The contact has been saved.'));
+                $id = $contact->id;
 
-                return $this->redirect(['controller'=>'phonenumbers','action' => 'index']);
+                //debug($phones);
+                for($i = 0; $i < count($phones['phone_type']); $i++) {
+                    $new_phone = $phoneTable->newEntity();
+                    $new_phone->entity_id = $id;
+                    $new_phone->entity_type = 2;
+                    $new_phone->phone_type = $phones['phone_type'][$i];
+                    $new_phone->phone_num = $phones['phone_num'][$i];
+                    $phoneTable->save($new_phone);
+                    
+                }
+                $this->Flash->success(__('The contact has been saved.'));
+                
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The contact could not be saved. Please, try again.'));
         }
