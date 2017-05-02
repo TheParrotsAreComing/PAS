@@ -23,7 +23,7 @@
                         <?php elseif ($entity_type == 1): ?> 
                             <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'view', $entity_id], ['id'=>'NAPCancel', 'class'=>'add-cancel w-button']);?>
                         <?php elseif ($entity_type == 2): ?> 
-                            <?= $this->Html->link("Cancel", ['controller'=>'contacts', 'action'=>'view', $entity_id], ['id'=>'NCPCancel', 'class'=>'add-cancel w-button']);?>
+                            <?= $this->Html->link("Cancel", ['controller'=>'contacts', 'action'=>'index'], ['id'=>'NCPCancel', 'class'=>'add-cancel w-button']);?>
                         <?php endif;?>
                         <?= $this->Form->submit("Submit",['id'=>'APAdd', 'class'=>'add-submit w-button']); ?>
                         </div>

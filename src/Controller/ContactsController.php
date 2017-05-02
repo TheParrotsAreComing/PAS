@@ -91,22 +91,22 @@ class ContactsController extends AppController
         if ($this->request->is('post')) {
             //debug($this->request->data); die;
             $phones= $this->request->data['phones'];
-
-            unset($this->request->data['phones']);
+            
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             $contact['is_deleted'] = 0;
             if ($this->Contacts->save($contact)) {
                 $id = $contact->id;
-
-                //debug($phones);
-                for($i = 0; $i < count($phones['phone_type']); $i++) {
-                    $new_phone = $phoneTable->newEntity();
-                    $new_phone->entity_id = $id;
-                    $new_phone->entity_type = 2;
-                    $new_phone->phone_type = $phones['phone_type'][$i];
-                    $new_phone->phone_num = $phones['phone_num'][$i];
-                    $phoneTable->save($new_phone);
-                    
+                if(!($phones['phone_num'] === '')){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 2;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
+                    }
                 }
                 $this->Flash->success(__('The contact has been saved.'));
                 
@@ -130,12 +130,24 @@ class ContactsController extends AppController
         $contact = $this->Contacts->get($id, [
             'contain' => ['PhoneNumbers']
         ]);
-
+        $phoneTable = TableRegistry::get('PhoneNumbers');
         $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 2]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $phones= $this->request->data['phones'];
+            unset($this->request->data['phones']);
+
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             if ($this->Contacts->save($contact)) {
+
+                for($i = 0; $i < count($phones['phone_type']); $i++) {
+                    $new_phone = $phoneTable->newEntity();
+                    $new_phone->entity_id = $id;
+                    $new_phone->entity_type = 2;
+                    $new_phone->phone_type = $phones['phone_type'][$i];
+                    $new_phone->phone_num = $phones['phone_num'][$i];
+                    $phoneTable->save($new_phone);
+                }
                 $this->Flash->success(__('The contact has been saved.'));
 
                 return $this->redirect(['action' => 'index']);

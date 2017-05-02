@@ -32,14 +32,13 @@
 
           <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
-          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Number']);?>
-          <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
-          <label class="add-field-h3">Phone Number<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Number']);?>
+          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Number', 'type'=> 'tel', 'maxLength' => 10]);?>
+          
+          <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Another Phone Number</a>
 
           <div class="add-button-cont">
             <?= $this->Html->link('Cancel', ['controller'=>'contacts','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'ContactCancel']); ?>
-            <?= $this->Form->submit("Submit", ['class'=>'add-submit w-button','id'=>'ContactAdd'])?>
+            <?= $this->Form->submit('Submit', ['class'=>'add-submit w-button','id'=>'ContactAdd'])?>
           </div>
         </form>
         <div class="w-form-done">
@@ -53,4 +52,42 @@
   </div>
 </div>
 <?= $this->Form->end();?>
+<script>
+  $(document).ready(function(){
+      $('.add-phone-btn').click(function(e){
+        e.preventDefault();
+
+        var data = {
+            '0': 'Mobile',
+            '1': 'Home',
+            '2': 'Organization',
+            '3': 'Other'
+        }
+        var inputType = $('<select />');
+        inputType.attr('name', 'phones[phone_type][]');
+        inputType.addClass('w-select');
+        inputType.attr('id', 'phones-phone-type');
+        for(var val in data) {
+            $('<option />', {value: val, text: data[val]}).appendTo(inputType);
+        }
+
+        $('#add-phone').before(inputType);
+        var selectedType = $('#phones-phone-type').val();
+        inputType.val(selectedType);
+
+        var inputNum = $('<input/>');
+        inputNum.attr('name', 'phones[phone_num][]');
+        inputNum.addClass('add-input w-input');
+        inputNum.attr('id', 'phones-phone-num');
+        inputNum.attr('placeholder', 'Enter Number');
+        //inputNum.attr('type','integer');
+        inputNum.attr('type','tel');
+        inputNum.attr('maxLength',10);
+        $(inputType).after(inputNum);
+        var selectedNum = $('#phones-phone-num').val();
+        inputNum.val(selectedNum);
+
+      });
+  });
+</script>
 

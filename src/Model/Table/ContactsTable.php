@@ -58,32 +58,29 @@ class ContactsTable extends Table
             ->notEmpty('contact_name');
 
         $validator
-            ->allowEmpty('organization');
+            ->notEmpty('organization');
 
         $validator
             ->email('email')
-            ->allowEmpty('email');
+            ->notEmpty('email');
 
         $validator
-            ->allowEmpty('phone');
-
-        $validator
-            ->allowEmpty('address');
-
-        $validator
-            ->allowEmpty('city');
-
-        $validator
-            ->allowEmpty('state');
-
-        $validator
-            ->integer('zip')
-            ->allowEmpty('zip');
+            ->notEmpty('address');
 
         $validator
             ->boolean('is_deleted')
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
+
+        $validator
+            ->integer('phone_num')
+            ->add('phone_num',[
+                'length' => [
+                'rule' => [ 
+                'minLength', 10],
+                'message' => 'Phone number must be 10 digits long']
+            ])
+            ->notEmpty('phone_num');
 
         return $validator;
     }
