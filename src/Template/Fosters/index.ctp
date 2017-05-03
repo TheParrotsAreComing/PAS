@@ -97,7 +97,7 @@
                           <?php if ($number->entity_id === $foster->id): ?>
                             <div class="card-field-cont left-justify">
                               <div class="card-h3">Primary Phone: </div>
-                              <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                              <div class="catlist-field-content"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
                             </div>
                             <?php break;?>
                           <?php endif ;?>

@@ -91,6 +91,7 @@ class ContactsController extends AppController
         if ($this->request->is('post')) {
             //debug($this->request->data); die;
             $phones= $this->request->data['phones'];
+            unset($this->request->data['phones']);
             
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             $contact['is_deleted'] = 0;
@@ -154,8 +155,8 @@ class ContactsController extends AppController
             }
             $this->Flash->error(__('The contact could not be saved. Please, try again.'));
         }
-        $phones = $this->Contacts->PhoneNumbers->find('list', ['limit' => 200]);
-        $this->set(compact('contact','phone_numbers','phones'));
+
+        $this->set(compact('contact', 'phones'));
         $this->set('_serialize', ['contact']);
     }
 

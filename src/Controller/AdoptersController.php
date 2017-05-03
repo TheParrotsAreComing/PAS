@@ -261,6 +261,9 @@ class AdoptersController extends AppController
     {
         $session_user = $this->request->session()->read('Auth.User');
         $users_model = TableRegistry::get('Users');
+
+        $phoneTable = TableRegistry::get('PhoneNumbers');
+
         if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
             $this->Flash->error("You aren't allowed to do that.");
             return $this->redirect(['controller'=>'cats','action'=>'index']);
@@ -268,6 +271,9 @@ class AdoptersController extends AppController
 
         $adopter = $this->Adopters->newEntity();
         if ($this->request->is('post')) {
+            $phones= $this->request->data['phones'];
+            unset($this->request->data['phones']);
+
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             $adopter['is_deleted'] = 0;
             $adopter['cat_count'] = 0;
@@ -275,6 +281,19 @@ class AdoptersController extends AppController
               $adopter['dna_reason'] = NULL;
             }
             if ($this->Adopters->save($adopter)) {
+                
+                $id = $adopter->id;
+                for($i = 0; $i < count($phones['phone_type']); $i++) {
+                    $new_phone = $phoneTable->newEntity();
+                    $new_phone->entity_id = $id;
+                    $new_phone->entity_type = 1;
+                    $new_phone->phone_type = $phones['phone_type'][$i];
+                    $new_phone->phone_num = $phones['phone_num'][$i];
+                    if(!($new_phone['phone_num'] === '')){
+                        $phoneTable->save($new_phone);
+                    }
+                }
+
                 $this->Flash->success(__('The adopter has been saved.'));
 
                 return $this->redirect(['action' => 'view', $adopter->id]);
@@ -298,11 +317,30 @@ class AdoptersController extends AppController
     public function edit($id = null)
     {
         $adopter = $this->Adopters->get($id, [
-            'contain' => ['Tags']
+            'contain' => ['Tags', 'PhoneNumbers']
         ]);
+
+        $phoneTable = TableRegistry::get('PhoneNumbers');
+        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 1]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $phones= $this->request->data['phones'];
+            unset($this->request->data['phones']);
+
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             if ($this->Adopters->save($adopter)) {
+                
+                for($i = 0; $i < count($phones['phone_type']); $i++) {
+                    $new_phone = $phoneTable->newEntity();
+                    $new_phone->entity_id = $id;
+                    $new_phone->entity_type = 1;
+                    $new_phone->phone_type = $phones['phone_type'][$i];
+                    $new_phone->phone_num = $phones['phone_num'][$i];
+                    if(!($new_phone['phone_num'] === '')){
+                        $phoneTable->save($new_phone);
+                    }
+                }
+
                 $this->Flash->success(__('The adopter has been saved.'));
 
                 return $this->redirect(['action' => 'view', $adopter->id]);
@@ -311,7 +349,7 @@ class AdoptersController extends AppController
             }
         }
         $tags = $this->Adopters->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('adopter', 'tags'));
+        $this->set(compact('adopter', 'tags','phones'));
         $this->set('_serialize', ['adopter']);
     }
 

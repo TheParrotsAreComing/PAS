@@ -80,36 +80,18 @@
                       <div class="medical-wrap">
                         <?php foreach ($phones as $number): ?>
                           <?php $type = "";
-                            if ($number->phone_type === 0) {$type = "Mobile: ";} 
-                            else if ($number->phone_type === 1) {$type = "Home: ";} 
-                            else if ($number->phone_type === 2) {$type = "Organization: ";}
-                            else if ($number->phone_type === 3) {$type = "Other: ";} 
+                            if ($number['phone_type'] === 0) {$type = "Mobile: ";} 
+                            else if ($number['phone_type'] === 1) {$type = "Home: ";} 
+                            else if ($number['phone_type'] === 2) {$type = "Organization: ";}
+                            else if ($number['phone_type'] === 3) {$type = "Other: ";} 
                           ?>
-                          <div class="scroll1 no-horizontal-scroll">
-                            <div class="medical-data-cont" data-ix="medical-data-click">
-                              <div class="medical-type-cont">
-                                <div class="medical-data-type"><?= $type ?></div>
-                              </div>
-                              <div class="medical-date-cont">
-                                <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
-                              </div>
-                              <div class="medical-data-action-cont">
-                                <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
-                                  <div class="profile-action-button sofware">-</div>
-                                  <div>edit</div>
-                                </a>
-                                <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
-                                  <div class="basic profile-action-button"></div>
-                                  <div>delete</div>
-                                </a>
-                              </div>
-                            </div>
+
+                          <div class="left-justify profile-field-cont">
+                            <div class="profile-field-name"><?= $type ?></div>
+                            <div class="block profile-field-text"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
                           </div>
                         <?php endforeach; ?>
                       </div>
-
-                    <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 1])?>">+ Add New Phone Number
-                    </a> 
                 </div>
                 <div class="profile-content-cont">
                     <div class="profile-text-header">Additional Information</div>
@@ -260,7 +242,7 @@
 		<?php endif; ?>           
 		 <div class="basic profile-action-button"></div>
             <div>export</div>
-          </a>-->
+          </a>
           <?php if ($can_delete): ?>
             <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
               <div class="basic profile-action-button" ></div>
@@ -309,7 +291,7 @@
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 	</div>
 
-  <div class="floating-overlay add-tag">
+  <div class="add-adopter-floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">

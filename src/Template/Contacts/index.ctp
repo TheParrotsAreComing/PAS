@@ -78,7 +78,7 @@
                         
                                 <div class="card-field-cont left-justify">
                                   <div class="card-h3"><?= $type; ?></div>
-                                  <div class="catlist-field-content"><?= $number->phone_num; ?></div>
+                                  <div class="catlist-field-content"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
                                 </div>
 
                             <?php endif; ?>
@@ -135,6 +135,7 @@
     <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
   </div>
 </div>
+
 
 
 
