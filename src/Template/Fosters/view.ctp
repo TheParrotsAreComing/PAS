@@ -122,9 +122,15 @@
                             </div>
                             <div class="card-field-wrap">
                               <div class="card-field-cont">
-                                <div class="card-h3">Age:</div>
-                                <div class="card-field-text cat-age"></div>
-                              </div>
+                                    <div class="card-field-cont" style="display:none;">
+                                      <div class="card-h3">DOB:</div>
+                                      <div class="card-field-text cat-dob"><?= h($cat->dob) ?></div>
+                                    </div>
+                                    <div class="card-field-cont">
+                                      <div class="card-h3">Age:</div>
+                                      <div class="card-field-text cat-age"></div>
+                                    </div>
+                                  </div>
                               <?php foreach($cat_breeds as $breed): ?>
                                 <?php if($cat->breed_id == $breed->id): ?>
                                   <div class="card-field-cont">
