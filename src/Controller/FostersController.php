@@ -325,23 +325,29 @@ class FostersController extends AppController
         ]);
 
         $phoneTable = TableRegistry::get('PhoneNumbers');
-        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 0]);
+        $phone = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 0]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $phones= $this->request->data['phones'];
-            unset($this->request->data['phones']);
+            if(!empty($this->request->data['phones'])){
+                $phones = $this->request->data['phones'];
+            }
 
+            if(!empty($phones)){
+                unset($this->request->data['phones']);
+            }
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
             if ($this->Fosters->save($foster)) {
                 
-                for($i = 0; $i < count($phones['phone_type']); $i++) {
-                    $new_phone = $phoneTable->newEntity();
-                    $new_phone->entity_id = $id;
-                    $new_phone->entity_type = 0;
-                    $new_phone->phone_type = $phones['phone_type'][$i];
-                    $new_phone->phone_num = $phones['phone_num'][$i];
-                    if(!($new_phone['phone_num'] === '')){
-                        $phoneTable->save($new_phone);
+                if(!empty($phones)){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 0;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
                     }
                 }
 
@@ -353,7 +359,7 @@ class FostersController extends AppController
             }
         }
         $tags = $this->Fosters->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('foster', 'tags','phones'));
+        $this->set(compact('foster', 'tags','phone'));
         $this->set('_serialize', ['foster']);
     }
 

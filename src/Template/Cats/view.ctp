@@ -607,6 +607,7 @@
         </a>
     <?php endif; ?>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png') ?>" width="60">
+
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 </div>
@@ -615,7 +616,7 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
 </div>
 
-<div class="add-adopter-floating-overlay add-tag">
+<div class="floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">

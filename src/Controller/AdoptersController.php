@@ -321,23 +321,31 @@ class AdoptersController extends AppController
         ]);
 
         $phoneTable = TableRegistry::get('PhoneNumbers');
-        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 1]);
+        $phone = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 1]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $phones= $this->request->data['phones'];
-            unset($this->request->data['phones']);
+            
+            if(!empty($this->request->data['phones'])){
+                $phones = $this->request->data['phones'];
+            }
+
+            if(!empty($phones)){
+                unset($this->request->data['phones']);
+            }
 
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             if ($this->Adopters->save($adopter)) {
                 
-                for($i = 0; $i < count($phones['phone_type']); $i++) {
-                    $new_phone = $phoneTable->newEntity();
-                    $new_phone->entity_id = $id;
-                    $new_phone->entity_type = 1;
-                    $new_phone->phone_type = $phones['phone_type'][$i];
-                    $new_phone->phone_num = $phones['phone_num'][$i];
-                    if(!($new_phone['phone_num'] === '')){
-                        $phoneTable->save($new_phone);
+                if(!empty($phones)){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 1;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
                     }
                 }
 
@@ -349,7 +357,7 @@ class AdoptersController extends AppController
             }
         }
         $tags = $this->Adopters->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('adopter', 'tags','phones'));
+        $this->set(compact('adopter', 'tags','phone'));
         $this->set('_serialize', ['adopter']);
     }
 

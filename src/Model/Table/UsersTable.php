@@ -50,6 +50,11 @@ class UsersTable extends Table
         $this->hasMany('UsersAdoptionEvents', [
             'foreignKey' => 'user_id'
         ]);
+
+        $this->hasMany('PhoneNumbers', [
+            'foreignKey' => 'entity_id'
+        ]);
+
     }
 
     /**

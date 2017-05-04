@@ -5162,6 +5162,12 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   .events-action-cont {
     right: 45px;
   }
+  .phone-number-type-cont {
+    width: 35%;
+  }
+  .phone-number-num-cont {
+    width: 60%;
+  }
 }
 
 @font-face {

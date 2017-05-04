@@ -21,14 +21,12 @@
           <label class="add-field-h2" for="First-Name">Organization Information</label>
           <div class="add-field-seperator"></div>
           <label class="add-field-h3" for="Organzation-Name">Organzation Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('organization', ['class'=>'add-input w-input', 'data-name'=>'Organzation-Name', 'label'=>false, 
-          'placeholder'=>'Enter Organization Name']);?>
+          <?= $this->Form->input('organization', ['class'=>'add-input w-input', 'data-name'=>'Organzation-Name', 'label'=>false, 'placeholder'=>'Enter Organization Name']);?>
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
-          'placeholder'=>'Enter Address']);?>
+          <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 'placeholder'=>'Enter Address']);?>
           <label class="add-field-h2" for="First-Name">Phone Number(s)</label>
             <div class="medical-wrap">
-              <?php foreach ($phones as $number): ?>
+              <?php foreach ($phone as $number): ?>
                 <?php $type = "";
                   if ($number['phone_type'] === 0) {$type = "Mobile: ";} 
                   else if ($number['phone_type'] === 1) {$type = "Home: ";} 
@@ -37,11 +35,11 @@
                 ?>
                 <div class="scroll1 no-horizontal-scroll">
                   <div class="medical-data-cont" data-ix="medical-data-click">
-                    <div class="medical-type-cont">
+                    <div class="phone-number-type-cont">
                       <div class="medical-data-type"><?= $type ?></div>
                     </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-date-cont"><?php echo "(".substr($number['phone_num'], 0, 3).") ".substr($number['phone_num'], 3, 3)."-".substr($number['phone_num'],6); ?></div>
+                    <div class="phone-number-num-cont">
+                      <div class="phone-number-num-cont"><?php echo "(".substr($number['phone_num'], 0, 3).") ".substr($number['phone_num'], 3, 3)."-".substr($number['phone_num'],6); ?></div>
                     </div>
                     <div class="medical-data-action-cont">
                       <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
@@ -110,6 +108,9 @@
         inputNum.attr('name', 'phones[phone_num][]');
         inputNum.addClass('add-input w-input');
         inputNum.attr('id', 'phones-phone-num');
+        inputNum.attr('type', 'tel');
+        inputNum.attr('maxLength', 10);
+        inputNum.attr('minLength', 10);
         inputNum.attr('placeholder', 'Enter Number');
         $(inputType).after(inputNum);
         var selectedNum = $('#phones-phone-num').val();
