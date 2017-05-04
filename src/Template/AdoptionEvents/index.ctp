@@ -20,113 +20,10 @@
           <div class="events-tab-cont w-tab-content">
             <div class="events-tab w--tab-active w-tab-pane" data-w-tab="Tab 1">
               <div class="event-wrap">
-                <div class="event-cont">
-                  <div class="event-header-cont" data-ix="event-show-hide-upcoming">
-                    <div class="event-h2">May 15th, 2017</div>
-                    <div class="event-expand-icon"></div>
-                    <div class="events-action-cont">
-                      <a class="left medical-data-action w-inline-block" href="#">
-                        <div class="profile-action-button sofware">-</div>
-                        <div>edit</div>
-                      </a>
-                      <a class="medical-data-action w-inline-block" data-ix="delete-click-desktop" href="#">
-                        <div class="basic profile-action-button"></div>
-                        <div>delete</div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="event scroll1">
-                    <div class="event-h3">Description:</div>
-                    <div class="event-description"></div>
-                    <div class="event-h3">Cats:</div>
-                    <div class="events list-wrapper w-dyn-list" data-ix="page-load-fade-in">
-                      <div class="events list w-dyn-items">
-                        <div class="card-cont card-wrapper w-dyn-item">
-                          <a class="card w-clearfix w-inline-block">
-                            <div class="card-h1"></div>
-                            <div class="card-h2-cont">
-                              <div class="card-h2-symbol male">C</div>
-                              <div class="card-h2-symbol female">D</div>
-                              <div class="card-h2 male">Kitten</div>
-                              <div class="card-h2 female">Kitten</div>
-                            </div>
-                            <div class="card-field-wrap">
-                              <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">DOB:</div>
-                                  <div class="card-field-text"></div>
-                                </div>
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Age:</div>
-                                  <div class="card-field-text"></div>
-                                </div>
-                              </div>
-                              <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Breed:</div>
-                                  <div class="card-field-text"></div>
-                                </div>
-                              </div>
-                              <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Color:</div>
-                                  <div class="card-field-text"></div>
-                                </div>
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Coat:</div>
-                                  <div class="card-field-text">Short/Long</div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="list-id-cont">
-                              <div class="id-text">#</div>
-                              <div class="id-text"></div>
-                            </div>
-                          </a>
-                          <div class="dropdown-results-cont">
-                            <a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg">
-                              <div class="dropdown-cat-name"></div>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="w-dyn-empty">
-                        <div>No items found.</div>
-                      </div>
-                    </div>
-                    <div class="event-h3">Volunteers:</div>
-                    <div class="events list-wrapper w-dyn-list" data-ix="page-load-fade-in">
-                      <div class="events list w-dyn-items">
-                        <div class="card-cont card-wrapper w-dyn-item">
-                          <a class="card w-clearfix w-inline-block"><img class="card-pic" sizes="100vw">
-                            <div class="card-h1"></div>
-                            <div>
-                              <div class="card-h2">Rating:</div>
-                              <div class="card-h2"></div>
-                            </div>
-                            <div class="card-field-wrap">
-                              <div class="card-field-cont left-justify">
-                                <div class="card-h3">Address:</div>
-                                <div class="catlist-field-content"></div>
-                              </div>
-                              <div class="card-field-cont left-justify">
-                                <div class="card-h3">Phone:</div>
-                                <div class="catlist-field-content"></div>
-                              </div>
-                              <div class="card-field-cont left-justify">
-                                <div class="card-h3">E-mail:</div>
-                                <div class="catlist-field-content"></div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="w-dyn-empty">
-                        <div>No items found.</div>
-                      </div>
-                    </div>
-                  </div>
-                </div> <!-- End Current -->
+                <!-- Insert code for current event here --> 
+                <div class="w-dyn-empty">
+                  <div>No Current Adoption Event(s)!</div>
+                </div>
               </div>
             </div>
             <div class="events-tab w-tab-pane" data-w-tab="Tab 2">
@@ -137,7 +34,7 @@
                     <div class="event-h2"><?= h($adoptionEvent->event_date->format('F jS, Y')) ?></div>
                     <div class="event-expand-icon"></div>
                     <div class="events-action-cont">
-                      <a class="left medical-data-action w-inline-block" href="#">
+                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'edit', $adoptionEvent->id]) ?>">
                         <div class="profile-action-button sofware">-</div>
                         <div>edit</div>
                       </a>
@@ -156,31 +53,18 @@
                         <?php foreach ($adoptionEvent->cats as $cat) :?>
                           <div class="events list w-dyn-items">
                             <div class="card-cont card-wrapper w-dyn-item">
-                              <a class="card w-clearfix w-inline-block">
+                              <a href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat->id]) ?>" class="card w-clearfix w-inline-block">
                                 <?php
-                                  if (!empty($cat->profile_pic)) {
-                                    echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
+                                  if (!empty($cat->profile_pic_file_id)) {
+                                    echo $this->Html->image('../'.$cat->file->file_path.'_tn.'.$cat->file->file_ext, ['class'=>'card-pic']);
                                   } else {
                                     echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
                                   } 
                                 ?>
                                 <div class="card-h1"><?= h($cat->cat_name) ?></div>
                                 <div class="card-h2-cont">
-                                  <?php if ($cat->is_female == 0): ?>
-                                    <div class="card-h2-symbol male">C</div>
-                                    <?php if ($cat->is_kitten == 1): ?>
-                                      <div class="card-h2 male">Kitten</div>
-                                    <?php else: ?>
-                                      <div class="card-h2 male">Cat</div>
-                                    <?php endif; ?>
-                                  <?php else: ?>
-                                    <div class="card-h2-symbol female">D</div>
-                                    <?php if ($cat->is_kitten == 1): ?>
-                                      <div class="card-h2 female">Kitten</div>
-                                    <?php else: ?>  
-                                      <div class="card-h2 female">Cat</div>
-                                    <?php endif; ?>
-                                  <?php endif; ?>
+                                  <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                                  <div class="card-h2 <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
                                 </div>
                                 <div class="card-field-wrap">
                                   <div class="card-field-cont">
@@ -235,7 +119,14 @@
                         <?php foreach ($adoptionEvent->users as $user): ?>
                           <div class="events list w-dyn-items">
                             <div class="card-cont card-wrapper w-dyn-item">
-                              <a class="card w-clearfix w-inline-block"><img class="card-pic" sizes="100vw">
+                              <a href="<?= $this->Url->build(['controller'=>'users', 'action'=>'view', $user->id]) ?>" class="card w-clearfix w-inline-block">
+                                <?php
+                                  if (!empty($user->profile_pic_file_id)) {
+                                    echo $this->Html->image('../'.$user->file->file_path.'_tn.'.$user->file->file_ext, ['class'=>'card-pic']);
+                                  } else {
+                                    echo $this->Html->image('user-menu.png', ['class'=>'card-pic']);
+                                  } 
+                                ?>
                                 <div class="card-h1"><?= h($user->first_name).' '.h($user->last_name) ?></div>
                                   <div class="card-field-wrap">
                                   <div class="card-field-cont left-justify">
@@ -273,7 +164,7 @@
                     <div class="event-h2">May 15th, 2017</div>
                     <div class="event-expand-icon"></div>
                     <div class="events-action-cont">
-                      <a class="left medical-data-action w-inline-block" href="#">
+                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'adoptionEvents','action'=>'edit', $cat->id]); ?>">
                         <div class="profile-action-button sofware">-</div>
                         <div>edit</div>
                       </a>
@@ -612,7 +503,7 @@
           </div>
         </div>
         <div class="events-button-cont">
-        <a class="add-submit" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'add']) ?>">Create a New Event</a>
+        <a class="add-submit" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'add']) ?>">Create a New Adoption Event</a>
         </div>
       </div>
     </div>
