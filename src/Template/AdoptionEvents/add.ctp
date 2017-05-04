@@ -134,7 +134,7 @@ $(function () {
         var that = $(this);
         cat_id = that.attr('data-id');
         that.parent().remove();
-        var removedCat = that.parent().text().slice(0,-1);
+        var removedCat = that.parent().text().slice(0,-6);
         var option = $('<option/>');
         option.text(removedCat).val(cat_id);
         $('#cat').prepend(option);
@@ -179,7 +179,7 @@ $(function () {
         var that = $(this);
         user_id = that.attr('data-id');
         that.parent().remove();
-        var removedUser = that.parent().text().slice(0,-1);
+        var removedUser = that.parent().text().slice(0,-5);
         var option = $('<option/>');
         option.text(removedUser).val(user_id);
         $('#user').prepend(option);

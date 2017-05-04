@@ -164,7 +164,7 @@
                     <div class="event-h2">May 15th, 2017</div>
                     <div class="event-expand-icon"></div>
                     <div class="events-action-cont">
-                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'adoptionEvents','action'=>'edit', $cat->id]); ?>">
+                      <a class="left medical-data-action w-inline-block" href="#">
                         <div class="profile-action-button sofware">-</div>
                         <div>edit</div>
                       </a>
