@@ -19,8 +19,10 @@ class AdoptionEventsController extends AppController
      */
     public function index()
     {
-        $adoptionEvents = $this->paginate($this->AdoptionEvents);
-
+        //$adoptionEvents = $this->paginate($this->AdoptionEvents);
+        $adoptionEvents = $this->AdoptionEvents->find('all', ['contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files']]);
+        debug($adoptionEvents);die;
+        $this->paginate();
         $this->set(compact('adoptionEvents'));
         $this->set('_serialize', ['adoptionEvents']);
     }

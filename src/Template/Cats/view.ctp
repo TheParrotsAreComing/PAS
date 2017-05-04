@@ -90,7 +90,7 @@
                   <div class="left-justify profile-field-cont">
                     <div class="profile-field-name">Gender:</div>
                     
-                    <div class="profile-field-text"><?= $gender ?></div>
+                    <div class="profile-field-text"><?= $cat->is_female ?></div>
                   </div>
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Breed:</div>
@@ -463,7 +463,7 @@
                 <ul class="profile-more-wrap w-list-unstyled">
                   <li class="profile-more-cont">
           <a class="profile-more-link" href="#">Add to Litter</a>
-          <a class="profile-more-link" data-controller="CatHistories" data-action="index" href="javascript:void(0);">Cat History</a>
+          <a class="profile-more-link" data-controller="CatHistories" data-action="index" href="javascript:void(0);">Cat/Kitten Placement</a>
           <a class="profile-more-link" href="#">Option</a>
           <a class="profile-more-link" href="#">Option</a>
           <a class="profile-more-link" href="#">Option</a>

@@ -15,17 +15,13 @@
                             <?php echo $this->Form->month('event_date', array('value'=>$eventDate[1],'class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
                             <?php echo $this->Form->day('event_date', array('value'=>$eventDate[2],'class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
                             <?php echo $this->Form->year('event_date', array('value'=>$eventDate[0],'class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
-                            <?php /*
-                             <?= $this->Form->input('cats._ids', ['class'=>'add-input w-input', 'options'=>$select_cats]); ?>
-                             <?= $this->Form->input('users._ids', ['class'=>'add-input w-input', 'options'=>$select_users]); ?>
-                             */ ?>
-                        </div>
+                       </div>
                         <div class="cats-list">
                         </div>
                         <a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
                         <div class="users-list">
                         </div>
-                        <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add User</a>
+                        <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add Volunteer</a>
                         <?php echo $this->Form->input('description', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Description<span class="required-field-indicator"><span class="pre"></span></span>:', 
