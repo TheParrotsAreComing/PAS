@@ -475,21 +475,21 @@
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
           <?php if ($can_edit): ?>
-			  <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-		        <div class="profile-action-button sofware">-</div>
-		        <div>edit</div>
-		      </a>
-		      <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-		        <div class="basic profile-action-button"></div>
-		        <div>export</div>
-		      </a>
-		  <?php endif; ?>
-		  <?php if ($can_delete): ?>
-		      <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
-		        <div class="basic profile-action-button"></div>
-		        <div>delete</div>
-		      </a>
-		  <?php endif; ?>
+        <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+            <div class="profile-action-button sofware">-</div>
+            <div>edit</div>
+          </a>
+          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+            <div class="basic profile-action-button"></div>
+            <div>export</div>
+          </a>
+      <?php endif; ?>
+      <?php if ($can_delete): ?>
+          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+            <div class="basic profile-action-button"></div>
+            <div>delete</div>
+          </a>
+      <?php endif; ?>
         </div>
       </div>
     </div>
@@ -712,15 +712,15 @@ $(function () {
       modal: true,
       buttons: {
       "Delete!": {
-			text:"Delete!",
-			id:"delMed",
-			click : function() {
-			$.get(deleteRecord+'/'+that.data('mh'));
-			$(this).dialog( "close" );
-			if(parent.prev().is('label') && parent.next().is('label')){
-				parent.before('<div class="none-text"> None to date</div>');
-			}
-			parent.remove();
+      text:"Delete!",
+      id:"delMed",
+      click : function() {
+      $.get(deleteRecord+'/'+that.data('mh'));
+      $(this).dialog( "close" );
+      if(parent.prev().is('label') && parent.next().is('label')){
+        parent.before('<div class="none-text"> None to date</div>');
+      }
+      parent.remove();
         }
       },
       Cancel: function() {
@@ -774,40 +774,40 @@ $(function () {
       });
     });
 
-	$('.profile-cont').on('click','.tag-remove',function(){
-		var that = $(this); 
-		var tag_id = that.attr('data-id');
-		$( "#dialog-confirm-tag" ).dialog({
-			resizable: false,
-			height: "auto",
-			width: 400,
-			modal: true,
-			buttons: {
-				"Delete": {
-					text:"Delete!",
-					id:"delTag",
-					click : function() {
-						$.ajax({
-							url : tagDel,
-							type : 'POST',
-							data : {
-							'cat_id' : '<?= $cat->id ?>',
-							'tag_id' : tag_id
-						}
-						}).done(function(result){
-							result = JSON.parse(result);
-							$('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
-						});
-						that.parent().remove();
-						$( this ).dialog( "close" );
-					}
-				},
-				Cancel: function() {
-					$( this ).dialog( "close" );
-				}
-			}
-		});
-	});
+  $('.profile-cont').on('click','.tag-remove',function(){
+    var that = $(this); 
+    var tag_id = that.attr('data-id');
+    $( "#dialog-confirm-tag" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "Delete": {
+          text:"Delete!",
+          id:"delTag",
+          click : function() {
+            $.ajax({
+              url : tagDel,
+              type : 'POST',
+              data : {
+              'cat_id' : '<?= $cat->id ?>',
+              'tag_id' : tag_id
+            }
+            }).done(function(result){
+              result = JSON.parse(result);
+              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+            });
+            that.parent().remove();
+            $( this ).dialog( "close" );
+          }
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
 
   $('.profile-more-link').click(function(e){
     var url = APP_PATH+"/"+$(this).data('controller')+"/"+$(this).data('action')+"/"+"<?= $cat->id ?>";
