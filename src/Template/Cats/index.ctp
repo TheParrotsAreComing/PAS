@@ -81,7 +81,8 @@
                 <div class="card-field-cont">
                   <div class="card-field-cont">
                     <div class="card-h3">DOB:</div>
-                    <div class="card-field-text cat-dob"><?= $cat->dob ?></div>
+                    <div class="card-field-text"><?php $now = $cat->dob; echo $now->format('F jS, Y'); ?></div>
+                    <div class="card-field-text cat-dob" style="display:none"><?= h($cat->dob) ?></div>
                   </div>
                   <div class="card-field-cont">
                     <div class="card-h3">Age:</div>
@@ -187,7 +188,7 @@
         <div>K</div>
       </div>
     </a>
-    <a class="button-03 w-inline-block" href="#">
+    <!-- <a class="button-03 w-inline-block" href="#">
       <div class="button-icon-text">Export</div>
       <div class="floating-button">
         <div>N</div>
@@ -199,6 +200,7 @@
         <div>M</div>
       </div>
     </a>
+    -->
   </div>
   
 <script>

@@ -25,7 +25,7 @@
       <div class="filter">
           <div class="filter-criteria">Phone #:</div>
           
-          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'placeholder'=>'Enter phone number']) ?>
+          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'type'=>'tel', 'maxLength'=>10,'placeholder'=>'Enter phone number']) ?>
       </div>
       <div class="filter">
           <div class="filter-criteria">Email:</div>

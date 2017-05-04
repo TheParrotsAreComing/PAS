@@ -71,15 +71,16 @@
                     </div>
                   <?php endforeach; ?>
                 </div>
-              <div class="example-tag-wrapper">
-                <a class="new-tag-btn w-button" data-ix="add-tag" href="#">Add Tag</a>
+              <div class="medical-wrap">
+                <a class="profile-add-cont" data-ix="add-tag" href="#">+ Add Tag</a>
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Cat Information</div>
                 <div class="profile-field-cont">
                   <div class="left-justify profile-field-cont">
                     <div class="profile-field-name">DOB:</div>
-                    <div class="profile-field-text cat-dob"><?= h($cat->dob) ?></div>
+                    <div class="profile-field-text"><?php $now = $cat->dob; echo $now->format('F jS, Y'); ?></div>
+                    <div class="profile-field-text cat-dob" style="display:none"><?= h($cat->dob) ?></div>
                   </div>
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Age:</div>
@@ -144,15 +145,15 @@
               </div>
               <div class="profile-content-cont">
                 <div class="profile-text-header">Additional Information</div>
-                <div class="left-justify profile-field-cont">
+                <div class="profile-field-cont">
                   <div class="profile-field-name">Biography:</div>
                   <div class="block profile-field-text"><?= nl2br(h($cat->bio)) ?></div>
                 </div>
-                <div class="left-justify profile-field-cont">
+                <div class="profile-field-cont">
                   <div class="profile-field-name">Current Diet:</div>
                   <div class="block profile-field-text"><?= nl2br(h($cat->diet)) ?></div>
                 </div>
-                <div class="left-justify profile-field-cont">
+                <div class="profile-field-cont">
                   <div class="profile-field-name">Specialty Notes:</div>
                   <div class="block profile-field-text"><?= nl2br(h($cat->specialty_notes)) ?></div>
                 </div>
@@ -385,76 +386,75 @@
                 </div>
             </div>
             <div class="w-tab-pane" data-w-tab="Tab 5">
-              <div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
-              <div class="picture-file-wrap" data-ix="medical-data-click">
-                <div class="picture-file-cont scroll1">
-                  <?php if($photosCountTotal > 0):  ?>
-                    <?php foreach($photos as $photo): ?>
-                      <div class="picture-file" data-file-id="<?= h($photo->id) ?>">
-                        <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
-                        <?php if($photo->id == $cat->profile_pic_file_id): ?>
-                          <div class="picture-primary">H</div>
-                        <?php endif; ?>
-                      </div>
-                    <?php endforeach; ?>
-                  <?php endif; ?>
+              <div class="expand overflow profile-content-cont">
+                <div class="profile-text-header">Pictures (<?= h($photosCountTotal) ?>)</div>
+                <div class="picture-file-wrap" data-ix="medical-data-click">
+                  <div class="picture-file-cont scroll1">
+                    <?php if($photosCountTotal > 0):  ?>
+                      <?php foreach($photos as $photo): ?>
+                        <div class="picture-file" data-file-id="<?= h($photo->id) ?>">
+                          <?php echo $this->Html->image('../'.$photo->file_path.'_tn.'.$photo->file_ext, ['class'=>'picture']); ?>
+                          <?php if($photo->id == $cat->profile_pic_file_id): ?>
+                            <div class="picture-primary">H</div>
+                          <?php endif; ?>
+                        </div>
+                      <?php endforeach; ?>
+                    <?php endif; ?>
+                  </div>
+          <?php if ($can_edit): ?>
+                  <div class="picture-file-action-cont">
+                    <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
+                    <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
+                  </div>
+                  <div class="picture-file-action-cont">
+                    <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
+                  </div>
+          <?php endif; ?>
                 </div>
-				<?php if ($can_edit): ?>
-		            <div class="picture-file-action-cont">
-		              <a class="left picture-file-action w-button" data-ix="filter-cancel" href="#" id="mark-profile-pic-btn">Mark as Profile Photo</a>
-		              <a class="picture-file-action w-button" href="#" id="delete-pic-btn">Delete Selected</a>
-		            </div>
-		            <div class="picture-file-action-cont">
-		              <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
-		            </div>
-				<?php endif; ?>
-              </div>
-              <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
+                <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
 
-              <div class="medical-wrap">
-                  <div class="medical-header-cont">
-                    <div class="medical-type-cont">
-                      <div class="medical-header">Uploaded</div>
+                <div class="files-wrap">
+                    <div class="files-header-cont">
+                      <div class="files-date-cont">
+                        <div class="files-header">date</div>
+                      </div>
+                      <div class="files-name-cont">
+                        <div class="files-header">filename & notes</div>
+                      </div>
                     </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-header">Original Name</div>
-                    </div>
-                    <div class="medical-notes-cont">
-                      <div class="medical-header">Note</div>
-                    </div>
-                  </div>
-                  <?php if ($filesCountTotal > 0): ?>
-                    <?php foreach($files as $file): ?>
+                    <?php if ($filesCountTotal > 0): ?>
+                      <?php foreach($files as $file): ?>
 
-                  <div class="scroll1 no-horizontal-scroll">
-                    <div class="medical-data-cont" data-ix="medical-data-click">
-                    <div class="medical-type-cont">
-                      <div class="medical-data-type"><?= h($file->created) ?></div>
+                    <div class="files-data-wrap no-horizontal-scroll">
+                      <div class="files-data-cont" data-ix="medical-data-click">
+                      <div class="files-date-cont">
+                        <div class="medical-data-type"><?= h($file->created) ?></div>
+                      </div>
+                      <div class="files-name-cont">
+                        <div class="files-name"><?= h($file->original_filename) ?>.<?= h($file->file_ext) ?></div>
+                        <div class="files-data"><?= h($file->note) ?></div>
+                      </div>
+                      <div class="medical-data-action-cont">
+                        <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                        <div class="basic profile-action-button"></div>
+                        <div>delete</div>
+                        </a>
+                        <a class="right medical-data-action w-inline-block" href="#">
+                        <div class="profile-action-button sofware">p</div>
+                        <div>download</div>
+                        </a>
+                      </div>
+                      </div>
                     </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-date-cont"><?= h($file->original_filename) ?></div>
-                    </div>
-                    <div class="medical-notes-cont">
-                      <div class="medical-data-notes"><?= h($file->note) ?></div>
-                    </div>
-                    <div class="medical-data-action-cont">
-                      <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
-                      <div class="basic profile-action-button"></div>
-                      <div>delete</div>
-                      </a>
-                      <a class="right medical-data-action w-inline-block" href="#">
-                      <div class="profile-action-button sofware">p</div>
-                      <div>download</div>
-                      </a>
-                    </div>
-                    </div>
+                  <?php endforeach; ?>
+                  <?php else : ?>
+                    <!-- No uploaded documents to load-->
+                  <?php endif; ?>
+                      </div>
                   </div>
-                <?php endforeach; ?>
-                <?php else : ?>
-                  <!-- No uploaded documents to load-->
-                <?php endif; ?>
-                <a class="profile-add-cont w-inline-block add-file-btn" href="javascript:void(0);" data-ix="add-file-click-desktop">+ Add New File</a> 
-                    </div>
+                  <div class="medical-wrap">
+                  <a class="profile-add-cont w-inline-block add-file-btn" href="javascript:void(0);" data-ix="add-file-click-desktop">+ Add New File</a> 
+                  </div>
                 </div>
 
             <div class="profile-tab-cont w-tab-pane" data-w-tab="Tab 6">
@@ -464,9 +464,6 @@
                   <li class="profile-more-cont">
           <a class="profile-more-link" href="#">Add to Litter</a>
           <a class="profile-more-link" data-controller="CatHistories" data-action="index" href="javascript:void(0);">Cat/Kitten Placement</a>
-          <a class="profile-more-link" href="#">Option</a>
-          <a class="profile-more-link" href="#">Option</a>
-          <a class="profile-more-link" href="#">Option</a>
                   </li>
                 </ul>
               </div>
@@ -586,7 +583,10 @@
   <div class="button-cont w-hidden-main">
     <?php if ($can_edit): ?>
       <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-        <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png') ?>" width="55">
+        <div class="button-icon-text">Edit</div>
+        <div class="floating-button">
+          <div>L</div>
+        </div>
       </a>
     <?php endif; ?>
     <!--<div class="button-02">
@@ -594,13 +594,20 @@
     </div>-->
     <?php if ($can_delete): ?>
       <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-        <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png') ?>" width="55">
+        <div class="button-icon-text">Export</div>
+        <div class="floating-button">
+          <div>N</div>
+        </div>
       </a>
-      <div class="button-04" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div><img data-ix="add-click" src="<?= $this->Url->image('delete-01.png') ?>" width="55">
-      </div>
+      <a class="button-04 w-inline-block" data-ix="delete-click">
+        <div class="button-icon-text">Delete</div>
+        <div class="floating-button">
+          <div>M</div>
+        </div>
+        </a>
     <?php endif; ?>
   </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png') ?>" width="60">
+
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 </div>
@@ -609,7 +616,7 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
 </div>
 
-<div class="add-adopter-floating-overlay add-tag">
+<div class="floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">

@@ -19,7 +19,7 @@ class PhoneNumbersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Fosters', 'Adopters', 'Contacts']
+            'contain' => ['Fosters', 'Adopters', 'Contacts', 'Users']
         ];
         $phoneNumbers = $this->paginate($this->PhoneNumbers);
 
@@ -37,7 +37,7 @@ class PhoneNumbersController extends AppController
     public function view($id = null)
     {
         $phoneNumber = $this->PhoneNumbers->get($id, [
-            'contain' => ['Fosters', 'Adopters', 'Contacts']
+            'contain' => ['Fosters', 'Adopters', 'Contacts','Users']
         ]);
 
         $this->set('phoneNumber', $phoneNumber);
@@ -64,6 +64,8 @@ class PhoneNumbersController extends AppController
                     return $this->redirect(['controller' => 'adopters', 'action' => 'view', $entity_id]);
                 } elseif ($entity_type == 2){
                     return $this->redirect(['controller' => 'contacts', 'action' => 'index']);
+                } else {
+                    return $this->redirect(['controller' => 'users', 'action' => 'view', $entity_id]);
                 }
 
             }
@@ -72,6 +74,7 @@ class PhoneNumbersController extends AppController
         $contacts = $this->PhoneNumbers->Contacts->find('list', ['limit' => 200]);
         $fosters = $this->PhoneNumbers->Fosters->find('list', ['limit' => 200]);
         $adopters = $this->PhoneNumbers->Adopters->find('list', ['limit' => 200]);
+        $users = $this->PhoneNumbers->Users->find('list', ['limit' => 200]); 
         $this->set(compact('phoneNumber', 'fosters', 'adopters', 'entity_id', 'entity_type','contacts'));
         $this->set('_serialize', ['phoneNumber']);
     }
@@ -100,6 +103,8 @@ class PhoneNumbersController extends AppController
                     return $this->redirect(['controller' => 'adopters', 'action' => 'view', $entity_id]);
                 } elseif ($entity_type == 2){
                     return $this->redirect(['controller' => 'contacts', 'action' => 'index']);
+                } else {
+                    return $this->redirect(['controller' => 'users', 'action' => 'view', $entity_id]);
                 }
 
             }
@@ -108,7 +113,8 @@ class PhoneNumbersController extends AppController
         $contacts = $this->PhoneNumbers->Contacts->find('list', ['limit' => 200]);
         $fosters = $this->PhoneNumbers->Fosters->find('list', ['limit' => 200]);
         $adopters = $this->PhoneNumbers->Adopters->find('list', ['limit' => 200]);
-        $this->set(compact('phoneNumber', 'fosters', 'adopters', 'entity_id', 'entity_type','contacts'));
+        $users = $this->PhoneNumbers->Users->find('list', ['limit' => 200]);        
+        $this->set(compact('phoneNumber', 'fosters', 'adopters', 'entity_id', 'entity_type','contacts','users'));
         $this->set('_serialize', ['phoneNumber']);
     }
 

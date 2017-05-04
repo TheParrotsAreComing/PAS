@@ -29,6 +29,11 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['PhoneNumbers']
+        ];
+        $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 3]);
+
         $session_user = $this->request->session()->read('Auth.User');
         $users_model = TableRegistry::get('Users');
         $can_add = ($users_model->isAdmin($session_user) || $users_model->isCore($session_user));
@@ -37,6 +42,12 @@ class UsersController extends AppController
         if (!empty($this->request->query['mobile-search'])) {
             $this->paginate['conditions']['first_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         } else if (!empty($this->request->query)) {
+
+            if(!empty($this->request->query['phone'])){
+                $search_phones = $this->Contacts->filterPhones($this->request->query['phone']);
+                unset($this->request->query['phone']);
+            }
+
             foreach($this->request->query as $field => $query) {
                 if ($field === 'cat_count' && ($query === 0 || $query != '')){
                     $this->paginate['conditions'][$field] = $query;
@@ -46,13 +57,18 @@ class UsersController extends AppController
                     $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
                 }
             }
+
+            if(!empty($search_phones)){
+                $this->paginate['conditions']['contacts.id IN'] = $search_phones;
+            }
+
             $this->request->data = $this->request->query;
         }
 
         $query = $this->Users->find()->where(['is_deleted'=>0]);
         $users = $this->paginate($query);
 
-        $this->set(compact('users'));
+        $this->set(compact('users','phones'));
         $this->set('_serialize', ['users']);
     }
 
@@ -75,8 +91,9 @@ class UsersController extends AppController
         $can_edit = (($can_delete || $this->Users->isCore($session_user)) || $session_user['id'] == $id);
 
         $user = $this->Users->get($id, [
-            'contain' => ['UsersAdoptionEvents']
+            'contain' => ['UsersAdoptionEvents', 'PhoneNumbers']
         ]);
+        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 3]);
         
         $adopter_profile = [];
         if (!empty($user->adopter_id)) {
@@ -145,7 +162,7 @@ class UsersController extends AppController
             }
         }
 
-        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_edit', 'photos', 'photosCountTotal', 'uploaded_photo'));
+        $this->set(compact('user', 'foster_profile', 'adopter_profile', 'can_delete', 'can_edit', 'photos', 'photosCountTotal', 'uploaded_photo','phones'));
         $this->set('_serialize', ['user']);
     }
 
@@ -243,19 +260,41 @@ class UsersController extends AppController
         }
 
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => ['PhoneNumbers']
         ]);
+        $phoneTable = TableRegistry::get('PhoneNumbers');
+        $phone = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 3]);
 
         $admin = ($this->request->session()->read('Auth.User.role') == 1) ? true : false;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['phones'])){
+                $phones = $this->request->data['phones'];
+            }
+
+            if(!empty($phones)){
+                unset($this->request->data['phones']);
+            }
+
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->new_user = 0;
             if ($this->Users->save($user)) {
+                if(!empty($phones)){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 3;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
+                    }
+                }
                 $this->request->session()->write('Auth.User.new_user', 0);
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'users','action' => 'view', $user->id]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         } else {
@@ -270,7 +309,7 @@ class UsersController extends AppController
         $user_types = array_flip(Configure::read('Roles'));
         $user_types[1] = "Admin **FULL PRIVILEGES**";
 
-        $this->set(compact('user', 'user_types', 'admin'));
+        $this->set(compact('user', 'user_types', 'admin','phone'));
         $this->set('_serialize', ['user']);
     }
 

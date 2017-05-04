@@ -30,7 +30,7 @@
           <div class="add-field-seperator"></div>
           <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
-          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'id'=>'Phone', 'label'=>false, 'placeholder'=>'Enter Number']);?>
+          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'id'=>'Phone', 'label'=>false, 'type'=>'tel', 'maxLength'=>10, 'minLength'=>10, 'placeholder'=>'Enter Number']);?>
           <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Another Phone Number</a>
 
           <label class="add-field-h2" for="First-Name">Other Information</label>
@@ -87,10 +87,10 @@ $(document).ready(function(){
         inputNum.attr('name', 'phones[phone_num][]');
         inputNum.addClass('add-input w-input');
         inputNum.attr('id', 'phones-phone-num');
+        inputNum.attr('type', 'tel');
+        inputNum.attr('maxLength', 10);
+        inputNum.attr('minLength', 10);
         inputNum.attr('placeholder', 'Enter Number');
-        //inputNum.attr('type','integer');
-        //inputNum.attr('type','tel');
-        //inputNum.attr('maxLength',10);
         $(inputType).after(inputNum);
         var selectedNum = $('#phones-phone-num').val();
         inputNum.val(selectedNum);
