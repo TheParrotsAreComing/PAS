@@ -38,7 +38,7 @@
                         <div class="profile-action-button sofware">-</div>
                         <div>edit</div>
                       </a>
-                      <a class="medical-data-action w-inline-block" data-ix="delete-click-desktop" href="#">
+                      <a class="medical-data-action w-inline-block" data-ix="delete-click-desktop" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'delete', $adoptionEvent->id]) ?>">
                         <div class="basic profile-action-button"></div>
                         <div>delete</div>
                       </a>

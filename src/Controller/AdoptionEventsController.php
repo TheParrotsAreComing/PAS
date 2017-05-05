@@ -102,8 +102,9 @@ class AdoptionEventsController extends AppController
      */
     public function edit($id = null)
     {
+        $eventDate = false;
         $adoptionEvent = $this->AdoptionEvents->get($id, [
-            'contain' => ['Cats']
+            'contain' => ['Cats', 'Cats.Breeds', 'Cats.Files']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $adoptionEvent = $this->AdoptionEvents->patchEntity($adoptionEvent, $this->request->data);
@@ -128,6 +129,8 @@ class AdoptionEventsController extends AppController
      */
     public function delete($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        
         $this->request->allowMethod(['post', 'delete']);
         $adoptionEvent = $this->AdoptionEvents->get($id);
         if ($this->AdoptionEvents->delete($adoptionEvent)) {
