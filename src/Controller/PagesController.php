@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 
 /**
@@ -56,7 +57,10 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $this->set(compact('page', 'subpage'));
+        
+        $is_foster = TableRegistry::get('Users')->isFoster($this->request->session()->read('Auth.User'));
+
+        $this->set(compact('page', 'subpage', 'is_foster'));
 
         try {
             $this->render(implode('/', $path));

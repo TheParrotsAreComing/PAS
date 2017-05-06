@@ -107,7 +107,7 @@ try:
 
 	driver.get('http://localhost:8765/adopters/view/'+a_id)
 
-	new_img = driver.find_element_by_css_selector('img.')
+	new_img = driver.find_element_by_css_selector('div.profile-header > img.cat-profile-pic')
 
 	img_src = new_img.get_attribute('src')
 

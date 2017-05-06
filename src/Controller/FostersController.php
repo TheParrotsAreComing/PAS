@@ -19,6 +19,18 @@ class FostersController extends AppController
      */
     public function index()
     {
+
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        $can_add = false;
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        } else if (!$users_model->isVolunteer($session_user)) {
+            $can_add = true;
+        }
+
+
         $this->paginate = [
             'contain' => [ 
             'PhoneNumbers',
@@ -95,8 +107,7 @@ class FostersController extends AppController
             }
         }
 
-
-        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phones'));
+        $this->set(compact('fosters', 'foster_cats', 'rating','foster_tags', 'phones', 'entity_type', 'can_add'));
         $this->set('_serialize', ['fosters']);
     }
 
@@ -109,9 +120,18 @@ class FostersController extends AppController
      */
     public function view($id = null)
     {
-        $cat_breeds = TableRegistry::get('Breeds')->find('all');
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_model = TableRegistry::get('Users');
 
-        //debug($cat_breeds); die;
+        if ($user_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
+        $can_delete = ($user_model->isAdmin($session_user));
+        $can_edit = ($can_delete || $user_model->isCore($session_user));
+
+        $cat_breeds = TableRegistry::get('Breeds')->find('all');
 
         $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 0]);
 
@@ -141,11 +161,25 @@ class FostersController extends AppController
         // for page form
         $uploaded_photo = null;
 
+        // get files and count
+        $files = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Fosters->getEntityTypeId(),
+                'Files.entity_id' => $foster->id,
+                'Files.is_deleted' => false
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $filesCountTotal = $files->count();
+
+        // for form on page
+        $uploaded_file = null;
+
         // check for updates and changes
         if($this->request->is('post')) {
 
             // uploaded a photo?
-            if(!empty($this->request->data['uploaded_photo']['name'])){
+            if( !empty($this->request->data['uploaded_photo']['name']) && empty($this->request->data['uploaded_file']['name']) ){
 
                 // get file ext
                 $uploadedFileName = $this->request->data['uploaded_photo']['name'];
@@ -178,9 +212,35 @@ class FostersController extends AppController
                     $this->Flash->error(__('Unable to upload photo, please try again.'));
                 }
 
+            } elseif ( empty($this->request->data['uploaded_photo']['name']) && !empty($this->request->data['uploaded_file']['name']) ) {
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_file']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
+                $uploadPath = 'files/fosters/'.$foster->id;
+                $entityTypeId = $this->Fosters->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_file']['type'];
+                $fileSize = $this->request->data['uploaded_file']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Fosters->uploadDocument($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $foster->id, $mimeType, $fileSize, $this->request->data['file-note']);
+
+                if ($new_file_id > 0){
+
+                    $this->Flash->success(__('File has been uploaded and saved successfully.'));
+                    $filesCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
             } else {
-                $this->Flash->error(__('Please choose a photo.'));
+                $this->Flash->error(__('Please choose a file or photo to upload.'));
             }
+            return $this->redirect(['action' => 'view', $id]);
         }
         // profile pic file
         if($foster->profile_pic_file_id > 0) {
@@ -189,7 +249,7 @@ class FostersController extends AppController
             $profile_pic = null;
         }
         
-        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds'));
+        $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds', 'files', 'filesCountTotal', 'uploaded_file', 'can_delete', 'can_edit'));
         $this->set('_serialize', ['foster']);
     }
 
@@ -200,6 +260,13 @@ class FostersController extends AppController
      */
     public function add()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $foster = $this->Fosters->newEntity();
         if ($this->request->is('post')) {
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
@@ -227,6 +294,13 @@ class FostersController extends AppController
      */
     public function edit($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $foster = $this->Fosters->get($id, [
             'contain' => ['Tags']
         ]);
@@ -254,6 +328,12 @@ class FostersController extends AppController
      */
     public function delete($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        if (!TableRegistry::get('Users')->isAdmin($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         //$this->request->allowMethod(['post', 'delete']);
         $foster = $this->Fosters->get($id);
         $this->request->data['is_deleted'] = 1;
@@ -312,6 +392,29 @@ class FostersController extends AppController
         ob_clean();
         echo json_encode(TableRegistry::get('Tags')->find()->where(['id'=>$data['tag_id']])->first());
         exit(0);
+    }
+
+    public function fosterFromUser($user_id=null) {
+        $this->autoRender = false;
+        $user = TableRegistry::get('Users')->get($user_id);
+        $patch['first_name'] = $user->first_name;
+        $patch['last_name'] = $user->last_name;
+        $patch['phone'] = $user->phone;
+        $patch['email'] = $user->email;
+        $patch['address'] = $user->address;
+        $patch['is_deleted'] = false;
+
+        $foster = $this->Fosters->newEntity();
+        $foster = $this->Fosters->patchEntity($foster, $patch);
+        $foster_saved = $this->Fosters->save($foster);
+        if ($foster_saved) {
+            $user->foster_id = $foster_saved->id;
+            TableRegistry::get('Users')->save($user);
+            return $this->redirect(['controller'=>'fosters','action'=>'view',$foster_saved->id]);
+        } else {
+            $this->Flash->error('Something went wrong. Please check your user information and try again.');
+            return $this->redirect(['controller'=>'users','action'=>'view',$user_id]);
+        }
     }
 
     public function changeProfilePic() {

@@ -101,13 +101,15 @@
                       </a>
                     </div>
                   <?php endforeach; ?>
-                  <a class="card w-clearfix w-inline-block">
-                    <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add',$litter->id])?>">+ Add New Cat</a>
-                  </a>
-				<br/>
-                  <a class="card w-clearfix w-inline-block">
-                    <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Existing Cat</a>
-                  </a>
+                  <?php if ($can_edit): ?>
+                    <a class="card w-clearfix w-inline-block">
+                      <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add',$litter->id])?>">+ Add New Cat</a>
+                    </a>
+                    <br/>
+                    <a class="card w-clearfix w-inline-block">
+                      <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Existing Cat</a>
+                    </a>
+                  <?php endif; ?>
                 <?php else: ?>
                   <div class="card-h1">This litter currently has no cat(s) or kitten(s).</div>
                 <?php endif; ?>
@@ -121,22 +123,26 @@
           </div>
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
-            <div class="profile-action-button sofware">-</div>
-            <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
-            <div class="extend profile-action-button">w</div>
-            <div>upload</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="#">
+          <?php if ($can_edit): ?>
+            <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
+              <div class="profile-action-button sofware">-</div>
+              <div>edit</div>
+            </a>
+            <a class="profile-action-button-cont w-inline-block" href="#">
+              <div class="extend profile-action-button">w</div>
+              <div>upload</div>
+            </a>
+          <?php endif; ?>
+          <!--<a class="profile-action-button-cont w-inline-block" href="#">
             <div class="basic profile-action-button"></div>
             <div>export</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
-            <div class="basic profile-action-button"></div>
-            <div>delete</div>
-          </a>
+          </a>-->
+          <?php if ($can_delete): ?>
+            <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+              <div class="basic profile-action-button"></div>
+              <div>delete</div>
+            </a>
+          <?php endif; ?>
         </div>
       </div>
     </div>

@@ -61,7 +61,10 @@
           <div class="cat-sort-text">Filter</div>
         </div>
         <nav class="w-dropdown-list"></nav>
-      </div><?= $this->Html->link('+ New Foster', ['controller'=>'fosters','action'=>'add'],['class'=>'cat-add w-button']); ?>
+      </div> 
+      <?php if ($can_add): ?>
+        <?= $this->Html->link('+ New Foster', ['controller'=>'fosters','action'=>'add'],['class'=>'cat-add w-button']); ?>
+      <?php endif; ?>
     </div>
     <div class="list-wrapper scroll1 w-dyn-list">
       <div class="list scroll1 w-dyn-items">
@@ -75,7 +78,7 @@
                       if(!empty($foster->profile_pic)){
                         echo $this->Html->image('../'.$foster->profile_pic->file_path.'_tn.'.$foster->profile_pic->file_ext, ['class'=>'card-pic']);
                       } else {
-                        echo $this->Html->image('foster-01.png', ['class'=>'card-pic']);
+                        echo $this->Html->image('foster-menu.png', ['class'=>'card-pic']);
                       }
                   ?>
 

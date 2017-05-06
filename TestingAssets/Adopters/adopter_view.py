@@ -18,7 +18,7 @@ try:
 	rand_mail=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
 
-	db.query("INSERT INTO adopters (first_name,last_name,phone,cat_count,address,email,created,is_deleted) VALUES(\""+rand_fname+"\",\""+rand_lname+"\",\"1707255123\",0,\"55 Gato Way\",\""+rand_mail+"@mail.com\",NOW(),true);");
+	db.query("INSERT INTO adopters (first_name,last_name,cat_count,address,email,created,is_deleted) VALUES(\""+rand_fname+"\",\""+rand_lname+"\",0,\"55 Gato Way\",\""+rand_mail+"@mail.com\",NOW(),true);");
 	db.store_result()
 
 	db.query("SELECT id,first_name FROM adopters where last_name=\""+rand_lname+"\" AND email=\""+rand_mail+"@mail.com\"")
@@ -37,12 +37,17 @@ try:
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+	driver.get('http://localhost:8765');
+	driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+	driver.find_element_by_id('password').send_keys('password')
+	driver.find_element_by_css_selector('input[type="submit"]').click()
+
 	driver.get('http://localhost:8765/adopters/view/'+a_id);
-	sys.exit()
 
 
 	cat_name = driver.find_element_by_class_name("cat-profile-name").text
-	if rand_name == cat_name:
+
+	if rand_fname+" "+rand_lname == cat_name:
 		print("pass")
 	else:
 		print("fail")

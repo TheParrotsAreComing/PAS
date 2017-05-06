@@ -99,7 +99,9 @@ try:
 
 	driver.get('http://localhost:8765/fosters/view/'+a_id)
 
-	driver.find_element_by_css_selector('a[data-ix="attachment-notification"]').click()
+	upload_elem = driver.find_element_by_css_selector('a[data-ix="attachment-notification"]')
+
+	upload_elem.click()
 
 	driver.find_element_by_css_selector('div.picture-file[data-file-id="'+file_2_id+'"]').click()
 
@@ -107,7 +109,7 @@ try:
 
 	driver.get('http://localhost:8765/fosters/view/'+a_id)
 
-	new_img = driver.find_element_by_css_selector('img.')
+	new_img = driver.find_element_by_css_selector('div.picture-file > img.picture')
 
 	img_src = new_img.get_attribute('src')
 

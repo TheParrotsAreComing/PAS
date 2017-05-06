@@ -18,10 +18,12 @@
                         <?= $this->Form->input('phone_num', ['class'=>'add-input w-input', 'data-name'=>'Phone', 'label'=>false, 
           'placeholder'=>'Enter Number']);?>
                         <div class="add-button-cont">
-                        <?php if($entity_type == 1): ?>   
+                        <?php if($entity_type == 0): ?>   
                             <?= $this->Html->link("Cancel", ['controller'=>'fosters', 'action'=>'view', $entity_id], ['id'=>'NFPCancel', 'class'=>'add-cancel w-button']);?>
-                        <?php elseif ($entity_type == 2): ?> 
+                        <?php elseif ($entity_type == 1): ?> 
                             <?= $this->Html->link("Cancel", ['controller'=>'adopters', 'action'=>'view', $entity_id], ['id'=>'NAPCancel', 'class'=>'add-cancel w-button']);?>
+                        <?php elseif ($entity_type == 2): ?> 
+                            <?= $this->Html->link("Cancel", ['controller'=>'contacts', 'action'=>'index'], ['id'=>'NCPCancel', 'class'=>'add-cancel w-button']);?>
                         <?php endif;?>
                         <?= $this->Form->submit("Submit",['id'=>'APAdd', 'class'=>'add-submit w-button']); ?>
                         </div>

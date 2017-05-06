@@ -46,10 +46,13 @@
         </div>
         <div class="cat-filter cat-sort w-dropdown" data-delay="0">
           <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="img/filter-filled-tool-symbol.png" srcset="img/filter-filled-tool-symbol-p-500x500.png 500w, img/filter-filled-tool-symbol.png 512w" width="12">
-            <div class="cat-sort-text">Filter</div>
+            <div class="cat-sort-text litter-filter">Filter</div>
           </div>
           <nav class="w-dropdown-list"></nav>
-        </div><a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'litters','action'=>'add']); ?>>+ New Litter</a>
+        </div>
+        <?php if ($can_add): ?>
+          <a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'litters','action'=>'add']); ?>>+ New Litter</a>
+        <?php endif; ?>
       </div>
 
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">

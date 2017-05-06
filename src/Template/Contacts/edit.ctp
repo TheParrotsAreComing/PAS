@@ -59,8 +59,8 @@
                   <?php endif; ?>
                 <?php endforeach; ?>
             </div>
-            <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $contact->id, 2])?>">+ Add New Phone Number
-            </a>
+            <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Another Phone Number</a>
+
           <div class="add-button-cont">
             <?= $this->Html->link('Cancel', ['controller'=>'contacts','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'ContactCancel']); ?>
             <?= $this->Html->link('Delete', ['controller'=>'contacts','action'=>'delete', $contact->id],['class'=>'add-cancel w-button', 'id'=>'ContactDelete']); ?>
@@ -78,4 +78,68 @@
   </div>
 </div>
 <?= $this->Form->end();?>
+<!--Delete Phone Number Confirmation-->
+<div id="dialog-confirm-number" title="Delete this phone number?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
+</div>
+
+<script>
+  $(document).ready(function(){
+    var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
+      // Add Multiple Phone Numbers
+      $('.add-phone-btn').click(function(e){
+        e.preventDefault();
+
+        var data = {
+            '0': 'Mobile',
+            '1': 'Home',
+            '2': 'Organization',
+            '3': 'Other'
+        }
+        var inputType = $('<select />');
+        inputType.attr('name', 'phones[phone_type][]');
+        inputType.addClass('w-select');
+        inputType.attr('id', 'phones-phone-type');
+        for(var val in data) {
+            $('<option />', {value: val, text: data[val]}).appendTo(inputType);
+        }
+
+        $('#add-phone').before(inputType);
+        var selectedType = $('#phones-phone-type').val();
+        inputType.val(selectedType);
+
+        var inputNum = $('<input/>');
+        inputNum.attr('name', 'phones[phone_num][]');
+        inputNum.addClass('add-input w-input');
+        inputNum.attr('id', 'phones-phone-num');
+        inputNum.attr('placeholder', 'Enter Number');
+        $(inputType).after(inputNum);
+        var selectedNum = $('#phones-phone-num').val();
+        inputNum.val(selectedNum);
+
+      });
+      // Delete Phone Number
+     $('.delete-number-btn').click(function(){
+     var parent = $(this).parent().parent().parent();
+     var that = $(this); 
+     $( "#dialog-confirm-number" ).dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+        "Delete!": function() {
+          $.get(deletePhone+'/'+that.data('number'));
+          $(this).dialog( "close" );
+          parent.remove();
+        },
+        Cancel: function() {
+          $(this).dialog( "close" );
+          $('.no-horizontal-scroll').scrollLeft(0);
+        }
+        }
+      });
+    });
+  });
+</script>
 

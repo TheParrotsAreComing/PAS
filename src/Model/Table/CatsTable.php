@@ -121,9 +121,6 @@ class CatsTable extends Table
             ->notEmpty('bio');
 
         $validator
-            ->notEmpty('specialty_notes');
-
-        $validator
             ->integer('microchip_number')
             ->allowEmpty('microchip_number');
 

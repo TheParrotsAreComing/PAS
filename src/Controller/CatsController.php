@@ -20,10 +20,22 @@ class CatsController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_model = TableRegistry::get('Users');
+
+        $can_add = ($user_model->isAdmin($session_user) || $user_model->isCore($session_user));
+
+
         $this->paginate = [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
             'conditions' => ['Cats.is_deleted' => 0, 'Cats.is_deceased' => 0]
         ];
+
+        $session_user = $this->request->session()->read('Auth.User');
+        if (TableRegistry::get('Users')->isFoster($session_user)) {
+            $foster_cats = array_values(TableRegistry::get('Cat_Histories')->find('list', ['valueField'=>'cat_id'])->where(['foster_id'=>$session_user['foster_id'],'end_date IS NULL'])->toArray());
+            $this->paginate['conditions']['Cats.id IN'] = $foster_cats;
+        }
 
         $filesDB = TableRegistry::get('Files');
 
@@ -85,7 +97,7 @@ class CatsController extends AppController
             }
         }
 
-		$this->set(compact('cats', 'breeds','cat_tags'));
+		$this->set(compact('cats', 'breeds', 'cat_tags', 'can_add'));
 		$this->set('_serialize', ['cats']);
 	}
 
@@ -99,6 +111,25 @@ class CatsController extends AppController
      */
     public function view($id = null)
     {
+
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+
+        $can_delete = ($users_model->isAdmin($session_user));
+        $can_edit = ($can_delete || $users_model->isCore($session_user));
+        $is_foster = false;
+
+        if ($users_model->isFoster($session_user)) {
+            $foster_cats = array_values(TableRegistry::get('Cat_Histories')->find('list', ['valueField'=>'cat_id'])->where(['foster_id'=>$session_user['foster_id'],'end_date IS NULL'])->toArray());
+            if (!in_array($id,$foster_cats)) {
+                $this->Flash->error("You aren't allowed to do that.");
+                return $this->redirect(['controller'=>'cats','action'=>'index']);
+            } else {
+                $can_edit = $is_foster = true;
+            }
+        }
+
+        $this->set(compact('can_delete', 'can_edit', 'is_foster'));
 
         $cat_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 100')->toArray();
         $attached_tags = TableRegistry::get('Tags_Cats')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['cat_id'=>$id])->toArray();
@@ -269,6 +300,13 @@ class CatsController extends AppController
      */
     public function add($litter_id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+        
 		$dob = false;
 
 		if(!empty($litter_id)){
@@ -356,6 +394,13 @@ class CatsController extends AppController
      */
     public function edit($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $cat = $this->Cats->get($id, [
             'contain' => ['AdoptionEvents', 'Tags']
         ]);
@@ -397,6 +442,12 @@ class CatsController extends AppController
      */
     public function delete($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        if (!TableRegistry::get('Users')->isAdmin($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         //$this->request->allowMethod(['post', 'delete']);
         $cat = $this->Cats->get($id);
         $this->request->data['is_deleted'] = 1;

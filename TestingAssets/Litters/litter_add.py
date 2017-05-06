@@ -18,6 +18,11 @@ driver = webdriver.Remote(service.service_url, capabilities)
 
 driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+driver.get('http://localhost:8765');
+driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+driver.find_element_by_id('password').send_keys('password')
+driver.find_element_by_css_selector('input[type="submit"]').click()
+
 driver.get('http://localhost:8765/litters/add');
 
 l_name=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))

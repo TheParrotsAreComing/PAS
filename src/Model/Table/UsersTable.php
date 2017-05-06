@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Core\Configure;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -40,6 +41,11 @@ class UsersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('File');
+
+        $this->belongsTo('Files', [
+            'foreignKey' => 'profile_pic_file_id'
+        ]);
 
         $this->hasMany('UsersAdoptionEvents', [
             'foreignKey' => 'user_id'
@@ -90,6 +96,10 @@ class UsersTable extends Table
             ->notEmpty('role');
 
         $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
+
+        $validator
             ->boolean('is_deleted')
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
@@ -120,6 +130,22 @@ class UsersTable extends Table
             $pass .= $alphabet[$n];
         }
         return $pass; 
+    }
+
+    public function isAdmin($user) {
+        return ($user['role'] == Configure::read('Roles.Admin'));
+    }
+
+    public function isCore($user) {
+        return ($user['role'] == Configure::read('Roles.Core'));
+    }
+
+    public function isVolunteer($user) {
+        return ($user['role'] == Configure::read('Roles.Volunteer'));
+    }
+
+    public function isFoster($user) {
+        return ($user['role'] == Configure::read('Roles.Foster'));
     }
 
 }

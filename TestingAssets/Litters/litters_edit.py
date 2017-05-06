@@ -39,15 +39,15 @@ try:
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+	driver.get('http://localhost:8765');
+	driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+	driver.find_element_by_id('password').send_keys('password')
+	driver.find_element_by_css_selector('input[type="submit"]').click()
+
 	driver.get('http://localhost:8765/litters/edit/'+litter_id);
 	
 	kcr = driver.find_element_by_id("kc-ref-id")
 	kc_ref = kcr.get_attribute("value")
-
-	if kc_ref == rand_KC:
-		print("Correct Litter Pass")
-	else:
-		print("Wrong Litter detected")
 
 	lit_name_elem = driver.find_element_by_id("litter-name")
 	lit_name_val = lit_name_elem.get_attribute("value")

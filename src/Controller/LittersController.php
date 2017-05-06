@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Litters Controller
@@ -18,35 +19,44 @@ class LittersController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_model = TableRegistry::get('Users');
+        if ($user_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+        $can_add = ($user_model->isAdmin($session_user) || $user_model->isCore($session_user));
+
         $this->paginate = [
             'contain' => ['Cats'],
             'conditions' => ['Litters.is_deleted' => 0]
         ];
 
-		if(!empty($this->request->query['mobile-search'])){
-			$this->paginate['conditions']['litter_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
-		}else if(!empty($this->request->query)){
-			foreach($this->request->query as $field => $query){
-				if($field == 'dob'){
+        if(!empty($this->request->query['mobile-search'])){
+            $this->paginate['conditions']['litter_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+        }else if(!empty($this->request->query)){
+            foreach($this->request->query as $field => $query){
+                if($field == 'dob'){
                     if(!empty($query)){
-					   $this->paginate['conditions'][$field] = date('Y-m-d',strtotime($query));
+                        $this->paginate['conditions'][$field] = date('Y-m-d',strtotime($query));
                     }
-				}else if(!empty($query)){
-					if(preg_match('/count/',$field)){
-						$this->paginate['conditions'][$field] = $query;
-					}else{
-						$this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
-					}
-				}
-			}
+                }else if(!empty($query)){
+                    if(preg_match('/count/',$field)){
+                        $this->paginate['conditions'][$field] = $query;
+                    }else{
+                        $this->paginate['conditions'][$field.' LIKE'] = '%'.$query.'%';
+                    }
+                }
+            }
             $this->request->data = $this->request->query;
-		}
+        }
 
         $litters = $this->paginate($this->Litters);
-		
-		$count = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15];
-        $this->set(compact('litters','count'));
+
+        $count = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15];
+        $this->set(compact('litters','count','can_add'));
         $this->set('_serialize', ['litters']);
+
     }
 
     /**
@@ -58,11 +68,20 @@ class LittersController extends AppController
      */
     public function view($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_model = TableRegistry::get('Users');
+        if ($user_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+        $can_delete = ($user_model->isAdmin($session_user));
+        $can_edit = ($can_delete || $user_model->isCore($session_user));
+
         $litter = $this->Litters->get($id, [
             'contain' => ['Cats']
         ]);
 
-        $this->set('litter', $litter);
+        $this->set(compact('litter', 'can_delete', 'can_edit'));
         $this->set('_serialize', ['litter']);
     }
 
@@ -73,6 +92,13 @@ class LittersController extends AppController
      */
     public function add()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $litter = $this->Litters->newEntity();
         if ($this->request->is('post')) {
             
@@ -111,6 +137,13 @@ class LittersController extends AppController
      */
     public function edit($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $litter = $this->Litters->get($id, [
             'contain' => []
         ]);
@@ -136,6 +169,12 @@ class LittersController extends AppController
      */
     public function delete($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        if (!TableRegistry::get('Users')->isAdmin($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $litter = $this->Litters->get($id);
         $this->request->data['is_deleted'] = 1;
         $litter = $this->Litters->patchEntity($litter, $this->request->data);

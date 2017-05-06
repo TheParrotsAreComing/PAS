@@ -197,7 +197,11 @@ CREATE TABLE users (
     new_user tinyint(1),
     need_new_password tinyint(1),
 	adopter_id INT,
+    profile_pic_file_id INT,
+    foster_id INT,
     FOREIGN KEY adopter_ref (adopter_id) REFERENCES adopters(id),
+    FOREIGN KEY user_profile_pic_ref(profile_pic_file_id) REFERENCES files(id),
+    FOREIGN KEY foster_ref (foster_id) REFERENCES fosters(id),
     created DATETIME,
     modified DATETIME
 );

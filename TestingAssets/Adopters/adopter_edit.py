@@ -4,8 +4,6 @@ import _mysql
 import random
 import string
 import re
-import os
-import traceback
 
 
 from selenium import webdriver
@@ -44,32 +42,26 @@ try:
 	driver.find_element_by_id('password').send_keys('password')
 	driver.find_element_by_css_selector('input[type="submit"]').click()
 
-	driver.get('http://localhost:8765/adopters/view/'+a_id);
+	driver.get('http://localhost:8765/adopters/edit/'+a_id);
 
-
-	upload_elem = driver.find_element_by_css_selector('a[data-ix="attachment-notification"]')
-
-	upload_elem.click()
-
-	file_upload = driver.find_element_by_css_selector('a[data-ix="add-photo-click-desktop"]')
-	file_upload.click()
-	
-	browse = driver.find_element_by_id("uploaded-photo")
-	browse.send_keys(os.getcwd()+"/img/user.png")
+	name = driver.find_element_by_id('first-name')
+	name.clear()
+	name.send_keys(rand_fname+rand_lname)
 
 	driver.find_element_by_css_selector('input[type="submit"]').click()
 
-	file_tab = driver.find_element_by_css_selector('a[data-ix="attachment-notification"]')
-
-	file_tab.click()
-
-	img = driver.find_element_by_css_selector('div.picture-file > img.picture')
-
-	print("pass")
-	driver.quit()
+	db.query('SELECT id,first_name FROM adopters where id="'+a_id+'";')
 	
+	r=db.store_result()
+	k=r.fetch_row(1,1)
+	check = k[0].get('first_name')
+	check = str(check,'utf-8')
+
+	if check == rand_fname + rand_lname:
+		print("pass")
+	else:
+		print("fail")
 except Exception as e:
-	traceback.print_exc()
 	print(e)
 	print("fail")
 

@@ -27,6 +27,40 @@ THEN
 ALTER TABLE users_adoption_events ADD CONSTRAINT adoption_events_ref FOREIGN KEY(adoption_event_id) REFERENCES adoption_events(id);
 END IF;
 
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='contacts')
+THEN
+ALTER TABLE contacts DROP COLUMN phone;
+END IF;
+
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='contacts')
+THEN
+ALTER TABLE contacts DROP COLUMN state;
+END IF;
+
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='contacts')
+THEN
+ALTER TABLE contacts DROP COLUMN city;
+END IF;
+
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='contacts')
+THEN
+ALTER TABLE contacts DROP COLUMN zip;
+END IF;
+
+-- add foster reference for users
+IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() and table_name='users' AND column_name='foster_id')
+THEN
+ALTER TABLE users ADD column foster_id INT,
+	ADD CONSTRAINT foster_ref FOREIGN KEY(foster_id) REFERENCES fosters(id);
+END IF;
+
+
+IF NOT EXISTS ((SELECT * FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='users' AND column_name='profile_pic_file_id'))
+THEN
+ALTER TABLE users ADD COLUMN profile_pic_file_id INT,
+	ADD CONSTRAINT user_profile_pic_ref FOREIGN KEY(profile_pic_file_id) REFERENCES files(id);
+END IF;
+
 END $$
 
 -- run the stored procedure

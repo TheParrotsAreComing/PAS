@@ -21,7 +21,7 @@ try:
 	rand_color=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 	rand_coat=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
-	db.query("INSERT INTO cats (cat_name, color, coat,is_kitten, dob, is_female, breed, bio, created,is_deleted) VALUES (\""+rand_name+"\",\""+rand_color+"\",\""+rand_coat+"\",1,'2001-03-20',1,\"Wolverine\",\"Fast health regeneration, adamantium claws, aggressive...\",NOW(),false);")
+	db.query("INSERT INTO cats (cat_name, color, coat,is_kitten, dob,breed_id, is_female, bio, created,is_deleted) VALUES (\""+rand_name+"\",\""+rand_color+"\",\""+rand_coat+"\",1,'2001-03-20',1,1,\"Fast health regeneration, adamantium claws, aggressive...\",NOW(),false);")
 	db.store_result()
 
 	db.query("SELECT id,cat_name FROM cats where cat_name=\""+rand_name+"\";")
@@ -36,7 +36,7 @@ try:
 	rand_mail=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
 
-	db.query('INSERT INTO fosters(first_name, last_name, phone, address, email, exp, pets, kids, avail, rating, notes, created, is_deleted) VALUES("'+rand_fname+'", "'+rand_lname+'", "4536548764", "Lon Lon Ranch, Hyrule Field", "'+rand_mail+'@mail.com", "Very experienced, has had tons of cats on the ranch.", "Many pets, outdoor farm cats only.", "Many kids of all ages on the ranch.", "Weekends and evenings.", 4, "Malon is used mostly for overflow of cats.", NOW(), true);')
+	db.query('INSERT INTO fosters(first_name, last_name, address, email, exp, pets, kids, avail, rating, notes, created, is_deleted) VALUES("'+rand_fname+'", "'+rand_lname+'", "Lon Lon Ranch, Hyrule Field", "'+rand_mail+'@mail.com", "Very experienced, has had tons of cats on the ranch.", "Many pets, outdoor farm cats only.", "Many kids of all ages on the ranch.", "Weekends and evenings.", 4, "Malon is used mostly for overflow of cats.", NOW(), false);')
 
 	db.store_result()
 
@@ -56,6 +56,11 @@ try:
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+	driver.get('http://localhost:8765');
+	driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+	driver.find_element_by_id('password').send_keys('password')
+	driver.find_element_by_css_selector('input[type="submit"]').click()
+
 	driver.get('http://localhost:8765/cats/view/'+cat_id);
 
 	foster_btn = driver.find_element_by_id("fosterTab")
@@ -69,6 +74,8 @@ try:
 
 	confirm_adopt = driver.find_element_by_css_selector("a.add-foster-btn")
 	confirm_adopt.click()
+
+	driver.find_element_by_id('confirmFoster').click()
 
 	foster = WebDriverWait(driver, 10).until(
 		EC.presence_of_element_located((By.CLASS_NAME, "new-foster-name"))

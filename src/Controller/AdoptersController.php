@@ -19,6 +19,16 @@ class AdoptersController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        $can_add = false;
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        } else if (!$users_model->isVolunteer($session_user)) {
+            $can_add = true;
+        }
+
         $this->paginate = [
             'contain' => [
             'PhoneNumbers',
@@ -95,7 +105,7 @@ class AdoptersController extends AppController
             }
         }
 
-        $this->set(compact('adopters','adopter_tags', 'phones'));
+        $this->set(compact('adopters','adopter_tags', 'phones','entity_type', 'can_add'));
 
         $this->set('_serialize', ['adopters']);
     }
@@ -109,9 +119,20 @@ class AdoptersController extends AppController
      */
     public function view($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
+        $can_delete = ($users_model->isAdmin($session_user));
+        $can_edit = ($can_delete || $users_model->isCore($session_user));
+
         $cat_breeds = TableRegistry::get('Breeds')->find('all');
 
         $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 1]);
+
 
         $adopter_tags = TableRegistry::get('Tags')->find('list', ['keyField'=>'id','valueField'=>'label'])->where('type_bit & 10')->toArray();
         $attached_tags = TableRegistry::get('Tags_Adopters')->find('list', ['keyField'=>'tag_id','valueField'=>'id'])->where(['adopter_id'=>$id])->toArray();
@@ -137,11 +158,25 @@ class AdoptersController extends AppController
         // for page form
         $uploaded_photo = null;
 
+        // get files and count
+        $files = $filesDB->find('all', [
+            'conditions' => [
+                'Files.is_photo' => false,
+                'Files.entity_type' => $this->Adopters->getEntityTypeId(),
+                'Files.entity_id' => $adopter->id,
+                'Files.is_deleted' => false
+                ],
+            'order' => ['Files.created'=>'DESC']]);
+        $filesCountTotal = $files->count();
+
+        // for form on page
+        $uploaded_file = null;
+
         // check for updates and changes
         if($this->request->is('post')) {
 
             // uploaded a photo?
-            if(!empty($this->request->data['uploaded_photo']['name'])){
+            if( !empty($this->request->data['uploaded_photo']['name']) && empty($this->request->data['uploaded_file']['name']) ){
 
                 // get file ext
                 // note, assuming no filenames with periods other than for extension
@@ -174,17 +209,46 @@ class AdoptersController extends AppController
                     $this->Flash->error(__('Unable to upload photo, please try again.'));
                 }
 
-            } else {
-                $this->Flash->error(__('Please choose a photo.'));
+            } elseif ( empty($this->request->data['uploaded_photo']['name']) && !empty($this->request->data['uploaded_file']['name']) ) {
+
+                // get file ext
+                $uploadedFileName = $this->request->data['uploaded_file']['name'];
+                $nameArray = explode('.', $uploadedFileName);
+                $fileExtension = array_pop($nameArray);
+
+                // get other vars to upload photo
+                $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
+                $uploadPath = 'files/adopters/'.$adopter->id;
+                $entityTypeId = $this->Adopters->getEntityTypeId();
+                $mimeType = $this->request->data['uploaded_file']['type'];
+                $fileSize = $this->request->data['uploaded_file']['size'];
+
+                // attempt to upload the photo with the file behavior
+                $new_file_id = $this->Adopters->uploadDocument($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                    $entityTypeId, $adopter->id, $mimeType, $fileSize, $this->request->data['file-note']);
+
+                if ($new_file_id > 0){
+
+                    $this->Flash->success(__('File has been uploaded and saved successfully.'));
+                    $filesCountTotal++;
+                } else {
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
+
             }
+            else {
+                $this->Flash->error(__('Please choose a file or photo to upload.'));
+            }
+            return $this->redirect(['action' => 'view', $id]);
         }
+
         // profile pic file
         if($adopter->profile_pic_file_id > 0) {
             $profile_pic = $filesDB->get($adopter->profile_pic_file_id);
         } else {
             $profile_pic = null;
         }
-        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds'));
+        $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds', 'files', 'filesCountTotal', 'uploaded_file', 'can_edit', 'can_delete'));
         $this->set('_serialize', ['adopter']);
     }
 
@@ -195,6 +259,13 @@ class AdoptersController extends AppController
      */
     public function add()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $adopter = $this->Adopters->newEntity();
         if ($this->request->is('post')) {
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);

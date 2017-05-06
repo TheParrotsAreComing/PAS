@@ -152,7 +152,10 @@
           <div class="cat-sort-text">Filter</div>
         </div>
         <nav class="w-dropdown-list"></nav>
-      </div><a class="cat-add w-button" href="<?= $this->Url->build(["controller" => "Adopters", "action" => "add"]) ?>">+ New Adopter</a>
+      </div>
+      <?php if ($can_add): ?>
+        <a class="cat-add w-button" href="<?= $this->Url->build(["controller" => "Adopters", "action" => "add"]) ?>">+ New Adopter</a>
+      <?php endif; ?>
     </div> 
   </div>
 </div>

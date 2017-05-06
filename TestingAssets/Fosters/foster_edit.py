@@ -17,7 +17,7 @@ try:
 	rand_lname=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 	rand_mail=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
-	db.query("INSERT INTO fosters (first_name,last_name,phone,address,email,created,is_deleted) VALUES(\""+rand_fname+"\",\""+rand_lname+"\",\"1707255123\",\"55 Gato Way\",\""+rand_mail+"@mail.com\",NOW(),true);");
+	db.query('INSERT INTO fosters (first_name,last_name,address,email,created,is_deleted,notes,avail,exp) VALUES("'+rand_fname+'","'+rand_lname+'","55 Gato Way","'+rand_mail+'@mail.com",NOW(),true,"Notes","Avail","Experience");');
 	db.store_result()
 
 	db.query("SELECT id,first_name FROM fosters where last_name=\""+rand_lname+"\" AND email=\""+rand_mail+"@mail.com\"")
@@ -36,6 +36,11 @@ try:
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+	driver.get('http://localhost:8765');
+	driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+	driver.find_element_by_id('password').send_keys('password')
+	driver.find_element_by_css_selector('input[type="submit"]').click()
+
 	driver.get('http://localhost:8765/fosters/edit/'+foster_id);
 
 
@@ -47,7 +52,9 @@ try:
 	name.clear()
 	name.send_keys(new_rand_name);
 
-	driver.find_element_by_id("FosterEdit").click()
+	submit = driver.find_element_by_id("FosterEdit")
+	submit.location_once_scrolled_into_view
+	submit.click()
 
 	db.query("SELECT first_name FROM fosters where id="+foster_id)
 

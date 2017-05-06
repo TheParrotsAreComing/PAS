@@ -47,9 +47,11 @@ try:
 	driver.get('http://localhost:8765/fosters/view/'+a_id);
 
 
-	upload_elem = driver.find_element_by_css_selector('a[data-ix="add-photo-click-desktop"]')
+	upload_elem = driver.find_element_by_css_selector('a[data-ix="attachment-notification"]')
 
 	upload_elem.click()
+
+	driver.find_element_by_css_selector('a[data-ix="add-photo-click-desktop"]').click()
 	
 	browse = driver.find_element_by_id("uploaded-photo")
 	browse.send_keys(os.getcwd()+"/img/user.png")

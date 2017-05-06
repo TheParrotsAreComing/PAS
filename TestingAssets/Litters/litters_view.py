@@ -38,6 +38,11 @@ try:
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+	driver.get('http://localhost:8765');
+	driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+	driver.find_element_by_id('password').send_keys('password')
+	driver.find_element_by_css_selector('input[type="submit"]').click()
+
 	driver.get('http://localhost:8765/litters/view/'+litter_id);
 	
 	l_name_elem = driver.find_element_by_id("litterName")

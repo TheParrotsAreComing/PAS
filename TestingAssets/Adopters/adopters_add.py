@@ -18,6 +18,11 @@ driver = webdriver.Remote(service.service_url, capabilities)
 
 driver.set_window_size(sys.argv[1], sys.argv[2]);
 
+driver.get('http://localhost:8765');
+driver.find_element_by_id('email').send_keys('theparrotsarecoming@gmail.com')
+driver.find_element_by_id('password').send_keys('password')
+driver.find_element_by_css_selector('input[type="submit"]').click()
+
 driver.get('http://localhost:8765/adopters/add');
 
 f_name=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(7))
@@ -44,11 +49,6 @@ elem.location_once_scrolled_into_view
 elem.send_keys("1234 HomeTown Dr");
 
 #Email
-elem = driver.find_element_by_id("phone");
-elem.location_once_scrolled_into_view
-elem.send_keys("8082921233");
-
-#Email
 elem = driver.find_element_by_id("notes");
 elem.location_once_scrolled_into_view
 elem.send_keys("Lorem ipsum et else the ipsump notes with words and other long works with donkeys");
@@ -68,7 +68,10 @@ r=db.store_result()
 k=r.fetch_row(1,1)
 sql_email = str(k[0].get('email'),'utf-8')
 
-assert sql_email == l_name+"@"+f_name+".net"
+if sql_email == l_name+"@"+f_name+".net":
+	print("pass")
+else:
+	print("Adopter does not appear to be in database")
 
 if sql_email == l_name+"@"+f_name+".net":
 	db.query('DELETE FROM adopters where first_name="'+f_name+'" AND last_name="'+l_name+'";')
