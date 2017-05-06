@@ -16,11 +16,11 @@
       </div>
       <div class="filter">
           <div class="filter-criteria">Phone #:</div>
-          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Phone','placeholder'=>'Enter phone number']) ?>
+          <?= $this->Form->input('phone',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Phone', 'type'=>'tel', 'maxLength'=>10,'placeholder'=>'Enter phone number']) ?>
       </div>
       <div class="filter">
           <div class="filter-criteria">Email:</div>
-          <?= $this->Form->input('email',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Email','placeholder'=>'Enter email']) ?>
+          <?= $this->Form->input('email',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Email', 'placeholder'=>'Enter email']) ?>
       </div>
       <div class="filter">
           <div class="filter-criteria">Address:</div>
@@ -45,14 +45,22 @@
               <div class="card-h2"></div>
                   --> 
             </div>
+            <?php if(!empty($phones)) :?>
+              <?php foreach ($phones as $number): ?>
+                <?php if ($number->entity_id === $user->id): ?>
+                  <div class="card-field-cont left-justify">
+                    <div class="card-h3">Primary Phone: </div>
+                    <div class="catlist-field-content"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
+                  </div>
+                  <?php break;?>
+                <?php endif ;?>
+              <?php endforeach; ?>
+            <?php endif; ?>
+
             <div class="card-field-wrap">
               <div class="card-field-cont left-justify">
                 <div class="card-h3">Address:</div>
                 <div class="catlist-field-content"><?= ($user->address == "Address") ? "n/a" : $user->address ?></div>
-              </div>
-              <div class="card-field-cont left-justify">
-                <div class="card-h3">Phone:</div>
-                <div class="catlist-field-content"><?= ($user->phone == "0") ? "n/a" : $user->phone ?></div>
               </div>
               <div class="card-field-cont left-justify">
                 <div class="card-h3">E-mail:</div>

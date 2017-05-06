@@ -51,6 +51,10 @@ class PhoneNumbersTable extends Table
         $this->belongsTo('Contacts', [
             'foreignKey' => 'entity_id'
         ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'entity_id'
+        ]);
     }
 
     /**
@@ -103,7 +107,7 @@ class PhoneNumbersTable extends Table
         $rules->add($rules->existsIn(['id'], 'Fosters'));
         $rules->add($rules->existsIn(['id'], 'Adopters'));
         $rules->add($rules->existsIn(['id'], 'Contacts'));
-
+        $rules->add($rules->existsIn(['id'], 'Users'));
         return $rules;
     }
 }

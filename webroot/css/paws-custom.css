@@ -36,6 +36,7 @@ html {
     overflow-x: hidden;
 }
 
+
 /*
 	Fixes the positioning of the ID on cards
 */
@@ -229,6 +230,7 @@ html {
 .page {
     background-image: url('../img/Arctic-Mountains-1920x1080.png');
 }
+
 .full-width {
     display: inline-block;
 }
@@ -248,56 +250,61 @@ html {
 }
 
 .no-horizontal-scroll {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
 .display-none {
-  display: none; 
+    display: none;
 }
 
-.select2.select2-container.select2-container--default{
-	width:70% !important;
+.select2.select2-container.select2-container--default {
+    width: 70% !important;
 }
 
-.select2.select2-container > span.selection > span.select2-selection{
-	border-radius:3px;
-	border: 1px solid #e6e6e6;
-	background-image: none;
-	font-size:11px;
+.select2.select2-container>span.selection>span.select2-selection {
+    border-radius: 3px;
+    border: 1px solid #e6e6e6;
+    background-image: none;
+    font-size: 11px;
 }
 
-.select2-container.select2-container--default.select2-container--open{
-	z-index:10000;
+.select2-container.select2-container--default.select2-container--open {
+    z-index: 10000;
 }
 
-div.pagination-index > a, div.pagination > a{
+div.pagination-index>a,
+div.pagination>a {
     text-decoration: none;
-	color:inherit;
+    color: inherit;
 }
-.none-text{
+
+.none-text {
     font-style: italic;
     color: grey;
 }
 
-.user-attach-new-adopter, .user-attach-existing-adopter,
-  .user-attach-new-foster, .user-attach-existing-foster {
-    margin-top:2em;
+.user-attach-new-adopter,
+.user-attach-existing-adopter,
+.user-attach-new-foster,
+.user-attach-existing-foster {
+    margin-top: 2em;
 }
 
-.mid.medical-data-action{
-	border-radius: 0 !important;
-	border-right:1px grey solid;
-	border-left:1px grey solid;
-}
-.right.medical-data-action{
-	padding-left: 10px;
+.mid.medical-data-action {
+    border-radius: 0 !important;
+    border-right: 1px grey solid;
+    border-left: 1px grey solid;
 }
 
-.right.medical-data-action > .profile-action-button.sofware{
+.right.medical-data-action {
+    padding-left: 10px;
+}
+
+.right.medical-data-action>.profile-action-button.sofware {
     font-family: 'Linea basic elaboration 10', sans-serif;
 }
 
 .red-text {
-  color: red;
+    color: red;
 }

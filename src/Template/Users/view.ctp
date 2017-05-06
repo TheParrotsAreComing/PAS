@@ -30,11 +30,6 @@
                   <div class="profile-text-header">Personal Information</div>
 
                     <div class="left-justify profile-field-cont">
-                      <div class="profile-field-name">Phone: </div>
-                      <div class="block profile-field-text"><?= h($user->phone) ?></div>
-                    </div>
-
-                    <div class="left-justify profile-field-cont">
                       <div class="profile-field-name">Email: </div>
                       <div class="block profile-field-text"><?= h($user->email) ?></div>
                     </div>
@@ -42,6 +37,28 @@
                     <div class="left-justify profile-field-cont">
                       <div class="profile-field-name">Address: </div>
                       <div class="block profile-field-text"><?= h($user->address) ?></div>
+                    </div>
+
+                    <div class="profile-text-header">Phone Number(s) </div>
+                    <div class="medical-wrap">
+                      <?php foreach ($phones as $number): ?>
+                        <?php $type = "";
+                          if ($number->phone_type === 0) {$type = "Mobile: ";} 
+                          else if ($number->phone_type === 1) {$type = "Home: ";} 
+                          else if ($number->phone_type === 2) {$type = "Organization: ";}
+                          else if ($number->phone_type === 3) {$type = "Other: ";} 
+                        ?>
+                        <div class="scroll1 no-horizontal-scroll">
+                          <div class="medical-data-cont" data-ix="medical-data-click">
+                            <div class="phone-number-type-cont">
+                              <div class="medical-data-type"><?= $type ?></div>
+                            </div>
+                            <div class="phone-number-num-cont">
+                              <div class="phone-number-num-cont"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
+                            </div>
+                          </div>
+                        </div>
+                      <?php endforeach; ?>
                     </div>
                 </div>
                 <div class="profile-content-cont">

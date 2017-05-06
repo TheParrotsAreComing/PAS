@@ -72,28 +72,16 @@
                             ?>
                             <div class="scroll1 no-horizontal-scroll">
                               <div class="medical-data-cont" data-ix="medical-data-click">
-                                <div class="medical-type-cont">
+                                <div class="phone-number-type-cont">
                                   <div class="medical-data-type"><?= $type ?></div>
                                 </div>
-                                <div class="medical-date-cont">
-                                  <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
-                                </div>
-                                <div class="medical-data-action-cont">
-                                  <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
-                                    <div class="profile-action-button sofware">-</div>
-                                    <div>edit</div>
-                                  </a>
-                                  <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
-                                    <div class="basic profile-action-button"></div>
-                                    <div>delete</div>
-                                  </a>
+                                <div class="phone-number-num-cont">
+                                  <div class="phone-number-num-cont"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
                                 </div>
                               </div>
                             </div>
                           <?php endforeach; ?>
                         </div>
-                        <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $foster->id, 0])?>">+ Add New Phone Number
-                        </a>
                     </div>  
                     
                     <div class="profile-content-cont">
@@ -113,7 +101,6 @@
                           <div class="profile-field-name">Notes: </div>
                           <div class="block profile-field-text"><?= nl2br(h($foster->notes)) ?></div>
                         </div>
-
                     </div>
                   </div>
               <div class="w-tab-pane" data-w-tab="Tab 2">
@@ -135,15 +122,15 @@
                             </div>
                             <div class="card-field-wrap">
                               <div class="card-field-cont">
-                                <div class="card-field-cont">
-                                  <div class="card-h3">DOB:</div>
-                                  <div class="card-field-text cat-dob"><?= $cat['dob']; ?></div>
-                                </div>
-                                <div class="card-field-cont">
-                                  <div class="card-h3">Age:</div>
-                                  <div class="card-field-text cat-age"></div>
-                                </div>
-                              </div>
+                                    <div class="card-field-cont" style="display:none;">
+                                      <div class="card-h3">DOB:</div>
+                                      <div class="card-field-text cat-dob"><?= h($cat->dob) ?></div>
+                                    </div>
+                                    <div class="card-field-cont">
+                                      <div class="card-h3">Age:</div>
+                                      <div class="card-field-text cat-age"></div>
+                                    </div>
+                                  </div>
                               <?php foreach($cat_breeds as $breed): ?>
                                 <?php if($cat->breed_id == $breed->id): ?>
                                   <div class="card-field-cont">
@@ -351,32 +338,21 @@
   </div>
 </div> 
 
-
-  <div id="dialog-confirm" title="Delete this tag?" style="display:none;">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
-  </div>
-
-  <div id="dialog-confirm-number" title="Delete this phone number?" style="display:none;">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
-  </div>
+<div id="dialog-confirm-tag" title="Delete this tag?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
+</div>
 
 <div id="dialog-confirm-photo-delete" title="Delete this photo?" style="display:none;">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
 </div>
 
 <script>
-
-  var foster_id = "<?= $foster->id ?>";
-  var foster_controller_string = "Fosters/";
-
-	var foster = new Foster();
-  setupPhotoSelectionBehavior(foster_id, foster_controller_string);
-
-  var tagDel = "<?= $this->Url->build(['controller'=>'fosters','action'=>'deleteTag']); ?>";
-
-  var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
-
 	$(function(){
+    var foster_id = "<?= $foster->id ?>";
+    var foster_controller_string = "Fosters/";
+    var foster = new Foster();
+    var tagDel = "<?= $this->Url->build(['controller'=>'fosters','action'=>'deleteTag']); ?>";
+    var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
 
     calculateAndPopulateAgeFields();
     setupPhotoSelectionBehavior(foster_id, foster_controller_string);
@@ -389,7 +365,7 @@
 					confirm_text.text('This foster currently has a cat/kitten.');
 					$('.confirm-text').after(confirm_text);
 
-					var confirm_text_2 = $('<div class="confirm-text"/>');
+					var confirm_text_2 = $('<div classć"confirm-text"/>');
 					confirm_text_2.text('Deleting this foster will also mark the cat/kitten as unfostered.');
 					confirm_text.after(confirm_text_2);
 				}
@@ -441,7 +417,7 @@
     $('.tag-remove').click(function(){
       var that = $(this); 
       var tag_id = that.attr('data-id');
-       $( "#dialog-confirm" ).dialog({
+       $( "#dialog-confirm-tag" ).dialog({
           resizable: false,
           height: "auto",
           width: 400,
@@ -467,27 +443,6 @@
           }
           }
         });
-    });
-    $('.delete-number-btn').click(function(){
-     var parent = $(this).parent().parent().parent();
-     var that = $(this); 
-     $( "#dialog-confirm-number" ).dialog({
-        resizable: false,
-        height: "auto",
-        width: 400,
-        modal: true,
-        buttons: {
-        "Delete!": function() {
-          $.get(deletePhone+'/'+that.data('number'));
-          $(this).dialog( "close" );
-          parent.remove();
-        },
-        Cancel: function() {
-          $(this).dialog( "close" );
-          $('.no-horizontal-scroll').scrollLeft(0);
-        }
-        }
-      });
     });
   });
 </script>

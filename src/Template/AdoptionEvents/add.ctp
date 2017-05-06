@@ -3,7 +3,7 @@
         <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
         <div class="add-cont scroll1" data-ix="page-load-fade-in">
             <div class="add-header">
-                <div class="add-field-h1">Create an adoption event</div><img class="add-picture" height="90" src="http://uploads.webflow.com/img/image-placeholder.svg" width="90">
+                <div class="add-field-h1">Create an adoption event</div>
             </div>
             <?= $this->Form->create($adoptionEvent) ?>
                 <div class="add-input-form-wrap w-form">
@@ -15,24 +15,26 @@
                             <?php echo $this->Form->month('event_date', array('value'=>$eventDate[1],'class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
                             <?php echo $this->Form->day('event_date', array('value'=>$eventDate[2],'class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
                             <?php echo $this->Form->year('event_date', array('value'=>$eventDate[0],'class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
-                            <?php /*
-                             <?= $this->Form->input('cats._ids', ['class'=>'add-input w-input', 'options'=>$select_cats]); ?>
-                             <?= $this->Form->input('users._ids', ['class'=>'add-input w-input', 'options'=>$select_users]); ?>
-                             */ ?>
-                        </div>
-                        <div class="cats-list">
-                        </div>
-                        <a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
-                        <div class="users-list">
-                        </div>
-                        <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add User</a>
-                        <?php echo $this->Form->input('description', 
+                       </div>
+                       <?php echo $this->Form->input('description', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Description<span class="required-field-indicator"><span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type a description for this event...')); ?>
+                        <div class="add-field-h3">Cats:</div>
+                        <div class="cats-list">
+                        </div>
+                        <div class="medical-wrap">
+                            <a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
+                        </div>
+                        <div class="add-field-h3">Volunteers:</div>
+                        <div class="users-list">
+                        </div>
+                        <div class="medical-wrap">
+                            <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add Volunteer</a>
+                        </div>
                         <div class="add-button-cont">
                        <?= $this->Html->link("Cancel", ['controller'=>'adoptionEvents', 'action'=>'index'], ['id'=>'AdoptionEventCancel', 'class'=>'add-cancel w-button']); ?>
                        <?= $this->Form->button("Submit",['id'=>'AdoptionEventAdd', 'class'=>'add-submit w-button', 'type'=>'submit']); ?>
@@ -102,11 +104,15 @@ $(function () {
         catsArr.push(selectedCat_id);
         var selectedCat = $('#cat option:selected').text();
         var cat_cont = $('<div/>');
+        cat_cont.addClass('profile-content-cont');
+
         var cat_text = $('<div/>');
+        cat_text.addClass('card-h1');
+
         var cat_remove = $('<a/>');
         cat_remove.addClass('cat-remove');
         cat_remove.attr('href', '#');
-        cat_remove.text('');
+        cat_remove.text('Remove');
         cat_remove.attr('data-id', selectedCat_id);
 
         cat_text.text(selectedCat);
@@ -128,8 +134,10 @@ $(function () {
         var that = $(this);
         cat_id = that.attr('data-id');
         that.parent().remove();
-        var removedCat = that.parent().text().slice(0,-1);
-        $('#cat').prepend($("<option></option>").text(removedCat));
+        var removedCat = that.parent().text().slice(0,-6);
+        var option = $('<option/>');
+        option.text(removedCat).val(cat_id);
+        $('#cat').prepend(option);
     });
     $('.add-user-btn').click(function(e) {
         e.stopPropagation();
@@ -141,11 +149,15 @@ $(function () {
         usersArr.push(selectedUser_id);
         var selectedUser = $('#user option:selected').text();
         var user_cont = $('<div/>');
+        user_cont.addClass('profile-content-cont');
+
         var user_text = $('<div/>');
+        user_text.addClass('card-h1');
+        
         var user_remove = $('<a/>');
         user_remove.addClass('user-remove');
         user_remove.attr('href', '#');
-        user_remove.text('');
+        user_remove.text('remove');
         user_remove.attr('data-id', selectedUser_id);
 
         user_text.text(selectedUser);
@@ -167,8 +179,10 @@ $(function () {
         var that = $(this);
         user_id = that.attr('data-id');
         that.parent().remove();
-        var removedUser = that.parent().text().slice(0,-1);
-        $('#user').prepend($("<option></option>").text(removedUser));
+        var removedUser = that.parent().text().slice(0,-5);
+        var option = $('<option/>');
+        option.text(removedUser).val(user_id);
+        $('#user').prepend(option);
     });
 });
 </script>

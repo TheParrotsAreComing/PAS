@@ -262,6 +262,8 @@ class FostersController extends AppController
     {
         $session_user = $this->request->session()->read('Auth.User');
         $users_model = TableRegistry::get('Users');
+
+        $phoneTable = TableRegistry::get('PhoneNumbers');
         if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
             $this->Flash->error("You aren't allowed to do that.");
             return $this->redirect(['controller'=>'cats','action'=>'index']);
@@ -269,9 +271,26 @@ class FostersController extends AppController
 
         $foster = $this->Fosters->newEntity();
         if ($this->request->is('post')) {
+            $phones= $this->request->data['phones'];
+            unset($this->request->data['phones']);
+
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
             $foster['is_deleted'] = 0;
             if ($this->Fosters->save($foster)) {
+                $id = $foster->id;
+                if(!($phones['phone_num'] === '')){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 0;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
+                    }
+                }
+
                 $this->Flash->success(__('The foster has been saved.'));
 
                 return $this->redirect(['action' => 'view', $foster->id]);
@@ -302,11 +321,36 @@ class FostersController extends AppController
         }
 
         $foster = $this->Fosters->get($id, [
-            'contain' => ['Tags']
+            'contain' => ['Tags', 'PhoneNumbers']
         ]);
+
+        $phoneTable = TableRegistry::get('PhoneNumbers');
+        $phone = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 0]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(!empty($this->request->data['phones'])){
+                $phones = $this->request->data['phones'];
+            }
+
+            if(!empty($phones)){
+                unset($this->request->data['phones']);
+            }
             $foster = $this->Fosters->patchEntity($foster, $this->request->data);
             if ($this->Fosters->save($foster)) {
+                
+                if(!empty($phones)){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 0;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
+                    }
+                }
+
                 $this->Flash->success(__('The foster has been saved.'));
 
                 return $this->redirect(['action' => 'view', $foster->id]);
@@ -315,7 +359,7 @@ class FostersController extends AppController
             }
         }
         $tags = $this->Fosters->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('foster', 'tags'));
+        $this->set(compact('foster', 'tags','phone'));
         $this->set('_serialize', ['foster']);
     }
 

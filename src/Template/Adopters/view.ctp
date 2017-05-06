@@ -74,42 +74,27 @@
                       <div class="block profile-field-text"><?= h($adopter->address) ?></div>
                     </div>
 
-
                       <div class="profile-text-header">Phone Number(s) </div>
-
-                      <div class="medical-wrap">
-                        <?php foreach ($phones as $number): ?>
-                          <?php $type = "";
-                            if ($number->phone_type === 0) {$type = "Mobile: ";} 
-                            else if ($number->phone_type === 1) {$type = "Home: ";} 
-                            else if ($number->phone_type === 2) {$type = "Organization: ";}
-                            else if ($number->phone_type === 3) {$type = "Other: ";} 
-                          ?>
-                          <div class="scroll1 no-horizontal-scroll">
-                            <div class="medical-data-cont" data-ix="medical-data-click">
-                              <div class="medical-type-cont">
-                                <div class="medical-data-type"><?= $type ?></div>
-                              </div>
-                              <div class="medical-date-cont">
-                                <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
-                              </div>
-                              <div class="medical-data-action-cont">
-                                <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
-                                  <div class="profile-action-button sofware">-</div>
-                                  <div>edit</div>
-                                </a>
-                                <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
-                                  <div class="basic profile-action-button"></div>
-                                  <div>delete</div>
-                                </a>
+                        <div class="medical-wrap">
+                          <?php foreach ($phones as $number): ?>
+                            <?php $type = "";
+                              if ($number->phone_type === 0) {$type = "Mobile: ";} 
+                              else if ($number->phone_type === 1) {$type = "Home: ";} 
+                              else if ($number->phone_type === 2) {$type = "Organization: ";}
+                              else if ($number->phone_type === 3) {$type = "Other: ";} 
+                            ?>
+                            <div class="scroll1 no-horizontal-scroll">
+                              <div class="medical-data-cont" data-ix="medical-data-click">
+                                <div class="phone-number-type-cont">
+                                  <div class="medical-data-type"><?= $type ?></div>
+                                </div>
+                                <div class="phone-number-num-cont">
+                                  <div class="phone-number-num-cont"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        <?php endforeach; ?>
-                      </div>
-
-                    <a class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'add', $adopter->id, 1])?>">+ Add New Phone Number
-                    </a> 
+                          <?php endforeach; ?>
+                        </div>
                 </div>
                 <div class="profile-content-cont">
                     <div class="profile-text-header">Additional Information</div>
@@ -140,9 +125,9 @@
                             </div>
                             <div class="card-field-wrap">
                               <div class="card-field-cont">
-                                <div class="card-field-cont">
+                                <div class="card-field-cont" style="display:none;">
                                   <div class="card-h3">DOB:</div>
-                                  <div class="card-field-text cat-dob"><?= $cat['dob']; ?></div>
+                                  <div class="card-field-text cat-dob"><?= h($cat->dob) ?></div>
                                 </div>
                                 <div class="card-field-cont">
                                   <div class="card-h3">Age:</div>
@@ -260,7 +245,7 @@
 		<?php endif; ?>           
 		 <div class="basic profile-action-button"></div>
             <div>export</div>
-          </a>-->
+          </a>
           <?php if ($can_delete): ?>
             <a class="delete-button profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
               <div class="basic profile-action-button" ></div>
@@ -309,7 +294,7 @@
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 	</div>
 
-  <div class="floating-overlay add-tag">
+  <div class="add-adopter-floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
@@ -362,7 +347,7 @@
   </div>
 </div> 
 
-<div id="dialog-confirm" title="Delete this tag?" style="display:none;">
+<div id="dialog-confirm-tag" title="Delete this tag?" style="display:none;">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this tag?</p>
 </div>
 
@@ -375,17 +360,13 @@
 </div>
 
 <script>
-  
-  var adopter_id = "<?= $adopter->id ?>";
-  var adopter_controller_string = "Adopters/"
-	var adopter = new Adopter();
-
-  var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
-
-  var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
-
 	$(function(){
-
+    var adopter_id = "<?= $adopter->id ?>";
+    var adopter_controller_string = "Adopters/"
+    var adopter = new Adopter();
+    var tagDel = "<?= $this->Url->build(['controller'=>'adopters','action'=>'deleteTag']); ?>";
+    var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
+    
     calculateAndPopulateAgeFields();
     setupPhotoSelectionBehavior(adopter_id, adopter_controller_string);
 
@@ -446,39 +427,35 @@
 		  });
 		});
 
-    $('.tag-remove').click(function(){
+     $('.tag-remove').click(function(){
       var that = $(this); 
       var tag_id = that.attr('data-id');
-       $( "#dialog-confirm" ).dialog({
+       $( "#dialog-confirm-tag" ).dialog({
           resizable: false,
           height: "auto",
           width: 400,
           modal: true,
           buttons: {
-		  "Delete": {
-				text : "Delete",
-				id : "delTag",
-				click : function() {
-				$.ajax({
-				  url : tagDel,
-				  type : 'POST',
-				  data : {
-					'adopter_id' : '<?= $adopter->id ?>',
-					'tag_id' : tag_id
-					}
-				}).done(function(result){
-				  result = JSON.parse(result);
-				  $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
-				});
-				  that.parent().remove();
-				  $( this ).dialog( "close" );
-			}
+          "Delete": function() {
+            $.ajax({
+              url : tagDel,
+              type : 'POST',
+              data : {
+                'adopter_id' : '<?= $adopter->id ?>',
+                'tag_id' : tag_id
+            }
+            }).done(function(result){
+              result = JSON.parse(result);
+              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+            });
+              that.parent().remove();
+              $( this ).dialog( "close" );
           },
           Cancel: function() {
             $( this ).dialog( "close" );
           }
-        }
-      });
+          }
+        });
     });
     $('.delete-number-btn').click(function(){
      var parent = $(this).parent().parent().parent();

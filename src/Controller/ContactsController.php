@@ -91,6 +91,7 @@ class ContactsController extends AppController
         if ($this->request->is('post')) {
             //debug($this->request->data); die;
             $phones= $this->request->data['phones'];
+            unset($this->request->data['phones']);
             
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             $contact['is_deleted'] = 0;
@@ -131,22 +132,30 @@ class ContactsController extends AppController
             'contain' => ['PhoneNumbers']
         ]);
         $phoneTable = TableRegistry::get('PhoneNumbers');
-        $phones = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 2]);
+        $phone = TableRegistry::get('PhoneNumbers')->find()->where(['entity_id' => $id])->where(['entity_type' => 2]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $phones= $this->request->data['phones'];
-            unset($this->request->data['phones']);
+            if(!empty($this->request->data['phones'])){
+                $phones = $this->request->data['phones'];
+            }
 
+            if(!empty($phones)){
+                unset($this->request->data['phones']);
+            }
             $contact = $this->Contacts->patchEntity($contact, $this->request->data);
             if ($this->Contacts->save($contact)) {
 
-                for($i = 0; $i < count($phones['phone_type']); $i++) {
-                    $new_phone = $phoneTable->newEntity();
-                    $new_phone->entity_id = $id;
-                    $new_phone->entity_type = 2;
-                    $new_phone->phone_type = $phones['phone_type'][$i];
-                    $new_phone->phone_num = $phones['phone_num'][$i];
-                    $phoneTable->save($new_phone);
+                if(!empty($phones)){
+                    for($i = 0; $i < count($phones['phone_type']); $i++) {
+                        $new_phone = $phoneTable->newEntity();
+                        $new_phone->entity_id = $id;
+                        $new_phone->entity_type = 2;
+                        $new_phone->phone_type = $phones['phone_type'][$i];
+                        $new_phone->phone_num = $phones['phone_num'][$i];
+                        if(!($new_phone['phone_num'] === '')){
+                            $phoneTable->save($new_phone);
+                        }
+                    }
                 }
                 $this->Flash->success(__('The contact has been saved.'));
 
@@ -154,8 +163,8 @@ class ContactsController extends AppController
             }
             $this->Flash->error(__('The contact could not be saved. Please, try again.'));
         }
-        $phones = $this->Contacts->PhoneNumbers->find('list', ['limit' => 200]);
-        $this->set(compact('contact','phone_numbers','phones'));
+
+        $this->set(compact('contact', 'phone'));
         $this->set('_serialize', ['contact']);
     }
 

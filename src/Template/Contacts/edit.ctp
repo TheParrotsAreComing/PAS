@@ -21,45 +21,41 @@
           <label class="add-field-h2" for="First-Name">Organization Information</label>
           <div class="add-field-seperator"></div>
           <label class="add-field-h3" for="Organzation-Name">Organzation Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('organization', ['class'=>'add-input w-input', 'data-name'=>'Organzation-Name', 'label'=>false, 
-          'placeholder'=>'Enter Organization Name']);?>
+          <?= $this->Form->input('organization', ['class'=>'add-input w-input', 'data-name'=>'Organzation-Name', 'label'=>false, 'placeholder'=>'Enter Organization Name']);?>
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 
-          'placeholder'=>'Enter Address']);?>
-          <label class="add-field-h2" for="First-Name">Phone Numbers</label>
+          <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 'placeholder'=>'Enter Address']);?>
+          <label class="add-field-h2" for="First-Name">Phone Number(s)</label>
             <div class="medical-wrap">
-              <?php foreach ($contact->phone_numbers as $number): ?>
-                  <?php if($number->entity_type === 2): ?>
-                      <?php $type = "";
-                          if ($number->phone_type === 0) {$type = "Mobile: "; } 
-                          else if ($number->phone_type === 1) {$type = "Home: ";}
-                          else if ($number->phone_type === 2) {$type = "Organization: ";} 
-                          else if ($number->phone_type === 3) {$type = "Other: ";} 
-                      ?>
-                     <div class="scroll1 no-horizontal-scroll">
-                        <div class="medical-data-cont" data-ix="medical-data-click">
-                          <div class="medical-type-cont">
-                            <div class="medical-data-type"><?= $type ?></div>
-                          </div>
-                          <div class="medical-date-cont">
-                            <div class="medical-date-cont"><?= h($number->phone_num) ?></div>
-                          </div>
-                          <div class="medical-data-action-cont">
-                            <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
-                              <div class="profile-action-button sofware">-</div>
-                              <div>edit</div>
-                            </a>
-                            <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
-                              <div class="basic profile-action-button"></div>
-                              <div>delete</div>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                  <?php endif; ?>
-                <?php endforeach; ?>
+              <?php foreach ($phone as $number): ?>
+                <?php $type = "";
+                  if ($number['phone_type'] === 0) {$type = "Mobile: ";} 
+                  else if ($number['phone_type'] === 1) {$type = "Home: ";} 
+                  else if ($number['phone_type'] === 2) {$type = "Organization: ";}
+                  else if ($number['phone_type'] === 3) {$type = "Other: ";} 
+                ?>
+                <div class="scroll1 no-horizontal-scroll">
+                  <div class="medical-data-cont" data-ix="medical-data-click">
+                    <div class="phone-number-type-cont">
+                      <div class="medical-data-type"><?= $type ?></div>
+                    </div>
+                    <div class="phone-number-num-cont">
+                      <div class="phone-number-num-cont"><?php echo "(".substr($number['phone_num'], 0, 3).") ".substr($number['phone_num'], 3, 3)."-".substr($number['phone_num'],6); ?></div>
+                    </div>
+                    <div class="medical-data-action-cont">
+                      <a class="left medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'edit', $number->id, $number->entity_id, $number->entity_type]) ?>">
+                        <div class="profile-action-button sofware">-</div>
+                        <div>edit</div>
+                      </a>
+                      <a class="medical-data-action w-inline-block delete-number-btn" href="#" data-number="<?= $number->id ?>">
+                        <div class="basic profile-action-button"></div>
+                        <div>delete</div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
             </div>
-            <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Another Phone Number</a>
+            <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Phone Number</a>
 
           <div class="add-button-cont">
             <?= $this->Html->link('Cancel', ['controller'=>'contacts','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'ContactCancel']); ?>
@@ -112,6 +108,9 @@
         inputNum.attr('name', 'phones[phone_num][]');
         inputNum.addClass('add-input w-input');
         inputNum.attr('id', 'phones-phone-num');
+        inputNum.attr('type', 'tel');
+        inputNum.attr('maxLength', 10);
+        inputNum.attr('minLength', 10);
         inputNum.attr('placeholder', 'Enter Number');
         $(inputType).after(inputNum);
         var selectedNum = $('#phones-phone-num').val();
