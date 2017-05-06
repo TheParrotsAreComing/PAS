@@ -60,7 +60,7 @@ try:
 	ele = driver.find_element_by_css_selector('a.tag-remove[data-id="'+tag_id+'"]')
 	ele.click()
 
-	driver.find_element_by_id('delTag').click()
+	driver.find_element_by_id('confirmTag').click()
 
 	driver.get('http://localhost:8765/fosters/view/'+foster_id);
 
@@ -70,8 +70,12 @@ try:
 	print('fail')
 	driver.quit()
 
-except NoSuchElementException:
-    print("pass")
+except NoSuchElementException as e:
+	if "a.tag-remove" in str(e):
+		print("pass")
+	else:
+		print(e)
+		print("fail")
 
 except Exception as e:
 	print(e)

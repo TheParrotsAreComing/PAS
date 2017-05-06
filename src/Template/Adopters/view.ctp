@@ -436,20 +436,24 @@
           width: 400,
           modal: true,
           buttons: {
-          "Delete": function() {
-            $.ajax({
-              url : tagDel,
-              type : 'POST',
-              data : {
-                'adopter_id' : '<?= $adopter->id ?>',
-                'tag_id' : tag_id
-            }
-            }).done(function(result){
-              result = JSON.parse(result);
-              $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
-            });
-              that.parent().remove();
-              $( this ).dialog( "close" );
+          "Delete": {
+			text : "Delete",
+			id : "confirmTag",
+			click : function() {
+				$.ajax({
+				  url : tagDel,
+				  type : 'POST',
+				  data : {
+					'adopter_id' : '<?= $adopter->id ?>',
+					'tag_id' : tag_id
+				}
+				}).done(function(result){
+				  result = JSON.parse(result);
+				  $('#tag').append('<option value="'+result['id']+'">'+result['label']+'</option>');
+				});
+				  that.parent().remove();
+				  $( this ).dialog( "close" );
+			  },
           },
           Cancel: function() {
             $( this ).dialog( "close" );

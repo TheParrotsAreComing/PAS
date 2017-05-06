@@ -109,7 +109,7 @@ try:
 
 	driver.get('http://localhost:8765/fosters/view/'+a_id)
 
-	new_img = driver.find_element_by_css_selector('div.picture-file > img.picture')
+	new_img = driver.find_element_by_css_selector('div.profile-header > img')
 
 	img_src = new_img.get_attribute('src')
 
@@ -118,7 +118,7 @@ try:
 	else:
 		print("fail")
 
-	#driver.quit()
+	driver.quit()
 
 except Exception as e:
 	print(e)
