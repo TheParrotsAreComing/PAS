@@ -46,8 +46,8 @@
                         </div>
                       <?php endforeach; ?>   
                     </div>
-                    <div class="profile-content-cont">
-                       <a class="new-tag-btn profile-add-cont w-inline-block" data-ix="add-tag" href="#">+ Add New Tag</a>
+                    <div class="medical-wrap">
+                      <a class="profile-add-cont" data-ix="add-tag" href="#">+ Add Tag</a>
                     </div>
                     <div class="profile-content-cont">
                         <div class="profile-text-header">Personal Information</div>
