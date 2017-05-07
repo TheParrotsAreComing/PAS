@@ -202,7 +202,7 @@
                       <div class="medical-data-type"><?= h($file->created) ?></div>
                     </div>
                     <div class="medical-date-cont">
-                      <div class="medical-date-cont"><?= h($file->original_filename) ?></div>
+                      <div class="medical-date-cont"><?= h($file->original_filename.'.'.$file->file_ext) ?></div>
                     </div>
                     <div class="medical-notes-cont">
                       <div class="medical-data-notes"><?= h($file->note) ?></div>

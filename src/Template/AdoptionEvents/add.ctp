@@ -12,9 +12,9 @@
                         <div class="add-field-seperator"></div>
                         <label class="add-field-h3">Event Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
-                            <?php echo $this->Form->month('event_date', array('value'=>$eventDate[1],'class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
-                            <?php echo $this->Form->day('event_date', array('value'=>$eventDate[2],'class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
-                            <?php echo $this->Form->year('event_date', array('value'=>$eventDate[0],'class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
+                            <?php echo $this->Form->month('event_date', array('id'=>'month','value'=>$eventDate[1],'class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
+                            <?php echo $this->Form->day('event_date', array('id'=>'day','value'=>$eventDate[2],'class' => 'date-day w-select', 'empty' => 'Day', 'required'=>true)); ?>
+                            <?php echo $this->Form->year('event_date', array('id'=>'year','value'=>$eventDate[0],'class' => 'date-year w-select', 'empty' => 'Year', 'required'=>true)); ?>
                        </div>
                        <?php echo $this->Form->input('description', 
                             array('type' => 'textarea', 'label' => 

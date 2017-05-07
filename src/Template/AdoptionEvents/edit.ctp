@@ -25,7 +25,7 @@
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type a description for this event...')); ?>
                         <div class="add-field-h3">Cats:</div>
-                        <div class="list-wrapper scroll1 w-dyn-list">
+                        <div class="scroll1 w-dyn-list">
                             <div class="cats-list">
                                 <?php foreach ($adoptionEvent->cats as $cat): ?>
                                     <div class="card-cont card-wrapper w-dyn-item"> 
@@ -78,20 +78,20 @@
                                     </div>
                                 <?php endforeach; ?> 
                             </div>
-                        </div>
-                        <div class="medical-wrap">
-                            <a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
-                        </div>
-                        <div class="add-field-h3">Volunteers:</div>
-                        <div class="users-list">
-                        </div>
-                        <div class="medical-wrap">
-                            <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add Volunteer</a>
-                        </div>
-                        <div class="add-button-cont">
-                       <?= $this->Html->link("Cancel", ['controller'=>'adoptionEvents', 'action'=>'index'], ['id'=>'AdoptionEventCancel', 'class'=>'add-cancel w-button']); ?>
-                       <?= $this->Form->button("Submit",['id'=>'AdoptionEventAdd', 'class'=>'add-submit w-button', 'type'=>'submit']); ?>
+							<div class="medical-wrap">
+								<a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
+							</div>
+							<div class="add-field-h3">Volunteers:</div>
+							<div class="users-list">
+							</div>
+							<div class="medical-wrap">
+								<a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add Volunteer</a>
+							</div>
+							<div class="add-button-cont">
+						   <?= $this->Html->link("Cancel", ['controller'=>'adoptionEvents', 'action'=>'index'], ['id'=>'AdoptionEventCancel', 'class'=>'add-cancel w-button']); ?>
+						   <?= $this->Form->button("Submit",['id'=>'AdoptionEventAdd', 'class'=>'add-submit w-button', 'type'=>'submit']); ?>
 
+							</div>
                         </div>
                     </form>
                 </div>

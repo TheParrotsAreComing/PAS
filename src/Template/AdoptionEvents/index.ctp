@@ -10,7 +10,7 @@
             <a class="events-tab-menu-cont w-inline-block w-tab-link" data-w-tab="Tab 1">
               <div>Current</div>
             </a>
-            <a class="events-tab-menu-cont w-inline-block w-tab-link" data-w-tab="Tab 2">
+            <a class="events-tab-menu-cont w-inline-block w-tab-link upcoming-tab" data-w-tab="Tab 2">
               <div>Upcoming</div>
             </a>
             <a class="events-tab-menu-cont w--current w-inline-block w-tab-link" data-w-tab="Tab 3">
