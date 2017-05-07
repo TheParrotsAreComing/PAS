@@ -20,10 +20,10 @@ class AdoptionEventsController extends AppController
     public function index()
     {
         //$adoptionEvents = $this->paginate($this->AdoptionEvents);
-        $adoptionEvents = $this->AdoptionEvents->find('all', ['contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files']]);
-        $this->paginate = [
-            'conditions' => ['AdoptionEvent.is_deleted' => 0]
-        ];
+        $adoptionEvents = $this->AdoptionEvents->find('all', [
+            'contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files'],
+            'conditions' => ['AdoptionEvents.is_deleted'=> 0]]);
+        $this->paginate($this->AdoptionEvents);
         $this->set(compact('adoptionEvents'));
         $this->set('_serialize', ['adoptionEvents']);
     }
@@ -130,11 +130,13 @@ class AdoptionEventsController extends AppController
     public function delete($id = null)
     {
         $session_user = $this->request->session()->read('Auth.User');
-        
-        $this->request->allowMethod(['post', 'delete']);
+
         $adoptionEvent = $this->AdoptionEvents->get($id);
-        if ($this->AdoptionEvents->delete($adoptionEvent)) {
+        $this->request->data['is_deleted'] = 1;
+        $adoptionEvent = $this->AdoptionEvents->patchEntity($adoptionEvent, $this->request->data);
+        if ($this->AdoptionEvents->save($adoptionEvent)) {
             $this->Flash->success(__('The adoption event has been deleted.'));
+            return $this->redirect(['controller' => 'AdoptionEvents', 'action'=>'index']);
         } else {
             $this->Flash->error(__('The adoption event could not be deleted. Please, try again.'));
         }

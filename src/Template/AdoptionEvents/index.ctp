@@ -38,7 +38,7 @@
                         <div class="profile-action-button sofware">-</div>
                         <div>edit</div>
                       </a>
-                      <a class="medical-data-action w-inline-block" data-ix="delete-click-desktop" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'delete', $adoptionEvent->id]) ?>">
+                      <a class="medical-data-action w-inline-block" data-ix="delete-click-desktop" href="#">
                         <div class="basic profile-action-button"></div>
                         <div>delete</div>
                       </a>
@@ -515,8 +515,9 @@
     <div class="event-h2">May 15th, 2017</div>
   </div>
   <div class="confirm-button-wrap w-form">
-    <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2"><a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-      <input class="confirm-button delete w-button" data-wait="Please wait..." type="submit" value="Delete">
+    <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+    <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+    <a class="confirm-button delete w-button" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'delete', $adoptionEvent->id]) ?>" data-wait="Please wait... " type="submit" value="Delete">Delete</a>
     </form>
     <div class="w-form-done">
       <div>Thank you! Your submission has been received!</div>
