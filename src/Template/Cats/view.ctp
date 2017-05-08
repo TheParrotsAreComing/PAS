@@ -27,13 +27,13 @@
                     if ($cat->is_kitten == 1) {$status = "Kitten";}
                     else {$status = "Cat";}
                 ?>                    
-              <div class="profile-header-text"><?= $status ?></div>
                 <?= 
                     $gender = "";
-                    if($cat->is_female == 1) {$gender = "(female)";}
-                    else {$gender = "(male)";}
+                    if($cat->is_female == 1) {$gender = "Female";}
+                    else {$gender = "Male";}
                 ?>
-              <div class="profile-header-text"><?= $gender ?></div>
+              <div class="profile-header-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
+              <div class="profile-header-text <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
             </div>
             <div>
               <div class="cat-dob" style="display:none;"><?= h($cat->dob) ?></div>
@@ -90,8 +90,7 @@
                 <div class="profile-field-cont">
                   <div class="left-justify profile-field-cont">
                     <div class="profile-field-name">Gender:</div>
-                    
-                    <div class="profile-field-text"><?= $cat->is_female ?></div>
+                    <div class="profile-field-text"><?= $gender; // this is obtained from the variable set from the if-condition in the header ?></div>
                   </div>
                   <div class="profile-field-cont">
                     <div class="profile-field-name">Breed:</div>

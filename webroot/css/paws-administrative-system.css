@@ -815,6 +815,14 @@
   font-family: 'Cat Icons', sans-serif;
 }
 
+.profile-header-text.female {
+  color: #ff01ff;
+}
+
+.profile-header-text.male {
+  color: #0172ff;
+}
+
 .paws-home-cont {
   position: absolute;
   top: 20%;
@@ -4126,6 +4134,23 @@
 
 .card-pic {
   max-height: 100%;
+}
+
+.profile-header-symbol {
+  display: inline-block;
+  margin-right: -10px;
+  margin-left: 15px;
+  font-family: 'Cat Icons', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.profile-header-symbol.female {
+  color: #ff01ff;
+}
+
+.profile-header-symbol.male {
+  color: #0172ff;
 }
 
 html.w-mod-js *[data-ix="page-load-fade-in"] {
