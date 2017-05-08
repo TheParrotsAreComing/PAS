@@ -77,12 +77,16 @@ var Cat = function(){
 		a_card.addClass("card w-clearfix w-inline-block");
 		a_card.attr('href',APP_PATH+"adopters/view/"+adopter_id);
 
-
+		//Anchor Tag Parent
+		var img_cont = $('<div/>');
+		img_cont.addClass("card-pic-cont");
+		a_card.append(img_cont);
+		
 		//build and append the collar img
 		var img = $('<img/>');
 		img.addClass("card-pic");
 		img.attr('src',APP_PATH+"img/adopter-menu.png");
-		a_card.append(img);
+		img_cont.append(img);
 
 		//The Adopter Name Div
 		var card_h1 = $('<div/>');
@@ -205,12 +209,16 @@ var Cat = function(){
 		a_card.addClass("card w-clearfix w-inline-block");
 		a_card.attr('href',APP_PATH+"fosters/view/"+foster_id);
 
+		//Anchor Tag Parent
+		var img_cont = $('<div/>');
+		img_cont.addClass("card-pic-cont");
+		a_card.append(img_cont);
 
-		//build and append the collar img
+		//build and append the foster img
 		var img = $('<img/>');
 		img.addClass("card-pic");
 		img.attr('src',APP_PATH+"img/foster-menu.png");
-		a_card.append(img);
+		img_cont.append(img);
 
 		//The Adopter Name Div
 		var card_h1 = $('<div/>');

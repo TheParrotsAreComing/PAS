@@ -69,9 +69,7 @@
     <div class="list-wrapper scroll1 w-dyn-list">
       <div class="list scroll1 w-dyn-items">
         <?php foreach ($fosters as $foster): ?>
-            <div class="card-wrapper w-dyn-item">
-              <div class="card-full-cont">
-                <div class="card-cont">
+            <div class="card-cont card-wrapper w-dyn-item">
                   <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">
                   <div class="card-pic-cont">
                   <?php 
@@ -87,11 +85,22 @@
                       <div class="card-h2">Rating:</div>
                       <div class="card-h2"><?= $foster['rating']; ?></div>
 					           <?php echo str_repeat("&nbsp;", 5); ?>
-                      <div class="card-h2">Availability:</div>
-                      <div class="card-h2"><?= $this->Text->truncate($foster['avail'],25, ['ellipsis'=>'...', 'exact'=>true]); ?></div>
                     </div>
                     <div class="card-field-wrap">
-
+                      <div class="card-field-cont left-justify">
+                        <div class="card-h3">Availability:</div>
+                        <div class="catlist-field-content">
+                        <?= $foster['avail'];
+                        //$this->Text->truncate($foster['avail'],25, ['ellipsis'=>'...', 'exact'=>true]); ?></div>
+                      </div>
+                      <div class="card-field-cont left-justify">
+                        <div class="card-h3">E-mail:</div>
+                        <div class="catlist-field-content"><?= $foster['email']; ?></div>
+                      </div>
+                      <div class="card-field-cont left-justify">
+                        <div class="card-h3">Address:</div>
+                        <div class="catlist-field-content"><?= $foster['address']; ?></div>
+                      </div>
                       <?php if(!empty($phones)) :?>
                         <?php foreach ($phones as $number): ?>
                           <?php if ($number->entity_id === $foster->id): ?>
@@ -103,15 +112,6 @@
                           <?php endif ;?>
                         <?php endforeach; ?>
                       <?php endif; ?>
-
-                      <div class="card-field-cont left-justify">
-                        <div class="card-h3">E-mail:</div>
-                        <div class="catlist-field-content"><?= $foster['email']; ?></div>
-                      </div>
-                      <div class="card-field-cont left-justify">
-                        <div class="card-h3">Address:</div>
-                        <div class="catlist-field-content"><?= $foster['address']; ?></div>
-                      </div>
                     </div>
                   </a>
                   <?php if (empty($foster["cat_histories"])): ?>
@@ -126,12 +126,16 @@
                   <div class="dropdown-results-cont">
                     <?php foreach ($foster["cat_histories"] as $cat): ?>
                       <?php $cat = $cat["cat"]; ?>
-                      <a class="dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>"><?= $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']); ?>
-                        <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
-                      </a>
+                      	<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                          <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
+                          <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                          <div class="list-id-cont mini">
+                            <div class="id-text">#</div>
+                            <div class="id-text"><?= $cat->id ?></div>
+                          </div>
+                          <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
+                        </a>
                     <?php endforeach; ?>
-                  </div>
-                </div>
               </div>
             </div>
           <?php endforeach; ?>
@@ -156,21 +160,36 @@
     </div>
   </div>
 </div>
-<div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
-<div class="button-cont">
-  <div class="button-01">
-    <div class="button-icon-text">Add Foster</div><?= $this->Html->image("add-01.png", ["data-ix"=>"add-click", "width"=>"55", "url"=>["controller"=>"fosters", "action"=>"add"]]); ?>
-  </div>
-  <div class="button-02">
-    <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
-  </div>
-  <div class="button-03" data-ix="add-click">
-    <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
-  </div>
-  <div class="button-04">
-    <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
-  </div>
+<div class="floating-overlay"></div>
+<div class="button-paw" data-ix="paw-click">
+    <div>O</div>
 </div>
+<div class="button-cont">
+  <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters','action'=>'add']); ?>">
+      <div class="button-icon-text">Add Foster</div>
+      <div class="floating-button">
+        <div>P</div>
+      </div>
+  </a>
+  <a class="button-02 w-inline-block" href="#">
+    <div class="button-icon-text">Sort/Filter</div>
+    <div class="floating-button">
+      <div>K</div>
+    </div>
+  </a>
+  <!-- <a class="button-03 w-inline-block" href="#">
+    <div class="button-icon-text">Export</div>
+    <div class="floating-button">
+      <div>N</div>
+    </div>
+  </a>
+  <a class="button-04 w-inline-block" href="#">
+    <div class="button-icon-text">Delete</div>
+    <div class="floating-button">
+      <div>M</div>
+    </div>
+  </a>
+  -->
 <script>
 $(function(){
 	$('#tagFilter').select2();

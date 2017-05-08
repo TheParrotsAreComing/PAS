@@ -114,7 +114,10 @@
                     <?php foreach ($foster['cat_histories'] as $cat): ?>
                       <?php $cat = $cat['cat']; ?>
                         <div class="card-cont card-wrapper w-dyn-item">
-                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>">
+                          <div class="card-pic-cont">
+                            <img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+                          </div>
                             <div class="card-h1"><?= $cat['cat_name'];?></div>
                             <div class="card-h2-cont">
                               <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
@@ -174,46 +177,40 @@
 						  </div>
 					  <?php endif; ?>
                     </div>
-                    <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
-
-              <div class="medical-wrap">
-                  <div class="medical-header-cont">
-                    <div class="medical-type-cont">
-                      <div class="medical-header">Uploaded</div>
-                    </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-header">Original Name</div>
-                    </div>
-                    <div class="medical-notes-cont">
-                      <div class="medical-header">Note</div>
+                <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
+                <div class="files-wrap">
+                    <div class="files-header-cont">
+                      <div class="files-date-cont">
+                        <div class="files-header">date</div>
+                      </div>
+                      <div class="files-name-cont">
+                        <div class="files-header">filename & notes</div>
+                      </div>
                     </div>
                   </div>
                   <?php if ($filesCountTotal > 0): ?>
                     <?php foreach($files as $file): ?>
-
-                  <div class="scroll1 no-horizontal-scroll">
-                    <div class="medical-data-cont" data-ix="medical-data-click">
-                    <div class="medical-type-cont">
-                      <div class="medical-data-type"><?= h($file->created) ?></div>
+                    <div class="files-data-wrap no-horizontal-scroll">
+                      <div class="files-data-cont" data-ix="medical-data-click">
+                      <div class="files-date-cont">
+                        <div class="medical-data-type"><?= h($file->created) ?></div>
+                      </div>
+                      <div class="files-name-cont">
+                        <div class="files-name"><?= h($file->original_filename) ?>.<?= h($file->file_ext) ?></div>
+                        <div class="files-data"><?= h($file->note) ?></div>
+                      </div>
+                      <div class="medical-data-action-cont">
+                        <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                        <div class="basic profile-action-button"></div>
+                        <div>delete</div>
+                        </a>
+                        <a class="right medical-data-action w-inline-block" href="#">
+                        <div class="profile-action-button sofware">p</div>
+                        <div>download</div>
+                        </a>
+                      </div>
+                      </div>
                     </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-date-cont"><?= h($file->original_filename.'.'.$file->file_ext) ?></div>
-                    </div>
-                    <div class="medical-notes-cont">
-                      <div class="medical-data-notes"><?= h($file->note) ?></div>
-                    </div>
-                    <div class="medical-data-action-cont">
-                      <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
-                      <div class="basic profile-action-button"></div>
-                      <div>delete</div>
-                      </a>
-                      <a class="right medical-data-action w-inline-block" href="#">
-                      <div class="profile-action-button sofware">p</div>
-                      <div>download</div>
-                      </a>
-                    </div>
-                    </div>
-                  </div>
                 <?php endforeach; ?>
                 <?php else : ?>
                   <!-- No uploaded documents to load-->
@@ -258,21 +255,6 @@
     <div class="notify-more">More...</div>
   </div>
 
-  <div class="button-cont w-hidden-main">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit', $foster->id], ['escape'=>false]);?>">
-        <div class="button-icon-text">Edit</div><img src="<?= $this->Url->image('edit-01.png');?>" width="55">
-    </a>
-    <div class="button-02">
-        <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
-    </div>
-    <div class="button-03" data-ix="add-click">
-        <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
-    </div>
-    <div class="button-04" data-ix="delete-click">
-        <div class="delete-button button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
-    </div>
-  </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
-
   <div class="floating-overlay">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this foster?</div>
@@ -285,7 +267,7 @@
     </div>
   </div> 
 
-  <div class="floating-overlay add-tag">
+  <div class="add-adopter-floating-overlay add-tag">
     <div class="confirm-cont add-tag-inner">
       <h4>Select a tag to add</h4>
       <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
@@ -344,6 +326,37 @@
 
 <div id="dialog-confirm-photo-delete" title="Delete this photo?" style="display:none;">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
+</div>
+
+<div class="button-cont w-hidden-main">
+  <?php if ($can_edit): ?>
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit', $foster->id]) ?> ">
+      <div class="button-icon-text">Edit</div>
+      <div class="floating-button">
+        <div>L</div>
+      </div>
+    </a>
+  <?php endif; ?>
+  <!--<div class="button-02">
+    <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
+  </div>
+    <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $foster->id]) ?>">
+      <div class="button-icon-text">Export</div>
+      <div class="floating-button">
+        <div>N</div>
+      </div>
+    </a>  -->
+  <?php if ($can_delete): ?>
+    <a class="button-04 w-inline-block" data-ix="delete-click">
+      <div class="button-icon-text">Delete</div>
+      <div class="floating-button">
+        <div>M</div>
+      </div>
+      </a>
+  <?php endif; ?>
+</div>
+<div class="button-paw" data-ix="paw-click">
+    <div>O</div>
 </div>
 
 <script>

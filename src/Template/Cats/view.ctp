@@ -248,7 +248,10 @@
                     <?php if(!empty($foster)) :?>
                       <div class="profile-text-header">Foster Home</div>
                       <div class="card-cont card-wrapper w-dyn-item">
-                      <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('foster-menu.png'); ?>">
+                      <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">
+                      <div class="card-pic-cont">
+                        <img class="card-pic" src="<?= $this->Url->image('foster-menu.png'); ?>">
+                      </div>
                       <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
                       <div class="card-field-wrap">
                         <div class="card-field-cont">
@@ -291,23 +294,19 @@
                       </div>
                       </a>
                       </div>
-                    <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Replace Foster</a>
+                    <a class="profile-add-cont attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Replace Foster</a>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block"> 
                       <div class="card-h1">This cat is currently not in a foster home. </div>
                       </a>
-                      <a class="card w-clearfix w-inline-block">
-                      <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-                      </a>
+                      <a class="profile-add-cont attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
                     <?php endif; ?>
                     <?php else: ?>
                       <a class="card w-clearfix w-inline-block">
                         <div class="card-h1">This cat is not currently in a foster home.</div>
                       </a>
                       <?php if (!$is_foster && $can_edit): ?>
-                        <a class="card w-clearfix w-inline-block">
-                          <a class="cat-add w-button attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
-                        </a>
+                          <a class="profile-add-cont attach-foster" data-ix="add-foster-click-desktop" href="javascript:void(0);">+ Add Foster</a>
                       <?php endif; ?>
                     <?php endif; ?>
               </div>
@@ -325,7 +324,10 @@
               <?php if(!empty($adopter)): ?>
                 <div class="profile-text-header">Adopter</div>
                 <div class="card-cont card-wrapper w-dyn-item">
-                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>"><img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>">
+                  <div class="card-pic-cont">
+                    <img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+                  </div>
                   <div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
                   <div class="card-field-wrap">
                     <div class="card-field-cont">
@@ -362,15 +364,13 @@
                   </div>
                   </a>
                 </div>
-          <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Replace Adopter</a>
+          <a class="profile-add-cont attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Replace Adopter</a>
               <?php else: ?>
                 <a class="card w-clearfix w-inline-block">
                   <div class="card-h1">This cat is not currently adopted.</div>
                 </a>
                 <?php if (!$is_foster && $can_edit): ?>
-                  <a class="card w-clearfix w-inline-block">
-                    <a class="cat-add w-button attach-adopter" data-ix="dd-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
-                  </a>
+                    <a class="profile-add-cont attach-adopter" data-ix="dd-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
                 <?php endif; ?>
                         <?php endif; ?>
                         <?php else: ?>
@@ -378,9 +378,7 @@
                 <div class="card-h1">This cat is not currently adopted.</div>
                             </a>
               <?php if (!$is_foster && $can_edit): ?>
-                <a class="card w-clearfix w-inline-block">
-                  <a class="cat-add w-button attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
-                </a>
+                  <a class="profile-add-cont attach-adopter" data-ix="add-adopter-click-desktop" href="javascript:void(0);">+ Add Adopter</a>
               <?php endif; ?>
                     <?php endif; ?>           
                 </div>
@@ -412,7 +410,6 @@
           <?php endif; ?>
                 </div>
                 <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
-
                 <div class="files-wrap">
                     <div class="files-header-cont">
                       <div class="files-date-cont">
@@ -424,7 +421,6 @@
                     </div>
                     <?php if ($filesCountTotal > 0): ?>
                       <?php foreach($files as $file): ?>
-
                     <div class="files-data-wrap no-horizontal-scroll">
                       <div class="files-data-cont" data-ix="medical-data-click">
                       <div class="files-date-cont">
@@ -596,37 +592,6 @@
   </div>
 </div>
 
-  <div class="button-cont w-hidden-main">
-    <?php if ($can_edit): ?>
-      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-        <div class="button-icon-text">Edit</div>
-        <div class="floating-button">
-          <div>L</div>
-        </div>
-      </a>
-    <?php endif; ?>
-    <!--<div class="button-02">
-      <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
-    </div>-->
-    <?php if ($can_delete): ?>
-      <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-        <div class="button-icon-text">Export</div>
-        <div class="floating-button">
-          <div>N</div>
-        </div>
-      </a>
-      <a class="button-04 w-inline-block" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div>
-        <div class="floating-button">
-          <div>M</div>
-        </div>
-        </a>
-    <?php endif; ?>
-  </div>
-  <div class="button-paw" data-ix="paw-click">
-      <div>O</div>
-  </div>
-
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 </div>
@@ -645,6 +610,37 @@
 
 <div id="dialog-confirm-photo-delete" title="Delete this photo?" style="display:none;">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
+</div>
+
+<div class="button-cont w-hidden-main">
+  <?php if ($can_edit): ?>
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+      <div class="button-icon-text">Edit</div>
+      <div class="floating-button">
+        <div>L</div>
+      </div>
+    </a>
+  <?php endif; ?>
+  <!--<div class="button-02">
+    <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
+  </div>-->
+  <?php if ($can_delete): ?>
+    <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+      <div class="button-icon-text">Export</div>
+      <div class="floating-button">
+        <div>N</div>
+      </div>
+    </a>
+    <a class="button-04 w-inline-block" data-ix="delete-click">
+      <div class="button-icon-text">Delete</div>
+      <div class="floating-button">
+        <div>M</div>
+      </div>
+      </a>
+  <?php endif; ?>
+</div>
+<div class="button-paw" data-ix="paw-click">
+    <div>O</div>
 </div>
 
 <script>

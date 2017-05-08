@@ -18,8 +18,6 @@
               echo '<img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">';
             }
           ?>
-          
-
           <div>
             <div class="cat-profile-name"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
       			<div>
@@ -117,7 +115,10 @@
                       <?php foreach ($adopter['cat_histories'] as $cat): ?>
                         <?php $cat = $cat['cat']; ?>
                         <div class="card-cont card-wrapper w-dyn-item">
-                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>"><img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+                          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>">
+                          <div class="card-pic-cont">
+                            <img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+                          </div>
                             <div class="card-h1"><?= $cat['cat_name'];?></div>
                             <div class="card-h2-cont">
                               <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
@@ -179,20 +180,16 @@
                   <a class="profile-add-cont w-inline-block add-photo-btn" href="javascript:void(0);" data-ix="add-photo-click-desktop">+ Add New Photo</a> 
                 </div>
                     </div>
-                    <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
-
-              <div class="medical-wrap">
-                  <div class="medical-header-cont">
-                    <div class="medical-type-cont">
-                      <div class="medical-header">Uploaded</div>
+                <div class="profile-text-header">Uploaded Files (<?= h($filesCountTotal) ?>)</div>
+                <div class="files-wrap">
+                    <div class="files-header-cont">
+                      <div class="files-date-cont">
+                        <div class="files-header">date</div>
+                      </div>
+                      <div class="files-name-cont">
+                        <div class="files-header">filename & notes</div>
+                      </div>
                     </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-header">Original Name</div>
-                    </div>
-                    <div class="medical-notes-cont">
-                      <div class="medical-header">Note</div>
-                    </div>
-                  </div>
                   <?php if ($filesCountTotal > 0): ?>
                     <?php foreach($files as $file): ?>
                     <div class="files-data-wrap no-horizontal-scroll">

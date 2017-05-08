@@ -795,6 +795,7 @@
 .cat-profile-pic {
   display: block;
   width: 140px;
+  height: 140px;
   margin-top: 0px;
   margin-right: 10px;
   margin-left: -150px;
