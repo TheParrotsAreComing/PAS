@@ -61,7 +61,10 @@
             ?>
             
             <div class="card-h1"><?= $adopter['first_name'].' '.$adopter['last_name']; ?></div>
-            <div><!--     Need to add this later?
+            <div>
+              <div class="card-h2">E-mail:</div>
+              <div class="card-h2"><?= $adopter->email ?></div>
+              <!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
               <div class="card-h2"></div>
                   --> 
@@ -84,10 +87,6 @@
                 <div class="card-h3">Address:</div>
                 <div class="catlist-field-content"><?= $adopter->address ?></div>
               </div>
-              <div class="card-field-cont left-justify">
-                <div class="card-h3">E-mail:</div>
-                <div class="catlist-field-content"><?= $adopter->email ?></div>
-              </div>
             </div>
           </a>
           <?php if (empty($adopter['cat_histories'])): ?>
@@ -102,18 +101,21 @@
           <div class="dropdown-results-cont">
             <?php foreach ($adopter['cat_histories'] as $cat): ?>
             <?php $cat = $cat['cat']; ?>
-              <a class="cursor-point dropdown-cat-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']]); ?>">
-
-
-                <?php 
+              <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+              <?php 
                   if(!empty($cat->profile_pic)) {
                     echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
                   } else {
                     echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
                   }
                 ?>
-
-                <div class="dropdown-cat-name"> <?= $cat['cat_name']; ?> </div>
+                        <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
+                        <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                        <div class="list-id-cont mini">
+                          <div class="id-text">#</div>
+                          <div class="id-text"><?= $cat->id ?></div>
+                        </div>
+                        <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
               </a>
             <?php endforeach; ?>
           </div>
@@ -159,21 +161,36 @@
     </div> 
   </div>
 </div>
-<div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
-<div class="button-cont">
-  <div class="button-01">
-    <div class="button-icon-text">Add Adopter</div><?= $this->Html->image("add-01.png", ["width"=>"55", "data-ix"=>"add-click", "url"=>["controller"=>"adopters", "action"=>"add"]]); ?>
-  </div>
-  <div class="button-02">
-    <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
-  </div>
-  <div class="button-03" data-ix="add-click">
-    <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
-  </div>
-  <div class="button-04">
-    <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
-  </div>
+<div class="floating-overlay"></div>
+<div class="button-paw" data-ix="paw-click">
+      <div>O</div>
 </div>
+<div class="button-cont">
+  <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters','action'=>'add']); ?>">
+      <div class="button-icon-text">Add Adopter</div>
+      <div class="floating-button">
+        <div>P</div>
+      </div>
+  </a>
+  <a class="button-02 w-inline-block" href="#">
+    <div class="button-icon-text">Sort/Filter</div>
+    <div class="floating-button">
+      <div>K</div>
+    </div>
+  </a>
+  <!-- <a class="button-03 w-inline-block" href="#">
+    <div class="button-icon-text">Export</div>
+    <div class="floating-button">
+      <div>N</div>
+    </div>
+  </a>
+  <a class="button-04 w-inline-block" href="#">
+    <div class="button-icon-text">Delete</div>
+    <div class="floating-button">
+      <div>M</div>
+    </div>
+  </a>
+  -->
 
 <script>
 	$('#tagFilter').select2();

@@ -137,7 +137,7 @@
       <div>O</div>
   </div>
   <div class="button-cont">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
+    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters','action'=>'add']); ?>">
         <div class="button-icon-text">Add Litter</div>
         <div class="floating-button">
           <div>P</div>

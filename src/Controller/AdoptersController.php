@@ -35,7 +35,7 @@ class AdoptersController extends AppController
             'CatHistories'=>function($q){
                 return $q->where(['end_date IS NULL']);
             }, 
-            'CatHistories.Cats'],
+            'CatHistories.Cats','CatHistories.Cats.Breeds'],
             'conditions' => ['Adopters.is_deleted' => 0]
         ];
 

@@ -195,30 +195,27 @@
                   </div>
                   <?php if ($filesCountTotal > 0): ?>
                     <?php foreach($files as $file): ?>
-
-                  <div class="scroll1 no-horizontal-scroll">
-                    <div class="medical-data-cont" data-ix="medical-data-click">
-                    <div class="medical-type-cont">
-                      <div class="medical-data-type"><?= h($file->created) ?></div>
+                    <div class="files-data-wrap no-horizontal-scroll">
+                      <div class="files-data-cont" data-ix="medical-data-click">
+                      <div class="files-date-cont">
+                        <div class="medical-data-type"><?= h($file->created) ?></div>
+                      </div>
+                      <div class="files-name-cont">
+                        <div class="files-name"><?= h($file->original_filename) ?>.<?= h($file->file_ext) ?></div>
+                        <div class="files-data"><?= h($file->note) ?></div>
+                      </div>
+                      <div class="medical-data-action-cont">
+                        <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                        <div class="basic profile-action-button"></div>
+                        <div>delete</div>
+                        </a>
+                        <a class="right medical-data-action w-inline-block" href="#">
+                        <div class="profile-action-button sofware">p</div>
+                        <div>download</div>
+                        </a>
+                      </div>
+                      </div>
                     </div>
-                    <div class="medical-date-cont">
-                      <div class="medical-date-cont"><?= h($file->original_filename.'.'.$file->file_ext) ?></div>
-                    </div>
-                    <div class="medical-notes-cont">
-                      <div class="medical-data-notes"><?= h($file->note) ?></div>
-                    </div>
-                    <div class="medical-data-action-cont">
-                      <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
-                      <div class="basic profile-action-button"></div>
-                      <div>delete</div>
-                      </a>
-                      <a class="right medical-data-action w-inline-block" href="#">
-                      <div class="profile-action-button sofware">p</div>
-                      <div>download</div>
-                      </a>
-                    </div>
-                    </div>
-                  </div>
                 <?php endforeach; ?>
                 <?php else : ?>
                   <!-- No uploaded documents to load-->
@@ -263,21 +260,6 @@
     <div class="notify-more">More...</div>
   </div>
 
-  <div class="button-cont">
-      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit', $adopter->id], ['escape'=>false]);?>">
-        <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png');?>" width="55">
-      </a>
-      <a class="button-02" href="#">
-        <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
-      </a>
-      <a class="button-03" data-ix="add-click">
-        <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
-      </a>
-      <div class="delete-button button-04" data-ix="delete-click">
-        <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
-      </div>
-  </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
-
   <div class="floating-overlay">
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this adopter?</div>
@@ -290,6 +272,36 @@
     </div>
   </div>
 
+  <div class="button-cont w-hidden-main">
+    <?php if ($can_edit): ?>
+      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit', $adopter->id]) ?> ">
+        <div class="button-icon-text">Edit</div>
+        <div class="floating-button">
+          <div>L</div>
+        </div>
+      </a>
+    <?php endif; ?>
+    <!--<div class="button-02">
+      <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
+    </div>-->
+    <?php if ($can_delete): ?>
+      <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $adopter->id]) ?>">
+        <div class="button-icon-text">Export</div>
+        <div class="floating-button">
+          <div>N</div>
+        </div>
+      </a>
+      <a class="button-04 w-inline-block" data-ix="delete-click">
+        <div class="button-icon-text">Delete</div>
+        <div class="floating-button">
+          <div>M</div>
+        </div>
+        </a>
+    <?php endif; ?>
+  </div>
+  <div class="button-paw" data-ix="paw-click">
+      <div>O</div>
+  </div>
 	<div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 	</div>

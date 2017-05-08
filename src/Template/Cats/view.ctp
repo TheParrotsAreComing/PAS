@@ -514,6 +514,21 @@
     </div>
   </div> 
 
+<div class="add-adopter-floating-overlay add-tag">
+    <div class="confirm-cont add-tag-inner">
+      <h4>Select a tag to add</h4>
+      <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+        <div class="tag_options">
+          <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$cat_tags]) ?>
+        </div>
+      </form>
+      <br/>
+      <div class="confirm-button-wrap w-form">
+        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+        <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
+      </div>
+    </div>
+</div> 
 
 <div class="add-adopter-floating-overlay add-photo">
   <div class="confirm-cont add-photo-inner">
@@ -619,22 +634,6 @@
 <div id="dialog-confirm-foster" title="Foster this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to foster this cat/kitten?</p>
 </div>
-
-<div class="floating-overlay add-tag">
-    <div class="confirm-cont add-tag-inner">
-      <h4>Select a tag to add</h4>
-      <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-        <div class="tag_options">
-          <?= $this->Form->input('tag',['class'=>'add-input w-input','options'=>$cat_tags]) ?>
-        </div>
-      </form>
-      <br/>
-      <div class="confirm-button-wrap w-form">
-        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-        <a class="delete add-tag-btn confirm-button w-button" href="#">Add Tag</a>
-      </div>
-    </div>
-  </div> 
 
 <div id="dialog-confirm-record" title="Delete this record?" style="display:none;">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this medical record?</p>
