@@ -64,51 +64,22 @@
               <div class="profile-content-cont">
                 <?php if(!empty($litter->cats)): ?>
                 <div class="profile-text-header">Cats/Kittens in Litter</div>
+                  <div class="dropdown-results-cont mini">
                   <?php foreach($litter->cats as $cat): ?>
-                    <div class="card-cont card-wrapper w-dyn-item">
-                      <?php $cat_id = $cat->id ?>
-                      <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat_id], ['escape'=>false]); ?>">
-                      <img class="card-pic" src="<?= $this->Url->image('cat-01.png');?>">
-                      <div class="card-h1"><?= h($cat->cat_name) ?></div>
-                      <div class="card-field-wrap">
-                        <div class="card-field-cont">
-                          <div class="card-h2"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div> 
-                          <div class="card-field-text"></div>
-                        </div>
-                        <div class="card-field-wrap">
-                          <div class="card-field-cont">
-                            <div class="card-field-cont">
-                              <div class="card-h3">DOB:</div> 
-                              <div class="card-field-text cat-dob"><?= $cat->dob ?></div>
-                            </div>
-                            <div class="card-field-cont">
-                              <div class="card-h3">Age:</div> 
-                              <div class="card-field-text cat-age"></div>
-                            </div>
-                          </div>
-                          <div class="card-field-cont"> 
-                            <div class="card-field-cont">
-                              <div class="card-h3">Breed:</div> 
-                              <div class="card-field-text"><?= $cat->breed ?></div>
-                            </div>
-                         </div> 
-                        </div>
-                        <div class="list-id-cont">
+                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                        <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
+                        <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                        <div class="list-id-cont mini">
                           <div class="id-text">#</div>
                           <div class="id-text"><?= $cat->id ?></div>
                         </div>
-                      </div>
-                      </a>
-                    </div>
+                        <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
+                    </a>
                   <?php endforeach; ?>
+                  </div>
                   <?php if ($can_edit): ?>
-                    <a class="card w-clearfix w-inline-block">
-                      <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add',$litter->id])?>">+ Add New Cat</a>
-                    </a>
-                    <br/>
-                    <a class="card w-clearfix w-inline-block">
-                      <a class="cat-add w-button attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Existing Cat</a>
-                    </a>
+                    <a class="profile-add-cont attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add',$litter->id])?>">+ Add New Cat</a>
+                    <a class="profile-add-cont attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Existing Cat</a>
                   <?php endif; ?>
                 <?php else: ?>
                   <div class="card-h1">This litter currently has no cat(s) or kitten(s).</div>
@@ -168,18 +139,30 @@
   </div> 
   <div class="button-cont w-hidden-main">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
-      <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png') ?>" width="55">
+      <div class="button-icon-text">Edit</div>
+      <div class="floating-button">
+        <div>L</div>
+        </div>
     </a>
-    <div class="button-02">
+    <!--<div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
-    </div>
+    </div>-->
     <div class="button-03" data-ix="add-click">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png') ?>" width="55">
+        <div class="button-icon-text">Export</div>
+        <div class="floating-button">
+          <div>N</div>
+        </div>
     </div>
     <div class="button-04" data-ix="delete-click">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="<?= $this->Url->image('delete-01.png') ?>" width="55">
+        <div class="button-icon-text">Delete</div>
+        <div class="floating-button">
+          <div>M</div>
+        </div>
     </div>
-  </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png') ?>" width="60">
+  </div>
+  <div class="button-paw" data-ix="paw-click">
+      <div>O</div>
+  </div>
 <script>
   calculateAndPopulateAgeFields();
 </script>

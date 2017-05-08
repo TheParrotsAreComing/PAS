@@ -108,16 +108,22 @@
               <div class="dropdown-results-cont">
 				<?php foreach($cat->litter->cats as $mate) : ?>
 					<?php if($mate->id != $cat->id): ?>
-						<a class="dropdown-cat-cont w-inline-block">
-						    <?php 
+                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $mate->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+                    <?php 
 				                if(!empty($mate->profile_pic)){
 				                  echo $this->Html->image('../'.$mate->profile_pic->file_path.'_tn.'.$mate->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
 				                } else {
 				                  echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
 				                }
 				            ?>
-							<div class="dropdown-cat-name"><?= $mate->cat_name ?></div>
-						</a>
+                        <div class="dropdown-cat-name mini"><?= h($mate->cat_name) ?></div>
+                        <div class="card-h2-symbol <?= ($mate->is_female) ? "female" : "male" ?> mini"><?= ($mate->is_female) ? "D" : "C" ?></div>
+                        <div class="list-id-cont mini">
+                          <div class="id-text">#</div>
+                          <div class="id-text"><?= $mate->id ?></div>
+                        </div>
+                        <div class="card-field-text mini"><!-- Insert Bonded Status HERE --></div>
+                    </a>
 					<?php endif; ?>
 				<?php endforeach; ?>
               </div>

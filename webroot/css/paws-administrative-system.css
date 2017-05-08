@@ -1242,6 +1242,7 @@
 }
 
 .dropdown-results-cont {
+  display: none;
   overflow: hidden;
   max-height: 600px;
   border-bottom: 1px solid #f0f0f0;
@@ -1250,6 +1251,8 @@
 }
 
 .dropdown-results-cont.mini {
+  display: block;
+  overflow: visible;
   margin: 5px 10px 10px;
   border-style: solid solid none;
   border-top-width: 1px;
@@ -2166,6 +2169,11 @@
   color: #0172ff;
 }
 
+.confirm-button.browse:hover {
+  background-color: #0172ff;
+  color: #fff;
+}
+
 .confirm-button-wrap {
   margin-bottom: 0px;
 }
@@ -2686,7 +2694,10 @@
 }
 
 .upload-cont {
-  display: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   width: 440px;
   padding: 30px 20px 20px;
   -webkit-box-orient: vertical;
@@ -3118,7 +3129,9 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  min-width: 180px;
   margin-top: 10px;
+  margin-bottom: 10px;
   padding: 5px 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -4070,6 +4083,32 @@
   text-align: right;
 }
 
+.dropdown-delete {
+  position: absolute;
+  top: -13px;
+  right: -10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 27px;
+  height: 27px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: #fff;
+  font-family: 'Linea arrows 10', sans-serif;
+  color: #ff3d3d;
+  font-size: 27px;
+  font-weight: 600;
+}
+
 html.w-mod-js *[data-ix="page-load-fade-in"] {
   opacity: 0;
 }
@@ -4245,18 +4284,8 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .column {
     position: static;
-    display: block;
-    overflow: auto;
     width: 100%;
     height: 100%;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-    -ms-flex-align: start;
-    align-items: flex-start;
   }
   .column.add-view {
     padding-top: 15px;
@@ -4314,7 +4343,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .list-wrapper.scroll1 {
     overflow: auto;
-    height: auto;
+    height: 100%;
     padding-right: 10px;
     padding-bottom: 15px;
     padding-left: 10px;
@@ -4322,7 +4351,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   .card-pic {
     position: static;
     right: 0px;
-    width: auto;
+    width: 50px;
     height: 50px;
     margin-top: 0px;
     margin-right: 10px;
@@ -4645,10 +4674,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -webkit-filter: grayscale(0%);
     filter: grayscale(0%);
   }
-  .id-text {
-    color: #fff;
-    font-size: 14px;
-  }
   .profile-tabs-cont {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -4814,9 +4839,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   .profile-content-cont.expand {
     padding-right: 10px;
   }
-  .profile-content-cont.expand.overflow {
-    height: 100vh;
-  }
   .profile-field-cont {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -4954,8 +4976,15 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     color: #333;
     text-decoration: none;
   }
+  .dropdown-cat-cont.mini {
+    padding-left: 10px;
+  }
   .dropdown-cat-name {
     margin-left: 15px;
+  }
+  .dropdown-cat-name.mini {
+    position: relative;
+    bottom: 10px;
   }
   .card-cont {
     width: 100%;
@@ -5071,6 +5100,17 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     font-weight: 700;
     text-transform: lowercase;
   }
+  .card-field-text.mini {
+    left: 65px;
+    top: 23px;
+    right: auto;
+  }
+  .card-field-text.mini.user {
+    left: 50px;
+    top: 22px;
+    right: auto;
+    overflow: hidden;
+  }
   .navbar-hamburger-text {
     margin-left: 5px;
     font-family: 'Linea arrows 10', sans-serif;
@@ -5085,6 +5125,9 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   .list-id-cont.litter {
     left: 5px;
     bottom: 156px;
+  }
+  .list-id-cont.mini {
+    right: 9px;
   }
   .navbar-search-icon-desktop {
     display: none;
@@ -5177,6 +5220,16 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     -ms-flex-item-align: stretch;
     align-self: stretch;
   }
+  .card-h2-symbol.female.mini {
+    left: 53px;
+    top: 24px;
+    right: auto;
+  }
+  .card-h2-symbol.male.mini {
+    left: 53px;
+    top: 24px;
+    right: auto;
+  }
   .upload-cont {
     width: 95%;
   }
@@ -5190,6 +5243,12 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   .medical-data-action {
     padding-right: 10px;
     padding-left: 10px;
+  }
+  .files-wrap {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 auto;
+    -ms-flex: 0 auto;
+    flex: 0 auto;
   }
   .picture-file-cont {
     height: 150px;

@@ -518,9 +518,10 @@
 <div class="add-adopter-floating-overlay add-photo">
   <div class="confirm-cont add-photo-inner">
     <div class="confirm-text">Choose a Photo...</div>
-      <?php 
+      <?php
         echo $this->Form->create($uploaded_photo, ['enctype' => 'multipart/form-data']);
-        echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
+        echo $this->Form->input('uploaded_photo',  array('type' => 'file',
+        'label' => ['text' => 'Uploaded Photo:', 'class' => 'upload-message', 'escape' => false]));
       ?>
     <br/>
     <div class="confirm-button-wrap w-form add-button-cont">
@@ -606,7 +607,10 @@
         </div>
         </a>
     <?php endif; ?>
-  </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png') ?>" width="60">
+  </div>
+  <div class="button-paw" data-ix="paw-click">
+      <div>O</div>
+  </div>
 
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>

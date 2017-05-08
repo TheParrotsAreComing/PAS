@@ -59,9 +59,8 @@
         <div class="list scroll1 w-dyn-items">
 		<?php if(!empty($litters)): ?>
 			<?php foreach($litters as $litter) : ?>
-				  <div class="card-wrapper w-dyn-item">
-					<div class="card-cont">
-					  <a href = "<?= $this->Url->build(['controller' => 'litters', 'action' => 'view', $litter->id]) ?>" class="card w-clearfix w-inline-block">
+				  <div class="card-cont card-wrapper w-dyn-item">
+					  <a href = "<?= $this->Url->build(['controller' => 'litters', 'action' => 'view', $litter->id]) ?>" class="card no-picture w-clearfix w-inline-block">
 						<div class="card-h1">ETA:</div>
 						<div class="card-h1"><?= $litter->est_arrival ?></div>
 						<div>
@@ -75,7 +74,7 @@
 							</div>
 							<div class="card-field-cont">
 							  <div class="card-h3">DOB:</div>
-							  <div class="card-field-text"><?= $litter->dob ?></div>
+							  <div class="card-field-text"><?php $now = $litter->dob; echo $now->format('F jS, Y'); ?></div>
 							</div>
 						  </div>
 						  <div class="card-field-cont">
@@ -103,16 +102,20 @@
 						</a>
 						<div class="dropdown-results-cont">
 						<?php foreach($litter->cats as $cat) : ?>
-							<a class="dropdown-cat-cont w-inline-block"><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
-								<div class="dropdown-cat-name"><?= $cat->cat_name ?></div>
-							</a>
+							<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                        <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
+                        <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                        <div class="list-id-cont mini">
+                          <div class="id-text">#</div>
+                          <div class="id-text"><?= $cat->id ?></div>
+                        </div>
+                        <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
+                    </a>
 						<?php endforeach; ?>
 						</div>
 					  <?php else: ?> 
 						<div class="dropdown-cont dropdown-text">Litter has no cats...</div>
 					  <?php endif; ?>
-					  
-					</div>
 				  </div>
 			  <?php endforeach; ?>
 		  <?php else: ?> 
@@ -130,21 +133,35 @@
 </div>
 
   <div class="floating-overlay"></div>
-  <img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
+  <div class="button-paw" data-ix="paw-click">
+      <div>O</div>
+  </div>
   <div class="button-cont">
     <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
-      <div class="button-icon-text">Add Litter</div><img data-ix="add-click" src="img/add-01.png" width="55">
+        <div class="button-icon-text">Add Litter</div>
+        <div class="floating-button">
+          <div>P</div>
+        </div>
     </a>
     <a class="button-02 w-inline-block" href="#">
-      <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
+      <div class="button-icon-text">Sort/Filter</div>
+      <div class="floating-button">
+        <div>K</div>
+      </div>
     </a>
-    <a class="button-03 w-inline-block" href="#">
-      <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
+    <!-- <a class="button-03 w-inline-block" href="#">
+      <div class="button-icon-text">Export</div>
+      <div class="floating-button">
+        <div>N</div>
+      </div>
     </a>
     <a class="button-04 w-inline-block" href="#">
-      <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
+      <div class="button-icon-text">Delete</div>
+      <div class="floating-button">
+        <div>M</div>
+      </div>
     </a>
-  </div>
+    -->
 
 <script>
 $(function(){

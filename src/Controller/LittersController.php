@@ -28,7 +28,7 @@ class LittersController extends AppController
         $can_add = ($user_model->isAdmin($session_user) || $user_model->isCore($session_user));
 
         $this->paginate = [
-            'contain' => ['Cats'],
+            'contain' => ['Cats', 'Cats.Breeds'],
             'conditions' => ['Litters.is_deleted' => 0]
         ];
 
@@ -78,10 +78,12 @@ class LittersController extends AppController
         $can_edit = ($can_delete || $user_model->isCore($session_user));
 
         $litter = $this->Litters->get($id, [
-            'contain' => ['Cats']
+            'contain' => ['Cats','Cats.Breeds']
         ]);
 
-        $this->set(compact('litter', 'can_delete', 'can_edit'));
+        $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
+
+        $this->set(compact('litter', 'can_delete', 'can_edit', 'breeds'));
         $this->set('_serialize', ['litter']);
     }
 
