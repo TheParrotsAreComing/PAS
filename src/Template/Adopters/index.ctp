@@ -51,7 +51,7 @@
       <?php foreach($adopters as $adopter) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
           <a class="card <?= ($adopter['do_not_adopt']) ? "dna-card-big" : ""; ?> w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>">
-
+            <div class="card-pic-cont">
             <?php 
                 if(!empty($adopter->profile_pic)){
                   echo $this->Html->image('../'.$adopter->profile_pic->file_path.'_tn.'.$adopter->profile_pic->file_ext, ['class'=>'card-pic']);
@@ -59,7 +59,7 @@
                   echo $this->Html->image('adopter-menu.png', ['class'=>'card-pic']);
                 }
             ?>
-            
+            </div>            
             <div class="card-h1"><?= $adopter['first_name'].' '.$adopter['last_name']; ?></div>
             <div>
               <div class="card-h2">E-mail:</div>

@@ -73,7 +73,7 @@
               <div class="card-full-cont">
                 <div class="card-cont">
                   <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">
-
+                  <div class="card-pic-cont">
                   <?php 
                       if(!empty($foster->profile_pic)){
                         echo $this->Html->image('../'.$foster->profile_pic->file_path.'_tn.'.$foster->profile_pic->file_ext, ['class'=>'card-pic']);
@@ -81,7 +81,7 @@
                         echo $this->Html->image('foster-menu.png', ['class'=>'card-pic']);
                       }
                   ?>
-
+                  </div>
                   <div class="card-h1"><?= $foster['first_name'].' '.$foster['last_name']; ?></div>
                     <div>
                       <div class="card-h2">Rating:</div>

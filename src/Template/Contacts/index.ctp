@@ -57,7 +57,10 @@
             <div class="card-wrapper w-dyn-item">
               <div class="card-full-cont">
                 <div class="card-cont">
-                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'edit', $contact->id]); ?>"><?= $this->Html->image('contacts-menu.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
+                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'edit', $contact->id]); ?>">
+                  <div class="card-pic-cont">
+                    <?= $this->Html->image('contacts-menu.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
+                  </div>
                   <div class="card-h1"><?= $contact['contact_name']; ?></div>
                     <div>
                       <div class="card-h2"><?= $contact['organization']; ?></div>

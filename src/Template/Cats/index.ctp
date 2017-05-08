@@ -63,7 +63,7 @@
         <?php foreach($cats as $cat) : ?>
           <div class="card-cont card-wrapper w-dyn-item">
             <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block">
-
+            <div class="card-pic-cont">
               <?php 
                 if(!empty($cat->profile_pic)){
                   echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
@@ -71,7 +71,7 @@
                   echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
                 }
               ?>
-
+            </div>
               <div class="card-h1"><?= $cat->cat_name?></div>
               <div class="card-h2-cont">
                 <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>

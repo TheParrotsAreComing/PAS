@@ -376,14 +376,28 @@
   height: 100%;
 }
 
-.card-pic {
+.card-pic-cont {
   position: relative;
   top: 15px;
   right: 50px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  width: 90px;
   height: 90px;
   margin-right: -100px;
   margin-left: -15%;
   float: left;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   border-radius: 3px;
 }
 
@@ -4109,6 +4123,10 @@
   font-weight: 600;
 }
 
+.card-pic {
+  max-height: 100%;
+}
+
 html.w-mod-js *[data-ix="page-load-fade-in"] {
   opacity: 0;
 }
@@ -4348,7 +4366,7 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     padding-bottom: 15px;
     padding-left: 10px;
   }
-  .card-pic {
+  .card-pic-cont {
     position: static;
     right: 0px;
     width: 50px;
