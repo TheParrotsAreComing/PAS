@@ -122,7 +122,7 @@
                           <div class="id-text">#</div>
                           <div class="id-text"><?= $mate->id ?></div>
                         </div>
-                        <div class="card-field-text mini"><!-- Insert Bonded Status HERE --></div>
+                        <div class="card-field-text mini"><?= h($mate->breed->breed) ?></div>
                     </a>
 					<?php endif; ?>
 				<?php endforeach; ?>

@@ -27,7 +27,7 @@ class CatsController extends AppController
 
 
         $this->paginate = [
-            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats'],
+            'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats', 'Litters.Cats.Breeds'],
             'conditions' => ['Cats.is_deleted' => 0, 'Cats.is_deceased' => 0]
         ];
 
