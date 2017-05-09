@@ -19,12 +19,22 @@ class AdoptionEventsController extends AppController
      */
     public function index()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        $can_add = false;
+        if ($users_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        } else if (!$users_model->isVolunteer($session_user)) {
+            $can_add = true;
+        }
+
         //$adoptionEvents = $this->paginate($this->AdoptionEvents);
         $adoptionEvents = $this->AdoptionEvents->find('all', [
             'contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files'],
             'conditions' => ['AdoptionEvents.is_deleted'=> 0]]);
         $this->paginate($this->AdoptionEvents);
-        $this->set(compact('adoptionEvents'));
+        $this->set(compact('adoptionEvents', 'can_add'));
         $this->set('_serialize', ['adoptionEvents']);
     }
 
@@ -37,6 +47,14 @@ class AdoptionEventsController extends AppController
      */
     public function view($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $user_model = TableRegistry::get('Users');
+
+        if ($user_model->isFoster($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $adoptionEvent = $this->AdoptionEvents->get($id, [
             'contain' => ['Cats', 'Users']
         ]);
@@ -52,6 +70,13 @@ class AdoptionEventsController extends AppController
      */
     public function add()
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $eventDate = false;
         $catsDB = TableRegistry::get('Cats');
         $usersDB = TableRegistry::get('Users');
@@ -102,6 +127,15 @@ class AdoptionEventsController extends AppController
      */
     public function edit($id = null)
     {
+        $session_user = $this->request->session()->read('Auth.User');
+        $users_model = TableRegistry::get('Users');
+
+        $phoneTable = TableRegistry::get('PhoneNumbers');
+        if ($users_model->isFoster($session_user) || $users_model->isVolunteer($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
+
         $eventDate = false;
         $adoptionEvent = $this->AdoptionEvents->get($id, [
             'contain' => ['Cats', 'Cats.Breeds', 'Cats.Files']
@@ -130,6 +164,10 @@ class AdoptionEventsController extends AppController
     public function delete($id = null)
     {
         $session_user = $this->request->session()->read('Auth.User');
+        if (!TableRegistry::get('Users')->isAdmin($session_user)) {
+            $this->Flash->error("You aren't allowed to do that.");
+            return $this->redirect(['controller'=>'cats','action'=>'index']);
+        }
 
         $adoptionEvent = $this->AdoptionEvents->get($id);
         $this->request->data['is_deleted'] = 1;

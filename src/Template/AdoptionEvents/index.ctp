@@ -502,9 +502,11 @@
             </div>
           </div>
         </div>
-        <div class="events-button-cont">
-        <a class="add-submit" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'add']) ?>">Create a New Adoption Event</a>
-        </div>
+        <?php if ($can_add): ?>
+            <div class="events-button-cont">
+            <a class="add-submit" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'add']) ?>">Create a New Adoption Event</a>
+            </div>
+        <?php endif; ?>
       </div>
     </div>
   </div>
