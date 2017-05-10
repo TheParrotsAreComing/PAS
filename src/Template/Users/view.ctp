@@ -222,24 +222,38 @@
     <div class="notify-more">More...</div>
   </div>
 
-  <div class="button-cont">
-      <?php if ($can_edit): ?>
-        <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id], ['escape'=>false]);?>">
-          <div class="button-icon-text">Edit</div><img data-ix="add-click" src="<?= $this->Url->image('edit-01.png');?>" width="55">
-        </a>
-        <a class="button-02" href="#">
-          <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png');?>" width="55">
-        </a>
-      <?php endif; ?>
-      <!-- <a class="button-03" data-ix="add-click">
-        <div class="button-icon-text">Export</div><img data-ix="add-click" src="<?= $this->Url->image('export-01.png');?>" width="55">
-      </a> -->
-      <?php if ($can_delete): ?>
-        <div class="delete-button button-04" data-ix="delete-click">
-          <div class="button-icon-text">Delete</div><img src="<?= $this->Url->image('delete-01.png');?>" width="55">
+
+  <div class="floating-overlay"></div>
+  <div class="button-cont w-hidden-main">
+    <?php if ($can_edit): ?>
+      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit', $user->id]) ?> ">
+        <div class="button-icon-text">Edit</div>
+        <div class="floating-button">
+          <div>L</div>
         </div>
-      <?php endif; ?>
-  </div><img class="button-paw" data-ix="paw-click" src="<?= $this->Url->image('add-paw.png');?>" width="60">
+      </a>
+    <?php endif; ?>
+    <!--<div class="button-02">
+      <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
+    </div>
+      <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $user->id]) ?>">
+        <div class="button-icon-text">Export</div>
+        <div class="floating-button">
+          <div>N</div>
+        </div>
+      </a>    -->
+    <?php if ($can_delete): ?>
+      <a class="button-04 w-inline-block" data-ix="delete-click">
+        <div class="button-icon-text">Delete</div>
+        <div class="floating-button">
+          <div>M</div>
+        </div>
+        </a>
+    <?php endif; ?>
+  </div>
+  <div class="button-paw" data-ix="paw-click">
+      <div>O</div>
+  </div>
 
   <div class="add-adopter-floating-overlay delete-user">
     <div class="confirm-cont">

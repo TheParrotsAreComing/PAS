@@ -95,15 +95,33 @@
     </div> 
   </div>
 </div>
-<div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
-<div class="button-cont">
-  <div class="button-02">
-    <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
-  </div>
-  <div class="button-03" data-ix="add-click">
-    <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
-  </div>
-  <div class="button-04">
-    <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
-  </div>
+<div class="floating-overlay"></div>
+<div class="button-paw" data-ix="paw-click">
+    <div>O</div>
 </div>
+<div class="button-cont">
+  <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users','action'=>'add']); ?>">
+      <div class="button-icon-text">Add User</div>
+      <div class="floating-button">
+        <div>P</div>
+      </div>
+  </a>
+  <a class="button-02 w-inline-block" href="#">
+    <div class="button-icon-text">Sort/Filter</div>
+    <div class="floating-button">
+      <div>K</div>
+    </div>
+  </a>
+  <!-- <a class="button-03 w-inline-block" href="#">
+    <div class="button-icon-text">Export</div>
+    <div class="floating-button">
+      <div>N</div>
+    </div>
+  </a>
+  <a class="button-04 w-inline-block" href="#">
+    <div class="button-icon-text">Delete</div>
+    <div class="floating-button">
+      <div>M</div>
+    </div>
+  </a>
+  -->

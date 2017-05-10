@@ -17,8 +17,8 @@
           <?= $this->Form->input('role', ['class'=>'add-input w-input', 'data-name'=>'Role', 'label'=>false, 'options'=>$user_types, 'value'=>'3']);?>
 
           <div class="add-button-cont">
-            <?= $this->Html->link('Cancel', ['controller'=>'fosters','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'FosterCancel']); ?>
-            <?= $this->Form->submit("Create User", ['class'=>'add-submit w-button','id'=>'FosterAdd'])?>
+            <?= $this->Html->link('Cancel', ['controller'=>'users','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'UserCancel']); ?>
+            <?= $this->Form->submit("Create User", ['class'=>'add-submit w-button','id'=>'UserAdd'])?>
           </div>
       </div>
       <?= $this->Form->end();?>
