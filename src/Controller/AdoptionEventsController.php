@@ -37,11 +37,13 @@ class AdoptionEventsController extends AppController
         $this->set(compact('adoptionEvents', 'can_add'));
         $this->set('_serialize', ['adoptionEvents']);
 
-        foreach($adoptionEvents->users as $user) {
-            if($user->profile_pic_file_id > 0){
-                $user->profile_pic = $filesDB->get($user->profile_pic_file_id);
-            } else {
-                $user->profile_pic = null;
+        if (!empty($adoptionEvents->users)) {
+            foreach($adoptionEvents->users as $user) {
+                if($user->profile_pic_file_id > 0){
+                    $user->profile_pic = $filesDB->get($user->profile_pic_file_id);
+                } else {
+                    $user->profile_pic = null;
+                }
             }
         }
 
