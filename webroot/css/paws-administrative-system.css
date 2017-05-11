@@ -3908,6 +3908,10 @@
   transition: all 300ms ease;
 }
 
+.event.scroll1 {
+  display: block;
+}
+
 .events-cont {
   display: -webkit-box;
   display: -webkit-flex;
@@ -4151,6 +4155,17 @@
 
 .profile-header-symbol.male {
   color: #0172ff;
+}
+
+.div-block-4 {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+  -ms-flex-align: end;
+  align-items: flex-end;
 }
 
 html.w-mod-js *[data-ix="page-load-fade-in"] {
@@ -5040,7 +5055,8 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
   }
   .login-registration-wrapper {
     width: 100%;
-    height: 70%;
+    height: 40%;
+    margin-top: 0%;
     -webkit-align-self: center;
     -ms-flex-item-align: center;
     align-self: center;

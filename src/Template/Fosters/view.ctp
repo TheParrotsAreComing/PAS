@@ -7,7 +7,6 @@
             <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
               <div>&lt; Back</div>
             </a>
-            <div class="profile-id-cont"></div>
         </div>
         <div class="profile-header">
           <?php 
@@ -20,7 +19,9 @@
           <div>
             <div class="cat-profile-name"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
             <div>
+            <?php if ($can_delete): ?>
               <div class="profile-header-text">Rating:</div>
+            <?php endif; ?>
 
               <div class="profile-header-text"><?= $this->Number->format($foster->rating) ?></div>
             </div>

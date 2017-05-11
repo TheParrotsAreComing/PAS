@@ -223,10 +223,19 @@
   </div>
 
 
-  <div class="floating-overlay"></div>
+  <div class="floating-overlay">
+      <div class="confirm-cont">
+      <div class="confirm-text">Are you sure you want to delete this user?</div>
+      <div class="confirm-button-wrap w-form">
+        <form class="confirm-button-cont">
+            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+            <?= $this->Html->link('Delete', ['controller'=>'users', 'action'=>'delete', $user->id], ['class'=>'confirm-button delete w-button']); ?>
+        </form>
+      </div>
+    </div></div>
   <div class="button-cont w-hidden-main">
     <?php if ($can_edit): ?>
-      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit', $user->id]) ?> ">
+      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id]) ?> ">
         <div class="button-icon-text">Edit</div>
         <div class="floating-button">
           <div>L</div>
@@ -259,7 +268,7 @@
     <div class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this user?</div>
       <div class="confirm-button-wrap w-form">
-        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+        <form class="confirm-button-cont">
             <a class="cancel cancel-delete confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
             <?= $this->Html->link('Delete', ['controller'=>'users', 'action'=>'delete', $user->id], ['class'=>'confirm-button delete w-button']); ?>
         </form>

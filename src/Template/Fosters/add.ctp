@@ -31,7 +31,9 @@
           <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
           <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'id'=>'Phone', 'label'=>false, 'type'=>'tel', 'maxLength'=>10, 'minLength'=>10, 'placeholder'=>'Enter Number']);?>
-          <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Another Phone Number</a>
+          <div class="medical-wrap">
+            <a class="profile-add-cont add-phone-btn" id="add-phone" href="#">+ Add Additional Phone Number</a>
+          </div>
 
           <label class="add-field-h2" for="First-Name">Other Information</label>
           <div class="add-field-seperator"></div>

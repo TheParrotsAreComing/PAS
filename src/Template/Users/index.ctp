@@ -38,36 +38,33 @@
       <div class="list w-dyn-items">
       <?php foreach($users as $user) : ?>
         <div class="card-cont card-wrapper w-dyn-item">
-          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'view', $user->id], ['escape'=>false]);?>">
+          <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'view', $user->id], ['escape'=>false]);?>" style="border-radius: 3px 3px 3px 3px;">
           <div class="card-pic-cont">
             <img class="card-pic" src="<?= $this->Url->image('user-menu.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
           </div>
             <div class="card-h1"><?= ($user->first_name == 'First' && $user->last_name == 'Last') ? '(Unconfirmed User)' : $user->first_name.' '.$user->last_name ?></div>
-            <div><!--     Need to add this later?
+            <div>
+              <div class="card-h2">E-mail:</div>
+              <div class="card-h2"><?= $user->email ?></div>
+            <!--     Need to add this later?
               <div class="card-h2">Last Adopted:</div>
-              <div class="card-h2"></div>
-                  --> 
+              <div class="card-h2"></div --> 
             </div>
-            <?php if(!empty($phones)) :?>
-              <?php foreach ($phones as $number): ?>
-                <?php if ($number->entity_id === $user->id): ?>
-                  <div class="card-field-cont left-justify">
-                    <div class="card-h3">Primary Phone: </div>
-                    <div class="catlist-field-content"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
-                  </div>
-                  <?php break;?>
-                <?php endif ;?>
-              <?php endforeach; ?>
-            <?php endif; ?>
-
             <div class="card-field-wrap">
+              <?php if(!empty($phones)) :?>
+                <?php foreach ($phones as $number): ?>
+                  <?php if ($number->entity_id === $user->id): ?>
+                    <div class="card-field-cont left-justify">
+                      <div class="card-h3">Primary Phone: </div>
+                      <div class="catlist-field-content"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
+                    </div>
+                    <?php break;?>
+                  <?php endif ;?>
+                <?php endforeach; ?>
+              <?php endif; ?>
               <div class="card-field-cont left-justify">
                 <div class="card-h3">Address:</div>
-                <div class="catlist-field-content"><?= ($user->address == "Address") ? "n/a" : $user->address ?></div>
-              </div>
-              <div class="card-field-cont left-justify">
-                <div class="card-h3">E-mail:</div>
-                <div class="catlist-field-content"><?= $user->email ?></div>
+                <div class="card-field-text"><?= ($user->address == "Address") ? "n/a" : $user->address ?></div>
               </div>
             </div>
           </a>
@@ -106,7 +103,7 @@
         <div>P</div>
       </div>
   </a>
-  <a class="button-02 w-inline-block" href="#">
+  <a class="button-02 w-inline-block" data-ix="filter-click" href="#">
     <div class="button-icon-text">Sort/Filter</div>
     <div class="floating-button">
       <div>K</div>

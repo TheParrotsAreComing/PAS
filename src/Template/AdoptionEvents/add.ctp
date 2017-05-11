@@ -24,16 +24,16 @@
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type a description for this event...')); ?>
                         <div class="add-field-h3">Cats:</div>
-                        <div class="cats-list">
+                        <div class="dropdown-results-cont mini cats" style="margin-left: 0px; margin-right: 0px;">
                         </div>
                         <div class="medical-wrap">
-                            <a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
+                            <a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">+ Add Cat</a>
                         </div>
                         <div class="add-field-h3">Volunteers:</div>
-                        <div class="users-list">
+                        <div class="dropdown-results-cont mini users" style="margin-left: 0px; margin-right: 0px;">
                         </div>
                         <div class="medical-wrap">
-                            <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add Volunteer</a>
+                            <a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">+ Add Volunteer</a>
                         </div>
                         <div class="add-button-cont">
                        <?= $this->Html->link("Cancel", ['controller'=>'adoptionEvents', 'action'=>'index'], ['id'=>'AdoptionEventCancel', 'class'=>'add-cancel w-button']); ?>
@@ -104,10 +104,15 @@ $(function () {
         catsArr.push(selectedCat_id);
         var selectedCat = $('#cat option:selected').text();
         var cat_cont = $('<div/>');
-        cat_cont.addClass('profile-content-cont');
+        cat_cont.addClass('dropdown-cat-cont mini w-inline-block');
+
+        var cat_pic = $('<img/>');
+        cat_pic.addClass('dropdown-cat-pic');
+        cat_pic.attr('src','/img/cat-menu.png')
 
         var cat_text = $('<div/>');
-        cat_text.addClass('card-h1');
+        cat_text.addClass('dropdown-cat-name mini');
+        cat_text.text(selectedCat);
 
         var cat_remove = $('<a/>');
         cat_remove.addClass('cat-remove');
@@ -115,22 +120,21 @@ $(function () {
         cat_remove.text('Remove');
         cat_remove.attr('data-id', selectedCat_id);
 
-        cat_text.text(selectedCat);
-
         var input = $('<input/>');
         input.attr('name', 'cats[_ids][]');
         input.attr('type', 'hidden');
         input.val(selectedCat_id);
 
         cat_cont.append(input);
+        cat_cont.append(cat_pic);
         cat_cont.append(cat_text);
         cat_cont.append(cat_remove);
-        $('.cats-list').prepend(cat_cont);
+        $('.dropdown-results-cont.mini.cats').prepend(cat_cont);
 
         var dropdown_option = $('.cat_options option[value='+selectedCat_id+']');
         dropdown_option.remove();
     });
-    $('.cats-list').on('click', '.cat-remove',function() {
+    $('.dropdown-results-cont').on('click', '.cat-remove',function() {
         var that = $(this);
         cat_id = that.attr('data-id');
         that.parent().remove();
@@ -149,15 +153,19 @@ $(function () {
         usersArr.push(selectedUser_id);
         var selectedUser = $('#user option:selected').text();
         var user_cont = $('<div/>');
-        user_cont.addClass('profile-content-cont');
+        user_cont.addClass('dropdown-cat-cont mini w-inline-block');
+
+        var user_pic = $('<img/>');
+        user_pic.addClass('dropdown-cat-pic');
+        user_pic.attr('src','/img/user-menu.png')
 
         var user_text = $('<div/>');
-        user_text.addClass('card-h1');
+        user_text.addClass('dropdown-cat-name mini');
         
         var user_remove = $('<a/>');
         user_remove.addClass('user-remove');
         user_remove.attr('href', '#');
-        user_remove.text('remove');
+        user_remove.text('Remove');
         user_remove.attr('data-id', selectedUser_id);
 
         user_text.text(selectedUser);
@@ -168,9 +176,10 @@ $(function () {
         input.val(selectedUser_id);
 
         user_cont.append(input);
+        user_cont.append(user_pic);
         user_cont.append(user_text);
         user_cont.append(user_remove);
-        $('.users-list').prepend(user_cont);
+        $('.dropdown-results-cont.mini.users').prepend(user_cont);
 
         var dropdown_option = $('.user_options option[value='+selectedUser_id+']');
         dropdown_option.remove();

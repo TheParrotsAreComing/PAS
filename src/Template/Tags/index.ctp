@@ -89,21 +89,13 @@
       <div class="confirm-text">Are you sure you want to delete this tag?</div>
       <div class="tag-to-delete-div">
       </div>
-      <div class="confirm-button-wrap w-form">
+      <div class="confirm-button-cont">
         <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
           <?= $this->Form->button('Cancel', ['class'=>'cancel confirm-button w-button', 'data-ix'=>'confirm-cancel', 'data-id'=>'confirm-cancel', 'type'=>'button']); ?>
           <!--<a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>-->
           <?= $this->Form->button('Delete', ['class'=>'confirm-button delete w-button', 'data-wait'=>'Please wait...', 'type'=>'button']); ?>
           <!--<input class="confirm-button delete w-button" data-wait="Please wait..." type="submit" value="Delete">-->
         </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-
-
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
       </div>
     </div>
   </div>

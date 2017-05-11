@@ -62,12 +62,14 @@ class TagsController extends AppController
                 $tag = $this->Tags->newEntity();
                 $tag = $this->Tags->patchEntity($tag, $data);
                 $this->Tags->save($tag);
+                $this->Flash->success(__('Tag has been created successfully.'));
             } else {
                 $tag = $this->Tags->get($data['tag-id']);
                 $tag['label'] = $data['tag'];
                 $tag['color'] = $data['custom-color'];
                 $tag['type_bit'] = $data['type_bit'];
                 $this->Tags->save($tag);
+                $this->Flash->success(__('Tag has been updated successfully.'));
             }
 
             $this->redirect(['controller'=>'tags','action'=>'index']);
@@ -194,6 +196,8 @@ class TagsController extends AppController
         $this->autoRender = false;
         $tag = $this->Tags->get($this->request->data['tag_id']);
         $tag['is_deleted'] = 1;
-        $this->Tags->save($tag);
+        if ($this->Tags->save($tag)) {
+            $this->Flash->success(__('Tag has been deleted successfully.'));
+        }
     }
 }

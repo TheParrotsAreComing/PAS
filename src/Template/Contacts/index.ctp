@@ -54,10 +54,8 @@
     <div class="list-wrapper scroll1 w-dyn-list">
       <div class="list scroll1 w-dyn-items">
         <?php foreach ($contacts as $contact): ?>
-            <div class="card-wrapper w-dyn-item">
-              <div class="card-full-cont">
-                <div class="card-cont">
-                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'edit', $contact->id]); ?>">
+            <div class="card-cont card-wrapper w-dyn-item">
+                  <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'edit', $contact->id]); ?>" style="border-radius: 3px 3px 3px 3px;">
                   <div class="card-pic-cont">
                     <?= $this->Html->image('contacts-menu.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
                   </div>
@@ -98,8 +96,6 @@
                       </div>
                     </div>
                   </a>
-                </div>
-              </div>
             </div>
           <?php endforeach; ?>
           <div class="pagination-w">
@@ -123,20 +119,36 @@
     </div>
   </div>
 </div>
-<div class="floating-overlay"></div><img class="button-paw" data-ix="paw-click" src="img/add-paw.png" width="60">
+<div class="floating-overlay"></div>
+<div class="button-paw" data-ix="paw-click">
+    <div>O</div>
+</div>
 <div class="button-cont">
-  <div class="button-01">
-    <div class="button-icon-text">Add Contact</div><?= $this->Html->image("add-01.png", ["data-ix"=>"add-click", "width"=>"55", "url"=>["controller"=>"contacts", "action"=>"add"]]); ?>
-  </div>
-  <div class="button-02">
-    <div class="button-icon-text">Sort/Filter</div><img data-ix="filter-click" src="img/filter-01.png" width="55">
-  </div>
-  <div class="button-03" data-ix="add-click">
-    <div class="button-icon-text">Export</div><img data-ix="add-click" src="img/export-01.png" width="55">
-  </div>
-  <div class="button-04">
-    <div class="button-icon-text">Delete</div><img data-ix="add-click" src="img/delete-01.png" width="55">
-  </div>
+  <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'add']); ?>">
+      <div class="button-icon-text">Add Contact</div>
+      <div class="floating-button">
+        <div>P</div>
+      </div>
+  </a>
+  <a class="button-02 w-inline-block" data-ix="filter-click" href="#">
+    <div class="button-icon-text">Sort/Filter</div>
+    <div class="floating-button">
+      <div>K</div>
+    </div>
+  </a>
+  <!-- <a class="button-03 w-inline-block" href="#">
+    <div class="button-icon-text">Export</div>
+    <div class="floating-button">
+      <div>N</div>
+    </div>
+  </a>
+  <a class="button-04 w-inline-block" href="#">
+    <div class="button-icon-text">Delete</div>
+    <div class="floating-button">
+      <div>M</div>
+    </div>
+  </a>
+  -->
 </div>
 
 

@@ -7,8 +7,6 @@
             <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
-            <div class="profile-id-cont">
-            </div>
         </div>
         <div class="profile-header">
           <?php 
