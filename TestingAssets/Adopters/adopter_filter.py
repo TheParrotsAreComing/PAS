@@ -20,19 +20,20 @@ driver = webdriver.Remote(service.service_url, capabilities)
 try:
 	# Check to see if it was added
 	db=_mysql.connect('localhost','root','root','paws_db')
-	rand_name=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-	rand_color=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-	rand_coat=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+	rand_fname=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+	rand_lname=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+	rand_mail=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
-	db.query("INSERT INTO cats (cat_name, color, coat,is_kitten, dob, is_female, breed_id, bio, created,is_deleted,is_deceased) VALUES (\""+rand_name+"\",\""+rand_color+"\",\""+rand_coat+"\",1,'2001-03-20',1,1,\"Fast health regeneration, adamantium claws, aggressive...\",NOW(),false,false);")
+
+	db.query("INSERT INTO adopters (first_name,last_name,cat_count,address,email,created,is_deleted) VALUES(\""+rand_fname+"\",\""+rand_lname+"\",0,\"55 Gato Way\",\""+rand_mail+"@mail.com\",NOW(),false);");
 	db.store_result()
 
-	db.query("SELECT id,cat_name FROM cats where cat_name=\""+rand_name+"\";")
+	db.query("SELECT id,first_name FROM adopters where last_name=\""+rand_lname+"\" AND email=\""+rand_mail+"@mail.com\"")
 
 	r=db.store_result()
 
 	k=r.fetch_row(1,1)
-	cat_id = k[0].get('id')
+	a_id = k[0].get('id')
 
 	driver.set_window_size(sys.argv[1], sys.argv[2]);
 
@@ -41,21 +42,22 @@ try:
 	driver.find_element_by_id('password').send_keys('password')
 	driver.find_element_by_css_selector('input[type="submit"]').click()
 
-	driver.get('http://localhost:8765/cats/index/');
-
+	driver.get('http://localhost:8765/adopters/index/');
 	driver.find_element_by_class_name('cat-filter').click()
-	name_input = driver.find_element_by_id('catNameFilter')
+	input_name = driver.find_element_by_id('First-Name')
+	input_name.location_once_scrolled_into_view
+	input_name.send_keys(rand_fname)
+	input_name.send_keys(Keys.RETURN)
+	
 
-	name_input.location_once_scrolled_into_view
-	name_input.send_keys(rand_name)
-	name_input.send_keys(Keys.RETURN)
-
-	if rand_name in driver.find_element_by_class_name('card-h1').text:
-		print('pass')
+	if rand_fname in driver.find_element_by_class_name('card-h1').text:
+		print("pass")
 	else:
-		print('fail')
+		print("fail")
 
 except Exception as e:
 	print(e)
 	print("fail")
 
+finally:
+	driver.quit()
