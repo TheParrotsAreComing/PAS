@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Datasource\Exception;
+use Cake\Core\Configure;
 
 /**
  * Cats Controller
@@ -496,7 +497,7 @@ class CatsController extends AppController
             $csv_path = $csv_meta['uri'];
 
             $ftp_stream = ftp_connect('autoupload.adoptapet.com');
-            ftp_login($ftp_stream,'6909','XNNDKIOA'); 
+            ftp_login($ftp_stream,Configure::read('AdoptAPet_Credentials')['username'],Configure::read('AdoptAPet_Credentials')['password']);
             if (ftp_put($ftp_stream,'import.cfg',$cfg_path,FTP_ASCII)) {
                 if (ftp_put($ftp_stream,'pets.csv',$csv_path,FTP_ASCII)) {
                     ftp_close($ftp_stream);
