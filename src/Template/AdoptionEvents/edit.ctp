@@ -25,67 +25,33 @@
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type a description for this event...')); ?>
                         <div class="add-field-h3">Cats:</div>
-                        <div class="scroll1 w-dyn-list">
-                            <div class="cats-list">
+                            <div class="dropdown-results-cont mini" style="margin-left: 0px; margin-right: 0px;">
                                 <?php foreach ($adoptionEvent->cats as $cat): ?>
-                                    <div class="card-cont card-wrapper w-dyn-item"> 
-                                        <div class="card w-clearfix w-inline-block">
-                                            <?php 
-                                                if(!empty($cat->profile_pic_file_id)){
-                                                  echo $this->Html->image('../'.$cat->file->file_path.'_tn.'.$cat->file->file_ext, ['class'=>'card-pic']);
-                                                } else {
-                                                  echo $this->Html->image('cat-menu.png', ['class'=>'card-pic']);
-                                                }
-                                            ?>
-                                            <div class="card-h1"><?= h($cat->cat_name) ?></div>
-                                            <div class="card-h2-cont">
-                                              <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_female) ? "D" : "C" ?></div>
-                                              <div class="card-h2 <?= ($cat->is_female) ? "female" : "male" ?>"><?= ($cat->is_kitten) ? "Kitten" : "Cat" ?></div>
-                                            </div>
-                                            <div class="card-field-wrap">
-                                              <div class="card-field-cont">
-                                                <div class="card-field-cont">
-                                                  <div class="card-h3">DOB:</div>
-                                                  <div class="card-field-text cat-dob"><?= h($cat->dob) ?></div>
-                                                </div>
-                                                <div class="card-field-cont">
-                                                  <div class="card-h3">Age:</div>
-                                                  <div class="card-field-text cat-age"></div>
-                                                </div>
-                                              </div>
-                                              <div class="card-field-cont">
-                                                <div class="card-field-cont">
-                                                  <div class="card-h3">Breed:</div>
-                                                  <div class="card-field-text"><?= h($cat->breed->breed) ?></div>
-                                                </div>
-                                              </div>
-                                              <div class="card-field-cont">
-                                                <div class="card-field-cont">
-                                                  <div class="card-h3">Color:</div>
-                                                  <div class="card-field-text"><?= h($cat->color) ?></div>
-                                                </div>
-                                                <div class="card-field-cont">
-                                                  <div class="card-h3">Coat:</div>
-                                                  <div class="card-field-text"><?= h($cat->coat) ?></div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="list-id-cont">
-                                              <div class="id-text">#</div>
-                                              <div class="id-text"><?= h($cat->id) ?></div>
-                                            </div> 
+                                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                                        <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
+                                        <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                                        <div class="list-id-cont mini">
+                                            <div class="id-text">#</div>
+                                            <div class="id-text"><?= $cat->id ?></div>
                                         </div>
-                                    </div>
+                                        <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
+                                    </a>
                                 <?php endforeach; ?> 
                             </div>
 							<div class="medical-wrap">
-								<a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">Add Cat</a>
+								<a id="catAdd" class="profile-add-cont w-inline-block" data-ix="add-cat" href="#">+ Add Cat</a>
 							</div>
 							<div class="add-field-h3">Volunteers:</div>
-							<div class="users-list">
-							</div>
+                            <div class="dropdown-results-cont mini" style="margin-left: 0px; margin-right: 0px;">
+                                <?php foreach ($adoptionEvent->users as $user): ?>
+                                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $user->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                                        <div class="dropdown-cat-name mini"><?= h($user->first_name) ?> <?= h($user->last_name) ?></div>
+                                        <div class="card-field-text mini user"><?= $user->email ?></div>
+                                    </a>
+                                <?php endforeach; ?> 
+                            </div>
 							<div class="medical-wrap">
-								<a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">Add Volunteer</a>
+								<a id="userAdd" class="profile-add-cont w-inline-block" data-ix="add-user" href="#">+ Add Volunteer</a>
 							</div>
 							<div class="add-button-cont">
 						   <?= $this->Html->link("Cancel", ['controller'=>'adoptionEvents', 'action'=>'index'], ['id'=>'AdoptionEventCancel', 'class'=>'add-cancel w-button']); ?>

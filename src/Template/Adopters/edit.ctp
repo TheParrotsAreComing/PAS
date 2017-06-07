@@ -74,7 +74,9 @@
                 </div>
               <?php endforeach; ?>
             </div>
-            <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Phone Number</a>
+            <div class="medical-wrap">
+              <a class="profile-add-cont add-phone-btn" id="add-phone" href="#">+ Add Phone Number</a>
+            </div>
 
             <label class="add-field-h2" for="First-Name">Adoption Information</label>
           <div class="add-field-seperator"></div>

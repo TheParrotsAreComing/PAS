@@ -51,10 +51,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       width: 10px;
     }
     .scroll1::-webkit-scrollbar-track {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.4);
     }
     .scroll1::-webkit-scrollbar-thumb {
-      background: #5d5d5d
+      background: rgba(93, 93, 93, 0.6);
+      border-radius: 5px;
     }
     .star-rating {
       font-family: 'FontAwesome';

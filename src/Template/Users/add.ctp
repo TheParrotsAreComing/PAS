@@ -11,7 +11,7 @@
 
           <div class="clearfix">
           <label class="add-field-h3" for="Email">Email <span class="required-field-indicator"><span class="pre"></span></span>:</label>
-          <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'Email', 'label'=>false]);?>
+          <?= $this->Form->input('email', ['class'=>'add-input w-input', 'data-name'=>'Email', 'label'=>false, 'placeholder'=>'Enter Valid Email']);?>
 
           <label class="add-field-h3" for="Role">User Type <span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('role', ['class'=>'add-input w-input', 'data-name'=>'Role', 'label'=>false, 'options'=>$user_types, 'value'=>'3']);?>

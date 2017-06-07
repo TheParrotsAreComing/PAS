@@ -20,7 +20,7 @@
           'placeholder'=>'Enter Valid Email Address']);?>
           <label class="add-field-h2" for="First-Name">Organization Information</label>
           <div class="add-field-seperator"></div>
-          <label class="add-field-h3" for="Organzation-Name">Organzation Name<span class="required-field-indicator"><span class="pre"></span></span>:</label>
+          <label class="add-field-h3" for="Organzation-Name">Organization<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('organization', ['class'=>'add-input w-input', 'data-name'=>'Organzation-Name', 'label'=>false, 'placeholder'=>'Enter Organization Name']);?>
           <label class="add-field-h3" for="Address">Address<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('address', ['class'=>'add-input w-input', 'data-name'=>'Address', 'label'=>false, 'placeholder'=>'Enter Address']);?>
@@ -55,7 +55,9 @@
                 </div>
               <?php endforeach; ?>
             </div>
-            <a class="delete add-phone-btn confirm-button w-button" id="add-phone" href="#">Add Phone Number</a>
+            <div class="medical-wrap">
+              <a class="profile-add-cont add-phone-btn" id="add-phone" href="#">+ Add Phone Number</a>
+            </div>
 
           <div class="add-button-cont">
             <?= $this->Html->link('Cancel', ['controller'=>'contacts','action'=>'index'],['class'=>'add-cancel w-button', 'id'=>'ContactCancel']); ?>

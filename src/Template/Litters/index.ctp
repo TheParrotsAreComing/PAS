@@ -143,7 +143,7 @@
           <div>P</div>
         </div>
     </a>
-    <a class="button-02 w-inline-block" href="#">
+    <a class="button-02 w-inline-block" data-ix="filter-click" href="#">
       <div class="button-icon-text">Sort/Filter</div>
       <div class="floating-button">
         <div>K</div>
