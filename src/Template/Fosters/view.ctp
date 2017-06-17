@@ -226,7 +226,7 @@
                   </div>
                 </div>
             </div>
-        </div>
+        
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
           <?php if ($can_edit): ?>
 			  <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit
@@ -245,6 +245,7 @@
               <div>delete</div>
             </a>
           <?php endif; ?>
+        </div>
         </div>
       </div>
     </div>
