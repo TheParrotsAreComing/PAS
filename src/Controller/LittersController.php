@@ -36,6 +36,9 @@ class LittersController extends AppController
             $this->paginate['conditions']['litter_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         }else if(!empty($this->request->query)){
             foreach($this->request->query as $field => $query){
+				if(is_array($query) || $field == 'page'){
+					continue;
+				}
                 if($field == 'dob'){
                     if(!empty($query)){
                         $this->paginate['conditions'][$field] = date('Y-m-d',strtotime($query));
@@ -50,6 +53,7 @@ class LittersController extends AppController
             }
             $this->request->data = $this->request->query;
         }
+
 
         $litters = $this->paginate($this->Litters);
 
