@@ -90,6 +90,23 @@
         <a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'users','action'=>'add']); ?>>+ Invite New User</a>
       <?php endif; ?>
     </div> 
+
+      <?php if (count($users) > 19): ?>
+		  <div class="pagination-w">
+			<div class="pagination-wrap">
+			  <div class="pagination-cont">
+				<div class="pagination"><?= $this->Paginator->prev('') ?></div>
+			  </div>
+			  <div class="pagination-cont">
+				<div class="pagination-index"><?= $this->Paginator->numbers() ?></div>
+			  </div>
+			  <div class="pagination-cont">
+				<div class="pagination"><?= $this->Paginator->next('') ?></div>
+			  </div>
+			</div>
+		  </div>
+      <?php endif; ?>
+
   </div>
 </div>
 <div class="floating-overlay"></div>

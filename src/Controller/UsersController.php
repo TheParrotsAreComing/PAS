@@ -49,6 +49,10 @@ class UsersController extends AppController
             }
 
             foreach($this->request->query as $field => $query) {
+                if ($field === 'page'){
+					continue;
+				}
+
                 if ($field === 'cat_count' && ($query === 0 || $query != '')){
                     $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'do_not_adopt' && $query != ''){

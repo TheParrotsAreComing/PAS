@@ -130,19 +130,21 @@
         </div>
       </div>
 
-      <div class="pagination-w">
-        <div class="pagination-wrap">
-          <div class="pagination-cont">
-            <div class="pagination"><?= $this->Paginator->prev('') ?></div>
-          </div>
-          <div class="pagination-cont">
-			<div class="pagination-index"><?= $this->Paginator->numbers() ?></div>
-          </div>
-          <div class="pagination-cont">
-            <div class="pagination"><?= $this->Paginator->next('') ?></div>
-          </div>
-        </div>
-      </div>
+      <?php if (count($litters) > 19): ?>
+		  <div class="pagination-w">
+			<div class="pagination-wrap">
+			  <div class="pagination-cont">
+				<div class="pagination"><?= $this->Paginator->prev('') ?></div>
+			  </div>
+			  <div class="pagination-cont">
+				<div class="pagination-index"><?= $this->Paginator->numbers() ?></div>
+			  </div>
+			  <div class="pagination-cont">
+				<div class="pagination"><?= $this->Paginator->next('') ?></div>
+			  </div>
+			</div>
+		  </div>
+      <?php endif; ?>
 
     </div>
 </div>
