@@ -145,11 +145,7 @@
 				<div class="pagination"><?= $this->Paginator->prev('') ?></div>
 			  </div>
 			  <div class="pagination-cont">
-				<?php if(count($fosters) < 21): ?>	
-					<div class="pagination-index">1</div>
-				<?php else: ?>	
-					<?= $this->Paginator->numbers() ?>
-				<?php endif; ?>	
+                <?= $this->Paginator->numbers() ?>
 			  </div>
 			  <div class="pagination-cont">
 				<div class="pagination"><?= $this->Paginator->next('') ?></div>
