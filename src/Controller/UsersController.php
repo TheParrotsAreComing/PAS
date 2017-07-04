@@ -30,7 +30,8 @@ class UsersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['PhoneNumbers']
+            'contain' => ['PhoneNumbers'],
+            'conditions' => ['Users.is_deleted' => 0]
         ];
         $phones = TableRegistry::get('PhoneNumbers')->find('all')->where(['phone_type' => 0])->orWhere(['phone_type' => 1])->orWhere(['phone_type' => 2])->andWhere(['entity_type' => 3]);
 
@@ -49,11 +50,12 @@ class UsersController extends AppController
             }
 
             foreach($this->request->query as $field => $query) {
-                if ($field === 'page'){
-					continue;
-				}
-
-                if ($field === 'cat_count' && ($query === 0 || $query != '')){
+                if ($field == 'page'){
+                    continue;
+                }
+                if(($field == 'is_deleted') && $query != ''){
+                    $this->paginate['conditions']['Users.'.$field] = (int)$query;
+                }else if ($field === 'cat_count' && ($query === 0 || $query != '')){
                     $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'do_not_adopt' && $query != ''){
                     $this->paginate['conditions'][$field] = $query;
@@ -69,8 +71,9 @@ class UsersController extends AppController
             $this->request->data = $this->request->query;
         }
 
-        $query = $this->Users->find()->where(['is_deleted'=>0]);
-        $users = $this->paginate($query);
+        //$query = $this->Users->find()->where(['is_deleted'=>0]);
+        //$users = $this->paginate($query);
+        $users = $this->paginate($this->Users);
 
         $this->set(compact('users','phones'));
         $this->set('_serialize', ['users']);

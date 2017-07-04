@@ -26,6 +26,10 @@
           <div class="filter-criteria">Address:</div>
           <?= $this->Form->input('address',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Address','placeholder'=>'Enter address']) ?>
       </div>
+      <div class="filter">
+          <div class="filter-criteria">Deleted:</div>
+          <?= $this->Form->input('is_deleted', ['type'=>'checkbox', 'label' => false]); ?>
+      </div>
       <div class="filter-apply-cont">
         <a class="cancel filter-button w-button" href="<?= $this->Url->build(['action'=>'index'])?>">Cancel</a>
         <button id="filterUsers" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">APPLY FILTER</button>
@@ -70,6 +74,19 @@
           </a>
         </div>
       <?php endforeach; ?>
+      <div class="pagination-w">
+        <div class="pagination-wrap">
+          <div class="pagination-cont">
+            <div class="pagination"><?= $this->Paginator->prev('') ?></div>
+          </div>
+          <div class="pagination-cont">
+            <div class="pagination-index"><?= $this->Paginator->numbers() ?></div>
+          </div>
+          <div class="pagination-cont">
+            <div class="pagination"><?= $this->Paginator->next('') ?></div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
    <div class="cat-header" data-ix="page-load-slide-down">
@@ -90,21 +107,6 @@
         <a class="cat-add w-button" href=<?= $this->Url->build(['controller'=>'users','action'=>'add']); ?>>+ Invite New User</a>
       <?php endif; ?>
     </div> 
-
-      <div class="pagination-w">
-        <div class="pagination-wrap">
-          <div class="pagination-cont">
-            <div class="pagination"><?= $this->Paginator->prev('') ?></div>
-          </div>
-          <div class="pagination-cont">
-            <div class="pagination-index"><?= $this->Paginator->numbers() ?></div>
-          </div>
-          <div class="pagination-cont">
-            <div class="pagination"><?= $this->Paginator->next('') ?></div>
-          </div>
-        </div>
-      </div>
-
   </div>
 </div>
 <div class="floating-overlay"></div>

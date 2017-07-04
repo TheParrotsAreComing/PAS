@@ -26,6 +26,10 @@
           <div class="filter-criteria">Address:</div>
           <?= $this->Form->input('address',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Address','placeholder'=>'Enter address']) ?>
       </div>
+      <div class="filter">
+          <div class="filter-criteria">Deleted:</div>
+          <?= $this->Form->input('is_deleted', ['type'=>'checkbox', 'label' => false]); ?>
+      </div>
 
       <div class="filter-apply-cont">
         <a class="cancel filter-button w-button" href="<?= $this->Url->build(["action"=>"index"])?>">Cancel</a>
