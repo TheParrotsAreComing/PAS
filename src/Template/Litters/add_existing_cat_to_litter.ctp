@@ -32,17 +32,25 @@
   </div>
 </div>
 
+<div id="dialog-confirm-add-existing" title="Add this cat?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to add this cat to this litter?</p>
+</div>
+
 <script>
 
 var cat_url = "<?= $this->Url->build(['controller' => 'litters', 'action' => 'ajaxFindCat']); ?>";
+var add_cat_url = "<?= $this->Url->build(['controller' => 'litters', 'action' => 'ajaxAssignCat']); ?>";
+var add_cat_success_url = "<?= $this->Url->build(['controller' => 'litters', 'action' => 'addSuccess',$litter_id]); ?>";
+var litter_id = parseInt("<?= $litter_id ?>");
 
 function buildDom(cat_name,sex,type,dob,age,breed,id){
 
 	var dyn_item = $('<div class="card-cont card-wrapper w-dyn-item"/>');
 
 	var card_a = $('<a/>'); // Main anchor
+	card_a.addClass('card w-clearfix w-inline-block add-to-litter');
+	card_a.attr('data-id',id);
 	card_a.attr('href','javascript:void(0);');
-	card_a.addClass('card w-clearfix w-inline-block');
 
 	var div_card_cont = $('<div class="card-pic-cont"/>'); //Image container
 
@@ -128,6 +136,45 @@ function buildDom(cat_name,sex,type,dob,age,breed,id){
 $(document).ready(function() {
 
 	var ajax_requests = [];
+
+	$('#Results').on('click','.add-to-litter',function(){
+		var val = $(this).data('id');
+		$( "#dialog-confirm-add-existing" ).dialog({
+		  resizable: false,
+		  height: "auto",
+		  width: 400,
+		  modal: true,
+		  buttons: {
+			  "Add!": {
+				  text:"Add!",
+				  id:"addCat",
+				  click : function() {
+					$.each(ajax_requests,function(){
+						this.abort();
+						//this.remove();
+					});
+
+					ajax_requests.push(
+						$.ajax({
+							url : add_cat_url+"/"+val+"/"+litter_id,
+							type : "POST"
+						}).done(function(result){
+							result = JSON.parse(result);
+							if(result.error == false){
+								window.location = add_cat_success_url;
+							}
+						})
+					);
+				}
+			  },
+			  Cancel: function() {
+				$(this).dialog( "close" );
+				$('.no-horizontal-scroll').scrollLeft(0);
+			  }
+		  }
+		});
+	});
+
 		
 	$('form').submit(function(e){
 		e.preventDefault();

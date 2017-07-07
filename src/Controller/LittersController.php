@@ -195,13 +195,32 @@ class LittersController extends AppController
 
     public function addExistingCatToLitter($litter_id){
 		$litter = $this->Litters->get($litter_id);
-		$this->set(compact('litter'));
+		$this->set(compact('litter','litter_id'));
     }
+
+    public function addSuccess($litter_id){
+		$this->Flash->success(__('The cat has been added!'));
+		return $this->redirect(['action'=>'view',$litter_id]);
+	}
 
 	public function ajaxFindCat($name){
 		$this->autoRender = false;
 		$cats = TableRegistry::get('Cats');
-		$results = $cats->find('all')->where(['cat_name LIKE' => '%'.$name.'%'])->contain(['Breeds']);
+		$results = $cats->find('all')->where(['litter_id IS NULL','cat_name LIKE' => '%'.$name.'%'])->contain(['Breeds']);
+		ob_clean();
+		echo json_encode($results);
+		exit(0);
+	}
+
+	public function ajaxAssignCat($cat_id,$litter_id){
+		$this->autoRender = false;
+		$cats = TableRegistry::get('Cats');
+
+		$cat = $cats->get($cat_id);
+		$cat->litter_id = $litter_id;
+
+		$results = array('error'=>empty($cats->save($cat)));
+
 		ob_clean();
 		echo json_encode($results);
 		exit(0);
