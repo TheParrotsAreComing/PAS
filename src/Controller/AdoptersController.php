@@ -63,7 +63,9 @@ class AdoptersController extends AppController
                 if ($field == 'page'){
                     continue;
                 }
-                if ($field === 'cat_count' && ($query === 0 || $query != '')){
+                if(($field == 'is_deleted') && $query != ''){
+                    $this->paginate['conditions']['Adopters.'.$field] = (int)$query;
+                }else if ($field === 'cat_count' && ($query === 0 || $query != '')){
                     $this->paginate['conditions'][$field] = $query;
                 }else if($field == 'do_not_adopt' && $query != ''){
                     $this->paginate['conditions'][$field] = $query;

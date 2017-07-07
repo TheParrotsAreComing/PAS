@@ -66,7 +66,9 @@ class FostersController extends AppController
                 if ($field == 'page'){
                     continue;
                 }
-                if ($field == 'rating' && !empty($query)){
+                if(($field == 'is_deleted') && $query != ''){
+                    $this->paginate['conditions']['Fosters.'.$field] = (int)$query;
+                }else if ($field == 'rating' && !empty($query)){
                     if(preg_match('/rating/',$field)){
                         $this->paginate['conditions'][$field] = $query;
                     }
