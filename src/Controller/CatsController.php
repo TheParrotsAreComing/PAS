@@ -29,7 +29,8 @@ class CatsController extends AppController
 
         $this->paginate = [
             'contain' => ['Litters', 'Breeds', 'Adopters', 'Fosters', 'Files', 'Litters.Cats', 'Litters.Cats.Breeds'],
-            'conditions' => ['Cats.is_deleted' => 0, 'Cats.is_deceased' => 0]
+            'conditions' => ['Cats.is_deleted' => 0, 'Cats.is_deceased' => 0],
+			'order' => ['Cats.created'=>'DESC']
         ];
 
         $session_user = $this->request->session()->read('Auth.User');
