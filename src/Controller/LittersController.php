@@ -192,4 +192,18 @@ class LittersController extends AppController
         }
         return $this->redirect(['controller' => 'litters', 'action' => 'index']);
     }
+
+    public function addExistingCatToLitter($litter_id){
+		$litter = $this->Litters->get($litter_id);
+		$this->set(compact('litter'));
+    }
+
+	public function ajaxFindCat($name){
+		$this->autoRender = false;
+		$cats = TableRegistry::get('Cats');
+		$results = $cats->find('all')->where(['cat_name LIKE' => '%'.$name.'%'])->contain(['Breeds']);
+		ob_clean();
+		echo json_encode($results);
+		exit(0);
+	}
 }

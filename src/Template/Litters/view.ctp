@@ -79,7 +79,7 @@
                   </div>
                   <?php if ($can_edit): ?>
                     <a class="profile-add-cont attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add',$litter->id])?>">+ Add New Cat</a>
-                    <a class="profile-add-cont attach-cat" data-ix="add-cat-click-desktop" href="javascript:void(0);">+ Add Existing Cat</a>
+                    <a class="profile-add-cont attach-cat" data-ix="add-cat-click-desktop" href="<?= $this->Url->build(['controller'=>'litters','action'=>'addExistingCatToLitter',$litter->id])?>">+ Add Existing Cat</a>
                   <?php endif; ?>
                 <?php else: ?>
                   <div class="card-h1">This litter currently has no cat(s) or kitten(s).</div>
