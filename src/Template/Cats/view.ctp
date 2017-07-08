@@ -249,7 +249,13 @@
                       <div class="card-cont card-wrapper w-dyn-item">
                       <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">
                       <div class="card-pic-cont">
-                        <img class="card-pic" src="<?= $this->Url->image('foster-menu.png'); ?>">
+                        <?php 
+                           if(!empty($ch->profile_pic)){
+                             echo $this->Html->image('../'.$ch->profile_pic->file_path.'.'.$ch->profile_pic->file_ext, ['class'=>'card-pic']);
+                           } else {
+                             echo $this->Html->image('../img/adopter-menu.png', ['class'=>'card-pic']);
+                           }
+                         ?>
                       </div>
                       <div class="card-h1"><?= h($foster->first_name)." ".h($foster->last_name) ?></div>
                       <div class="card-field-wrap">
@@ -325,7 +331,13 @@
                 <div class="card-cont card-wrapper w-dyn-item">
                   <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'view', $adopter->id], ['escape'=>false]);?>">
                   <div class="card-pic-cont">
-                    <img class="card-pic" src="<?= $this->Url->image('adopter-menu.png'); ?>">
+                     <?php 
+                       if(!empty($ch->profile_pic)){
+                         echo $this->Html->image('../'.$ch->profile_pic->file_path.'.'.$ch->profile_pic->file_ext, ['class'=>'card-pic']);
+                       } else {
+                         echo $this->Html->image('../img/adopter-menu.png', ['class'=>'card-pic']);
+                       }
+                     ?>
                   </div>
                   <div class="card-h1"><?= h($adopter->first_name)." ".h($adopter->last_name) ?></div>
                   <div class="card-field-wrap">

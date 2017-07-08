@@ -290,6 +290,20 @@ class CatsController extends AppController
         	$profile_pic = null;
         }
 
+        if(!empty($cat->cat_histories)) {
+            foreach($cat->cat_histories as $ch) {
+                if($ch->adopter_id > 0 && $ch->adopter->profile_pic_file_id > 0) {
+                    $ch->profile_pic = $filesDB->get($ch->adopter->profile_pic_file_id);
+                }
+                else if ($ch->foster_id > 0 && $ch->foster->profile_pic_file_id > 0){
+                    $ch->profile_pic = $filesDB->get($ch->foster->profile_pic_file_id);
+                }
+                else {
+                    $ch->profile_pic = null;
+                }
+            }
+        }
+
 		$this->set(compact('cat','foster','adopter','select_adopters', 'select_fosters', 'uploaded_photo', 'photos', 'photosCountTotal', 'cat_tags', 'profile_pic', 'documents', 'documentsCountTotal', 'fosterPhones', 'adopterPhones', 'files', 'filesCountTotal', 'uploaded_file'));
 
         $this->set('_serialize', ['cat']);
