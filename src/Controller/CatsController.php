@@ -265,7 +265,7 @@ class CatsController extends AppController
                 $fileSize = $this->request->data['uploaded_file']['size'];
 
                 // attempt to upload the photo with the file behavior
-                $new_file_id = $this->Cats->uploadDocument($nameArray[0], $tempLocation, $fileExtension, $uploadPath, 
+                $new_file_id = $this->Cats->uploadDocument($uploadedFileName, $tempLocation, $fileExtension, $uploadPath, 
                     $entityTypeId, $cat->id, $mimeType, $fileSize, $this->request->data['file-note']);
 
                 if ($new_file_id > 0){

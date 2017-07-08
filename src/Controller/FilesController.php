@@ -126,4 +126,20 @@ class FilesController extends AppController
 
         readfile($filePath);
     }
+
+    public function downloadfilebyid($id = null) {
+        $file = $this->Files->get($id);
+        $filePath = WWW_ROOT.$file->file_path.'.'.$file->file_ext;
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename='.basename($file->original_filename));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: '.$file->file_size); 
+        
+        readfile($filePath);
+    }
 }

@@ -138,6 +138,25 @@ class AppController extends Controller
         }
         exit(0);
     }
+
+    public function deleteFile() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $filesDB = TableRegistry::get('Files');
+        
+        $file = $filesDB->get($data['file_id']);
+        $file->is_deleted = true;
+
+        ob_clean();
+        if($filesDB->save($file)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
     
     public function ajaxSuccessMessage() {
         $this->autoRender = false;
