@@ -32,6 +32,8 @@ class LittersController extends AppController
             'conditions' => ['Litters.is_deleted' => 0]
         ];
 
+        $filesDB = TableRegistry::get('Files');
+
         if(!empty($this->request->query['mobile-search'])){
             $this->paginate['conditions']['litter_name LIKE'] = '%'.$this->request->query['mobile-search'].'%';
         }else if(!empty($this->request->query)){
@@ -57,6 +59,18 @@ class LittersController extends AppController
 
         $litters = $this->paginate($this->Litters);
 
+        foreach($litters as $litter) {
+            if(!empty($litter->cats)) {
+                foreach($litter->cats as $cat) {
+                    if($cat->profile_pic_file_id > 0) {
+                        $cat->profile_pic = $filesDB->get($cat->profile_pic_file_id);
+                    } else {
+                        $cat->profile_pic = null;
+                    }
+                }
+            }
+        }
+
         $count = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15];
         $this->set(compact('litters','count','can_add'));
         $this->set('_serialize', ['litters']);
@@ -81,11 +95,23 @@ class LittersController extends AppController
         $can_delete = ($user_model->isAdmin($session_user));
         $can_edit = ($can_delete || $user_model->isCore($session_user));
 
+        $filesDB = TableRegistry::get('Files');
+
         $litter = $this->Litters->get($id, [
             'contain' => ['Cats','Cats.Breeds']
         ]);
 
         $breeds = TableRegistry::get('Breeds')->find('list', ['keyField' => 'id', 'valueField' => 'breed']);
+
+        if(!empty($litter->cats)) {
+            foreach($litter->cats as $cat) {
+                if($cat->profile_pic_file_id > 0) {
+                    $cat->profile_pic = $filesDB->get($cat->profile_pic_file_id);
+                } else {
+                    $cat->profile_pic = null;
+                }
+            }
+        }
 
         $this->set(compact('litter', 'can_delete', 'can_edit', 'breeds'));
         $this->set('_serialize', ['litter']);

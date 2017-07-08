@@ -11,7 +11,8 @@
                 <div class="id-text"><?= h($litter->id) ?></div>
             </div>
         </div>
-        <div class="profile-header"><img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">
+        <div class="profile-header">
+        <?php echo $this->Html->image('../img/litter-menu.png', ['class'=>'cat-profile-pic']); ?>
           <div>
             <div class="cat-profile-name" id="litterName"><?= h($litter->litter_name) ?></div>
             <div>
@@ -66,7 +67,15 @@
                 <div class="profile-text-header">Cats/Kittens in Litter</div>
                   <div class="dropdown-results-cont mini">
                   <?php foreach($litter->cats as $cat): ?>
-                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+                        <?php if($cat->profile_pic_file_id > 0) {
+                              echo $this->Html->image('../'.$cat->profile_pic->file_path.'.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
+                            }
+                            else {
+                              echo $this->Html->image('../img/cat-menu.png', ['class'=>'dropdown-cat-pic']);
+                            }
+                          ?>
+
                         <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
                         <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
                         <div class="list-id-cont mini">
