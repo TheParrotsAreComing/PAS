@@ -134,7 +134,14 @@
                   <div class="dropdown-results-cont">
                     <?php foreach ($foster["cat_histories"] as $cat): ?>
                       <?php $cat = $cat["cat"]; ?>
-                      	<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
+                      	<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+                          <?php 
+                            if(!empty($cat->profile_pic)) {
+                              echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
+                            } else {
+                              echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
+                            }
+                          ?>
                           <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
                           <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
                           <div class="list-id-cont mini">

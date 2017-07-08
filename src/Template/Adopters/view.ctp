@@ -13,7 +13,7 @@
             if(!empty($profile_pic)){
               echo $this->Html->image('../'.$profile_pic->file_path.'.'.$profile_pic->file_ext, ['class'=>'cat-profile-pic']);
             } else {
-              echo '<img class="cat-profile-pic" src="http://uploads.webflow.com/img/image-placeholder.svg">';
+              echo $this->Html->image('../img/adopter-menu.png', ['class'=>'cat-profile-pic']);
             }
           ?>
           <div>
@@ -115,7 +115,14 @@
                         <div class="card-cont card-wrapper w-dyn-item">
                           <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'view', $cat['id']], ['escape'=>false]); ?>">
                           <div class="card-pic-cont">
-                            <img class="card-pic" src="<?= $this->Url->image('cat-menu.png'); ?>">
+                          <?php if($cat->profile_pic_file_id > 0) {
+                              echo $this->Html->image('../'.$cat->profile_pic->file_path.'.'.$cat->profile_pic->file_ext, ['class'=>'card-pic']);
+                            }
+                            else {
+                              echo $this->Html->image('../img/cat-menu.png', ['class'=>'card-pic']);
+                            }
+                          ?>
+
                           </div>
                             <div class="card-h1"><?= $cat['cat_name'];?></div>
                             <div class="card-h2-cont">

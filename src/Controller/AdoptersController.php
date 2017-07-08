@@ -250,6 +250,18 @@ class AdoptersController extends AppController
         } else {
             $profile_pic = null;
         }
+
+        // get cat profile pics
+        if(!empty($adopter->cat_histories)) {
+            foreach($adopter->cat_histories as $cat_hist){
+                if($cat_hist->cat->profile_pic_file_id > 0){
+                    $cat_hist->cat->profile_pic = $filesDB->get($cat_hist->cat->profile_pic_file_id);
+                } else {
+                    $cat_hist->cat->profile_pic = null;
+                }
+            }
+        }
+
         $this->set(compact('adopter', 'adopter_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds', 'files', 'filesCountTotal', 'uploaded_file', 'can_edit', 'can_delete'));
         $this->set('_serialize', ['adopter']);
     }

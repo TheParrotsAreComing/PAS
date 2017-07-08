@@ -250,6 +250,17 @@ class FostersController extends AppController
         } else {
             $profile_pic = null;
         }
+
+        // get cat profile pics
+        if(!empty($foster->cat_histories)) {
+            foreach($foster->cat_histories as $cat_hist){
+                if($cat_hist->cat->profile_pic_file_id > 0){
+                    $cat_hist->cat->profile_pic = $filesDB->get($cat_hist->cat->profile_pic_file_id);
+                } else {
+                    $cat_hist->cat->profile_pic = null;
+                }
+            }
+        }
         
         $this->set(compact('foster', 'foster_tags', 'uploaded_photo', 'photos', 'photosCountTotal', 'profile_pic', 'phones', 'cat_breeds', 'files', 'filesCountTotal', 'uploaded_file', 'can_delete', 'can_edit'));
         $this->set('_serialize', ['foster']);
