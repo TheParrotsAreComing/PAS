@@ -52,6 +52,8 @@
   <div class="column">
     <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
     <div class="cat-header">
+      
+    <?php /*
       <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
         <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><?= $this->Html->image('up-arrow.png', ['width'=>12, 'sizes'=>'(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw']); ?>
           <div class="cat-sort-text">Sort</div>
@@ -59,6 +61,8 @@
         <nav class="w-dropdown-list"><a class="cat-sort-dropdown w-dropdown-link">Name Descending</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
         </nav>
       </div>
+    */ ?>
+
       <div class="cat-filter cat-sort w-dropdown" data-delay="0">
         <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow">
           <?= $this->Html->image('filter-filled-tool-symbol.png', ['sizes'=>'(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw', 'width'=>"12"]); ?>

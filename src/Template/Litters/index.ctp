@@ -37,6 +37,8 @@
     <div class="column">
       <div class="button-add-signal" data-ix="add-mobile-showhide-2"></div>
       <div class="cat-header" data-ix="page-load-slide-down">
+        
+      <?php /*
         <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
           <div class="cat-sort-cont w-clearfix w-dropdown-toggle"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="img/up-arrow.png" srcset="img/up-arrow-p-500x500.png 500w, img/up-arrow.png 512w" width="12">
             <div class="cat-sort-text">Sort</div>
@@ -44,6 +46,8 @@
           <nav class="w-dropdown-list"><a class="cat-sort-dropdown w-dropdown-link">Name Descending</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a><a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
           </nav>
         </div>
+	  */ ?>
+
         <div class="cat-filter cat-sort w-dropdown" data-delay="0">
           <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow"><img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="img/filter-filled-tool-symbol.png" srcset="img/filter-filled-tool-symbol-p-500x500.png 500w, img/filter-filled-tool-symbol.png 512w" width="12">
             <div class="cat-sort-text litter-filter">Filter</div>
