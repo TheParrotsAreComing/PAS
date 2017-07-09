@@ -52,14 +52,21 @@
                       <?php if (!empty($adoptionEvent->cats)): ?>
                       <div class="dropdown-results-cont mini">
                         <?php foreach ($adoptionEvent->cats as $cat) :?>
-                            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" ><img class="dropdown-cat-pic" src="<?= $this->Url->image('cat-menu.png');?>">
-                              <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
-                              <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
-                              <div class="list-id-cont mini">
-                                <div class="id-text">#</div>
-                                <div class="id-text"><?= $cat->id ?></div>
-                              </div>
-                              <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
+                            <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+                            <?php
+                                if(!empty($cat->profile_pic)){
+                                    echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
+                                } else {
+                                    echo $this->Html->image('cat-menu.png', ['class'=>'dropdown-cat-pic']);
+                                }
+                            ?>
+                                <div class="dropdown-cat-name mini"><?= h($cat->cat_name) ?></div>
+                                <div class="card-h2-symbol <?= ($cat->is_female) ? "female" : "male" ?> mini"><?= ($cat->is_female) ? "D" : "C" ?></div>
+                                <div class="list-id-cont mini">
+                                  <div class="id-text">#</div>
+                                  <div class="id-text"><?= $cat->id ?></div>
+                                </div>
+                                <div class="card-field-text mini"><?= $cat->breed->breed ?></div>
                             </a>
                         <?php endforeach; ?>
                         </div>

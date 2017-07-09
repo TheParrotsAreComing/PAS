@@ -37,12 +37,26 @@ class AdoptionEventsController extends AppController
         $this->set(compact('adoptionEvents', 'can_add'));
         $this->set('_serialize', ['adoptionEvents']);
 
-        if (!empty($adoptionEvents->users)) {
-            foreach($adoptionEvents->users as $user) {
-                if($user->profile_pic_file_id > 0){
-                    $user->profile_pic = $filesDB->get($user->profile_pic_file_id);
-                } else {
-                    $user->profile_pic = null;
+        $filesDB = TableRegistry::get('Files');
+
+        foreach($adoptionEvents as $adoptionEvent) {
+            if (!empty($adoptionEvent->users)) {
+                foreach($adoptionEvent->users as $user) {
+                    if($user->profile_pic_file_id > 0){
+                        $user->profile_pic = $filesDB->get($user->profile_pic_file_id);
+                    } else {
+                        $user->profile_pic = null;
+                    }
+                }
+            }
+
+            if (!empty($adoptionEvent->cats)) {
+                foreach($adoptionEvent->cats as $cat) {
+                    if($cat->profile_pic_file_id > 0){
+                        $cat->profile_pic = $filesDB->get($cat->profile_pic_file_id);
+                    } else {
+                        $cat->profile_pic = null;
+                    }
                 }
             }
         }
