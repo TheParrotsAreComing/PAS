@@ -1593,6 +1593,7 @@
 
         if (type === 'click') {
           $el.on('click' + namespace, function(evt) {
+			evt.stopPropagation();
             // Avoid late clicks on touch devices
             if (!Webflow.validClick(evt.currentTarget)) return;
 
