@@ -482,21 +482,21 @@
         </div>
         <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
           <?php if ($can_edit): ?>
-        <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
-            <div class="profile-action-button sofware">-</div>
-            <div>edit</div>
-          </a>
-          <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
-            <div class="basic profile-action-button"></div>
-            <div>export</div>
-          </a>
-      <?php endif; ?>
-      <?php if ($can_delete): ?>
-          <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
-            <div class="basic profile-action-button"></div>
-            <div>delete</div>
-          </a>
-      <?php endif; ?>
+			<a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+				<div class="profile-action-button sofware">-</div>
+				<div>edit</div>
+			  </a>
+			  <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+				<div class="basic profile-action-button"></div>
+				<div>export</div>
+			  </a>
+		  <?php endif; ?>
+		  <?php if ($can_delete): ?>
+			  <a class="profile-action-button-cont w-inline-block" data-ix="delete-click-desktop" href="#">
+				<div class="basic profile-action-button"></div>
+				<div>delete</div>
+			  </a>
+		  <?php endif; ?>
         </div>
       </div>
     </div>
@@ -509,12 +509,17 @@
     <div class="notify-attachments">Attachments</div>
     <div class="notify-more">More...</div>
   </div>
+
   <div class="floating-overlay">
-    <div class="confirm-cont">
+    <div id="confirmDelete" class="confirm-cont">
       <div class="confirm-text">Are you sure you want to delete this cat?</div>
       <div class="confirm-button-wrap w-form">
         <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+			<?php if($this->request->is('mobile')): ?>
+				<a id="cancelDelete"  class="cancel confirm-button w-button" data-ix="" href="#">Cancel</a>
+			<?php else: ?>
+				<a id="cancelDelete"  class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+			<?php endif; ?>
             <?= $this->Html->link('Delete', ['controller'=>'cats', 'action'=>'delete', $cat->id], ['class'=>'confirm-button delete w-button']); ?>
         </form>
       </div>
@@ -629,7 +634,7 @@
 
 <div class="button-cont w-hidden-main">
   <?php if ($can_edit): ?>
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
+    <a class="paw-action-btn button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'edit', $cat->id]) ?> ">
       <div class="button-icon-text">Edit</div>
       <div class="floating-button">
         <div>L</div>
@@ -640,13 +645,13 @@
     <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
   </div>-->
   <?php if ($can_delete): ?>
-    <a class="button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
+    <a class="paw-action-btn button-03 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats', 'action'=>'aapUpload', $cat->id]) ?>">
       <div class="button-icon-text">Export</div>
       <div class="floating-button">
         <div>N</div>
       </div>
     </a>
-    <a class="button-04 w-inline-block" data-ix="delete-click">
+    <a class="paw-action-btn button-04 w-inline-block" data-ix="delete-click">
       <div class="button-icon-text">Delete</div>
       <div class="floating-button">
         <div>M</div>
@@ -841,6 +846,32 @@ $(function () {
       $('#extraContent')[0].scrollIntoView();
     });
   });
+
+	var styles = [];
+	var paw = '';
+
+	var checkExist = setInterval(function() {
+		if ($('a.paw-action-btn').is(":visible")) {
+			setTimeout(function() {
+				paw = $('.button-paw').attr('style');
+				$('a.paw-action-btn').each(function(){
+					styles.push($(this).attr('style'));
+				});
+			}, 400);
+
+			$('#cancelDelete').click(function(e){
+				var i = 0;
+				$('.button-paw').attr('style',paw);
+				$('#confirmDelete').animate({'opacity':0,'display':'none','transition': 'opacity 300ms'},100,function(){
+					$('a.paw-action-btn').each(function(){
+						$(this).attr('style',styles[i]);
+						i += 1;
+					});
+				});
+			});
+			clearInterval(checkExist);
+		}
+	}, 100); // check every 100ms
 
 });
 </script>
