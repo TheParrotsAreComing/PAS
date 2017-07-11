@@ -121,3 +121,51 @@ function setupPhotoSelectionBehavior(entity_id, entity_controller_string) {
         }
     });
 }
+
+function setupFileBehavior(entity_id, entity_controller_string) {
+
+
+    $('.delete-file-btn').click(function(e){
+        e.stopPropagation();
+        e.preventDefault();
+
+        var file_id = $(this).closest('.files-data-wrap').data('file-id');
+
+        $("#dialog-confirm-file-delete").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Delete!": {
+                    text:"Delete!",
+                    id:"delFile",
+                    click : function() {
+                        $(this).dialog( "close" );
+
+                        var url = APP_PATH+entity_controller_string+'deleteFile';
+
+                        $.ajax({
+                            url : url,
+                            type : 'POST',
+                            data : {
+                                file_id: file_id
+                            }
+                        }).done(function(result) {
+                            if(result == 'success') {
+                                window.location = APP_PATH+entity_controller_string+'ajaxSuccessMessage';
+                            } else {
+                                window.location = APP_PATH+entity_controller_string+'ajaxFailMessage';
+                            }
+                        });
+                    }
+                },
+                Cancel: function() {
+                    $(this).dialog( "close" );
+                    $('.no-horizontal-scroll').scrollLeft(0);
+                }
+            }
+        });
+
+    });
+}
