@@ -54,6 +54,15 @@ var Cat = function(){
 		});
 	}	
 
+    /*
+     * Set an adopter to use when building a card, without actually attaching
+     * a cat to the adopter.
+     * @author Eric Bollinger 7/10/17
+     */
+    this.setAdopterForCard = function(adopter) {
+        this.adopter_info_card = JSON.parse(adopter);
+    }
+
 	/**
 	 * We don't want a refresh, so lets manually build the card
 	 * Once we build the card, we attach it to the passed in parent dom
@@ -74,7 +83,7 @@ var Cat = function(){
 		
 		//Time to build the big Anchor
 		var a_card = $('<a/>');
-		a_card.addClass("card w-clearfix w-inline-block");
+		a_card.addClass("card has-url w-clearfix w-inline-block");
 		a_card.attr('href',APP_PATH+"adopters/view/"+adopter_id);
 
 		//Anchor Tag Parent
@@ -100,7 +109,6 @@ var Cat = function(){
 
 		//I wanna iterate instead of typing a lot...
 		var card_fields_text = {
-			'notes':'Notes',
 			'email':'Email',
 			'phone':'Phone',
 			'address':'Address'
@@ -186,6 +194,15 @@ var Cat = function(){
 		});
 	}	
 
+    /*
+     * Set a foster to use when building a card, without actually attaching
+     * a cat to the foster.
+     * @author Eric Bollinger 7/10/17
+     */
+    this.setFosterForCard = function(foster) {
+        this.foster_info_card = JSON.parse(foster);
+    }
+
 	/**
 	 * We don't want a refresh, so lets manually build the card
 	 * Once we build the card, we attach it to the passed in parent dom
@@ -206,7 +223,7 @@ var Cat = function(){
 		
 		//Time to build the big Anchor
 		var a_card = $('<a/>');
-		a_card.addClass("card w-clearfix w-inline-block");
+		a_card.addClass("card has-url w-clearfix w-inline-block");
 		a_card.attr('href',APP_PATH+"fosters/view/"+foster_id);
 
 		//Anchor Tag Parent
@@ -288,6 +305,7 @@ var Cat = function(){
 		//Finally attach created DOM to passed in parent
 		card_parent_dom.html(profile_content);
 	}
+
 }
 
 $(function () {

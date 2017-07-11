@@ -167,6 +167,7 @@ class CatsController extends AppController
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
+        asort($select_adopters);
 
         // available fosters
         $fosters = $fostersDB->find('all');
@@ -175,6 +176,7 @@ class CatsController extends AppController
         foreach($fosters as $fo){
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
+        asort($select_fosters);
 
         $documents = $filesDB->find('all',[
             'conditions' => [
@@ -645,4 +647,6 @@ class CatsController extends AppController
         }
         exit(0);
     }
+
+
 }
