@@ -45,9 +45,9 @@ var Cat = function(){
 	 * Call the Attach ADopter via AJAX.
 	 * Return the call so we can use $.when()
 	**/
-	this.attachAdopter = function(adopter_id,cat_id){
+	this.attachAdopter = function(adopter_id,cat_id,fee){
 		return $.ajax({
-			url : APP_PATH+"cats/attachAdopter/"+adopter_id+"/"+cat_id,
+			url : APP_PATH+"cats/attachAdopter/"+adopter_id+"/"+cat_id+"/"+fee,
 			context : this
 		}).done(function(result){
 			this.adopter_info_card = JSON.parse(result);

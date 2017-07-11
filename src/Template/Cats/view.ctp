@@ -612,6 +612,7 @@
 </div>
 
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
+  <?= $this->Form->input('adoption_fee', ['class'=>'add-input', 'label'=>'Adoption Fee (optional)', 'style'=>'margin-bottom: 1em;']); ?>
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 </div>
 
@@ -691,7 +692,7 @@ $(function () {
     id:"confirmAdopt",
     click : function() {
       $( this ).dialog( "close" );
-      $.when(current_kitty.attachAdopter($('#selected-adopter-id').val(),"<?= $cat->id ?>")).done(function(){
+      $.when(current_kitty.attachAdopter($('#selected-adopter-id').val(),"<?= $cat->id ?>",$('#adoption-fee').val())).done(function(){
         $('.add-adopter').css('display','none');
         $('.add-adopter-inner').css('display','none');
         $('.add-adopter-inner').css('opacity','0');
@@ -883,6 +884,11 @@ $(function () {
     var ajax_requests = [];
 		var val = $('#adopter-search').val();
 
+    if (val == "") {
+      $('.adopter-cards').empty();
+      return;
+    }
+
 		// Prevent Stacking AJAX Calls
 		$.each(ajax_requests,function(){
 			this.abort();
@@ -920,6 +926,11 @@ $(function () {
     var ajax_requests = [];
 		var val = $('#foster-search').val();
 
+    if (val == "") {
+      $('.foster-cards').empty();
+      return; 
+    }
+
 		// Prevent Stacking AJAX Calls
 		$.each(ajax_requests,function(){
 			this.abort();
@@ -951,6 +962,13 @@ $(function () {
 			})
 		);
 	});
+
+  $('a[data-ix="confirm-cancel"]').on('click', function() {
+    $('#foster-search').val('');
+    $('.foster-cards').empty();
+    $('#adopter-search').val('');
+    $('.adopter-cards').empty();
+  });
 
 });
 </script>
