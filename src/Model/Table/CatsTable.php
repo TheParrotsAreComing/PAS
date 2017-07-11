@@ -241,12 +241,14 @@ class CatsTable extends Table
 		return $segmented;
 	}
 
+  /*
+   * Update a cat's adoption fee
+   * @author Eric Bollinger - 7/10/17
+   */
   public function updateFee($cat_id, $fee) {
     $cat = $this->findById($cat_id)->first();
-    Log::write('debug', 'fee: '.$fee);
     if (!empty($fee)) {
       $cat->adoption_fee_amount = $fee;
-      Log::write('debug', 'updated cat: '.json_encode($cat));
       $result = $this->save($cat);
     }
   }
