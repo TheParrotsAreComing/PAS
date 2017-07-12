@@ -582,33 +582,37 @@
 
 <div class="add-adopter-floating-overlay add-adopter">
   <div class="confirm-cont add-adopter-inner">
-    <div class="confirm-text">Adopt this cat to who?</div>
-    <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-      <?= $this->Form->input('Adopter',['class'=>'add-input w-input','options'=>$select_adopters]) ?>
-    </form>
+    <div class="confirm-text">Who is adopting this cat?</div>
+    <?= $this->Form->input('Adopter',['class'=>'add-input w-input','id'=>'adopter-search']) ?>
+    <?= $this->Form->input('selected_adopter_id', ['type'=>'hidden']); ?>
     <br/>
     <div class="confirm-button-wrap w-form">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-      <a class="delete add-adopter-btn confirm-button w-button" href="#">Adopt!</a>
+      <a class="delete adopter-search-btn confirm-button w-button" href="#">Search</a>
     </div>
+    <div class="adopter-cards" style="margin-top:1em;"></div>
   </div>
 </div> 
 
 <div class="add-adopter-floating-overlay add-foster">
   <div class="confirm-cont add-foster-inner">
-    <div class="confirm-text">Foster this cat to who?</div>
+    <div class="confirm-text">Who is fostering this cat?</div>
     <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-      <?= $this->Form->input('Foster',['class'=>'add-input w-input','options'=>$select_fosters]) ?>
+      <?= $this->Form->input('Foster',['class'=>'add-input w-input','id'=>'foster-search']) ?>
+      <?= $this->Form->input('selected_foster_id', ['type'=>'hidden']); ?>
     </form>
     <br/>
     <div class="confirm-button-wrap w-form">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-      <a class="delete add-foster-btn confirm-button w-button" href="#">Foster!</a>
+      <!--<a class="delete add-foster-btn confirm-button w-button" href="#">Foster!</a>-->
+      <a class="delete foster-search-btn confirm-button w-button" href="#">Search</a>
     </div>
+    <div class="foster-cards" style="margin-top:1em;"></div>
   </div>
 </div>
 
 <div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">
+  <?= $this->Form->input('adoption_fee', ['class'=>'add-input', 'label'=>'Adoption Fee (optional)', 'style'=>'margin-bottom: 1em;']); ?>
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to mark this cat/kitten as adopted?</p>
 </div>
 
@@ -675,54 +679,56 @@ $(function () {
   setupPhotoSelectionBehavior(cat_id, cat_controller_string);
   setupFileBehavior(cat_id, cat_controller_string);
 
-  $('.add-adopter-btn').click(function(){
-     $( "#dialog-confirm" ).dialog({
-        resizable: false,
-        height: "auto",
-        width: 400,
-        modal: true,
-        buttons: {
-        "Adopt!":  {
-			text:"Adopt!",
-			id:"confirmAdopt",
-			click : function() {
-				$( this ).dialog( "close" );
-				$.when(current_kitty.attachAdopter($('#adopter').val(),"<?= $cat->id ?>")).done(function(){
-					$('.add-adopter').css('display','none');
-					$('.add-adopter-inner').css('display','none');
-					$('.add-adopter-inner').css('opacity','0');
-					current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
-				});
-			}
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-        }
-      });
-  });
-
-  
-  $('.add-foster-btn').click(function(){
-   $( "#dialog-confirm-foster" ).dialog({
+  $('.adopter-cards').on('click', '.adopter-search-result', function() {
+    $('#selected-adopter-id').val($(this).attr('data-id'));
+    $("#dialog-confirm" ).dialog({
       resizable: false,
       height: "auto",
       width: 400,
       modal: true,
       buttons: {
-			"Foster!":  {
-				text:"Foster!",
-				id:"confirmFoster",
-				click : function() {
-					$( this ).dialog( "close" );
-					$.when(current_kitty.attachFoster($('#foster').val(),"<?= $cat->id ?>")).done(function(){
-						$('.add-foster').css('display','none');
-						$('.add-foster-inner').css('display','none');
-						$('.add-foster-inner').css('opacity','0');
-						current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
-					});
-				}
-			},
+      "Adopt!":  {
+    text:"Adopt!",
+    id:"confirmAdopt",
+    click : function() {
+      $( this ).dialog( "close" );
+      $.when(current_kitty.attachAdopter($('#selected-adopter-id').val(),"<?= $cat->id ?>",$('#adoption-fee').val())).done(function(){
+        $('.add-adopter').css('display','none');
+        $('.add-adopter-inner').css('display','none');
+        $('.add-adopter-inner').css('opacity','0');
+        current_kitty.buildAdopterCard($('#adopter').val(),$('#adopterCard'));
+    });
+    }
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+      }
+    });
+  });
+
+  
+  $('.foster-cards').on('click', '.foster-search-result', function() {
+    $('#selected-foster-id').val($(this).attr('data-id'));
+    $( "#dialog-confirm-foster" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+      "Foster!":  {
+        text:"Foster!",
+        id:"confirmFoster",
+        click : function() {
+          $( this ).dialog( "close" );
+          $.when(current_kitty.attachFoster($('#selected-foster-id').val(),"<?= $cat->id ?>")).done(function(){
+            $('.add-foster').css('display','none');
+            $('.add-foster-inner').css('display','none');
+            $('.add-foster-inner').css('opacity','0');
+            current_kitty.buildFosterCard($('#foster').val(),$('#fosterCard'));
+          });
+        }
+      },
       Cancel: function() {
         $( this ).dialog( "close" );
       }
@@ -872,6 +878,97 @@ $(function () {
 			clearInterval(checkExist);
 		}
 	}, 100); // check every 100ms
+
+	$('.adopter-search-btn').click(function(){
+    var adopter_search_url = "<?= $this->Url->build(['controller' => 'adopters', 'action' => 'ajaxSearch']); ?>";
+    var ajax_requests = [];
+		var val = $('#adopter-search').val();
+
+    if (val == "") {
+      $('.adopter-cards').empty();
+      return;
+    }
+
+		// Prevent Stacking AJAX Calls
+		$.each(ajax_requests,function(){
+			this.abort();
+			//this.remove();
+		});
+
+		ajax_requests.push(
+			$.ajax({
+				url : adopter_search_url+"/"+val,
+				type : "POST"
+			}).done(function(result){
+				var adopters = JSON.parse(result);
+				$('.adopter-cards').html('');
+
+				$.each(adopters,function(i,obj){
+          var card = $('<div/>');
+          current_kitty.setAdopterForCard(JSON.stringify(obj));
+          current_kitty.buildAdopterCard(obj.id, card);
+          card.find('.profile-text-header').remove();
+          card.find('.profile-content-cont').css('border-bottom', '0px');
+          var inner = card.find('.has-url');
+          inner.attr('href','#');
+          inner.attr('data-id', obj.id);
+          inner.addClass('adopter-search-result');
+
+					$('.adopter-cards').append(card);
+				});
+        calculateAndPopulateAgeFields();
+			})
+		);
+	});
+
+	$('.foster-search-btn').click(function(){
+    var foster_search_url = "<?= $this->Url->build(['controller' => 'fosters', 'action' => 'ajaxSearch']); ?>";
+    var ajax_requests = [];
+		var val = $('#foster-search').val();
+
+    if (val == "") {
+      $('.foster-cards').empty();
+      return; 
+    }
+
+		// Prevent Stacking AJAX Calls
+		$.each(ajax_requests,function(){
+			this.abort();
+			//this.remove();
+		});
+
+		ajax_requests.push(
+			$.ajax({
+				url : foster_search_url+"/"+val,
+				type : "POST"
+			}).done(function(result){
+				var fosters = JSON.parse(result);
+				$('.foster-cards').html('');
+
+				$.each(fosters,function(i,obj){
+          var card = $('<div/>');
+          current_kitty.setFosterForCard(JSON.stringify(obj));
+          current_kitty.buildFosterCard(obj.id, card);
+          card.find('.profile-text-header').remove();
+          card.find('.profile-content-cont').css('border-bottom', '0px');
+          var inner = card.find('.has-url');
+          inner.attr('href','#');
+          inner.attr('data-id', obj.id);
+          inner.addClass('foster-search-result');
+
+					$('.foster-cards').append(card);
+				});
+        calculateAndPopulateAgeFields();
+			})
+		);
+	});
+
+  $('a[data-ix="confirm-cancel"]').on('click', function() {
+    $('#foster-search').val('');
+    $('.foster-cards').empty();
+    $('#adopter-search').val('');
+    $('.adopter-cards').empty();
+  });
 
 });
 </script>

@@ -7,6 +7,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\I18n\Time;
+use Cake\Log\Log;
 
 /**
  * Cats Model
@@ -239,4 +240,17 @@ class CatsTable extends Table
 		
 		return $segmented;
 	}
+
+  /*
+   * Update a cat's adoption fee
+   * @author Eric Bollinger - 7/10/17
+   */
+  public function updateFee($cat_id, $fee) {
+    $cat = $this->findById($cat_id)->first();
+    if (!empty($fee)) {
+      $cat->adoption_fee_amount = $fee;
+      $result = $this->save($cat);
+    }
+  }
+    
 }
