@@ -371,3 +371,21 @@ VALUES (NULL, "Whiskers", 1, '2017-01-18', 1, "Dark brown", "Short and rough", "
 INSERT INTO cats(litter_id, cat_name, is_kitten, dob, is_female, color, coat, bio, diet, specialty_notes, profile_pic_file_id, microchip_number, is_microchip_registered, created, adoption_fee_amount, is_paws, is_deleted, is_exported_to_adoptapet, good_with_kids, good_with_dogs, good_with_cats, special_needs, needs_experienced_adopter, breed_id, is_deceased)
 VALUES (NULL, "Jabba", 0, '2013-01-21', 0, "Dark brown", "Short and rough", "cat bio and background...", "should really just be left to sit and eat its own fat", "specialty notes here...", NULL, NULL, NULL, NOW(), NULL, false, false, false, false, false, false, true, true, 7, 0);
 
+-- add adoption events
+INSERT INTO adoption_events(event_date, description, is_deleted)
+VALUES ('2017-01-01', 'Old Event', 0);
+
+INSERT INTO adoption_events(event_date, description, is_deleted)
+VALUES ('2017-02-01', 'Deleted Event', 1);
+
+INSERT INTO adoption_events(event_date, description, is_deleted)
+VALUES ('2017-08-01', 'Future Event', 0);
+
+INSERT INTO adoption_events(event_date, description, is_deleted)
+VALUES ('2017-08-01', 'Deleted Future Event', 1);
+
+INSERT INTO adoption_events(event_date, description, is_deleted)
+VALUES ('2017-07-11', 'Current Event', 0);
+
+INSERT INTO adoption_events(event_date, description, is_deleted)
+VALUES ('2017-07-11', 'Deleted Current Event', 1);
