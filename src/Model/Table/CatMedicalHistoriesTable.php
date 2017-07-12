@@ -19,6 +19,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\CatMedicalHistory[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\CatMedicalHistory findOrCreate($search, callable $callback = null, $options = [])
  */
+
+
 class CatMedicalHistoriesTable extends Table
 {
 
@@ -100,5 +102,43 @@ class CatMedicalHistoriesTable extends Table
         $rules->add($rules->existsIn(['cat_id'], 'Cats'));
 
         return $rules;
+    }
+
+    public function formatForPrint($cat_id) {
+        $formatted = [];
+        $unformatted = $this->find('all')
+            ->where(['cat_id'=>$cat_id])
+            ->contain('Cats')
+            ->toArray();
+        foreach ($unformatted as $item) {
+            $date = $item['administered_date']->__toString();
+
+            if ($item['is_fvrcp']) {
+                $formatted['fvrcp'][] = $date;
+                continue;
+            } else if ($item['is_deworm']) {
+                $formatted['deworm'][] = $date;
+                continue;
+            } else if ($item['is_flea']) {
+                $formatted['flea'][] = $date;
+                continue;
+            } else if ($item['is_rabies']) {
+                $formatted['rabies'][] = $date;
+                continue;
+            } else if ($item['is_other']) {
+                $formatted['other'][] = $date;
+                continue;
+            }
+        }
+
+        $formatted['spay_neuter'] = "";
+        $formatted['felv_fiv'] = "";
+        $formatted['microchip'] = $item['cat']['microchip_number'];
+        $formatted['registered'] = "";
+        $formatted['cat'] = $item['cat'];
+        $formatted['cat']['gender'] = ($item['cat']['is_female']) ? 'Female' : 'Male';
+        $formatted['cat']['dob'] = $item['cat']['dob']->__toString();
+
+        return $formatted;
     }
 }

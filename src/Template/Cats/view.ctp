@@ -231,6 +231,7 @@
                   <?php endif; ?>
                 <?php if (!$is_foster && $can_edit): ?>
                   <a id="medAdd" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'add', $cat->id])?>">+ Add New Medical Record</a> 
+                  <a id="medPrint" class="profile-add-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'CatMedicalHistories', 'action'=>'printMedicalHistory', $cat->id]) ?>">Print Medical History Sheet</a>
                 <?php endif; ?>
                 </div>
               </div>
