@@ -61,7 +61,15 @@
         <div class="list w-dyn-items">
 <!-- -->
         <?php foreach($cats as $cat) : ?>
-          <div class="card-cont card-wrapper w-dyn-item">
+          <div class="card-cont <?= ($cat->is_deceased) ? "alert" : "" ?> card-wrapper w-dyn-item">
+            <?php if ($cat['is_deceased']): ?>
+            <div class="card-tag-cont">
+                <div class="card-tag warning">
+                  <div class="card-tag-symbol">R</div>
+                  <div class="card-tag-text">Deceased</div>
+                </div>
+            </div>
+            <?php endif; ?>
             <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="card w-clearfix w-inline-block">
             <div class="card-pic-cont">
               <?php 
@@ -108,7 +116,7 @@
               <div class="dropdown-results-cont">
 				<?php foreach($cat->litter->cats as $mate) : ?>
 					<?php if($mate->id != $cat->id): ?>
-                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $mate->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+                    <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $mate->id]) ?>" class="dropdown-cat-cont w-inline-block" >
                     <?php 
 				                if(!empty($mate->profile_pic)){
 				                  echo $this->Html->image('../'.$mate->profile_pic->file_path.'_tn.'.$mate->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
@@ -182,33 +190,20 @@
       <div>O</div>
   </div>
   <div class="button-cont">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
+    <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'cats','action'=>'add']); ?>">
         <div class="button-icon-text">Add Cat</div>
         <div class="floating-button">
           <div>P</div>
         </div>
     </a>
-    <a class="button-02 w-inline-block" data-ix="filter-click" href="#">
+    <a class="button w-inline-block" data-ix="filter-click" href="#">
       <div class="button-icon-text">Sort/Filter</div>
       <div class="floating-button">
         <div>K</div>
       </div>
     </a>
-    <!-- <a class="button-03 w-inline-block" href="#">
-      <div class="button-icon-text">Export</div>
-      <div class="floating-button">
-        <div>N</div>
-      </div>
-    </a>
-    <a class="button-04 w-inline-block" href="#">
-      <div class="button-icon-text">Delete</div>
-      <div class="floating-button">
-        <div>M</div>
-      </div>
-    </a>
-    -->
   </div>
-  
+    
 <script>
   calculateAndPopulateAgeFields();
 </script>

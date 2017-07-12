@@ -295,6 +295,12 @@ div.pagination>a {
     border-radius: 0 !important;
     border-right: 1px grey solid;
     border-left: 1px grey solid;
+    padding-left: 10px;
+}
+
+.disabled.medical-data-action {
+    cursor: not-allowed;
+    background-color: rgb(142, 142, 142);
 }
 
 .right.medical-data-action {

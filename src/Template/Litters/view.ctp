@@ -2,7 +2,7 @@
 <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
-        <div class="button profile-header">
+        <div class="top profile-header">
             <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
@@ -147,7 +147,7 @@
     </div>
   </div> 
   <div class="button-cont w-hidden-main">
-    <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
+    <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
       <div class="button-icon-text">Edit</div>
       <div class="floating-button">
         <div>L</div>
@@ -156,13 +156,13 @@
     <!--<div class="button-02">
       <div class="button-icon-text">Upload Attachments</div><img data-ix="add-click" src="<?= $this->Url->image('upload-01.png') ?>" width="55">
     </div>-->
-    <div class="button-03" data-ix="add-click">
+    <div class="button" data-ix="add-click">
         <div class="button-icon-text">Export</div>
         <div class="floating-button">
           <div>N</div>
         </div>
     </div>
-    <div class="button-04" data-ix="delete-click">
+    <div class="button" data-ix="delete-click">
         <div class="button-icon-text">Delete</div>
         <div class="floating-button">
           <div>M</div>

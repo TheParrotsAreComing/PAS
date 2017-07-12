@@ -23,7 +23,7 @@
       </div>
     <?= $this->Form->end() ?>
   </div>
-    <div class="column">
+    <div class="column add-view">
         <div class="events-cont" data-ix="page-load-fade-in">
         <div class="events-header">
             <div class="add-field-h1">adoption events</div>

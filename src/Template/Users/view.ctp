@@ -1,7 +1,7 @@
   <div class="body">
     <div class="column profile scroll1">
       <div class="profile-cont" data-ix="page-load-fade-in">
-        <div class="button profile-header">
+        <div class="top profile-header">
             <a onclick="history.go(-1);" href="#" class="profile-back w-inline-block">
             <div>&lt; Back</div>
             </a>
@@ -235,7 +235,7 @@
     </div></div>
   <div class="button-cont w-hidden-main">
     <?php if ($can_edit): ?>
-      <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id]) ?> ">
+      <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id]) ?> ">
         <div class="button-icon-text">Edit</div>
         <div class="floating-button">
           <div>L</div>
@@ -252,7 +252,7 @@
         </div>
       </a>    -->
     <?php if ($can_delete): ?>
-      <a class="button-04 w-inline-block" data-ix="delete-click">
+      <a class="button w-inline-block" data-ix="delete-click">
         <div class="button-icon-text">Delete</div>
         <div class="floating-button">
           <div>M</div>
