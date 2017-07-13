@@ -19,8 +19,13 @@ class FilesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [];
+        $this->paginate = [
+			'conditions' => ['entity_type'=>5,'is_deleted'=>0]
+		];
         $files = $this->paginate($this->Files);
+		if($this->request->is('POST')){
+			debug($this->request->data);die;
+		}
 
         $this->set(compact('files'));
         $this->set('_serialize', ['files']);
@@ -50,8 +55,19 @@ class FilesController extends AppController
     {
         $file = $this->Files->newEntity();
         if ($this->request->is('post')) {
-            $file = $this->Files->patchEntity($file, $this->request->data);
-            if ($this->Files->save($file)) {
+
+			$file_name = $this->request->data['add_file']['name'];
+			$path_info = pathinfo($file_name);
+
+			$temp_location = $this->request->data['add_file']['tmp_name'];
+			$extension = $path_info['extension'];
+			$file_path = 'files/system';
+			$entity_id = null;
+			$mime_type = $this->request->data['add_file']['type'];
+			$file_size = filesize($temp_location);
+			$file_note = $this->request->data['description'];
+
+            if ($this->Files->uploadDocument($file_name,$temp_location,$extension,$file_path,5,null,$mime_type,$file_size,$file_note)) {
                 $this->Flash->success(__('The file has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -98,7 +114,8 @@ class FilesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $file = $this->Files->get($id);
-        if ($this->Files->delete($file)) {
+		$file->is_deleted = 1;
+        if ($this->Files->save($file)) {
             $this->Flash->success(__('The file has been deleted.'));
         } else {
             $this->Flash->error(__('The file could not be deleted. Please, try again.'));
