@@ -226,4 +226,30 @@ class CatMedicalHistoriesController extends AppController
 
         return $this->redirect(['controller'=>'cats', 'action' => 'view', $cat_id]);
     }
+
+    /*
+     * Create a PDF of a cat's medical history, as per chart provided
+     * @param cat_id ID of the cat in question
+     * @author Eric Bollinger - 7/11/17
+     */
+    public function printMedicalHistory($cat_id) {
+        $this->autoRender = false;
+        $histories = $this->CatMedicalHistories->formatForPrint($cat_id);
+
+        require_once(ROOT.DS.'vendor'.DS.'tecnickcom'.DS.'tcpdf'.DS.'tcpdf.php');
+
+        $pdf = new \tcpdf('P', 'mm', 'A4', true, 'UTF-8', false);
+        mb_internal_encoding('UTF-8');
+
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->AddPage();
+        $pdf->LastPage();
+
+        $this->loadComponent('MedicalHistory');
+        $this->MedicalHistory->drawDoc($pdf, $histories);
+        $pdf->Output($histories['cat']['cat_name'].' Medical History.pdf', 'D');
+
+
+    }
 }

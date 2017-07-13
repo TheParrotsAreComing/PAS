@@ -19,6 +19,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\CatMedicalHistory[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\CatMedicalHistory findOrCreate($search, callable $callback = null, $options = [])
  */
+
+
 class CatMedicalHistoriesTable extends Table
 {
 
@@ -100,5 +102,55 @@ class CatMedicalHistoriesTable extends Table
         $rules->add($rules->existsIn(['cat_id'], 'Cats'));
 
         return $rules;
+    }
+
+    public function formatForPrint($cat_id) {
+        $formatted = ['fvrcp'=>[], 'deworm'=>[], 'flea'=>[], 'rabies'=>[], 'other'=>[]];
+        $unformatted = $this->find('all')
+            ->where(['cat_id'=>$cat_id])
+            ->contain('Cats')
+            ->toArray();
+        foreach ($unformatted as $item) {
+            $date = $item['administered_date']->__toString();
+
+            if ($item['is_fvrcp']) {
+                $formatted['fvrcp'][] = $item['administered_date'];
+                continue;
+            } else if ($item['is_deworm']) {
+                $formatted['deworm'][] = $item['administered_date'];
+                continue;
+            } else if ($item['is_flea']) {
+                $formatted['flea'][] = $item['administered_date'];
+                continue;
+            } else if ($item['is_rabies']) {
+                $formatted['rabies'][] = $item['administered_date'];
+                continue;
+            } else if ($item['is_other']) {
+                $formatted['other'][] = ['date'=>$item['administered_date'], 'notes'=>$item['notes']];
+                continue;
+            }
+        }
+
+        $empty_arr = ["","","","","",""];
+        sort($formatted['fvrcp']);
+        $formatted['fvrcp'] = array_pad(array_slice($formatted['fvrcp'], -6, 6), 6, "");
+        sort($formatted['deworm']);
+        $formatted['deworm'] = array_pad(array_slice($formatted['deworm'], -6, 6), 6, "");
+        sort($formatted['flea']);
+        $formatted['flea'] = array_pad(array_slice($formatted['flea'], -6, 6), 6, "");
+        sort($formatted['rabies']);
+        $formatted['rabies'] = array_pad(array_slice($formatted['rabies'], -6, 6), 6, "");
+        sort($formatted['other']);
+        $formatted['other'] = array_pad(array_slice($formatted['other'], -6, 6), 6, "");
+
+        $formatted['spay_neuter'] = "";
+        $formatted['felv_fiv'] = "";
+        $formatted['microchip'] = $item['cat']['microchip_number'];
+        $formatted['registered'] = "";
+        $formatted['cat'] = $item['cat'];
+        $formatted['cat']['gender'] = ($item['cat']['is_female']) ? 'Female' : 'Male';
+        $formatted['cat']['dob'] = $item['cat']['dob']->__toString();
+
+        return $formatted;
     }
 }
