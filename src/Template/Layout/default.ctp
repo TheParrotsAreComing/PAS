@@ -117,7 +117,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <div class="navbar-search-icon-desktop w-hidden-medium w-hidden-small w-hidden-tiny">#</div>
       <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
 
-      <a class="brand-cont w-clearfix w-inline-block" href="/"><?= $this->Html->image('paws-logo-blue-diamond.png', ['class'=>'brand']); ?>
+      <a class="brand-cont w-clearfix w-inline-block" href="/"><?= $this->Html->image('missionmeow.png', ['class'=>'brand']); ?>
       </a>
       <nav class="navbar-menu w-nav-menu" role="navigation">
         <?= $this->Html->link('Home', ['controller'=>'pages', 'action'=>'display','home'], ['class'=>'sidebar-link w-nav-link']); ?>

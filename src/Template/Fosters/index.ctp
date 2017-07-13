@@ -134,7 +134,7 @@
                   <div class="dropdown-results-cont">
                     <?php foreach ($foster["cat_histories"] as $cat): ?>
                       <?php $cat = $cat["cat"]; ?>
-                      	<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
+                      	<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont w-inline-block" >
                           <?php 
                             if(!empty($cat->profile_pic)) {
                               echo $this->Html->image('../'.$cat->profile_pic->file_path.'_tn.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);
@@ -176,31 +176,18 @@
     <div>O</div>
 </div>
 <div class="button-cont">
-  <a class="button-01 w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters','action'=>'add']); ?>">
+  <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters','action'=>'add']); ?>">
       <div class="button-icon-text">Add Foster</div>
       <div class="floating-button">
         <div>P</div>
       </div>
   </a>
-  <a class="button-02 w-inline-block" data-ix="filter-click" href="#">
+  <a class="button w-inline-block" data-ix="filter-click" href="#">
     <div class="button-icon-text">Sort/Filter</div>
     <div class="floating-button">
       <div>K</div>
     </div>
   </a>
-  <!-- <a class="button-03 w-inline-block" href="#">
-    <div class="button-icon-text">Export</div>
-    <div class="floating-button">
-      <div>N</div>
-    </div>
-  </a>
-  <a class="button-04 w-inline-block" href="#">
-    <div class="button-icon-text">Delete</div>
-    <div class="floating-button">
-      <div>M</div>
-    </div>
-  </a>
-  -->
 <script>
 $(function(){
 	$('#tagFilter').select2();

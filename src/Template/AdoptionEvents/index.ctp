@@ -1,6 +1,29 @@
 <?= $this->Html->script('cats.js'); ?>
-<div class="body">
-    <div class="add-view column">
+<div class="body w-clearfix">
+  <div class="filter-bar">
+    <div class="filter-header">
+      <div class="filter-header">FILTER</div>
+      <div class="symbol" data-ix="filter-cancel"></div>
+    </div>
+    <?= $this->Form->create(false,['type'=>'get','class'=>'w-clearfix']) ?>
+    <?php $this->Form->templates(['inputContainer' => '{{content}}']); ?>
+      <div class="filter">
+          <div class="filter-criteria">Date:</div>
+          <?= $this->Form->input('event_date',['class'=>'filter-criteria-select w-input','label'=>false,'id'=>'Event-Date','placeholder'=>'Enter date']) ?>
+      </div>
+
+      <div class="filter">
+        <div class="filter-criteria">Deleted:</div>
+        <?= $this->Form->input('is_deleted', ['type'=>'checkbox', 'label' => false]); ?>
+      </div>
+
+      <div class="filter-apply-cont">
+        <a class="cancel filter-button w-button" href="<?= $this->Url->build(['action'=>'index'])?>">Cancel</a>
+        <button id="filterAdopters" type="submit" class="apply filter-button w-button" data-ix="button-click" href="#">APPLY FILTER</button>
+      </div>
+    <?= $this->Form->end() ?>
+  </div>
+    <div class="column add-view">
         <div class="events-cont" data-ix="page-load-fade-in">
         <div class="events-header">
             <div class="add-field-h1">adoption events</div>
@@ -255,46 +278,46 @@
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
-                <div class="pagination-w past">
-                    <div class="events pagination-wrap">
-                    <div class="pagination-cont">
-                        <div class="pagination"></div>
+                <div class="pagination-w">
+                    <div class="pagination-wrap">
+                      <div class="pagination-cont">
+                        <div class="pagination"><?= $this->Paginator->prev('') ?></div>
+                      </div>
+                      <div class="pagination-cont">
+                          <?= $this->Paginator->numbers() ?>
+                      </div>
+                      <div class="pagination-cont">
+                        <div class="pagination"><?= $this->Paginator->next('') ?></div>
+                      </div>
                     </div>
-                    <div class="pagination-cont">
-                        <div class="current pagination-index">1</div>
-                        <div class="pagination-index">2</div>
-                        <div class="pagination-index">3</div>
-                        <div class="pagination-index">4</div>
-                        <div class="pagination-index">5</div>
-                        <div class="pagination-index">6</div>
-                    </div>
-                    <div class="pagination-cont">
-                        <div class="pagination"></div>
-                    </div>
-                    </div>
-                </div>
+                  </div>
                 </div>
             </div>
             </div>
         </div>
-        <?php if ($can_add): ?>
         <div class="events-button-cont">
-        <a class="profile-add-cont" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'add']) ?>">+ Create a New Adoption Event</a>
+            <div>
+            <?php if ($can_add): ?>
+                <a class="profile-add-cont" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'add']) ?>">+ Create Adoption Event</a>
+            <?php endif; ?>
+            </div>
+            <div>
+            <a class="profile-add-cont" href="#" data-ix="filter-hideshow">Sort/Filter</a>
+            </div>
         </div>
-        <?php endif; ?>
         </div>
     </div>
     </div>
 <div class="floating-overlay">
-<div class="confirm-cont">
-    <div class="confirm-text">Are you sure you want to delete this event?</div>
-    <div class="confirm-button-wrap w-form">
-        <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-        <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-        <a class="confirm-button delete w-button" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'delete', $adoptionEvent->id]) ?>" data-wait="Please wait... " type="submit" value="Delete">Delete</a>
-        </form>
+    <div class="confirm-cont">
+        <div class="confirm-text">Are you sure you want to delete this event?</div>
+        <div class="confirm-button-wrap w-form">
+            <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+            <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
+            <a class="confirm-button delete w-button" href="<?= $this->Url->build(['controller'=>'AdoptionEvents', 'action'=>'delete', $adoptionEvent->id]) ?>" data-wait="Please wait... " type="submit" value="Delete">Delete</a>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 <script>
 $(function(){

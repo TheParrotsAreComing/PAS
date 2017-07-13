@@ -167,6 +167,7 @@ class CatsController extends AppController
 		foreach($adopters as $ad){
 			$select_adopters[$ad->id] = $ad->first_name.' '.$ad->last_name;
 		}
+        asort($select_adopters);
 
         // available fosters
         $fosters = $fostersDB->find('all');
@@ -175,6 +176,7 @@ class CatsController extends AppController
         foreach($fosters as $fo){
             $select_fosters[$fo->id] = $fo->first_name.' '.$fo->last_name;
         }
+        asort($select_fosters);
 
         $documents = $filesDB->find('all',[
             'conditions' => [
@@ -529,7 +531,7 @@ class CatsController extends AppController
 
     }
 
-	public function attachAdopter($adopter_id,$cat_id){
+	public function attachAdopter($adopter_id,$cat_id,$fee){
 		//Ajax doesn't need this page to render
 		$this->autoRender = false;
 
@@ -546,7 +548,9 @@ class CatsController extends AppController
 			$history_entry->adopter_id = $adopter_id;
 			$history_entry->start_date = date('Y-m-d');
 
-			//If it works, let's reutn the adopter
+            $this->Cats->updateFee($cat_id, $fee);
+
+			//If it works, let's return the adopter
 			if($cat_histories_table->save($history_entry)){
 				$response = json_encode($attachee);
 			}else{
@@ -645,4 +649,6 @@ class CatsController extends AppController
         }
         exit(0);
     }
+
+
 }

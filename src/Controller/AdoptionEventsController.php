@@ -29,11 +29,41 @@ class AdoptionEventsController extends AppController
             $can_add = true;
         }
 
-        //$adoptionEvents = $this->paginate($this->AdoptionEvents);
-        $adoptionEvents = $this->AdoptionEvents->find('all', [
+        //sort
+        $this->paginate = [
             'contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files'],
-            'conditions' => ['AdoptionEvents.is_deleted'=> 0]]);
-        $this->paginate($this->AdoptionEvents);
+            'conditions' => ['AdoptionEvents.is_deleted' => 0]
+        ];
+
+        if(!empty($this->request->query['mobile-search'])){
+            $this->paginate['conditions']['event_date LIKE'] = '%'.$this->request->query['mobile-search'].'%';
+        } else if(!empty($this->request->query)){
+
+
+            foreach($this->request->query as $field => $query){
+                // check the flags first
+                if(is_array($query) || $field == 'page'){
+                    continue;
+                }
+                if(($field == 'is_deleted') && $query != ''){
+                    $this->paginate['conditions']['AdoptionEvents.'.$field] = (int)$query;
+                }else if($field == 'event_date') {
+                    if(!empty($query)){
+                        $this->paginate['conditions']['AdoptionEvents.'.$field] = date('Y-m-d',strtotime($query));
+                    }
+                } else if (!empty($query)) {
+                    $this->paginate['conditions']['AdoptionEvents.'.$field.' LIKE'] = '%'.$query.'%';
+                }
+            }
+
+            $this->request->data = $this->request->query;
+        }
+        //$adoptionEvents = $this->paginate($this->AdoptionEvents);
+        /*$adoptionEvents = $this->AdoptionEvents->find('all', [
+            'contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files'],
+            'conditions' => ['AdoptionEvents.is_deleted'=> 0]]);*/
+        //$this->paginate($this->AdoptionEvents);
+        $adoptionEvents = $this->paginate($this->AdoptionEvents);
         $this->set(compact('adoptionEvents', 'can_add'));
         $this->set('_serialize', ['adoptionEvents']);
 
@@ -163,7 +193,7 @@ class AdoptionEventsController extends AppController
 
         $eventDate = false;
         $adoptionEvent = $this->AdoptionEvents->get($id, [
-            'contain' => ['Cats', 'Cats.Breeds', 'Cats.Files']
+            'contain' => ['Cats', 'Cats.Breeds', 'Cats.Files', 'Users']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $adoptionEvent = $this->AdoptionEvents->patchEntity($adoptionEvent, $this->request->data);

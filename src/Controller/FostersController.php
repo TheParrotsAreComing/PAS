@@ -491,4 +491,14 @@ class FostersController extends AppController
         exit(0);
     }
 
+    public function ajaxSearch($name) {
+
+        $this->autoRender = false;
+        $results = $this->Fosters->find('all')
+            ->where(['is_deleted'=>0, 'CONCAT(first_name, " ", last_name) LIKE' => '%'.$name.'%']);
+        ob_clean();
+        echo json_encode($results);
+        exit(0);
+    }
+
 }
