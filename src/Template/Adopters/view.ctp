@@ -38,7 +38,7 @@
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
-                <div class="profile-notification-cont">
+                <div class="profile-notification-cont" style="overflow: auto;">
                   <?php foreach ($adopter['tags'] as $tag): ?>                
                     <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
                       <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>" class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
@@ -197,7 +197,7 @@
                     </div>
                   <?php if ($filesCountTotal > 0): ?>
                     <?php foreach($files as $file): ?>
-                    <div class="files-data-wrap no-horizontal-scroll">
+                    <div class="files-data-wrap no-horizontal-scroll" data-file-id="<?= h($file->id) ?>">
                       <div class="files-data-cont" data-ix="medical-data-click">
                       <div class="files-date-cont">
                         <div class="medical-data-type"><?= h($file->created) ?></div>
@@ -207,11 +207,11 @@
                         <div class="files-data"><?= h($file->note) ?></div>
                       </div>
                       <div class="medical-data-action-cont">
-                        <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                        <a class="left medical-data-action w-inline-block delete-file-btn" href="#">
                         <div class="basic profile-action-button"></div>
                         <div>delete</div>
                         </a>
-                        <a class="right medical-data-action w-inline-block" href="#">
+                        <a class="right medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'Files', 'action'=>'downloadfilebyid', $file->id]) ?>">
                         <div class="profile-action-button sofware">p</div>
                         <div>download</div>
                         </a>
@@ -332,7 +332,7 @@
         echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
       ?>
     <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form add-button-cont">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
@@ -373,6 +373,10 @@
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
 </div>
 
+<div id="dialog-confirm-file-delete" title="Delete this file?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this file?</p>
+</div>
+
 <script>
 	$(function(){
     var adopter_id = "<?= $adopter->id ?>";
@@ -383,6 +387,7 @@
     
     calculateAndPopulateAgeFields();
     setupPhotoSelectionBehavior(adopter_id, adopter_controller_string);
+    setupFileBehavior(adopter_id, adopter_controller_string);
 
 		$('.delete-button').click(function(e){
 			e.preventDefault();

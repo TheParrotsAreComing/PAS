@@ -66,7 +66,7 @@
             <div class="card-cont card-wrapper w-dyn-item">
                   <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'edit', $contact->id]); ?>" style="border-radius: 3px 3px 3px 3px;">
                   <div class="card-pic-cont">
-                    <?= $this->Html->image('contacts-menu.png', ['class'=>'card-pic', 'sizes'=>'(max-width:479px) 21vw, 96px']); ?>
+                    <img class="card-pic" src="<?= $this->Url->image('user-menu.png') ?>" sizes="(max-width: 479px) 21vw, 96px">
                   </div>
                   <div class="card-h1"><?= $contact['contact_name']; ?></div>
                     <div>

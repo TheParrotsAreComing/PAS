@@ -64,7 +64,7 @@
           </div>
           <div class="profile-tab-wrap scroll1 w-tab-content">
             <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
-              <div class="profile-notification-cont">
+              <div class="profile-notification-cont" style="overflow: auto;">
                   <?php foreach ($cat['tags'] as $tag): ?>                
                     <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
                       <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>" class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
@@ -272,7 +272,7 @@
                               <div class="card-field-cont">
                                 <div class="card-field-cont">
                                   <div class="card-h3">Primary Phone:</div>
-                                  <div class="card-field-text"><?= h($number->phone_num) ?></div>
+                                  <div class="card-field-text"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
                                 </div>
                               </div>
                               <?php break;?>
@@ -354,7 +354,7 @@
                           <div class="card-field-cont">
                             <div class="card-field-cont">
                               <div class="card-h3">Primary Phone:</div>
-                              <div class="card-field-text"><?= h($number->phone_num) ?></div>
+                              <div class="card-field-text"><?php echo "(".substr($number->phone_num, 0, 3).") ".substr($number->phone_num, 3, 3)."-".substr($number->phone_num,6); ?></div>
                             </div>
                           </div>
                           <?php break;?>
@@ -586,29 +586,26 @@
     <div class="confirm-text">Who is adopting this cat?</div>
     <?= $this->Form->input('Adopter',['class'=>'add-input w-input','id'=>'adopter-search']) ?>
     <?= $this->Form->input('selected_adopter_id', ['type'=>'hidden']); ?>
-    <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form" style="margin-top:1em;">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <a class="delete adopter-search-btn confirm-button w-button" href="#">Search</a>
     </div>
-    <div class="adopter-cards" style="margin-top:1em;"></div>
+    <div class="adopter-cards" style="margin-top:1em; max-height: 350px; overflow: auto;"></div>
   </div>
 </div> 
 
 <div class="add-adopter-floating-overlay add-foster">
   <div class="confirm-cont add-foster-inner">
     <div class="confirm-text">Who is fostering this cat?</div>
-    <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
       <?= $this->Form->input('Foster',['class'=>'add-input w-input','id'=>'foster-search']) ?>
       <?= $this->Form->input('selected_foster_id', ['type'=>'hidden']); ?>
-    </form>
-    <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form" style="margin-top:1em;">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
-      <!--<a class="delete add-foster-btn confirm-button w-button" href="#">Foster!</a>-->
       <a class="delete foster-search-btn confirm-button w-button" href="#">Search</a>
     </div>
-    <div class="foster-cards" style="margin-top:1em;"></div>
+    <div class="confirm-cont-wrap">
+    <div class="foster-cards" style="margin-top:1em; max-height: 350px; overflow: auto;"></div>
+    </div>
   </div>
 </div>
 

@@ -38,6 +38,7 @@ class FilesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->addBehavior('File');
         $this->addBehavior('Timestamp');
 
     }

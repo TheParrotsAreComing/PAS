@@ -21,7 +21,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <html data-wf-page="58267cb4b29856df44e502fe" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
-  <title>PAWS Administrative System</title>
+  <title>Mission Control</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
 
@@ -132,7 +132,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?php if ($session_user['role'] == 1): ?>
           <?= $this->Html->link('Tags', ['controller'=>'tags', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php endif; ?>
-        <?= $this->Html->link('Settings', ['controller'=>'settings', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
+        <!-- No Settings Page Available Redirects Home-->
+        <?= $this->Html->link('Settings', ['controller'=>'pages', 'action'=>'display','home'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php if (!empty($session_user['id'])): ?>
           <?= $this->Html->link('My Profile', ['controller'=>'users','action'=>'view',$session_user['id']],['class'=>'sidebar-link w-nav-link']); ?>
           <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>

@@ -109,8 +109,9 @@ var Cat = function(){
 
 		//I wanna iterate instead of typing a lot...
 		var card_fields_text = {
+			'notes' :'Notes',
+			'phone':'Primary Phone',
 			'email':'Email',
-			'phone':'Phone',
 			'address':'Address'
 		};
 
