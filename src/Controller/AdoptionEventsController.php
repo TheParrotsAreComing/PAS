@@ -29,10 +29,10 @@ class AdoptionEventsController extends AppController
             $can_add = true;
         }
 
-        //sort
         $this->paginate = [
             'contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files'],
-            'conditions' => ['AdoptionEvents.is_deleted' => 0]
+            'conditions' => ['AdoptionEvents.is_deleted' => 0],
+            'maxLimit' => 16
         ];
 
         if(!empty($this->request->query['mobile-search'])){
@@ -58,11 +58,7 @@ class AdoptionEventsController extends AppController
 
             $this->request->data = $this->request->query;
         }
-        //$adoptionEvents = $this->paginate($this->AdoptionEvents);
-        /*$adoptionEvents = $this->AdoptionEvents->find('all', [
-            'contain' => ['Cats', 'Users', 'Cats.Breeds', 'Cats.Files', 'Users.Files'],
-            'conditions' => ['AdoptionEvents.is_deleted'=> 0]]);*/
-        //$this->paginate($this->AdoptionEvents);
+
         $adoptionEvents = $this->paginate($this->AdoptionEvents);
         $this->set(compact('adoptionEvents', 'can_add'));
         $this->set('_serialize', ['adoptionEvents']);
