@@ -197,7 +197,7 @@
                     </div>
                   <?php if ($filesCountTotal > 0): ?>
                     <?php foreach($files as $file): ?>
-                    <div class="files-data-wrap no-horizontal-scroll">
+                    <div class="files-data-wrap no-horizontal-scroll" data-file-id="<?= h($file->id) ?>">
                       <div class="files-data-cont" data-ix="medical-data-click">
                       <div class="files-date-cont">
                         <div class="medical-data-type"><?= h($file->created) ?></div>
@@ -207,11 +207,11 @@
                         <div class="files-data"><?= h($file->note) ?></div>
                       </div>
                       <div class="medical-data-action-cont">
-                        <a class="left medical-data-action w-inline-block delete-record-btn" href="#">
+                        <a class="left medical-data-action w-inline-block delete-file-btn" href="#">
                         <div class="basic profile-action-button"></div>
                         <div>delete</div>
                         </a>
-                        <a class="right medical-data-action w-inline-block" href="#">
+                        <a class="right medical-data-action w-inline-block" href="<?= $this->Url->build(['controller'=>'Files', 'action'=>'downloadfilebyid', $file->id]) ?>">
                         <div class="profile-action-button sofware">p</div>
                         <div>download</div>
                         </a>
@@ -373,6 +373,10 @@
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this photo?</p>
 </div>
 
+<div id="dialog-confirm-file-delete" title="Delete this file?" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this file?</p>
+</div>
+
 <script>
 	$(function(){
     var adopter_id = "<?= $adopter->id ?>";
@@ -383,6 +387,7 @@
     
     calculateAndPopulateAgeFields();
     setupPhotoSelectionBehavior(adopter_id, adopter_controller_string);
+    setupFileBehavior(adopter_id, adopter_controller_string);
 
 		$('.delete-button').click(function(e){
 			e.preventDefault();

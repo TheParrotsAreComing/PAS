@@ -259,14 +259,14 @@ class CatsController extends AppController
                 $nameArray = explode('.', $uploadedFileName);
                 $fileExtension = array_pop($nameArray);
 
-                // get other vars to upload photo
+                // get other vars to upload file
                 $tempLocation = $this->request->data['uploaded_file']['tmp_name'];
                 $uploadPath = 'files/cats/'.$cat->id;
                 $entityTypeId = $this->Cats->getEntityTypeId();
                 $mimeType = $this->request->data['uploaded_file']['type'];
                 $fileSize = $this->request->data['uploaded_file']['size'];
 
-                // attempt to upload the photo with the file behavior
+                // attempt to upload the file with the file behavior
                 $new_file_id = $this->Cats->uploadDocument($uploadedFileName, $tempLocation, $fileExtension, $uploadPath, 
                     $entityTypeId, $cat->id, $mimeType, $fileSize, $this->request->data['file-note']);
 
