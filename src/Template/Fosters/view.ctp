@@ -301,7 +301,7 @@
         echo $this->Form->input('uploaded_photo', ['type' => 'file', 'accept' => 'image/*']);
       ?>
     <br/>
-    <div class="confirm-button-wrap w-form">
+    <div class="confirm-button-wrap w-form add-button-cont">
       <a class="cancel confirm-button w-button" data-ix="confirm-cancel" href="#">Cancel</a>
       <?php
         echo $this->Form->submit("Upload!", ['class' => 'delete add-photo-btn confirm-button w-button']);
