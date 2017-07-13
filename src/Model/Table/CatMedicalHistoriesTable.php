@@ -105,7 +105,7 @@ class CatMedicalHistoriesTable extends Table
     }
 
     public function formatForPrint($cat_id) {
-        $formatted = [];
+        $formatted = ['fvrcp'=>[], 'deworm'=>[], 'flea'=>[], 'rabies'=>[], 'other'=>[]];
         $unformatted = $this->find('all')
             ->where(['cat_id'=>$cat_id])
             ->contain('Cats')
@@ -114,22 +114,34 @@ class CatMedicalHistoriesTable extends Table
             $date = $item['administered_date']->__toString();
 
             if ($item['is_fvrcp']) {
-                $formatted['fvrcp'][] = $date;
+                $formatted['fvrcp'][] = $item['administered_date'];
                 continue;
             } else if ($item['is_deworm']) {
-                $formatted['deworm'][] = $date;
+                $formatted['deworm'][] = $item['administered_date'];
                 continue;
             } else if ($item['is_flea']) {
-                $formatted['flea'][] = $date;
+                $formatted['flea'][] = $item['administered_date'];
                 continue;
             } else if ($item['is_rabies']) {
-                $formatted['rabies'][] = $date;
+                $formatted['rabies'][] = $item['administered_date'];
                 continue;
             } else if ($item['is_other']) {
-                $formatted['other'][] = $date;
+                $formatted['other'][] = ['date'=>$item['administered_date'], 'notes'=>$item['notes']];
                 continue;
             }
         }
+
+        $empty_arr = ["","","","","",""];
+        sort($formatted['fvrcp']);
+        $formatted['fvrcp'] = array_pad(array_slice($formatted['fvrcp'], -6, 6), 6, "");
+        sort($formatted['deworm']);
+        $formatted['deworm'] = array_pad(array_slice($formatted['deworm'], -6, 6), 6, "");
+        sort($formatted['flea']);
+        $formatted['flea'] = array_pad(array_slice($formatted['flea'], -6, 6), 6, "");
+        sort($formatted['rabies']);
+        $formatted['rabies'] = array_pad(array_slice($formatted['rabies'], -6, 6), 6, "");
+        sort($formatted['other']);
+        $formatted['other'] = array_pad(array_slice($formatted['other'], -6, 6), 6, "");
 
         $formatted['spay_neuter'] = "";
         $formatted['felv_fiv'] = "";
