@@ -40,7 +40,7 @@
             </div>
             <div class="profile-tab-wrap scroll1 w-tab-content">
                 <div class="profile-tab-cont w--tab-active w-clearfix w-tab-pane" data-w-tab="Tab 1">
-                    <div class="profile-notification-cont">
+                    <div class="profile-notification-cont" style="overflow: auto;">
                       <?php foreach ($foster['tags'] as $tag): ?>                
                         <div class="tag-cont" data-id="<?= $tag->id ?>" style="color:#<?= $tag['color'] ?>; border-color: #<?= $tag['color'] ?>;">
                           <div class="tag-text"><?= $tag['label'] ?></div><a data-id="<?= $tag->id ?>"  class="tag-remove" style="color:#<?= $tag['color'] ?>;" href="#"></a>
