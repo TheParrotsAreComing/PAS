@@ -104,7 +104,7 @@ $(function () {
         var selectedCat_id = $('#cat').val();
         catsArr.push(selectedCat_id);
         var selectedCat = $('#cat option:selected').text();
-        $( 'div' ).data("test", JSON.parse(selectedCat));
+        //$( 'div' ).data("test", JSON.parse(selectedCat));
         var cat_cont = $('<div/>');
         cat_cont.addClass('dropdown-cat-cont mini w-inline-block');
 
@@ -114,7 +114,8 @@ $(function () {
 
         var cat_text = $('<div/>');
         cat_text.addClass('dropdown-cat-name mini');
-        cat_text.text($( "div" ).data("test").cat_name);
+        cat_text.text(selectedCat);
+        //cat_text.text($( "div" ).data("test").cat_name);
 
         var cat_id = $('<div/>');
         cat_id.addClass('list-id-cont mini');
