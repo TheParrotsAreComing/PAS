@@ -52,7 +52,7 @@
         <h4>Select a cat to add</h4>
         <form class="confirm-button-cont" data-name="Email Form 2" id="email-form-2" name="email-form-2">
             <div class="cat_options">
-            <?= $this->Form->input('cat', ['class'=>'add-input w-input', 'options'=>$select_cats]); ?>
+            <?= $this->Form->input('cat', ['class'=>'add-input w-input', 'options'=> $select_cats]); ?>
             </div>
         </form>
         </br>
@@ -100,9 +100,11 @@ $(function () {
         $('.add-cat').css('display','none');
         $('.add-cat-inner').css('display','none');
         $('.add-cat-inner').css('opacity','0');
+        //var selectedCat_id = $('#cat').val();
         var selectedCat_id = $('#cat').val();
         catsArr.push(selectedCat_id);
         var selectedCat = $('#cat option:selected').text();
+        $( 'div' ).data("test", JSON.parse(selectedCat));
         var cat_cont = $('<div/>');
         cat_cont.addClass('dropdown-cat-cont mini w-inline-block');
 
@@ -112,13 +114,25 @@ $(function () {
 
         var cat_text = $('<div/>');
         cat_text.addClass('dropdown-cat-name mini');
-        cat_text.text(selectedCat);
+        cat_text.text($( "div" ).data("test").cat_name);
 
-        var cat_remove = $('<a/>');
-        cat_remove.addClass('cat-remove');
-        cat_remove.attr('href', '#');
-        cat_remove.text('Remove');
-        cat_remove.attr('data-id', selectedCat_id);
+        var cat_id = $('<div/>');
+        cat_id.addClass('list-id-cont mini');
+        var cat_id_hash = $('<div/>');
+        cat_id_hash.addClass('id-text');
+        cat_id_hash.text('#');
+        var cat_id_text = $('<div/>');
+        cat_id_text.addClass('id-text');
+        cat_id_text.text(selectedCat_id);
+        cat_id.append(cat_id_hash);
+        cat_id.append(cat_id_text);
+        
+
+        var dropdown_cat_remove = $('<a/>');
+        dropdown_cat_remove.addClass('dropdown-cat-remove');
+        dropdown_cat_remove.attr('href', '#');
+        dropdown_cat_remove.text('I');
+        dropdown_cat_remove.attr('data-id', selectedCat_id);
 
         var input = $('<input/>');
         input.attr('name', 'cats[_ids][]');
@@ -128,13 +142,14 @@ $(function () {
         cat_cont.append(input);
         cat_cont.append(cat_pic);
         cat_cont.append(cat_text);
-        cat_cont.append(cat_remove);
+        cat_cont.append(dropdown_cat_remove);
+        cat_cont.append(cat_id);
         $('.dropdown-results-cont.mini.cats').prepend(cat_cont);
 
         var dropdown_option = $('.cat_options option[value='+selectedCat_id+']');
         dropdown_option.remove();
     });
-    $('.dropdown-results-cont').on('click', '.cat-remove',function() {
+    $('.dropdown-results-cont').on('click', '.dropdown-cat-remove',function() {
         var that = $(this);
         cat_id = that.attr('data-id');
         that.parent().remove();
@@ -163,9 +178,9 @@ $(function () {
         user_text.addClass('dropdown-cat-name mini');
         
         var user_remove = $('<a/>');
-        user_remove.addClass('user-remove');
+        user_remove.addClass('dropdown-cat-remove');
         user_remove.attr('href', '#');
-        user_remove.text('Remove');
+        user_remove.text('I');
         user_remove.attr('data-id', selectedUser_id);
 
         user_text.text(selectedUser);
@@ -184,7 +199,7 @@ $(function () {
         var dropdown_option = $('.user_options option[value='+selectedUser_id+']');
         dropdown_option.remove();
     });
-    $('.users-list').on('click', '.user-remove',function() {
+    $('.users-list').on('click', '.dropdown-cat-remove',function() {
         var that = $(this);
         user_id = that.attr('data-id');
         that.parent().remove();

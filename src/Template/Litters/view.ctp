@@ -146,7 +146,7 @@
       </div>
     </div>
   </div> 
-  <div class="button-cont w-hidden-main">
+  <div class="button-cont">
     <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
       <div class="button-icon-text">Edit</div>
       <div class="floating-button">

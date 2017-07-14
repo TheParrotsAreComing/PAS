@@ -314,3 +314,8 @@ div.pagination>a {
 .red-text {
     color: red;
 }
+
+.picture {
+    object-fit: cover;
+    object-position: 50% 50%;
+}

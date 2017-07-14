@@ -1075,7 +1075,7 @@
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: start;
   align-content: flex-start;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .profile-notification-cont.scroll1 {
@@ -3321,8 +3321,8 @@
   display: flex;
   max-height: 190px;
   min-height: 90px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
@@ -3418,7 +3418,8 @@
 }
 
 .picture {
-  height: 75px;
+  width: 100%;
+  height: 86px;
   border-radius: 3px;
   -webkit-transition: all 300ms ease;
   transition: all 300ms ease;
@@ -3430,7 +3431,8 @@
 }
 
 .picture.selected {
-  height: 79px;
+  width: 90px;
+  height: 90px;
   box-shadow: 0 0 6px 0 #0172ff;
 }
 
@@ -3581,7 +3583,21 @@
 
 .picture-file {
   position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90px;
+  height: 90px;
   padding: 4px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .text-block {
@@ -4205,6 +4221,15 @@
   margin-left: 5px;
   color: #fff;
   font-weight: 600;
+}
+
+.dropdown-cat-remove {
+  position: absolute;
+  right: -10px;
+  font-family: 'Cat Icons', sans-serif;
+  color: #494949;
+  font-size: 24px;
+  text-decoration: none;
 }
 
 html.w-mod-js *[data-ix="page-load-fade-in"] {
@@ -5243,7 +5268,6 @@ html.w-mod-js *[data-ix="load-fade-in-elements-to-right"] {
     bottom: 156px;
   }
   .list-id-cont.mini {
-    right: 9px;
     bottom: 57px;
   }
   .navbar-search-icon-desktop {

@@ -342,7 +342,7 @@
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this file?</p>
 </div>
 
-<div class="button-cont w-hidden-main">
+<div class="button-cont">
   <?php if ($can_edit): ?>
     <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'edit', $foster->id]) ?> ">
       <div class="button-icon-text">Edit</div>

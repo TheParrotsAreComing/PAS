@@ -233,7 +233,7 @@
         </form>
       </div>
     </div></div>
-  <div class="button-cont w-hidden-main">
+  <div class="button-cont">
     <?php if ($can_edit): ?>
       <a class="button w-inline-block" href="<?= $this->Url->build(['controller'=>'users', 'action'=>'edit', $user->id]) ?> ">
         <div class="button-icon-text">Edit</div>
