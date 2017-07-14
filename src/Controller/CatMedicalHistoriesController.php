@@ -248,7 +248,7 @@ class CatMedicalHistoriesController extends AppController
 
         $this->loadComponent('MedicalHistory');
         $this->MedicalHistory->drawDoc($pdf, $histories);
-        $pdf->Output($histories['cat']['cat_name'].' Medical History.pdf', 'D');
+        $pdf->Output($histories['cat']['cat_name'].' Medical History.pdf', 'I');
 
 
     }
