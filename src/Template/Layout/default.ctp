@@ -137,7 +137,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Files', ['controller'=>'files', 'action'=>'index'], ['class'=>'sidebar-link w-nav-link']); ?>
         <?php if (!empty($session_user['id'])): ?>
           <?= $this->Html->link('My Profile', ['controller'=>'users','action'=>'view',$session_user['id']],['class'=>'sidebar-link w-nav-link']); ?>
-          <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-link w-nav-link']); ?>
+          <?= $this->Html->link('Log Out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-logout w-nav-link']); ?>
         <?php endif; ?>
       </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
