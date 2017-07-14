@@ -159,6 +159,11 @@ class MedicalHistoryComponent extends Component
 
         $pdf->SetAbsX(141);
         $pdf->cell(60,18,'',1,1,'L',false);
+
+        // Microchip value
+        $pdf->SetAbsX(75);
+        $pdf->SetAbsY(161);
+        $pdf->cell(33,18,$data['cat']['microchip_number'],0,0,'C',false);
     }
 
     public function bottom($pdf, $data) {

@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -110,6 +111,7 @@ class CatMedicalHistoriesTable extends Table
             ->where(['cat_id'=>$cat_id])
             ->contain('Cats')
             ->toArray();
+
         foreach ($unformatted as $item) {
             $date = $item['administered_date']->__toString();
 
@@ -131,7 +133,12 @@ class CatMedicalHistoriesTable extends Table
             }
         }
 
-        $empty_arr = ["","","","","",""];
+        if (empty($unformatted)) {
+            $item['cat'] = TableRegistry::get('Cats')->find('all')
+                ->where(['id'=>$cat_id])
+                ->first();
+        }
+
         sort($formatted['fvrcp']);
         $formatted['fvrcp'] = array_pad(array_slice($formatted['fvrcp'], -6, 6), 6, "");
         sort($formatted['deworm']);
