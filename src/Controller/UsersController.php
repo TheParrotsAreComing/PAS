@@ -219,8 +219,8 @@ class UsersController extends AppController
 
                 $email = new Email('auto');
                 $email->to($user->email)
-                    ->subject("You have been invited to the PAWS Administrative System!")
-                    ->send('Welcome to the PAWS family! Head over to https://localhost/PAWS_Admin to set up your profile.<br/><br/>Your email: '.$data['email'].'<br/>Your password: '.$data['password']);
+                    ->subject("You have been invited to the Mission Meow's Mission Control!")
+                    ->send('Welcome to the PAWS family! Head over to http://admin.missionmeowcats.org to set up your profile.<br/><br/>Your email: '.$data['email'].'<br/>Your password: '.$data['password']);
 
                 return $this->redirect(['action' => 'index']);
             }
