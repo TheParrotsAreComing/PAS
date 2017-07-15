@@ -1,0 +1,2 @@
+ALTER TABLE files MODIFY COLUMN entity_id INT(11);
+ALTER TABLE cats MODIFY COLUMN microchip_number VARCHAR(11);
