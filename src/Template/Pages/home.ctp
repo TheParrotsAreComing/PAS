@@ -38,7 +38,7 @@
 			<div class="pas-home-button-name">ADOPTION EVENTS</div>
 		  </a>
 		<!-- Settings -->
-		  <a href="<?=$this->Url->build(['controller'=>'Files','action'=>'index'])?>" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('folder-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
+		  <a href="<?=$this->Url->build('/sysfiles')?>" class="pas-home-button-cont w-inline-block"><img src="<?=$this->Url->image('folder-menu.png')?>" class="pas-home-button-icon" sizes="(max-width: 479px) 31vw, 170px">
 			<div class="pas-home-button-name">FILES</div>
 		  </a>
   </div>
