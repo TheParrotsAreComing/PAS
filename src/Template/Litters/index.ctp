@@ -106,6 +106,7 @@
 						</a>
 						<div class="dropdown-results-cont">
 						<?php foreach($litter->cats as $cat) : ?>
+                            <?php if ($cat->is_deleted) continue; ?>
 							<a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont w-inline-block" >
 							
 						<?php 

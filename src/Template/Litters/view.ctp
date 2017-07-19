@@ -67,6 +67,7 @@
                 <div class="profile-text-header">Cats/Kittens in Litter</div>
                   <div class="dropdown-results-cont mini">
                   <?php foreach($litter->cats as $cat): ?>
+                    <?php if ($cat->is_deleted) continue; ?>
                     <a href = "<?= $this->Url->build(['controller' => 'cats', 'action' => 'view', $cat->id]) ?>" class="dropdown-cat-cont mini w-inline-block" >
                         <?php if($cat->profile_pic_file_id > 0) {
                               echo $this->Html->image('../'.$cat->profile_pic->file_path.'.'.$cat->profile_pic->file_ext, ['class'=>'dropdown-cat-pic']);

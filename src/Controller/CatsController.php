@@ -471,6 +471,18 @@ class CatsController extends AppController
         $this->request->data['is_deleted'] = 1;
         $cat = $this->Cats->patchEntity($cat, $this->request->data);
         if ($this->Cats->save($cat)) {
+            if (!empty($cat->litter_id)) {
+                $litters_table = TableRegistry::get('Litters');
+                $litter = $litters_table->find('all')
+                    ->where(['id' => $cat->litter_id])
+                    ->first();
+                if ($cat->is_kitten) {
+                    $litter->kitten_count = $litter->kitten_count - 1;
+                } else {
+                    $litter->the_cat_count = $litter->the_cat_count - 1;
+                }
+                $litters_table->save($litter);
+            }
             $this->Flash->success(__('The cat has been deleted.'));
             return $this->redirect(['action' => 'index']);
         } else {

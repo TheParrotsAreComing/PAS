@@ -245,6 +245,14 @@ class LittersController extends AppController
 		$cat = $cats->get($cat_id);
 		$cat->litter_id = $litter_id;
 
+        $litter = $this->Litters->get($litter_id);
+        if ($cat->is_kitten) {
+            $litter->kitten_count = $litter->kitten_count + 1;
+        } else {
+            $litter->the_cat_count = $litter->the_cat_count + 1;
+        }
+        $this->Litters->save($litter);
+
 		$results = array('error'=>empty($cats->save($cat)));
 
 		ob_clean();
