@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--  Last Published: Wed Jul 12 2017 04:55:16 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu Jul 27 2017 21:20:28 GMT+0000 (UTC)  -->
 <html data-wf-page="58a3c93e55fdbd2e58d1b6c4" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -109,9 +109,13 @@ label {
 <body>
   <div class="utility-page-wrap">
     <div class="utility-page-content w-form w-password-page">
-      <form action="/.wf_auth" class="utility-page-form w-password-page" method="post"><img src="https://d3e54v103j8qbb.cloudfront.net/static/password-page-lock.832ca8e2c9.svg">
+      <form action="/.wf_auth" class="utility-page-form w-password-page" method="post">
+        <img src="https://d3e54v103j8qbb.cloudfront.net/static/password-page-lock.832ca8e2c9.svg">
         <h2>Protected page</h2>
-        <div class="w-hidden w-password-page"><input type="hidden" name="path" value="<%WF_FORM_VALUE_PATH%>"><input type="hidden" name="page" value="<%WF_FORM_VALUE_PAGE%>"></div><input autofocus="autofocus" class="w-input w-password-page" maxlength="256" name="pass" placeholder="Enter your password" type="password"><input class="w-button w-password-page" data-wait="Please wait..." type="submit" value="Submit"></form>
+        <div class="w-hidden w-password-page"><input type="hidden" name="path" value="<%WF_FORM_VALUE_PATH%>"><input type="hidden" name="page" value="<%WF_FORM_VALUE_PAGE%>"></div>
+        <input autofocus="autofocus" class="w-input w-password-page" maxlength="256" name="pass" placeholder="Enter your password" type="password">
+        <input class="w-button w-password-page" data-wait="Please wait..." type="submit" value="Submit">
+      </form>
       <div class="w-form-fail w-password-page">
         <div>Incorrect password. Please try again.</div>
       </div>

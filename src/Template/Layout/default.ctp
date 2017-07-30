@@ -114,7 +114,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="navbar-hamburger-text"></div>
       </div>
 
-      <div class="navbar-search-icon-desktop w-hidden-medium w-hidden-small w-hidden-tiny">#</div>
+      <div class="navbar-search-icon-desktop w-hidden-small w-hidden-tiny">#</div>
       <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
 
       <a class="brand-cont w-clearfix w-inline-block" href="/"><?= $this->Html->image('missionmeow.png', ['class'=>'brand']); ?>

@@ -233,7 +233,7 @@
           			</div>
            </div>
         </div>
-        <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
+        <div class="profile-action-cont w-hidden-small w-hidden-tiny">
         <?php if ($can_edit): ?>       
 		<a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'adopters', 'action'=>'edit
           ', $adopter->id], ['escape'=>false]);?>">
@@ -255,7 +255,7 @@
       </div>
     </div>
   </div>
-  <div class="notify-cont w-hidden-main">
+  <div class="notify-cont w-hidden-main w-hidden-medium">
     <div class="notify-overview">Adopted Cats</div>
     <div class="notify-adopter">Adopter</div>
     <div class="notify-attachments">Attachments</div>
@@ -301,7 +301,7 @@
         </a>
     <?php endif; ?>
   </div>
-  <div class="button-paw" data-ix="paw-click">
+  <div class="button-paw w-hidden-main w-hidden-medium" data-ix="paw-click">
       <div>O</div>
   </div>
 	<div id="dialog-confirm" title="Adopt this kitten?" style="display:none;">

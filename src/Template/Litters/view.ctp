@@ -20,8 +20,8 @@
               <div class="profile-header-text"><?= h($litter->kitten_count) ?> kitten(s)</div>
             </div>
             <div>
-              <div class="profile-header-text">Date of Birth</div>
-              <div class="profile-header-text"><?= h($litter->dob) ?></div>
+              <div class="profile-header-text">DOB:</div>
+              <div class="profile-header-text"><?php $now = $litter->dob; echo $now->format('F jS, Y'); ?></div>
             </div>
             <div>
               <div class="profile-header-text">Breed:</div>
@@ -54,11 +54,11 @@
               <div class="profile-content-cont">
                 <div class="profile-text-header">Litter Information</div>
                 <div class="profile-field-cont">
-                  <div class="profile-field-name">Foster Notes</div>
+                  <div class="profile-field-name">Foster Notes:</div>
                   <div class="block profile-field-text"><?= h($litter->foster_notes) ?></div>
                 </div>  
                 <div class="profile-field-cont">
-                  <div class="profile-field-name">Notes</div>
+                  <div class="profile-field-name">Notes:</div>
                   <div class="block profile-field-text"><?= h($litter->notes) ?></div>
                 </div>
               </div>
@@ -103,7 +103,7 @@
             <div class="w-tab-pane" data-w-tab="Tab 6"></div>
           </div>
         </div>
-        <div class="profile-action-cont w-hidden-medium w-hidden-small w-hidden-tiny">
+        <div class="profile-action-cont w-hidden-small w-hidden-tiny">
           <?php if ($can_edit): ?>
             <a class="profile-action-button-cont w-inline-block" href="<?= $this->Url->build(['controller'=>'litters', 'action'=>'edit', $litter->id]) ?> ">
               <div class="profile-action-button sofware">-</div>
@@ -128,7 +128,7 @@
       </div>
     </div>
   </div>
-  <div class="notify-cont w-hidden-main">
+  <div class="notify-cont w-hidden-main w-hidden-medium">
     <div class="notify-overview">Overview</div>
     <!--<div class="notify-medical">Medical Information</div>-->
     <div class="notify-foster">Foster Home</div>
@@ -170,7 +170,7 @@
         </div>
     </div>
   </div>
-  <div class="button-paw" data-ix="paw-click">
+  <div class="button-paw w-hidden-main w-hidden-medium" data-ix="paw-click">
       <div>O</div>
   </div>
 <script>

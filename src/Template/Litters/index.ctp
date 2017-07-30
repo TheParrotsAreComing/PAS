@@ -60,7 +60,7 @@
       </div>
 
       <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
-        <div class="list scroll1 w-dyn-items">
+        <div class="list w-dyn-items">
 		<?php if(!empty($litters)): ?>
 			<?php foreach($litters as $litter) : ?>
 				  <div class="card-cont card-wrapper w-dyn-item">

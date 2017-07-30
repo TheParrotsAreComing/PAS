@@ -75,7 +75,7 @@
       <?php endif; ?>
     </div>
     <div class="list-wrapper scroll1 w-dyn-list">
-      <div class="list scroll1 w-dyn-items">
+      <div class="list w-dyn-items">
         <?php foreach ($fosters as $foster): ?>
             <div class="card-cont card-wrapper w-dyn-item">
                   <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'fosters', 'action'=>'view', $foster->id], ['escape'=>false]);?>">

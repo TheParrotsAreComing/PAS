@@ -23,7 +23,7 @@
       </div>
     <?= $this->Form->end() ?>
     </div>
-    <div class="column">
+    <div class="add-view column">
         <div class="events-cont" data-ix="page-load-fade-in">
             <div class="events-header">
                 <div class="add-field-h1">adoption events</div>
@@ -280,7 +280,7 @@
                             <?php endforeach; ?>
                             <div class="events">
                             <div class="pagination-w">
-                                <div class="pagination-cont">
+                                <div class="pagination-wrap">
                                   <div class="pagination-cont">
                                     <div class="pagination"><?= $this->Paginator->prev('') ?></div>
                                   </div>

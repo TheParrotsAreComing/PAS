@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--  Last Published: Wed Jul 12 2017 04:55:16 GMT+0000 (UTC)  -->
+<!--  Last Published: Thu Jul 27 2017 21:20:28 GMT+0000 (UTC)  -->
 <html data-wf-page="58afe133e076ab1c0a19b255" data-wf-site="58267cb4b29856df44e502fd">
 <head>
   <meta charset="utf-8">
@@ -113,9 +113,12 @@ select option:first-child {
 </head>
 <body class="page">
   <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
-    <div class="navbar w-container"><img class="navbar-settings" src="images/settings.png" width="32">
+    <div class="navbar w-container">
+      <img class="navbar-settings" src="images/settings.png" width="32">
       <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
-        <form data-name="Email Form" id="email-form" name="email-form"><input class="navbar-search w-input" data-name="Name 8" id="name-8" maxlength="256" name="name-8" placeholder="Search" type="text"></form>
+        <form data-name="Email Form" id="email-form" name="email-form">
+          <input class="navbar-search w-input" data-name="Name 8" id="name-8" maxlength="256" name="name-8" placeholder="Search" type="text">
+        </form>
         <div class="w-form-done">
           <div>Thank you! Your submission has been received!</div>
         </div>
@@ -126,8 +129,19 @@ select option:first-child {
       <div class="navbar-hamburger w-nav-button">
         <div class="navbar-hamburger-text"></div>
       </div>
-      <div class="navbar-search-icon-desktop w-hidden-medium w-hidden-small w-hidden-tiny">#</div><a class="brand-cont w-clearfix w-inline-block" href="pas-home.html"><img class="brand" src="images/paws-logo-blue-diamond.png"></a>
-      <nav class="navbar-menu w-nav-menu" role="navigation"><a class="sidebar-link w-nav-link" href="pas-home.html">Home</a><a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a><a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a><a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a><a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a><a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a><a class="sidebar-settings w-nav-link" href="#">Settings</a></nav>
+      <div class="navbar-search-icon-desktop w-hidden-medium w-hidden-small w-hidden-tiny">#</div>
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html">
+        <img class="brand" src="images/paws-logo-blue-diamond.png">
+      </a>
+      <nav class="navbar-menu w-nav-menu" role="navigation">
+        <a class="sidebar-link w-nav-link" href="pas-home.html">Home</a>
+        <a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a>
+        <a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a>
+        <a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a>
+        <a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a>
+        <a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a>
+        <a class="sidebar-logout w-nav-link" href="#">Settings</a>
+      </nav>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
       <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
     </div>
@@ -136,11 +150,24 @@ select option:first-child {
     <div class="add-view column">
       <div class="add-cont scroll1" data-ix="page-load-fade-in">
         <div class="add-header">
-          <div class="add-field-h1">Create a litter</div><img class="add-picture" height="90" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" width="90"></div>
+          <div class="add-field-h1">Create a litter</div>
+          <img class="add-picture" height="90" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" width="90">
+        </div>
         <div class="add-input-form-wrap w-form">
-          <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4"><label class="add-field-h2" for="First-Name">litter information</label>
-            <div class="add-field-seperator"></div><label class="add-field-h3" for="litter-name">name:</label><input autofocus="autofocus" class="add-input w-input" data-name="litter name" id="litter-name" maxlength="256" name="litter-name" placeholder="Monster litter" required="required" type="text"><label class="add-field-h3" for="kc_ref_id">kitten central id:</label><input autofocus="autofocus" class="add-input w-input" data-name="kc_ref_id" id="kc_ref_id" maxlength="256" name="kc_ref_id" placeholder="12345" required="required" type="text"><label class="add-field-h3" for="cat_count">number of adult cats:</label><input autofocus="autofocus" class="add-input w-input" data-name="cat_count" id="cat_count" maxlength="256" name="cat_count" placeholder="1" required="required" type="text"><label class="add-field-h3" for="kitten_count">number of kittens:</label><input autofocus="autofocus" class="add-input w-input" data-name="kitten_count" id="kitten_count" maxlength="256" name="kitten_count" placeholder="4" required="required" type="text"><label class="add-field-h3" for="Month">Date of birth:</label>
-            <div class="date-cont"><select class="date-month w-select" data-name="month" id="month-2" name="month"><option value="">Month</option>
+          <form class="add-input-form" data-name="Email Form 4" id="email-form-4" name="email-form-4">
+            <label class="add-field-h2" for="First-Name">litter information</label>
+            <div class="add-field-seperator"></div>
+            <label class="add-field-h3" for="litter-name">name:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="litter name" id="litter-name" maxlength="256" name="litter-name" placeholder="Monster litter" required="required" type="text">
+            <label class="add-field-h3" for="kc_ref_id">kitten central id:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="kc_ref_id" id="kc_ref_id" maxlength="256" name="kc_ref_id" placeholder="12345" required="required" type="text">
+            <label class="add-field-h3" for="cat_count">number of adult cats:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="cat_count" id="cat_count" maxlength="256" name="cat_count" placeholder="1" required="required" type="text">
+            <label class="add-field-h3" for="kitten_count">number of kittens:</label>
+            <input autofocus="autofocus" class="add-input w-input" data-name="kitten_count" id="kitten_count" maxlength="256" name="kitten_count" placeholder="4" required="required" type="text">
+            <label class="add-field-h3" for="Month">Date of birth:</label>
+            <div class="date-cont">
+              <select class="date-month w-select" data-name="month" id="month-2" name="month"><option value="">Month</option>
 <option value="01">01 - January</option>
 <option value="02">02 - February</option>
 <option value="03">03 - March</option>
@@ -152,7 +179,8 @@ select option:first-child {
 <option value="09">09 - September</option>
 <option value="10">10 - October</option>
 <option value="11">11 - November</option>
-<option value="12">12 - December</option></select><select class="date-day w-select" data-name="day" id="day-2" name="day"><option value="">Day</option>
+<option value="12">12 - December</option></select>
+              <select class="date-day w-select" data-name="day" id="day-2" name="day"><option value="">Day</option>
 <option value="01">01</option>
 <option value="02">02</option>
 <option value="03">03</option>
@@ -183,7 +211,8 @@ select option:first-child {
 <option value="28">28</option>
 <option value="29">29</option>
 <option value="30">30</option>
-<option value="31">31</option></select><select class="date-year w-select" data-name="year" id="year-2" name="year"><option value="">Year</option>
+<option value="31">31</option></select>
+              <select class="date-year w-select" data-name="year" id="year-2" name="year"><option value="">Year</option>
 <option value="2010">2010</option>
 <option value="2011">2011</option>
 <option value="2012">2012</option>
@@ -191,8 +220,20 @@ select option:first-child {
 <option value="2014">2014</option>
 <option value="2015">2015</option>
 <option value="2016">2016</option>
-<option value="2017">2017</option></select></div><label class="add-field-h3" for="breed-2">Breed:</label><input class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" type="text"><label class="add-field-h3" for="estimated_arrival-2">estimated arrival:</label><input class="add-input w-input" data-name="estimated_arrival" id="estimated_arrival-2" maxlength="256" name="estimated_arrival" placeholder="Mid-June" type="text"><label class="add-field-h3" for="foster_note-2">foster notes:</label><input class="add-input w-input" data-name="foster_note" id="foster_note-2" maxlength="256" name="foster_note" placeholder="Notes about initial foster home" type="text"><label class="add-field-h3" for="caretaker_notes">notes:</label><textarea class="add-input multi-line w-input" data-name="caretaker_notes" id="caretaker_notes" maxlength="5000" name="caretaker_notes" placeholder="e.g. special needs"></textarea>
-            <div class="add-button-cont"><a class="add-cancel" href="cat-list.html">Cancel</a><input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit"></div>
+<option value="2017">2017</option></select>
+            </div>
+            <label class="add-field-h3" for="breed-2">Breed:</label>
+            <input class="add-input w-input" data-name="breed" id="breed-2" maxlength="256" name="breed" placeholder="Siamese" type="text">
+            <label class="add-field-h3" for="estimated_arrival-2">estimated arrival:</label>
+            <input class="add-input w-input" data-name="estimated_arrival" id="estimated_arrival-2" maxlength="256" name="estimated_arrival" placeholder="Mid-June" type="text">
+            <label class="add-field-h3" for="foster_note-2">foster notes:</label>
+            <input class="add-input w-input" data-name="foster_note" id="foster_note-2" maxlength="256" name="foster_note" placeholder="Notes about initial foster home" type="text">
+            <label class="add-field-h3" for="caretaker_notes">notes:</label>
+            <textarea class="add-input multi-line w-input" data-name="caretaker_notes" id="caretaker_notes" maxlength="5000" name="caretaker_notes" placeholder="e.g. special needs"></textarea>
+            <div class="add-button-cont">
+              <a class="add-cancel" href="cat-list.html">Cancel</a>
+              <input class="add-submit w-button" data-wait="Please wait..." type="submit" value="Submit">
+            </div>
           </form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>

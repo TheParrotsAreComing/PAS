@@ -61,7 +61,7 @@
       </div><?= $this->Html->link('+ New Contact', ['controller'=>'contacts','action'=>'add'],['class'=>'cat-add w-button']); ?>
     </div>
     <div class="list-wrapper scroll1 w-dyn-list">
-      <div class="list scroll1 w-dyn-items">
+      <div class="list w-dyn-items">
         <?php foreach ($contacts as $contact): ?>
             <div class="card-cont card-wrapper w-dyn-item">
                   <a class="card w-clearfix w-inline-block" href="<?= $this->Url->build(['controller'=>'contacts','action'=>'edit', $contact->id]); ?>" style="border-radius: 3px 3px 3px 3px;">
