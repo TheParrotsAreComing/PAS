@@ -319,3 +319,6 @@ div.pagination>a {
     object-fit: cover;
     object-position: 50% 50%;
 }
+[class*='tabs-menu']{
+	cursor:pointer;
+}

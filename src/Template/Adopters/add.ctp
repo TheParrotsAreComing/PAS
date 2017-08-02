@@ -44,7 +44,7 @@
           <div class="add-field-seperator"></div>
           <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
           <?= $this->Form->input('phones[phone_type][]', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'options'=>['Mobile', 'Home','Organization', 'Other']]); ?>
-          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input', 'id'=>'Phone', 'label'=>false, 'type'=>'tel', 'maxLength'=>10, 'minLength'=>10, 'placeholder'=>'Enter Number']);?>
+          <?= $this->Form->input('phones[phone_num][]', ['class'=>'add-input w-input phone-input', 'id'=>'Phone', 'label'=>false, 'type'=>'tel', 'maxLength'=>10, 'minLength'=>10, 'placeholder'=>'Enter Number']);?>
           <div class="medical-wrap">
               <a class="profile-add-cont add-phone-btn" id="add-phone" href="#">+ Add Additional Phone Number</a>
           </div>
@@ -104,5 +104,6 @@ $(document).ready(function(){
         inputNum.val(selectedNum);
 
       });
+	  $('.phone-input').mask('(000) 000-0000');
   });
 </script>
