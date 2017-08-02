@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!--  Last Published: Thu Jul 27 2017 21:20:28 GMT+0000 (UTC)  -->
+<html data-wf-page="582900d4d015d89e449fd87c" data-wf-site="58267cb4b29856df44e502fd">
+<head>
+  <meta charset="utf-8">
+  <title>PAWS Administrative System</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/components.css" rel="stylesheet" type="text/css">
+  <link href="css/paws-administrative-system.css" rel="stylesheet" type="text/css">
+  <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
+  <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
+</script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <!--  Chrome, Firefox OS and Opera  -->
+  <meta name="theme-color" content="#0172ff">
+  <!--  Windows Phone  -->
+  <meta name="msapplication-navbutton-color" content="#0172ff">
+  <!--  iOS Safari  -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="#0172ff">
+  <script>
+(function() {
+  var tick_filter_tag;
+  tick_filter_tag = function(label) {
+    if ($('#checkbox-' + label).attr('checked')) {
+      $('#checkbox-' + label).removeAttr('checked');
+      return $('.button-' + label).removeClass('button-active');
+    } else {
+      $('#checkbox-' + label).attr('checked', true);
+      return $('.button-' + label).addClass('button-active');
+    }
+  };
+  $(document).ready(function() {
+    tick_filter_tag('hard');
+    return $('.filter-tag').click(function() {
+      var tag_value;
+      tag_value = $(this).attr('value');
+      return tick_filter_tag(tag_value);
+    });
+  });
+}).call(this);
+</script>
+  <style>
+.scroll {
+  width: 20px;
+  height: 200px;
+  overflow: auto;
+  float: left;
+  margin: 0 10px;
+}
+.scroll1::-webkit-scrollbar {
+  width: 5px;
+}
+.scroll1::-webkit-scrollbar-track {
+  background: #fff;
+}
+.scroll1::-webkit-scrollbar-thumb {
+  background: #5d5d5d
+}
+.star-rating {
+  font-family: 'FontAwesome';
+}
+.star-rating > fieldset {
+  border: none;
+}
+.star-rating > fieldset:not(:checked) > input {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+.star-rating > fieldset:not(:checked) > label {
+  float: right;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  color: #0172FF;
+  font-weight: 100;
+}
+.star-rating > fieldset:not(:checked) > label:before {
+  content: '\f006  ';
+}
+.star-rating > fieldset:not(:checked) > label:hover,
+.star-rating > fieldset:not(:checked) > label:hover ~ label {
+  color: #0172FF;
+  text-shadow: 0 0 3px #0172FF;
+}
+.star-rating > fieldset:not(:checked) > label:hover:before,
+.star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+  content: '\f005  ';
+}
+.star-rating > fieldset > input:checked ~ label:before {
+  content: '\f005  ';
+}
+.star-rating > fieldset > label:active {
+  position: relative;
+  }
+label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 0;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+  a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+</style>
+</head>
+<body class="page">
+  <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
+    <div class="navbar w-container">
+      <img class="navbar-settings" src="images/settings.png" width="32">
+      <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
+        <form data-name="Email Form" id="email-form" name="email-form">
+          <input class="navbar-search w-input" data-name="Name 8" id="name-8" maxlength="256" name="name-8" placeholder="Search" type="text">
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="navbar-hamburger w-nav-button">
+        <div class="navbar-hamburger-text"></div>
+      </div>
+      <div class="navbar-search-icon-desktop w-hidden-small w-hidden-tiny">#</div>
+      <a class="brand-cont w-clearfix w-inline-block" href="pas-home.html">
+        <img class="brand" sizes="(max-width: 479px) 110.671875px, 115.953125px" src="images/mission-meow-new-left-justified-01.png" srcset="images/mission-meow-new-left-justified-01-p-500.png 500w, images/mission-meow-new-left-justified-01.png 701w">
+      </a>
+      <nav class="navbar-menu w-nav-menu" role="navigation">
+        <a class="sidebar-link w-nav-link" href="pas-home.html">Home</a>
+        <a class="sidebar-link w-nav-link" href="cat-list.html">Cats</a>
+        <a class="sidebar-link w-nav-link" href="litter-list.html">Litters</a>
+        <a class="sidebar-link w-nav-link" href="adopter-list.html">Adopters</a>
+        <a class="sidebar-link w-nav-link" href="foster-list.html">Foster Homes</a>
+        <a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a>
+        <a class="sidebar-link w-nav-link" href="volunteer-list.html">Volunteers</a>
+        <a class="sidebar-logout w-nav-link" href="#">log out</a>
+      </nav>
+      <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
+      <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
+    </div>
+  </div>
+  <div class="body w-clearfix">
+    <div class="filter-bar">
+      <div class="filter-header">
+        <div class="filter-header">FILTER</div>
+        <div class="symbol" data-ix="filter-cancel"></div>
+      </div>
+      <div class="filter-select-wrap w-form">
+        <form class="filter" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+          <div class="filter-criteria">Breed:</div>
+          <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field"><option value="">Select one...</option>
+<option value="First">Tabby</option>
+<option value="Second">Siamese</option>
+<option value="Third">Third Choice</option></select>
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="filter-select-wrap w-form">
+        <form class="filter" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+          <div class="filter-criteria">CoaCOATOC fdsf sdft:</div>
+          <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field"><option value="">Select one...</option>
+<option value="First">Tabby</option>
+<option value="Second">Siamese</option>
+<option value="Third">Third Choice</option></select>
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="filter-select-wrap w-form">
+        <form class="filter" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+          <div class="filter-criteria">Age:</div>
+          <div class="filter-checkbox-cont w-clearfix">
+            <input class="filter-age filter-criteria-select w-input" data-name="start date" id="start-date" maxlength="256" name="start-date" placeholder="Start Date" type="text">
+            <div class="filter-age-separator">to</div>
+            <input class="filter-age filter-criteria-select w-input" data-name="end date" id="end-date" maxlength="256" name="end-date" placeholder="End Date" type="text">
+          </div>
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="filter-select-wrap w-form">
+        <form class="filter" data-name="Email Form 3" id="email-form-3" name="email-form-3">
+          <div class="filter-criteria">Color:</div>
+          <select class="filter-criteria-select w-select" data-name="Field" id="Field-2" name="Field"><option value="">Select one...</option>
+<option value="First">Black</option>
+<option value="Second">Brown</option>
+<option value="Third">White</option></select>
+        </form>
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-criteria">Gender:</div>
+        <div class="filter-criteria-cont">
+          <div class="filter-checkbox-cont">
+            <input class="button-left select-button w-button" data-wait="Please wait..." type="submit" value="Male">
+          </div>
+          <div class="filter-checkbox-cont">
+            <input class="button-right select-button w-button" data-wait="Please wait..." type="submit" value="Female">
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-criteria">Adoption:</div>
+        <div class="filter-criteria-cont">
+          <div class="filter-checkbox-cont">
+            <input class="button-left select-button w-button" data-wait="Please wait..." type="submit" value="adopted">
+          </div>
+          <div class="filter-checkbox-cont">
+            <input class="select-button w-button" data-wait="Please wait..." type="submit" value="fostered">
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-criteria">Maturity:</div>
+        <div class="filter-criteria-cont">
+          <div class="filter-checkbox-cont">
+            <input class="button-left select-button w-button" data-wait="Please wait..." type="submit" value="kitten">
+          </div>
+          <div class="filter-checkbox-cont">
+            <input class="button-right select-button w-button" data-wait="Please wait..." type="submit" value="cat">
+          </div>
+        </div>
+      </div>
+      <div class="filter-apply-cont">
+        <a class="cancel filter-button w-button" data-ix="filter-cancel" href="#">Cancel</a>
+        <a class="apply filter-button w-button" href="#">Apply Filter</a>
+      </div>
+    </div>
+    <div class="column">
+      <div class="list-wrapper scroll1 w-dyn-list" data-ix="page-load-fade-in">
+        <div class="list w-dyn-items">
+          <div class="alert card-cont card-wrapper w-dyn-item">
+            <div class="card-tag-cont">
+              <div class="card-tag warning">
+                <div class="card-tag-symbol">R</div>
+                <div class="card-tag-text">Deceased</div>
+              </div>
+            </div>
+            <a class="card w-clearfix w-inline-block">
+              <div class="card-pic-cont">
+                <img class="card-pic" src="images/cat.png">
+              </div>
+              <div class="card-h1"></div>
+              <div class="card-h2-cont">
+                <div class="card-h2-symbol male">C</div>
+                <div class="card-h2-symbol female">D</div>
+                <div class="card-h2 male">Kitten</div>
+                <div class="card-h2 female">Kitten</div>
+              </div>
+              <div class="card-field-wrap">
+                <div class="card-field-cont">
+                  <div class="card-field-cont">
+                    <div class="card-h3">DOB:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                  <div class="card-field-cont">
+                    <div class="card-h3">Age:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                </div>
+                <div class="card-field-cont">
+                  <div class="card-field-cont">
+                    <div class="card-h3">Breed:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                </div>
+                <div class="card-field-cont">
+                  <div class="card-field-cont">
+                    <div class="card-h3">Color:</div>
+                    <div class="card-field-text"></div>
+                  </div>
+                  <div class="card-field-cont">
+                    <div class="card-h3">Coat:</div>
+                    <div class="card-field-text">Short/Long</div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-id-cont">
+                <div class="id-text">#</div>
+                <div class="id-text"></div>
+              </div>
+            </a>
+            <a class="dropdown-cont w-inline-block" data-ix="dropdown">
+              <div class="dropdown-icon"></div>
+            </a>
+            <div class="dropdown-results-cont">
+              <a class="dropdown-cat-cont w-clearfix w-inline-block">
+                <img class="dropdown-cat-pic" src="images/cat.png">
+                <div class="dropdown-cat-name">Catty</div>
+                <div class="card-h2-symbol female mini">D</div>
+                <div class="list-id-cont mini">
+                  <div class="id-text">#</div>
+                  <div class="id-text">12</div>
+                </div>
+                <div class="card-field-text mini">Just a Kitten</div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="w-dyn-empty">
+          <div>No items found.</div>
+        </div>
+      </div>
+      <div class="cat-header" data-ix="new-interaction">
+        <div class="cat-sort w-clearfix w-dropdown" data-delay="0">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle">
+            <img src="images/up-arrow.png" width="12">
+            <div class="cat-sort-text">Sort</div>
+          </div>
+          <nav class="w-dropdown-list">
+            <a class="cat-sort-dropdown w-dropdown-link">Name Descending</a>
+            <a class="cat-sort-dropdown w-dropdown-link" href="#">Age</a>
+            <a class="cat-sort-dropdown w-dropdown-link" href="#">Cat ID</a>
+          </nav>
+        </div>
+        <div class="cat-filter cat-sort w-dropdown" data-delay="0">
+          <div class="cat-sort-cont w-clearfix w-dropdown-toggle" data-ix="filter-hideshow">
+            <img sizes="(max-width: 479px) 100vw, (max-width: 991px) 12px, 1vw" src="images/filter-filled-tool-symbol.png" srcset="images/filter-filled-tool-symbol-p-500x500.png 500w, images/filter-filled-tool-symbol.png 512w" width="12">
+            <div class="cat-sort-text">Filter</div>
+          </div>
+          <nav class="w-dropdown-list"></nav>
+        </div>
+        <a class="cat-add w-button" href="cat-add.html">+ New Cat</a>
+      </div>
+      <div class="pagination-w">
+        <div class="pagination-wrap">
+          <div class="pagination-cont">
+            <div class="pagination"></div>
+          </div>
+          <div class="pagination-cont">
+            <div class="current pagination-index">1</div>
+            <div class="pagination-index">2</div>
+            <div class="pagination-index">3</div>
+            <div class="pagination-index">4</div>
+            <div class="pagination-index">5</div>
+            <div class="pagination-index">6</div>
+          </div>
+          <div class="pagination-cont">
+            <div class="pagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-overlay"></div>
+    <div class="button-cont">
+      <a class="button w-inline-block" href="cat-add.html">
+        <div class="button-icon-text">Add Cat</div>
+        <div class="floating-button">
+          <div>P</div>
+        </div>
+      </a>
+      <a class="button w-inline-block" href="cat-add.html">
+        <div class="button-icon-text">Sort/Filter</div>
+        <div class="floating-button">
+          <div>K</div>
+        </div>
+      </a>
+    </div>
+    <div class="button-paw" data-ix="paw-click">
+      <div>O</div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/paws-administrative-system.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>

@@ -41,6 +41,9 @@ class FostersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('FilterableTag');
+        $this->addBehavior('File');
+        $this->addBehavior('FilterablePhone');
 
         $this->hasMany('CatHistories', [
             'foreignKey' => 'foster_id'
@@ -53,6 +56,15 @@ class FostersTable extends Table
             'targetForeignKey' => 'tag_id',
             'joinTable' => 'tags_fosters'
         ]);
+
+        $this->hasMany('PhoneNumbers', [
+        'foreignKey' => 'entity_id' 
+        ]);
+        $this->belongsTo('Files', [
+            'foreignKey' => 'profile_pic_file_id'
+
+        ]);
+
     }
 
     /**
@@ -76,10 +88,6 @@ class FostersTable extends Table
             ->notEmpty('last_name');
 
         $validator
-            ->requirePresence('phone', 'create')
-            ->notEmpty('phone');
-
-        $validator
             ->requirePresence('address', 'create')
             ->notEmpty('address');
 
@@ -89,7 +97,7 @@ class FostersTable extends Table
             ->notEmpty('email');
 
         $validator
-            ->allowEmpty('exp');
+            ->notEmpty('exp');
 
         $validator
             ->allowEmpty('pets');
@@ -98,14 +106,18 @@ class FostersTable extends Table
             ->allowEmpty('kids');
 
         $validator
-            ->allowEmpty('avail');
+            ->notEmpty('avail');
 
         $validator
             ->integer('rating')
-            ->allowEmpty('rating');
+            ->notEmpty('rating');
 
         $validator
-            ->allowEmpty('notes');
+            ->notEmpty('notes');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')

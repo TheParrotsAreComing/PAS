@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -27,6 +28,10 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+
+    public $helpers = [
+         'Paginator' => ['templates' => 'custom-paginate']
+	 ];
 
     /**
      * Initialization hook method.
@@ -43,6 +48,32 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Cats',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+
+        $session_user = ($this->request->session()->check('Auth.User')) ? $this->request->session()->read('Auth.User') : ['role'=>''];
+        $this->set('session_user', $session_user);
 
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -65,5 +96,77 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+    public function beforeFilter(Event $event)
+	{
+		parent::beforeFilter($event);
+
+        $this->Auth->allow([]);
+
+        $controller = $this->request->params['controller'];
+        $action = $this->request->params['action'];
+
+        $user = $this->request->session()->read('Auth.User');
+        if (empty($user)) return;
+
+        if ($user['need_new_password'] && ($action != "changePassword")) {
+            $this->Flash->error('Please set a new password');
+            return $this->redirect(['controller'=>'users','action'=>'changePassword']);
+        } else if ($user['new_user'] && ($controller != "Users" || ($action != 'edit' && $action != 'changePassword'))) {
+            $this->Flash->error('Please fill out your profile information');
+            return $this->redirect(['controller'=>'Users','action'=>'edit']);
+        }
+
+		$this->set('referer',$this->referer);
+	}
+
+    public function deletePic() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $filesDB = TableRegistry::get('Files');
+        
+        $file = $filesDB->get($data['file_id']);
+        $file->is_deleted = true;
+
+        ob_clean();
+        if($filesDB->save($file)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
+
+    public function deleteFile() {
+        $this->autoRender = false;
+
+        $data = $this->request->data;
+        
+        $filesDB = TableRegistry::get('Files');
+        
+        $file = $filesDB->get($data['file_id']);
+        $file->is_deleted = true;
+
+        ob_clean();
+        if($filesDB->save($file)){
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+        exit(0);
+    }
+    
+    public function ajaxSuccessMessage() {
+        $this->autoRender = false;
+        $this->Flash->success(__('Success!'));
+        return $this->redirect($this->referer());
+    }
+
+    public function ajaxFailMessage() {
+        $this->autoRender = false;
+        $this->Flash->error(__('Unable to complete action.'));
+        return $this->redirect($this->referer());
     }
 }

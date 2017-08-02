@@ -49,12 +49,14 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Cats', 'action' => 'index', 'home']);
+    //$routes->connect('/', ['controller' => 'Cats', 'action' => 'index', 'home']);
+    $routes->connect('/', ['controller' => 'Pages', 'action' => 'display','home']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    $routes->connect('/sysfiles',['controller' => 'files', 'action' => 'index']);
 
     /**
      * Connect catchall routes for all controllers.
@@ -80,3 +82,5 @@ Router::scope('/', function (RouteBuilder $routes) {
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();
+
+Router::extensions(['pdf']);

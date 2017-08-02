@@ -2,3 +2,15 @@
 /config/app.php
 /tmp/*
 /logs/*
+/.project
+/webroot/files/cats/*
+/vendor/*
+/config/app.php
+/tmp/*
+/logs/*
+/.project
+/.vs
+/webroot/files/adopters/*
+/webroot/files/fosters/*
+/webroot/files/users/*
+/webroot/files/system/*

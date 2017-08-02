@@ -1,0 +1,42 @@
+Install Imagick on Windows...
+
+
+First, download and install the real ImageMagick
+https://www.imagemagick.org/script/binary-releases.php#windows
+
+	I got ImageMagick-7.0.5-4-Q16-x64-dll.exe via HTTP method
+
+
+Now, you have ImageMagick on your machine, and you need to let PHP interface with it.
+
+
+On this page: https://pecl.php.net/package/imagick/3.4.3/windows
+Download the Thread-Safe x64 version for your PHP (I think we all have 7.1)
+
+Extract those files, and also open up another file explorer at the location of your PHP install.
+
+From the extracted files...
+
+Move php_imagick.dll into the /ext/ folder 
+
+Move all the CORE_   . dll files into the PHP folder (not into any subfolder)
+
+
+
+Now PHP has everything it needs to interface with ImageMagick via imagick, we just need to enable it
+
+Open your php.ini file in a text editor
+
+By all of the extensions around line 895, add this line
+
+extension=php_imagick.dll
+
+you're all set! restart your cake server and make sure you have no dynamic runtime issues.
+
+
+
+put this in a controller to test if cake is working with it
+
+$im = new \imagick();
+debug($im->getVersion());
+die;

@@ -4,7 +4,10 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
+use Cake\Log\Log;
 
 /**
  * Cats Model
@@ -46,10 +49,14 @@ class CatsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('CounterCache', ['Litters' => ['cat_count'], 'Adopters' => ['cat_count']]);
+        $this->addBehavior('File');
+        $this->addBehavior('FilterableTag');
 
         $this->belongsTo('Litters', [
             'foreignKey' => 'litter_id'
+        ]);
+        $this->belongsTo('Breeds', [
+            'foreignKey' => 'breed_id'
         ]);
         $this->belongsTo('Adopters', [
             'foreignKey' => 'adopter_id'
@@ -61,6 +68,9 @@ class CatsTable extends Table
             'foreignKey' => 'profile_pic_file_id'
         ]);
         $this->hasMany('CatHistories', [
+            'foreignKey' => 'cat_id'
+        ]);
+        $this->hasMany('CatMedicalHistories', [
             'foreignKey' => 'cat_id'
         ]);
         $this->belongsToMany('AdoptionEvents', [
@@ -105,29 +115,26 @@ class CatsTable extends Table
             ->notEmpty('is_female');
 
         $validator
-            ->requirePresence('breed', 'create')
-            ->notEmpty('breed');
+            ->requirePresence('breed_id', 'create')
+            ->notEmpty('breed_id');
 
         $validator
-            ->allowEmpty('bio');
-
-        $validator
-            ->allowEmpty('caretaker_notes');
-
-        $validator
-            ->allowEmpty('medical_notes');
+            ->notEmpty('bio');
 
         $validator
             ->integer('microchip_number')
             ->allowEmpty('microchip_number');
 
         $validator
-            ->date('microchiped_date')
-            ->allowEmpty('microchiped_date');
+            ->boolean('is_microchip_registered')
+            ->allowEmpty('is_microchip_registered');
 
         $validator
-            ->boolean('adoption_fee_paid')
-            ->allowEmpty('adoption_fee_paid');
+            ->allowEmpty('adoption_fee_amount');
+
+        $validator
+            ->integer('profile_pic_file_id')
+            ->allowEmpty('profile_pic_file_id');
 
         $validator
             ->boolean('is_deleted')
@@ -153,4 +160,97 @@ class CatsTable extends Table
 
         return $rules;
     }
+
+    public function attachToLitter($litter_id, $cat) {
+        $litter_table = TableRegistry::get('Litters');
+        $the_litter = $litter_table->get($litter_id);
+
+		//Log::write('debug', printr($cat));
+        if($cat['is_kitten']) {
+            $the_litter->kitten_count++;
+        }
+        else {
+            $the_litter->the_cat_count++;
+        }
+
+        $litter_table->save($the_litter);
+
+
+    }
+
+    public function getAAPUploadArray($cat_id, $data) {
+        $query = $this->find()
+            ->select(['id','breed_id','coat','cat_name','dob','is_female','bio','good_with_kids','good_with_dogs','good_with_cats','special_needs','needs_experienced_adopter',])
+            ->where(['id'=>$cat_id]);
+        $result = $query->first()->toArray();
+        $result['Animal'] = 'Cat';
+        $result['Sex'] = ($result['is_female']) ? 'F' : 'M';
+        $result['breed'] = TableRegistry::get('Breeds')->find()->where(['id'=>$result['breed_id']])->first()->breed;
+
+        if ($result['dob']->wasWithinLast('6 months')) {
+            $result['Age'] = 'Kitten';
+        } else if ($result['dob']->wasWithinLast('1 year')) {
+            $result['Age'] = 'Young';
+        } else if ($result['dob']->wasWithinLast('7 years')) {
+            $result['Age'] = 'Adult';
+        } else {
+            $result['Age'] = 'Senior';
+        }
+
+        $result['Status'] = $data['status'];
+        $result['Color'] = $data['aap_color'];
+        $result['SpayedNeutered'] = (boolean) $data['SpayedNeutered'];
+        $result['ShotsCurrent'] = (boolean) $data['ShotsCurrent'];
+        $result['Declawed'] = (boolean) $data['Declawed'];
+        $result['Housetrained'] = (boolean) $data['Housetrained'];
+        $result['id'] = 'PAWS'.sprintf('%05d', $result['id']);
+
+        unset($result['is_female']);
+        unset($result['dob']);
+        unset($result['breed_id']);
+        $output = [];
+        $output[] = array_keys($result);
+        $output[] = array_values($result);
+        return $output;
+    }
+
+
+	public function manualGroupMedicalHistories($histories){
+		$is_fvrcp = [];
+		$is_deworm = [];
+		$is_flea = [];
+		$is_rabies = [];
+		$is_other = [];
+
+		$segmented = [];
+
+		foreach($histories as $history){
+			if(!empty($history->is_fvrcp)) $is_fvrcp[] = $history;
+			if(!empty($history->is_deworm)) $is_deworm[] = $history;
+			if(!empty($history->is_flea)) $is_flea[] = $history;
+			if(!empty($history->is_rabies)) $is_rabies[] = $history;
+			if(!empty($history->is_other)) $is_other[] = $history;
+		}
+		
+		$segmented['FVCRP'] = $is_fvrcp;
+		$segmented['De-Worm'] = $is_deworm;
+		$segmented['Flea'] = $is_flea;
+		$segmented['Rabies'] = $is_rabies;
+		$segmented['Other'] = $is_other;
+		
+		return $segmented;
+	}
+
+  /*
+   * Update a cat's adoption fee
+   * @author Eric Bollinger - 7/10/17
+   */
+  public function updateFee($cat_id, $fee) {
+    $cat = $this->findById($cat_id)->first();
+    if (!empty($fee)) {
+      $cat->adoption_fee_amount = $fee;
+      $result = $this->save($cat);
+    }
+  }
+    
 }
