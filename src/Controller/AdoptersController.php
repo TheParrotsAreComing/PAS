@@ -287,6 +287,9 @@ class AdoptersController extends AppController
         if ($this->request->is('post')) {
             $phones= $this->request->data['phones'];
             unset($this->request->data['phones']);
+			if(empty($this->request->data['email'])){
+				$this->request->data['email'] = null;
+			}
 
             $adopter = $this->Adopters->patchEntity($adopter, $this->request->data);
             $adopter['is_deleted'] = 0;
@@ -302,7 +305,13 @@ class AdoptersController extends AppController
                     $new_phone->entity_id = $id;
                     $new_phone->entity_type = 1;
                     $new_phone->phone_type = $phones['phone_type'][$i];
-                    $new_phone->phone_num = $phones['phone_num'][$i];
+
+					$sanitized = str_replace('(','',$phones['phone_num'][$i]);
+					$sanitized = str_replace(')','',$sanitized);
+					$sanitized = str_replace('-','',$sanitized);
+					$sanitized = str_replace(' ','',$sanitized);
+                    $new_phone->phone_num = $sanitized;
+
                     if(!($new_phone['phone_num'] === '')){
                         $phoneTable->save($new_phone);
                     }
@@ -356,7 +365,13 @@ class AdoptersController extends AppController
                         $new_phone->entity_id = $id;
                         $new_phone->entity_type = 1;
                         $new_phone->phone_type = $phones['phone_type'][$i];
-                        $new_phone->phone_num = $phones['phone_num'][$i];
+
+						$sanitized = str_replace('(','',$phones['phone_num'][$i]);
+						$sanitized = str_replace(')','',$sanitized);
+						$sanitized = str_replace('-','',$sanitized);
+						$sanitized = str_replace(' ','',$sanitized);
+                        $new_phone->phone_num = $sanitized;
+
                         if(!($new_phone['phone_num'] === '')){
                             $phoneTable->save($new_phone);
                         }

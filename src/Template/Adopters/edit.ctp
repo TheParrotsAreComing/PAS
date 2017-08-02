@@ -102,11 +102,13 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to delete this phone number?</p>
 </div>
 <script>
-  var dna = <?php echo $adopter['do_not_adopt']; ?>;
+  var dna = JSON.parse("<?php echo json_encode(!empty($adopter['do_not_adopt'])); ?>");
 </script>
 <script>  
 
   $(document).ready(function(){
+
+	$('.phone-input').mask('(000) 000-0000');
     //var dna = <?php echo $adopter['do_not_adopt']; ?>;
 
     var deletePhone = "<?= $this->Url->build(['controller'=>'PhoneNumbers', 'action'=>'delete']) ?>";
@@ -134,7 +136,7 @@
 
         var inputNum = $('<input/>');
         inputNum.attr('name', 'phones[phone_num][]');
-        inputNum.addClass('add-input w-input');
+        inputNum.addClass('add-input w-input phone-input');
         inputNum.attr('id', 'phones-phone-num');
         inputNum.attr('type', 'tel');
         inputNum.attr('maxLength', 10);

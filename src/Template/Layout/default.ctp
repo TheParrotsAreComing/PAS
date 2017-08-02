@@ -28,7 +28,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->css('normalize.css'); ?>
   <?= $this->Html->css('components.css'); ?>
   <?= $this->Html->css('paws-administrative-system.css'); ?>
-  <?= $this->Html->css('paws-custom.css'); ?>
+  <?= $this->Html->css('paws-custom.css?8_12_017'); ?>
   <?= $this->Html->css('jquery-ui.css'); ?>
   <?= $this->Html->css('select2.min.css'); ?>
 
@@ -153,6 +153,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->script('paws-administrative-system.js'); ?>
   <?= $this->Html->script('webflow-custom.js'); ?>
   <?= $this->Html->script('global.js'); ?>
+  <?= $this->Html->script('jquery.mask.js'); ?>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>
