@@ -63,12 +63,12 @@ class CatsController extends AppController
 					$this->paginate['conditions'][$field] = $query;
 				}else if($field == 'dob') {
 					if(!empty($query)){
-						$this->paginate['conditions']['cats.'.$field] = date('Y-m-d',strtotime($query));
+						$this->paginate['conditions']['Cats.'.$field] = date('Y-m-d',strtotime($query));
 					}
 				} else if($field == 'breed_id' && !empty($query)) {
 					$this->paginate['conditions'][$field] = $query;
 				} else if (!empty($query)) {
-					$this->paginate['conditions']['cats.'.$field.' LIKE'] = '%'.$query.'%';
+					$this->paginate['conditions']['Cats.'.$field.' LIKE'] = '%'.$query.'%';
 				}
 			}
 			if(!empty($tagged_cats)){
