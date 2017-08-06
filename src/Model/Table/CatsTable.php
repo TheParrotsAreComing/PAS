@@ -215,27 +215,42 @@ class CatsTable extends Table
 
 
 	public function manualGroupMedicalHistories($histories){
+        $is_next_service = [];
+        $is_spay = [];
+        $is_neuter = [];
 		$is_fvrcp = [];
 		$is_deworm = [];
 		$is_flea = [];
 		$is_rabies = [];
+        $is_blood = [];
 		$is_other = [];
+        $is_note = [];
 
 		$segmented = [];
 
 		foreach($histories as $history){
+			if(!empty($history->is_next_service)) $is_next_service[] = $history;
+			if(!empty($history->is_spay)) $is_spay[] = $history;
+			if(!empty($history->is_neuter)) $is_neuter[] = $history;
 			if(!empty($history->is_fvrcp)) $is_fvrcp[] = $history;
 			if(!empty($history->is_deworm)) $is_deworm[] = $history;
 			if(!empty($history->is_flea)) $is_flea[] = $history;
 			if(!empty($history->is_rabies)) $is_rabies[] = $history;
+			if(!empty($history->is_blood)) $is_blood[] = $history;
 			if(!empty($history->is_other)) $is_other[] = $history;
+			if(!empty($history->is_note)) $is_note[] = $history;
 		}
 		
+		$segmented['Next Services Due'] = $is_next_service;
+		$segmented['Spay'] = $is_spay;
+		$segmented['Neuter'] = $is_neuter;
 		$segmented['FVCRP'] = $is_fvrcp;
 		$segmented['De-Worm'] = $is_deworm;
 		$segmented['Flea'] = $is_flea;
 		$segmented['Rabies'] = $is_rabies;
+        $segmented['Blood'] = $is_blood;
 		$segmented['Other'] = $is_other;
+		$segmented['Note'] = $is_note;
 		
 		return $segmented;
 	}
