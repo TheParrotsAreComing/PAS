@@ -44,6 +44,10 @@
               <div class="profile-header-text">Breed:</div>
               <div class="profile-header-text"><?= h($cat->breed->breed) ?></div>
             </div>
+            <div>
+              <div class="profile-header-text">Microchip #:</div>
+              <div class="profile-header-text"><?= h("$cat->microchip_number") ?></div>
+            </div>
           </div>
           
         </div>
@@ -439,7 +443,7 @@
                         <div class="medical-data-type"><?= h($file->created) ?></div>
                       </div>
                       <div class="files-name-cont">
-                        <div class="files-name"><?= h($file->original_filename) ?>.<?= h($file->file_ext) ?></div>
+                        <div class="files-name"><?= h($file->original_filename) ?></div>
                         <div class="files-data"><?= h($file->note) ?></div>
                       </div>
                       <div class="medical-data-action-cont">
