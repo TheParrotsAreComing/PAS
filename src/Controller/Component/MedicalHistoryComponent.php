@@ -58,7 +58,7 @@ class MedicalHistoryComponent extends Component
         /*$pdf->SetAbsX(36);
         $pdf->SetAbsY(66);
         $pdf->cell(50,0,$data['cat']['cat_name'],0,0,'L',false);*/
-        $pdf->MultiCell(50,20,$data['cat']['cat_name'],0,'C',false,0,36,63,true,0,false,true,0,'C',false);
+        $pdf->MultiCell(50,20,$data['cat']['cat_name'],0,'L',false,0,36,63,true,0,false,true,0,'C',false);
 
         $pdf->SetAbsX(119);
         $pdf->cell(30,0,$data['cat']['gender'],0,0,'L',false);
@@ -164,10 +164,20 @@ class MedicalHistoryComponent extends Component
         $pdf->SetAbsX(75);
         $pdf->SetAbsY(161);
         $pdf->cell(33,18,$data['cat']['microchip_number'],0,0,'C',false);
+
+        // Spay value
+        $pdf->SetAbsX(9);
+        $pdf->SetAbsY(162);
+        $pdf->cell(33,10,'Spay: '.$data['spay'],0,0,'C',false);
+
+        // Neuter value
+        $pdf->SetAbsX(9);
+        $pdf->SetAbsY(168);
+        $pdf->cell(33,10,'Neuter: '.$data['neuter'],0,0,'C',false);
     }
 
     public function bottom($pdf, $data) {
-        $pdf->SetFont('helvetica','',11);
+        $pdf->SetFont('helvetica','B',11);
         $pdf->SetAbsX(14);
         $pdf->SetAbsY(182);
         $pdf->cell(0,0,'NOTES:',0,1,'L',false);
@@ -176,8 +186,13 @@ class MedicalHistoryComponent extends Component
         $pdf->SetAbsY(208);
         $pdf->cell(0,0,'NEXT SERVICES DUE:',0,1,'L',false);
 
+        // Notes and Next Services values
+        $pdf->SetFont('helvetica','',11);
+        $pdf->MultiCell(180,20,$data['note']['date'].' - '.$data['note']['notes'],0,'J',false,1,14,187,true,0,true);
+        $pdf->MultiCell(180,20,$data['next_service']['date'].' - '.$data['next_service']['notes'],0,'J',false,1,14,213,true,0,true);
+
         $bottom_text = "Please educate yourself about overall cat health and vaccines. A great place to start is <i>www.catinfo.org</i>.<br>If your cat has not received rabies at time of adoption, please choose the safer PUREVAX rabies vaccine when age and health appropriate.";
-        $pdf->MultiCell(180,30,$bottom_text,0,'J',false,1,14,234,true,0,true);
+        $pdf->MultiCell(180,30,$bottom_text,0,'J',false,1,14,244,true,0,true);
     }
 
 }
