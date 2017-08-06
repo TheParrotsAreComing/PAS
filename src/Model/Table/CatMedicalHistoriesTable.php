@@ -130,6 +130,17 @@ class CatMedicalHistoriesTable extends Table
             } else if ($item['is_other']) {
                 $formatted['other'][] = ['date'=>$item['administered_date'], 'notes'=>$item['notes']];
                 continue;
+            } else if ($item['is_spay']) {
+                $formatted['spay'] = $item['administered_date'];
+                continue;
+            } else if ($item['is_neuter']) {
+                $formatted['neuter'] = $item['administered_date'];
+                continue;
+            } else if ($item['is_note']) {
+                $formatted['note'] = ['date'=>$item['administered_date'], 'notes'=>$item['notes']];
+            } else if ($item['is_next_service']) {
+                $formatted['next_service'] = ['date'=>$item['administered_date'], 'notes'=>$item['notes']];
+                continue;
             }
         }
 
@@ -150,7 +161,8 @@ class CatMedicalHistoriesTable extends Table
         sort($formatted['other']);
         $formatted['other'] = array_pad(array_slice($formatted['other'], -6, 6), 6, "");
 
-        $formatted['spay_neuter'] = "";
+        //$formatted['spay'] = "";
+        //$formatted['neuter'] = "";
         $formatted['felv_fiv'] = "";
         $formatted['microchip'] = $item['cat']['microchip_number'];
         $formatted['registered'] = "";

@@ -73,19 +73,34 @@ class CatMedicalHistoriesController extends AppController
 
             switch ($medOption) {
                 case 0:
-                    $catMedicalHistory->is_fvrcp = true;
-                    break;
+                	$catMedicalHistory->is_next_service = true;
+                	break;
                 case 1:
-                    $catMedicalHistory->is_deworm = true;
+                    $catMedicalHistory->is_spay = true;
                     break;
                 case 2:
-                    $catMedicalHistory->is_flea = true;
+                    $catMedicalHistory->is_neuter = true;
                     break;
                 case 3:
-                    $catMedicalHistory->is_rabies = true;
+                    $catMedicalHistory->is_fvrcp = true;
                     break;
                 case 4:
+                    $catMedicalHistory->is_deworm = true;
+                    break;
+                case 5:
+                    $catMedicalHistory->is_flea = true;
+                    break;
+                case 6:
+                    $catMedicalHistory->is_rabies = true;
+                    break;
+                case 7:
+                    $catMedicalHistory->is_blood = true;
+                    break;
+                case 8:
                 	$catMedicalHistory->is_other = true;
+                	break;
+                case 9:
+                	$catMedicalHistory->is_note = true;
                 	break;
                 default:
                     $this->flash->error(__('Please pick a medical option and try again'));
@@ -134,21 +149,37 @@ class CatMedicalHistoriesController extends AppController
             'contain' => []
         ]);
         $medOption = "";
-        if ($catMedicalHistory->is_fvrcp) {
+        if ($catMedicalHistory->is_next_service) {
             $medOption = 0;
         }
-        if ($catMedicalHistory->is_deworm) {
+        if ($catMedicalHistory->is_spay) {
             $medOption = 1;
         }
-        if ($catMedicalHistory->is_flea) {
+        if ($catMedicalHistory->is_neuter) {
             $medOption = 2;
         }
-        if ($catMedicalHistory->is_rabies) {
+        if ($catMedicalHistory->is_fvrcp) {
             $medOption = 3;
         }
-        if ($catMedicalHistory->is_other) {
+        if ($catMedicalHistory->is_deworm) {
             $medOption = 4;
         }
+        if ($catMedicalHistory->is_flea) {
+            $medOption = 5;
+        }
+        if ($catMedicalHistory->is_rabies) {
+            $medOption = 6;
+        }
+        if ($catMedicalHistory->is_blood) {
+            $medOption = 7;
+        }
+        if ($catMedicalHistory->is_other) {
+            $medOption = 8;
+        }
+        if ($catMedicalHistory->is_note) {
+            $medOption = 9;
+        }
+         
         if ($this->request->is(['patch', 'post', 'put'])) {
            $medOption = $this->request->data['medOption'];
             if($medOption == ''){
@@ -157,39 +188,124 @@ class CatMedicalHistoriesController extends AppController
             }
             switch ($medOption) {
                 case 0:
+                    $catMedicalHistory->is_next_service = true;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
+                    $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
+                    break;
+                case 1:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = true;
+                    $catMedicalHistory->is_neuter = false;
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
+                    $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
+                    break;
+                case 2:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = true;
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
+                    $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
+                    break;
+                case 3:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
                     $catMedicalHistory->is_fvrcp = true;
                     $catMedicalHistory->is_deworm = false;
                     $catMedicalHistory->is_flea = false;
                     $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
                     $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
                     break;
-                case 1:
+                case 4:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
                     $catMedicalHistory->is_fvrcp = false;
                     $catMedicalHistory->is_deworm = true;
                     $catMedicalHistory->is_flea = false;
                     $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
                     $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
                     break;
-                case 2:
+                case 5:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
                     $catMedicalHistory->is_fvrcp = false;
                     $catMedicalHistory->is_deworm = false;
                     $catMedicalHistory->is_flea = true;
                     $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
                     $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
                     break;
-                case 3:
+                case 6:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
                     $catMedicalHistory->is_fvrcp = false;
                     $catMedicalHistory->is_deworm = false;
                     $catMedicalHistory->is_flea = false;
                     $catMedicalHistory->is_rabies = true;
+                    $catMedicalHistory->is_blood = false;
                     $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
                     break;
-                case 4:
+                case 7:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
                     $catMedicalHistory->is_fvrcp = false;
                     $catMedicalHistory->is_deworm = false;
                     $catMedicalHistory->is_flea = false;
                     $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = true;
+                    $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = false;
+                    break;
+                case 8:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
                     $catMedicalHistory->is_other = true;
+                    $catMedicalHistory->is_note = false;
+                    break;
+                case 9:
+                    $catMedicalHistory->is_next_service = false;
+                    $catMedicalHistory->is_spay = false;
+                    $catMedicalHistory->is_neuter = false;
+                    $catMedicalHistory->is_fvrcp = false;
+                    $catMedicalHistory->is_deworm = false;
+                    $catMedicalHistory->is_flea = false;
+                    $catMedicalHistory->is_rabies = false;
+                    $catMedicalHistory->is_blood = false;
+                    $catMedicalHistory->is_other = false;
+                    $catMedicalHistory->is_note = true;
                     break;
                 default:
                     $this->flash->error(__('Please pick a medical option and try again'));

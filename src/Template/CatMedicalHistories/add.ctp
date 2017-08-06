@@ -11,7 +11,7 @@
                         <label class="add-field-h2" for="First-Name">Add Record</label>
                         <div class="add-field-seperator"></div>
                         <label class="add-field-h3">Type<span class="required-field-indicator"><span class="pre"></span></span>:</label>
-                        <?= $this->Form->input('medOption', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'empty'=>'Select Medical Option', 'options'=>['FVRCP', 'Deworm', 'Flea', 'Rabies', 'Other']]); ?>
+                        <?= $this->Form->input('medOption', ['required'=>true, 'class'=>'w-select', 'label'=>false, 'empty'=>'Select Medical Option', 'options'=>['Next Services Due', 'Spay', 'Neuter', 'FVRCP', 'Deworm', 'Flea', 'Rabies', 'Blood', 'Other', 'Note']]); ?>
                         <label class="add-field-h3">Date<span class="required-field-indicator"><span class="pre"></span></span>:</label>
                         <div class="date-cont">
                             <?php echo $this->Form->month('administered_date', array('class' => 'date-month w-select', 'empty' => 'Month', 'required'=>true)); ?>
