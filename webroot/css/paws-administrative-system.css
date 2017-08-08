@@ -676,10 +676,6 @@
   font-weight: 600;
 }
 
-.sidebar-logout {
-  display: none;
-}
-
 .card-wrapper {
   position: relative;
   display: -webkit-box;
@@ -1280,7 +1276,7 @@
 
 .dropdown-results-cont {
   display: none;
-  overflow: hidden;
+  overflow: auto;
   max-height: 600px;
   border-top: 1px solid #f0f0f0;
   -webkit-transition: all 600ms ease;

@@ -277,6 +277,8 @@ div.pagination-index>a,
 div.pagination>a {
     text-decoration: none;
     color: inherit;
+    text-align: center;
+    width: 25px;
 }
 
 .none-text {
