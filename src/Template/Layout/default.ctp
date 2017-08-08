@@ -105,19 +105,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body class="page">
     <div class="navbar-cont w-nav" data-animation="over-left" data-collapse="medium" data-duration="400" data-no-scroll="1">
     <div class="navbar w-container">
-      <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
-		<?= $this->Form->create('MobileSearch',['type'=>'GET']) ?>
-          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="mobile-search" placeholder="Search" type="text">
-		<?= $this->Form->end() ?>
-      </div>
       <div class="navbar-hamburger w-nav-button">
         <div class="navbar-hamburger-text"></div>
       </div>
-
-      <div class="navbar-search-icon-desktop w-hidden-small w-hidden-tiny">#</div>
-      <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
-
-      <a class="brand-cont w-clearfix w-inline-block" href="/"><?= $this->Html->image('missionmeow.png', ['class'=>'brand']); ?>
+      <a class="brand-cont w-clearfix w-inline-block" href="/">
+        <?= $this->Html->image('missionmeow.png', ['class'=>'brand']); ?>
       </a>
       <nav class="navbar-menu w-nav-menu" role="navigation">
         <?= $this->Html->link('Home', ['controller'=>'pages', 'action'=>'display','home'], ['class'=>'sidebar-link w-nav-link']); ?>
@@ -140,7 +132,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <?= $this->Html->link('log out', ['controller'=>'users', 'action'=>'logout'], ['class'=>'sidebar-logout w-nav-link']); ?>
         <?php endif; ?>
       </nav>
+      <div class="navbar-search-cont w-form" data-ix="search-bar-mobile-hide">
+		    <?= $this->Form->create('MobileSearch',['type'=>'GET', 'class' => 'navbar-search-c']) ?>
+          <div class="navbar-search-icon-desktop w-hidden-small w-hidden-tiny">#</div>
+          <input class="navbar-search w-input" data-name="Name 5" id="name-5" maxlength="256" name="mobile-search" placeholder="Search" type="text">
+		    <?= $this->Form->end() ?>
+      </div>
       <div class="navbar-search-exit" data-ix="search-bar-exit"></div>
+      <div class="navbar-search-icon-mobile" data-ix="search-mobile">#</div>
     </div>
   </div>
   <?= $this->Html->script('jquery.min.js'); ?>
