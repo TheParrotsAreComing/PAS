@@ -233,14 +233,14 @@
                             'placeholder' => 'Type the biography for this cat...')); ?> 
                         <?php echo $this->Form->input('diet', 
                             array('type' => 'textarea', 'label' => 
-                                ['text' => 'Current Diet Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                ['text' => 'Current Diet Notes<span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type the current diet for this cat...')); ?>    
                         <?php echo $this->Form->input('specialty_notes', 
                             array('type' => 'textarea', 'label' => 
-                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
+                                ['text' => 'Specialty Notes<span class="pre"></span></span>:', 
                                 'class' => 'add-field-h3',
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
