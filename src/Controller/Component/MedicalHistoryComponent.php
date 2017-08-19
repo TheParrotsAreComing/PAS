@@ -169,14 +169,14 @@ class MedicalHistoryComponent extends Component
         if (!empty($data['spay'])) {
             $pdf->SetAbsX(9);
             $pdf->SetAbsY(162);
-            $pdf->cell(33,10,'Spay: '.end($data['spay']),0,0,'C',false);
+            $pdf->cell(33,10,'Spay: '.$data['spay'],0,0,'C',false);
         }
 
         // Neuter value
         if (!empty($data['neuter'])) {
             $pdf->SetAbsX(9);
             $pdf->SetAbsY(168);
-            $pdf->cell(33,10,'Neuter: '.end($data['neuter']),0,0,'C',false);
+            $pdf->cell(33,10,'Neuter: '.$data['neuter'],0,0,'C',false);
         }
 
         // Blood (FelV/FIV) value
