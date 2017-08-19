@@ -166,14 +166,25 @@ class MedicalHistoryComponent extends Component
         $pdf->cell(33,18,$data['cat']['microchip_number'],0,0,'C',false);
 
         // Spay value
-        $pdf->SetAbsX(9);
-        $pdf->SetAbsY(162);
-        $pdf->cell(33,10,'Spay: '.$data['spay'],0,0,'C',false);
+        if (!empty($data['spay'])) {
+            $pdf->SetAbsX(9);
+            $pdf->SetAbsY(162);
+            $pdf->cell(33,10,'Spay: '.end($data['spay']),0,0,'C',false);
+        }
 
         // Neuter value
-        $pdf->SetAbsX(9);
-        $pdf->SetAbsY(168);
-        $pdf->cell(33,10,'Neuter: '.$data['neuter'],0,0,'C',false);
+        if (!empty($data['neuter'])) {
+            $pdf->SetAbsX(9);
+            $pdf->SetAbsY(168);
+            $pdf->cell(33,10,'Neuter: '.end($data['neuter']),0,0,'C',false);
+        }
+
+        // Blood (FelV/FIV) value
+        if (!empty($data['blood'])) {
+            $pdf->SetAbsX(42);
+            $pdf->SetAbsY(161);
+            $pdf->cell(33,18,end($data['blood']),0,0,'C',false);
+        }
     }
 
     public function bottom($pdf, $data) {
@@ -188,8 +199,12 @@ class MedicalHistoryComponent extends Component
 
         // Notes and Next Services values
         $pdf->SetFont('helvetica','',11);
-        $pdf->MultiCell(180,20,$data['note']['date'].' - '.$data['note']['notes'],0,'J',false,1,14,187,true,0,true);
-        $pdf->MultiCell(180,20,$data['next_service']['date'].' - '.$data['next_service']['notes'],0,'J',false,1,14,213,true,0,true);
+        if (!empty($data['note'])) {
+            $pdf->MultiCell(180,20,$data['note']['date'].' - '.$data['note']['notes'],0,'J',false,1,14,187,true,0,true);
+        }
+        if (!empty($data['next_service'])) {
+            $pdf->MultiCell(180,20,$data['next_service']['date'].' - '.$data['next_service']['notes'],0,'J',false,1,14,213,true,0,true);
+        }
 
         $bottom_text = "Please educate yourself about overall cat health and vaccines. A great place to start is <i>www.catinfo.org</i>.<br>If your cat has not received rabies at time of adoption, please choose the safer PUREVAX rabies vaccine when age and health appropriate.";
         $pdf->MultiCell(180,30,$bottom_text,0,'J',false,1,14,244,true,0,true);

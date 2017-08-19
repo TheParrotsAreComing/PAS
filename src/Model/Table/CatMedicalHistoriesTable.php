@@ -106,7 +106,7 @@ class CatMedicalHistoriesTable extends Table
     }
 
     public function formatForPrint($cat_id) {
-        $formatted = ['fvrcp'=>[], 'deworm'=>[], 'flea'=>[], 'rabies'=>[], 'other'=>[]];
+        $formatted = ['spay'=>[], 'neuter'=>[], 'fvrcp'=>[], 'deworm'=>[], 'flea'=>[], 'rabies'=>[], 'blood'=>[], 'other'=>[], 'note'=>'', 'next_service'=>''];
         $unformatted = $this->find('all')
             ->where(['cat_id'=>$cat_id])
             ->contain('Cats')
@@ -129,6 +129,9 @@ class CatMedicalHistoriesTable extends Table
                 continue;
             } else if ($item['is_other']) {
                 $formatted['other'][] = ['date'=>$item['administered_date'], 'notes'=>$item['notes']];
+                continue;
+            } else if ($item['is_blood']) {
+                $formatted['blood'][] = $item['administered_date'];
                 continue;
             } else if ($item['is_spay']) {
                 $formatted['spay'] = $item['administered_date'];
@@ -161,9 +164,6 @@ class CatMedicalHistoriesTable extends Table
         sort($formatted['other']);
         $formatted['other'] = array_pad(array_slice($formatted['other'], -6, 6), 6, "");
 
-        //$formatted['spay'] = "";
-        //$formatted['neuter'] = "";
-        $formatted['felv_fiv'] = "";
         $formatted['microchip'] = $item['cat']['microchip_number'];
         $formatted['registered'] = "";
         $formatted['cat'] = $item['cat'];
