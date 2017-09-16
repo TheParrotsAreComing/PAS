@@ -223,13 +223,7 @@
                         <?= $this->Form->input('  Good with Cats', ['type'=>'checkbox', 'name'=>'good_with_cats']); ?>
                         <?= $this->Form->input('  Special Needs', ['type'=>'checkbox', 'name'=>'special_needs']); ?>
                         <?= $this->Form->input('  Needs Experienced Adopter', ['type'=>'checkbox', 'name'=>'needs_experienced_adopter']); ?>
-                        <?php echo $this->Form->input('specialty_notes', 
-                            array('type' => 'textarea', 'label' => 
-                                ['text' => 'Specialty Notes<span class="required-field-indicator"><span class="pre"></span></span>:', 
-                                'class' => 'add-field-h3',
-                                'escape' => false], 
-                            'class' => 'add-input multi-line w-input', 
-                            'placeholder' => 'Type specialty notes for this cat...')); ?>
+                   
                         <?php echo $this->Form->input('bio', 
                             array('type' => 'textarea', 'label' => 
                                 ['text' => 'Biography<span class="required-field-indicator"><span class="pre"></span></span>:', 
@@ -237,6 +231,20 @@
                                 'escape' => false], 
                             'class' => 'add-input multi-line w-input', 
                             'placeholder' => 'Type the biography for this cat...')); ?> 
+                        <?php echo $this->Form->input('diet', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Current Diet Notes<span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type the current diet for this cat...')); ?>    
+                        <?php echo $this->Form->input('specialty_notes', 
+                            array('type' => 'textarea', 'label' => 
+                                ['text' => 'Specialty Notes<span class="pre"></span></span>:', 
+                                'class' => 'add-field-h3',
+                                'escape' => false], 
+                            'class' => 'add-input multi-line w-input', 
+                            'placeholder' => 'Type specialty notes for this cat...')); ?>     
                         <div class="add-button-cont">
                        
                        <?= $this->Form->input('addMoreCats', ['type' => 'hidden', 'value' => 0 ]) ?>
